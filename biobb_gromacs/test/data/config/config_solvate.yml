@@ -1,0 +1,3 @@
+properties:
+  gmx_path: gmx
+  restart: 'False'

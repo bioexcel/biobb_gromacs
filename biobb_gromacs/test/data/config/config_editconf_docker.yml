@@ -1,0 +1,4 @@
+properties:
+  container_image: longr/gromacs-docker:latest
+  container_path: docker
+  container_volume_path: /tmp
