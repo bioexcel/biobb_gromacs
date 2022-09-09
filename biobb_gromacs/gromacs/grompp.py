@@ -93,13 +93,6 @@ class Grompp(BiobbObject):
             self.maxwarn = str(properties.get('maxwarn', 10))
         self.mdp = {k: str(v) for k, v in properties.get('mdp', dict()).items()}
 
-        # container Specific
-        self.container_path = properties.get('container_path')
-        self.container_image = properties.get('container_image', 'gromacs/gromacs:latest')
-        self.container_volume_path = properties.get('container_volume_path', '/data')
-        self.container_working_dir = properties.get('container_working_dir')
-        self.container_user_id = properties.get('container_user_id')
-        self.container_shell_path = properties.get('container_shell_path', '/bin/bash')
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)

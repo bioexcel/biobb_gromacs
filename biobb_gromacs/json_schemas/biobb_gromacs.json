@@ -4,9 +4,9 @@
     "github": "https://github.com/bioexcel/biobb_gromacs",
     "readthedocs": "https://biobb-gromacs.readthedocs.io/en/latest/",
     "conda": "https://anaconda.org/bioconda/biobb_gromacs",
-    "docker": "https://quay.io/biocontainers/biobb_gromacs:3.7.1--pyhdfd78af_0",
+    "docker": "https://quay.io/biocontainers/biobb_gromacs:3.8.0--pyhdfd78af_0",
     "singularity": "https://www.singularity-hub.org/collections/2735/usage",
-    "version": "3.7.1",
+    "version": "3.8.0",
     "rest": true,
     "tools" : [
         {
@@ -107,13 +107,13 @@
         }
     ],
     "dep_pypi" : [
-        "install_requires=['biobb_common==3.7.0']",
-        "python_requires='==3.7.*'"
+        "install_requires=['biobb_common==3.8.1']",
+        "python_requires='>=3.7'"
     ],
     "dep_conda" : [
-        "python ==3.7.*",
-        "biobb_common ==3.7.0",
-        "GROMACS ==2019.1"
+        "python >=3.7",
+        "biobb_common ==3.8.1",
+        "gromacs=2022.2=nompi_h1c20066_100"
     ],
     "keywords" : [
         "md",

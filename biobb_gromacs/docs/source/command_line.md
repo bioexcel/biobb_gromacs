@@ -1,4 +1,4 @@
-# BioBB MD Command Line Help
+# BioBB GROMACS Command Line Help
 Generic usage:
 ```python
 biobb_command [-h] --config CONFIG --input_file(s) <input_file(s)> --output_file <output_file>
@@ -47,7 +47,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
+* **container_image** (*string*): (None) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
 * **container_working_dir** (*string*): (None) Path to the internal CWD in the container..
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container..
@@ -63,7 +63,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_mdrun_docker.yml)
 ```python
 properties:
-  container_image: longr/gromacs-docker:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /inout
 
@@ -95,7 +95,7 @@ mdrun --config config_mdrun.yml --input_tpr_path mdrun.tpr --output_trr_path ref
 {
   "properties": {
     "container_path": "docker",
-    "container_image": "longr/gromacs-docker:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/inout"
   }
 }
@@ -155,7 +155,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_make_ndx_docker.yml)
 ```python
 properties:
-  container_image: longr/gromacs-docker:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /tmp
 
@@ -186,7 +186,7 @@ make_ndx --config config_make_ndx.yml --input_structure_path make_ndx.tpr --outp
 {
   "properties": {
     "container_path": "docker",
-    "container_image": "longr/gromacs-docker:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp"
   }
 }
@@ -219,7 +219,7 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 * **input_gro_path** (*string*): Path to the input GRO file. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/editconf.gro). Accepted formats: GRO, PDB
-* **output_gro_path** (*string*): Path to the output GRO file. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_editconf.gro). Accepted formats: GRO, PDB
+* **output_gro_path** (*string*): Path to the output GRO file. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_editconf.gro). Accepted formats: PDB, GRO
 ### Config
 Syntax: input_parameter (datatype) - (default_value) Definition
 
@@ -232,7 +232,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
+* **container_image** (*string*): (None) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
 * **container_working_dir** (*string*): (None) Path to the internal CWD in the container..
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container..
@@ -248,7 +248,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_editconf_docker.yml)
 ```python
 properties:
-  container_image: longr/gromacs-docker:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /tmp
 
@@ -280,7 +280,7 @@ editconf --config config_editconf.yml --input_gro_path editconf.gro --output_gro
 {
   "properties": {
     "container_path": "docker",
-    "container_image": "longr/gromacs-docker:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp"
   }
 }
@@ -394,10 +394,9 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_grompp_docker.yml)
 ```python
 properties:
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
-  container_volume_path: /inout
-  container_working_dir: /inout
+  container_volume_path: /tmp
   maxwarn: 1
   mdp:
     ld-seed: '1'
@@ -440,9 +439,8 @@ grompp --config config_grompp.yml --input_gro_path grompp.gro --input_top_zip_pa
       "ld-seed": "1"
     },
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
-    "container_volume_path": "/inout",
-    "container_working_dir": "/inout"
+    "container_image": "gromacs/gromacs:2022.2",
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -508,7 +506,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_gmxselect_docker.yml)
 ```python
 properties:
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /inout
   selection: \"Mynewgroup\" group \"Protein-H\" and not same residue as within 0.4
@@ -544,7 +542,7 @@ gmxselect --config config_gmxselect.yml --input_structure_path make_ndx.tpr --ou
   "properties": {
     "selection": "\\\"Mynewgroup\\\" group \\\"Protein-H\\\" and not same residue as within 0.4 of resname ARG",
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/inout"
   }
 }
@@ -609,7 +607,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_pdb2gmx_docker.yml)
 ```python
 properties:
-  container_image: longr/gromacs-docker:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /inout
   his: 0 0 1 1 0 0 0
@@ -643,7 +641,7 @@ pdb2gmx --config config_pdb2gmx.yml --input_pdb_path egfr.pdb --output_gro_path 
   "properties": {
     "his": "0 0 1 1 0 0 0",
     "container_path": "docker",
-    "container_image": "longr/gromacs-docker:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/inout"
   }
 }
@@ -724,8 +722,8 @@ solvate -h
 Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
-* **input_solute_gro_path** (*string*): Path to the input GRO file. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/solvate.gro). Accepted formats: GRO
-* **output_gro_path** (*string*): Path to the output GRO file. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_solvate.gro). Accepted formats: GRO
+* **input_solute_gro_path** (*string*): Path to the input GRO file. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/solvate.gro). Accepted formats: GRO, PDB
+* **output_gro_path** (*string*): Path to the output GRO file. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_solvate.gro). Accepted formats: GRO, PDB
 * **input_top_zip_path** (*string*): Path the input TOP topology in zip format. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/solvate.zip). Accepted formats: ZIP
 * **output_top_zip_path** (*string*): Path the output topology in zip format. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_solvate.zip). Accepted formats: ZIP
 * **input_solvent_gro_path** (*string*): (spc216.gro) Path to the GRO file containing the structure of the solvent. File type: input. [Sample file](None). Accepted formats: GRO
@@ -755,7 +753,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_solvate_docker.yml)
 ```python
 properties:
-  container_image: longr/gromacs-docker:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /inout
 
@@ -787,7 +785,7 @@ solvate --config config_solvate.yml --input_solute_gro_path solvate.gro --output
 {
   "properties": {
     "container_path": "docker",
-    "container_image": "longr/gromacs-docker:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/inout"
   }
 }
@@ -853,7 +851,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_genion_docker.yml)
 ```python
 properties:
-  container_image: longr/gromacs-docker:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /data
   container_working_dir: /data
@@ -887,7 +885,7 @@ genion --config config_genion.yml --input_tpr_path genion.tpr --output_gro_path 
 {
   "properties": {
     "container_path": "docker",
-    "container_image": "longr/gromacs-docker:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/data",
     "container_working_dir": "/data"
   }
@@ -977,7 +975,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_grompp_mdrun_docker.yml)
 ```python
 properties:
-  container_image: longr/gromacs-docker:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /inout
   gmx_path: gmx
@@ -1036,7 +1034,7 @@ grompp_mdrun --config config_grompp_mdrun.yml --input_gro_path grompp.gro --inpu
     "num_threads": 0,
     "gmx_path": "gmx",
     "container_path": "docker",
-    "container_image": "longr/gromacs-docker:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/inout"
   }
 }
@@ -1105,7 +1103,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_genrestr_docker.yml)
 ```python
 properties:
-  container_image: longr/gromacs-docker:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /data
   container_working_dir: /data
@@ -1139,7 +1137,7 @@ genrestr --config config_genrestr.yml --input_structure_path genrestr.gro --outp
 {
   "properties": {
     "container_path": "docker",
-    "container_image": "longr/gromacs-docker:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/data",
     "container_working_dir": "/data"
   }

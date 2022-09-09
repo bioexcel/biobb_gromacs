@@ -288,7 +288,7 @@
                 },
                 "container_image": {
                     "type": "string",
-                    "default": "gromacs/gromacs:latest",
+                    "default": null,
                     "wf_prop": false,
                     "description": "Container Image identifier."
                 },

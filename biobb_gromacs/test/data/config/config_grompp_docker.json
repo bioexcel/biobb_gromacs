@@ -5,8 +5,7 @@
       "ld-seed": "1"
     },
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
-    "container_volume_path": "/inout",
-    "container_working_dir": "/inout"
+    "container_image": "gromacs/gromacs:2022.2",
+    "container_volume_path": "/tmp"
   }
 }

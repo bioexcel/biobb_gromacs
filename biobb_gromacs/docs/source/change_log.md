@@ -1,4 +1,15 @@
-# Biobb MD changelog
+# Biobb GROMACS changelog
+
+## What's new in version [3.8.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v3.8.0)?
+
+
+## What's new in version [3.8.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v3.8.0)?
+In version 3.8.0 the default GROMACS version will be v2022.2
+
+### New features
+
+* Update to biobb_common 3.8.1 (general)
+
 
 ## What's new in version [3.7.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v3.7.1)?
 
