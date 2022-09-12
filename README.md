@@ -6,7 +6,7 @@
 # biobb_gromacs
 
 ### Introduction
-biobb_gromacs is the Biobb module collection to perform molecular dynamics simulations.
+biobb_gromacs is the Biobb module collection to perform molecular dynamics simulations using the GROMACS MD suite.
 Biobb (BioExcel building blocks) packages are Python building blocks that
 create new layer of compatibility and interoperability over popular
 bioinformatics tools.

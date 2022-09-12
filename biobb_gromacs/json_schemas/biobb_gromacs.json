@@ -1,6 +1,6 @@
 {
     "_id": "biobb_gromacs",
-    "desc": "biobb_gromacs is the Biobb module collection to perform molecular dynamics simulations.",
+    "desc": "biobb_gromacs is the Biobb module collection to perform molecular dynamics simulations using the GROMACS MD suite.",
     "github": "https://github.com/bioexcel/biobb_gromacs",
     "readthedocs": "https://biobb-gromacs.readthedocs.io/en/latest/",
     "conda": "https://anaconda.org/bioconda/biobb_gromacs",
