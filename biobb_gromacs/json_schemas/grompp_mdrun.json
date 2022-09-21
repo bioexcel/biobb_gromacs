@@ -350,7 +350,7 @@
                     "wf_prop": false,
                     "description": "Path set GROMACS GMXLIB environment variable."
                 },
-                "gmx_path": {
+                "binary_path": {
                     "type": "string",
                     "default": "gmx",
                     "wf_prop": false,

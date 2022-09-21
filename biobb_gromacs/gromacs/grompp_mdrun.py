@@ -46,7 +46,7 @@ class GromppMdrun(BiobbObject):
             * **gpu_id** (*str*) - (None) List of unique GPU device IDs available to use.
             * **gpu_tasks** (*str*) - (None) List of GPU device IDs, mapping each PP task on each node to a device.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
@@ -61,7 +61,7 @@ class GromppMdrun(BiobbObject):
 
             from biobb_gromacs.gromacs.grompp_mdrun import grompp_mdrun
             prop = { 'num_threads': 0,
-                     'gmx_path': 'gmx',
+                     'binary_path': 'gmx',
                       'mdp':
                         { 'simulation_type': 'minimization',
                           'emtol':'500',

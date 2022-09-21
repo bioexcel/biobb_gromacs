@@ -3,10 +3,10 @@ from biobb_gromacs.gromacs.pdb2gmx import pdb2gmx
 
 
 class TestPdb2gmx:
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self, 'pdb2gmx')
 
-    def tearDown(self):
+    def teardown_class(self):
         #pass
         fx.test_teardown(self)
 

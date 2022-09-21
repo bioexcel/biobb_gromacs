@@ -3,10 +3,10 @@ from biobb_gromacs.gromacs.genion import genion
 
 
 class TestGenionDocker:
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self, 'genion_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         #pass
         fx.test_teardown(self)
 

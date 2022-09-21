@@ -2,7 +2,7 @@ properties:
   container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /inout
-  gmx_path: gmx
+  binary_path: gmx
   maxwarn: 1
   mdp:
     dt: 0.0001

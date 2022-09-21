@@ -28,7 +28,7 @@ class Pdb2gmx(BiobbObject):
             * **his** (*str*) - (None) Histidine protonation array.
             * **merge** (*bool*) - (False) Merge all chains into a single molecule.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
@@ -82,15 +82,15 @@ class Pdb2gmx(BiobbObject):
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
-        self.gmx_path = properties.get('gmx_path', 'gmx')
+        self.binary_path = properties.get('binary_path', 'gmx')
         self.gmx_nobackup = properties.get('gmx_nobackup', True)
         self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
-            self.gmx_path += ' -nobackup'
+            self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:
-            self.gmx_path += ' -nocopyright'
+            self.binary_path += ' -nocopyright'
         if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.gmx_path)
+            self.gmx_version = get_gromacs_version(self.binary_path)
 
         # Check the properties
         self.check_properties(properties)
@@ -107,7 +107,7 @@ class Pdb2gmx(BiobbObject):
         internal_itp_name = fu.create_name(prefix=self.prefix, step=self.step, name=self.internal_itp_name)
 
         # Create command line
-        self.cmd = [self.gmx_path, "pdb2gmx",
+        self.cmd = [self.binary_path, "pdb2gmx",
                     "-f", self.stage_io_dict["in"]["input_pdb_path"],
                     "-o", self.stage_io_dict["out"]["output_gro_path"],
                     "-p", internal_top_name,

@@ -33,7 +33,7 @@ class Grompp(BiobbObject):
             * **simulation_type** (*str*) - (None) Default options for the mdp file. Each one creates a different mdp file. Values: `minimization <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Energy minimization using steepest descent algorithm is used), `nvt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/nvt.mdp>`_ (substance N Volume V and Temperature T are conserved), `npt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/npt.mdp>`_ (substance N pressure P and Temperature T are conserved), `free <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/free.mdp>`_ (No design constraints applied; Free MD), `ions <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Synonym of minimization), index (Creates an empty mdp file).
             * **maxwarn** (*int*) - (0) [0~1000|1] Maximum number of allowed warnings. If simulation_type is index default is 10.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
@@ -96,15 +96,15 @@ class Grompp(BiobbObject):
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
-        self.gmx_path = properties.get('gmx_path', 'gmx')
+        self.binary_path = properties.get('binary_path', 'gmx')
         self.gmx_nobackup = properties.get('gmx_nobackup', True)
         self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
-            self.gmx_path += ' -nobackup'
+            self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:
-            self.gmx_path += ' -nocopyright'
+            self.binary_path += ' -nocopyright'
         if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.gmx_path)
+            self.gmx_version = get_gromacs_version(self.binary_path)
 
         # Check the properties
         self.check_properties(properties)
@@ -138,7 +138,7 @@ class Grompp(BiobbObject):
             shutil.copytree(top_dir, str(Path(self.stage_io_dict.get("unique_dir")).joinpath(Path(top_dir).name)))
             top_file = str(Path(self.container_volume_path).joinpath(Path(top_dir).name, Path(top_file).name))
 
-        self.cmd = [self.gmx_path, 'grompp',
+        self.cmd = [self.binary_path, 'grompp',
                '-f', self.output_mdp_path,
                '-c', self.stage_io_dict["in"]["input_gro_path"],
                '-r', self.stage_io_dict["in"]["input_gro_path"],

@@ -43,7 +43,7 @@ Config parameters for this building block:
 * **gpu_id** (*string*): (None) List of unique GPU device IDs available to use..
 * **gpu_tasks** (*string*): (None) List of GPU device IDs, mapping each PP task on each node to a device..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
@@ -56,7 +56,7 @@ Config parameters for this building block:
 #### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_mdrun.yml)
 ```python
 properties:
-  gmx_path: gmx
+  binary_path: gmx
   num_threads: 0
 
 ```
@@ -86,7 +86,7 @@ mdrun --config config_mdrun.yml --input_tpr_path mdrun.tpr --output_trr_path ref
 {
   "properties": {
     "num_threads": 0,
-    "gmx_path": "gmx"
+    "binary_path": "gmx"
   }
 }
 ```
@@ -136,7 +136,7 @@ Syntax: input_parameter (datatype) - (default_value) Definition
 Config parameters for this building block:
 * **selection** (*string*): (a CA C N O) Heavy atoms. Atom selection string..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
@@ -228,7 +228,7 @@ Config parameters for this building block:
 * **box_type** (*string*): (cubic) Geometrical shape of the solvent box. .
 * **center_molecule** (*boolean*): (True) Center molecule in the box..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
@@ -373,7 +373,7 @@ Config parameters for this building block:
 * **simulation_type** (*string*): (None) Default options for the mdp file. Each one creates a different mdp file. .
 * **maxwarn** (*integer*): (0) Maximum number of allowed warnings. If simulation_type is index default is 10..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
@@ -485,7 +485,7 @@ Syntax: input_parameter (datatype) - (default_value) Definition
 Config parameters for this building block:
 * **selection** (*string*): (a CA C N O) Heavy atoms. Atom selection string..
 * **append** (*boolean*): (False) Append the content of the input_ndx_path to the output_ndx_path..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
@@ -588,7 +588,7 @@ Config parameters for this building block:
 * **his** (*string*): (None) Histidine protonation array..
 * **merge** (*boolean*): (False) Merge all chains into a single molecule..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
@@ -733,7 +733,7 @@ Syntax: input_parameter (datatype) - (default_value) Definition
 Config parameters for this building block:
 * **shell** (*number*): (0.0) Thickness in nanometers of optional water layer around solute..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
@@ -746,7 +746,7 @@ Config parameters for this building block:
 #### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_solvate.yml)
 ```python
 properties:
-  gmx_path: gmx
+  binary_path: gmx
   restart: 'False'
 
 ```
@@ -775,7 +775,7 @@ solvate --config config_solvate.yml --input_solute_gro_path solvate.gro --output
 ```python
 {
   "properties": {
-    "gmx_path": "gmx",
+    "binary_path": "gmx",
     "restart": "False"
   }
 }
@@ -831,7 +831,7 @@ Config parameters for this building block:
 * **concentration** (*number*): (0.05) Concentration of the ions in (mol/liter)..
 * **seed** (*integer*): (1993) Seed for random number generator..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
@@ -950,7 +950,7 @@ Config parameters for this building block:
 * **gpu_id** (*string*): (None) List of unique GPU device IDs available to use..
 * **gpu_tasks** (*string*): (None) List of GPU device IDs, mapping each PP task on each node to a device..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
@@ -963,7 +963,7 @@ Config parameters for this building block:
 #### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_grompp_mdrun.yml)
 ```python
 properties:
-  gmx_path: gmx
+  binary_path: gmx
   maxwarn: 1
   mdp:
     dt: 0.0001
@@ -978,7 +978,7 @@ properties:
   container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /inout
-  gmx_path: gmx
+  binary_path: gmx
   maxwarn: 1
   mdp:
     dt: 0.0001
@@ -993,7 +993,7 @@ properties:
   container_image: gromacs.simg
   container_path: singularity
   container_volume_path: /inout
-  gmx_path: gmx
+  binary_path: gmx
   mdp:
     dt: 0.0001
     ld-seed: '1'
@@ -1017,7 +1017,7 @@ grompp_mdrun --config config_grompp_mdrun.yml --input_gro_path grompp.gro --inpu
       "dt": 0.0001
     },
     "num_threads": 0,
-    "gmx_path": "gmx"
+    "binary_path": "gmx"
   }
 }
 ```
@@ -1032,7 +1032,7 @@ grompp_mdrun --config config_grompp_mdrun.yml --input_gro_path grompp.gro --inpu
       "dt": 0.0001
     },
     "num_threads": 0,
-    "gmx_path": "gmx",
+    "binary_path": "gmx",
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/inout"
@@ -1049,7 +1049,7 @@ grompp_mdrun --config config_grompp_mdrun.yml --input_gro_path grompp.gro --inpu
       "dt": 0.0001
     },
     "num_threads": 0,
-    "gmx_path": "gmx",
+    "binary_path": "gmx",
     "container_path": "singularity",
     "container_image": "gromacs.simg",
     "container_volume_path": "/inout"
@@ -1083,7 +1083,7 @@ Config parameters for this building block:
 * **restrained_group** (*string*): (system) Index group that will be restrained..
 * **force_constants** (*string*): (500 500 500) Array of three floats defining the force constants.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
-* **gmx_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Path to the binary executable of your container..

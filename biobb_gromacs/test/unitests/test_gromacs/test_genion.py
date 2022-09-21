@@ -3,10 +3,10 @@ from biobb_gromacs.gromacs.genion import genion
 
 
 class TestGenion:
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self, 'genion')
 
-    def tearDown(self):
+    def teardown_class(self):
         #pass
         fx.test_teardown(self)
 

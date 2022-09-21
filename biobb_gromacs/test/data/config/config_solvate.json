@@ -1,6 +1,6 @@
 {
   "properties": {
-    "gmx_path": "gmx",
+    "binary_path": "gmx",
     "restart": "False"
   }
 }

@@ -4,15 +4,15 @@ from biobb_gromacs.gromacs.common import gmx_check
 
 
 class TestGromppDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self, 'grompp_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         pass
         #fx.test_teardown(self)
 
     def test_grompp(self):
         returncode = grompp(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_tpr_path'])
-        assert gmx_check(self.paths['output_tpr_path'], self.paths['ref_output_tpr_path'], gmx=self.properties.get('gmx_path','gmx'))
+        assert gmx_check(self.paths['output_tpr_path'], self.paths['ref_output_tpr_path'], gmx=self.properties.get('binary_path','gmx'))
         assert fx.exe_success(returncode)

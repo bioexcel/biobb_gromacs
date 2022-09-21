@@ -40,7 +40,7 @@ class Mdrun(BiobbObject):
             * **gpu_id** (*str*) - (None) List of unique GPU device IDs available to use.
             * **gpu_tasks** (*str*) - (None) List of GPU device IDs, mapping each PP task on each node to a device.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
@@ -55,7 +55,7 @@ class Mdrun(BiobbObject):
 
             from biobb_gromacs.gromacs.mdrun import mdrun
             prop = { 'num_threads': 0,
-                     'gmx_path': 'gmx' }
+                     'binary_path': 'gmx' }
             mdrun(input_tpr_path='/path/to/myPortableBinaryRunInputFile.tpr',
                   output_trr_path='/path/to/newTrajectory.trr',
                   output_gro_path='/path/to/newStructure.gro',
@@ -110,15 +110,15 @@ class Mdrun(BiobbObject):
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
-        self.gmx_path = properties.get('gmx_path', 'gmx')
+        self.binary_path = properties.get('binary_path', 'gmx')
         self.gmx_nobackup = properties.get('gmx_nobackup', True)
         self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
-            self.gmx_path += ' -nobackup'
+            self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:
-            self.gmx_path += ' -nocopyright'
+            self.binary_path += ' -nocopyright'
         if (not self.mpi_bin) and (not self.container_path):
-            self.gmx_version = get_gromacs_version(self.gmx_path)
+            self.gmx_version = get_gromacs_version(self.binary_path)
 
         # Check the properties
         self.check_properties(properties)
@@ -131,7 +131,7 @@ class Mdrun(BiobbObject):
         if self.check_restart(): return 0
         self.stage_files()
 
-        self.cmd = [self.gmx_path, 'mdrun',
+        self.cmd = [self.binary_path, 'mdrun',
                     '-s', self.stage_io_dict["in"]["input_tpr_path"],
                     '-o', self.stage_io_dict["out"]["output_trr_path"],
                     '-c', self.stage_io_dict["out"]["output_gro_path"],

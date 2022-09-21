@@ -3,10 +3,10 @@ from biobb_gromacs.gromacs.gmxselect import gmxselect
 
 
 class TestSelectDocker:
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self, 'gmxselect_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         #pass
         fx.test_teardown(self)
 

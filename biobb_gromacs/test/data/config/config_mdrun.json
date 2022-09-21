@@ -1,6 +1,6 @@
 {
   "properties": {
     "num_threads": 0,
-    "gmx_path": "gmx"
+    "binary_path": "gmx"
   }
 }

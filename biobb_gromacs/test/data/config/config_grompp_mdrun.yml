@@ -1,5 +1,5 @@
 properties:
-  gmx_path: gmx
+  binary_path: gmx
   maxwarn: 1
   mdp:
     dt: 0.0001

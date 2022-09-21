@@ -2,7 +2,7 @@ properties:
   container_image: gromacs.simg
   container_path: singularity
   container_volume_path: /inout
-  gmx_path: gmx
+  binary_path: gmx
   mdp:
     dt: 0.0001
     ld-seed: '1'

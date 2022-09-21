@@ -204,7 +204,7 @@ mdrun:
     ref_output_trr_path: file:test_reference_dir/gromacs/ref_mdrun.trr
   properties:
     num_threads: 0
-    gmx_path: "gmx"
+    binary_path: "gmx"
 
 mdrun_docker:
   paths:
@@ -250,7 +250,7 @@ grompp_mdrun:
       ld-seed: "1"
       dt: 0.0001
     num_threads: 0
-    gmx_path: "gmx"
+    binary_path: "gmx"
 
 grompp_mdrun_docker:
   paths:
@@ -268,7 +268,7 @@ grompp_mdrun_docker:
       ld-seed: "1"
       dt: 0.0001
     num_threads: 0
-    gmx_path: "gmx"
+    binary_path: "gmx"
     container_path: docker
     #container_image: longr/gromacs-docker:latest
     container_image: gromacs/gromacs:2022.2
@@ -290,7 +290,7 @@ grompp_mdrun_singularity:
       ld-seed: "1"
       dt: 0.0001
     num_threads: 0
-    gmx_path: "gmx"
+    binary_path: "gmx"
     container_path: singularity
     container_image: gromacs.simg
     container_volume_path: /inout
@@ -367,7 +367,7 @@ solvate:
     ref_output_gro_path: file:test_reference_dir/gromacs/ref_solvate.gro
     ref_output_top_zip_path: file:test_reference_dir/gromacs/ref_solvate.zip
   properties:
-    gmx_path: "gmx"
+    binary_path: "gmx"
     restart: "False"
 
 solvate_docker:

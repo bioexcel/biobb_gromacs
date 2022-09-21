@@ -1,12 +1,13 @@
 from biobb_common.tools import test_fixtures as fx
 from biobb_gromacs.gromacs.editconf import editconf
 
-class TestEditconf():
-    def setUp(self):
+
+class TestEditconf:
+    def setup_class(self):
         fx.test_setup(self, 'editconf')
 
-    def tearDown(self):
-        #pass
+    def teardown_class(self):
+        # pass
         fx.test_teardown(self)
 
     def test_editconf(self):

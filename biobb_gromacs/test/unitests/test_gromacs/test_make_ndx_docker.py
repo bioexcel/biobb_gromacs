@@ -3,10 +3,10 @@ from biobb_gromacs.gromacs.make_ndx import make_ndx
 
 
 class TestMakeNdxDocker:
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self, 'make_ndx_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         #pass
         fx.test_teardown(self)
 
