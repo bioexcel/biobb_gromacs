@@ -22,6 +22,7 @@ class Editconf(BiobbObject):
         output_gro_path (str): Path to the output GRO file. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_editconf.gro>`_. Accepted formats: pdb (edam:format_1476), gro (edam:format_2033).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **distance_to_molecule** (*float*) - (1.0) [0~100|0.1] Distance of the box from the outermost atom in nm. ie 1.0nm = 10 Angstroms.
+            * **box_vector_lenghts** (*str*) - (None) Array of floats defining the box vector lenghts ie "0.5 0.5 0.5". If this option is used the distance_to_molecule property will be ignored.
             * **box_type** (*str*) - ("cubic") Geometrical shape of the solvent box. Values: cubic (rectangular box with all sides equal), triclinic (triclinic box), dodecahedron (rhombic dodecahedron), octahedron (truncated octahedron).
             * **center_molecule** (*bool*) - (True) Center molecule in the box.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
@@ -69,6 +70,7 @@ class Editconf(BiobbObject):
 
         # Properties specific for BB
         self.distance_to_molecule = properties.get('distance_to_molecule', 1.0)
+        self.box_vector_lenghts = properties.get('box_vector_lenghts')
         self.box_type = properties.get('box_type', 'cubic')
         self.center_molecule = properties.get('center_molecule', True)
 
@@ -99,14 +101,23 @@ class Editconf(BiobbObject):
         self.cmd = [self.binary_path, 'editconf',
                     '-f', self.stage_io_dict["in"]["input_gro_path"],
                     '-o', self.stage_io_dict["out"]["output_gro_path"],
-                    '-d', str(self.distance_to_molecule),
                     '-bt', self.box_type]
+
+        if self.box_vector_lenghts:
+            if not isinstance(self.box_vector_lenghts, str):
+                self.box_vector_lenghts = " ".join(map(str, self.box_vector_lenghts))
+            self.cmd.append("-box")
+            self.cmd.append(self.box_vector_lenghts)
+        else:
+            self.cmd.append('-d')
+            self.cmd.append(str(self.distance_to_molecule))
+            fu.log("Distance of the box to molecule: %6.2f" % self.distance_to_molecule, self.out_log, self.global_log)
 
         if self.center_molecule:
             self.cmd.append('-c')
             fu.log('Centering molecule in the box.', self.out_log, self.global_log)
 
-        fu.log("Distance of the box to molecule: %6.2f" % self.distance_to_molecule, self.out_log, self.global_log)
+
         fu.log("Box type: %s" % self.box_type, self.out_log, self.global_log)
 
         if self.gmx_lib:
