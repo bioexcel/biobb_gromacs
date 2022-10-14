@@ -98,8 +98,13 @@ class Genrestr(BiobbObject):
         self.cmd = ['echo', '\"'+self.restrained_group+'\"', '|',
                     self.binary_path, "genrestr",
                     "-f", self.stage_io_dict["in"]["input_structure_path"],
-                    "-o", self.stage_io_dict["out"]["output_itp_path"],
-                    "-fc", self.force_constants]
+                    "-o", self.stage_io_dict["out"]["output_itp_path"]]
+
+        if not isinstance(self.force_constants, str):
+            self.force_constants = " ".join(map(str, self.force_constants))
+
+        self.cmd.append("-fc")
+        self.cmd.append(self.force_constants)
 
         if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append('-n')
