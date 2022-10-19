@@ -77,6 +77,12 @@
                     "max": 100.0,
                     "step": 0.1
                 },
+                "box_vector_lenghts": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Array of floats defining the box vector lenghts ie \"0.5 0.5 0.5\". If this option is used the distance_to_molecule property will be ignored."
+                },
                 "box_type": {
                     "type": "string",
                     "default": "cubic",

@@ -225,6 +225,7 @@ Syntax: input_parameter (datatype) - (default_value) Definition
 
 Config parameters for this building block:
 * **distance_to_molecule** (*number*): (1.0) Distance of the box from the outermost atom in nm. ie 1.0nm = 10 Angstroms..
+* **box_vector_lenghts** (*string*): (None) Array of floats defining the box vector lenghts ie "0.5 0.5 0.5". If this option is used the distance_to_molecule property will be ignored..
 * **box_type** (*string*): (cubic) Geometrical shape of the solvent box. .
 * **center_molecule** (*boolean*): (True) Center molecule in the box..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
@@ -975,10 +976,10 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_grompp_mdrun_docker.yml)
 ```python
 properties:
+  binary_path: gmx
   container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_volume_path: /inout
-  binary_path: gmx
   maxwarn: 1
   mdp:
     dt: 0.0001
@@ -990,10 +991,10 @@ properties:
 #### [Singularity config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_grompp_mdrun_singularity.yml)
 ```python
 properties:
+  binary_path: gmx
   container_image: gromacs.simg
   container_path: singularity
   container_volume_path: /inout
-  binary_path: gmx
   mdp:
     dt: 0.0001
     ld-seed: '1'
