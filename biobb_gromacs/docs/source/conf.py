@@ -35,7 +35,7 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
-
+    'recommonmark'
 ]
 
 # Using Google docstring style
@@ -52,11 +52,16 @@ templates_path = ['_templates']
 # source_suffix = ['.rst', '.md']
 
 # -- Integrate markdown ---------------------------------------------------
-source_parsers = {
-   '.md': 'recommonmark.parser.CommonMarkParser',
-}
+# source_parsers = {
+#    '.md': 'recommonmark.parser.CommonMarkParser',
+# }
 
 source_suffix = ['.rst', '.md']
+
+#source_suffix = {
+#    '.rst': 'restructuredtext',
+#    '.md': 'markdown',
+#}
 
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
@@ -125,6 +130,7 @@ todo_include_todos = False
 
 # -- Options for HTML output ----------------------------------------------
 def setup(app):
+
     app.add_css_file('theme_overrides.css')
     app.add_js_file('theme_overrides.js')
 
