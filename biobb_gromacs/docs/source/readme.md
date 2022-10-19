@@ -1,6 +1,7 @@
 [![](https://readthedocs.org/projects/biobb-gromacs/badge/?version=latest)](https://biobb-gromacs.readthedocs.io/en/latest/?badge=latest)
 [![](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](https://anaconda.org/bioconda/biobb_gromacs)
-[![](https://img.shields.io/badge/docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs)
+<!---[![](https://img.shields.io/badge/docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs?tab=tags)
+[![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:3.8.0--pyhdfd78af_0)-->
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # biobb_gromacs
@@ -39,7 +40,7 @@ Using ANACONDA:
 
 * Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-gromacs.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-gromacs.readthedocs.io/en/latest/command_line.html)
 
-Using DOCKER:
+<!---Using DOCKER:
 
 * Installation:
 
@@ -60,13 +61,13 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull --name biobb_gromacs.sif shub://bioexcel/biobb_gromacs
+        singularity pull --name biobb_gromacs.sif https://depot.galaxyproject.org/singularity/biobb_gromacs:3.8.0--pyhdfd78af_0
 
 
 * Usage:
 
 
-        singularity exec biobb_gromacs.sif <command>
+        singularity exec biobb_gromacs.sif <command>-->
 
 
 The command list and specification can be found at the [Command Line documentation](https://biobb-gromacs.readthedocs.io/en/latest/command_line.html).
@@ -75,8 +76,8 @@ The command list and specification can be found at the [Command Line documentati
 ### Copyright & Licensing
 This software has been developed in the [MMB group](http://mmb.irbbarcelona.org) at the [BSC](http://www.bsc.es/) & [IRB](https://www.irbbarcelona.org/) for the [European BioExcel](http://bioexcel.eu/), funded by the European Commission (EU H2020 [823830](http://cordis.europa.eu/projects/823830), EU H2020 [675728](http://cordis.europa.eu/projects/675728)).
 
-* (c) 2015-2021 [Barcelona Supercomputing Center](https://www.bsc.es/)
-* (c) 2015-2021 [Institute for Research in Biomedicine](https://www.irbbarcelona.org/)
+* (c) 2015-2022 [Barcelona Supercomputing Center](https://www.bsc.es/)
+* (c) 2015-2022 [Institute for Research in Biomedicine](https://www.irbbarcelona.org/)
 
 Licensed under the
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), see the file LICENSE for details.

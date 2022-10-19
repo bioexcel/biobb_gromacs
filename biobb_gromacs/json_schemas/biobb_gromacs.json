@@ -4,8 +4,8 @@
     "github": "https://github.com/bioexcel/biobb_gromacs",
     "readthedocs": "https://biobb-gromacs.readthedocs.io/en/latest/",
     "conda": "https://anaconda.org/bioconda/biobb_gromacs",
-    "docker": "https://quay.io/biocontainers/biobb_gromacs:3.8.0--pyhdfd78af_0",
-    "singularity": "https://www.singularity-hub.org/collections/2735/usage",
+    "docker": "",
+    "singularity": "",
     "version": "3.8.0",
     "rest": true,
     "tools" : [
