@@ -1,11 +1,11 @@
 gromacs_extra package
-=====================
+=======================
 
 Submodules
-----------
+------------
 
 gromacs_extra.ndx2resttop module
-------------------
+----------------------------------
 
 .. automodule:: gromacs_extra.ndx2resttop
     :members:
@@ -13,7 +13,7 @@ gromacs_extra.ndx2resttop module
     :show-inheritance:
 
 gromacs_extra.append_ligand module
-------------------
+-------------------------------------
 
 .. automodule:: gromacs_extra.append_ligand
     :members:

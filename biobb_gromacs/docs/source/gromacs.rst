@@ -2,7 +2,7 @@ gromacs package
 =====================
 
 Submodules
-----------
+------------
 
 
 gromacs.editconf module

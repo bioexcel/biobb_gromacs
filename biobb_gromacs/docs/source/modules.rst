@@ -1,5 +1,5 @@
 biobb_gromacs
-========
+===============
 
 .. toctree::
    :maxdepth: 4
