@@ -6,7 +6,7 @@
     "conda": "https://anaconda.org/bioconda/biobb_gromacs",
     "docker": "",
     "singularity": "",
-    "version": "3.8.0",
+    "version": "3.8.1",
     "rest": true,
     "tools" : [
         {
@@ -87,6 +87,14 @@
             "desc" : "Creates a new compressed GROMACS topology file adding solvent molecules to a given input compressed GROMACS topology file.",
             "exec" : "solvate",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.solvate",
+            "rest": true
+        },
+        {
+            "block" : "Trjcat",
+            "tool" : "gmx trjcat",
+            "desc" : "Concatenates two or more GROMACS trajectory files.",
+            "exec" : "trjcat",
+            "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.trjcat",
             "rest": true
         },
         {

@@ -1,0 +1,9 @@
+{
+  "properties": {
+    "binary_path": "gmx",
+    "restart": "False",
+    "container_path": "singularity",
+    "container_image": "gromacs.simg",
+    "container_volume_path": "/inout"
+  }
+}

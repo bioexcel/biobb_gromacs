@@ -1,6 +1,11 @@
 # Biobb GROMACS changelog
 
-## What's new in version [3.8.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v3.8.0)?
+## What's new in version [3.8.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v3.8.1)?
+
+### New features
+
+* New Trjcat block (general)
+
 
 
 ## What's new in version [3.8.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v3.8.0)?

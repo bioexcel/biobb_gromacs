@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_gromacs",
-    version="3.8.0",
+    version="3.8.1",
     author="Biobb developers",
     author_email="pau.andrio@bsc.es",
     description="biobb_gromacs is the Biobb module collection to perform molecular dynamics simulations.",
@@ -32,6 +32,7 @@ setuptools.setup(
             "grompp_mdrun = biobb_gromacs.gromacs.grompp_mdrun:main",
             "pdb2gmx = biobb_gromacs.gromacs.pdb2gmx:main",
             "solvate = biobb_gromacs.gromacs.solvate:main",
+            "trjcat = biobb_gromacs.gromacs.trjcat:main",
             "ndx2resttop = biobb_gromacs.gromacs_extra.ndx2resttop:main",
             "append_ligand = biobb_gromacs.gromacs_extra.append_ligand:main"
         ]

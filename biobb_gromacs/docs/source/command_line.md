@@ -1027,6 +1027,106 @@ genion --config config_genion.yml --input_tpr_path genion.tpr --output_gro_path 
 genion --config config_genion.json --input_tpr_path genion.tpr --output_gro_path ref_genion.gro --input_top_zip_path genion.zip --output_top_zip_path ref_genion.zip --input_ndx_path input.ndx
 ```
 
+## Trjcat
+Wrapper class for the GROMACS trjcat module.
+### Get help
+Command:
+```python
+trjcat -h
+```
+    /bin/sh: trjcat: command not found
+### I / O Arguments
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+* **input_trj_zip_path** (*string*): Path the input GROMACS trajectories (xtc, trr, cpt, gro, pdb, tng) to concatenate in zip format. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/trjcat.zip). Accepted formats: ZIP
+* **output_trj_path** (*string*): Path to the output trajectory file. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_trjcat.trr). Accepted formats: PDB, GRO, XTC, TRR, TNG
+### Config
+Syntax: input_parameter (datatype) - (default_value) Definition
+
+Config parameters for this building block:
+* **concatenate** (*boolean*): (True) Only concatenate the files without removal of frames with identical timestamps..
+* **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **remove_tmp** (*boolean*): (True) Remove temporal files..
+* **restart** (*boolean*): (False) Do not execute if output files exist..
+* **container_path** (*string*): (None) Path to the binary executable of your container..
+* **container_image** (*string*): (None) Container Image identifier..
+* **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
+* **container_working_dir** (*string*): (None) Path to the internal CWD in the container..
+* **container_user_id** (*string*): (None) User number id to be mapped inside the container..
+* **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell..
+### YAML
+#### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_trjcat.yml)
+```python
+properties:
+  binary_path: gmx
+  restart: 'False'
+
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_trjcat_docker.yml)
+```python
+properties:
+  binary_path: gmx
+  container_image: gromacs/gromacs:2022.2
+  container_path: docker
+  container_volume_path: /inout
+  restart: 'False'
+
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_trjcat_singularity.yml)
+```python
+properties:
+  binary_path: gmx
+  container_image: gromacs.simg
+  container_path: singularity
+  container_volume_path: /inout
+  restart: 'False'
+
+```
+#### Command line
+```python
+trjcat --config config_trjcat.yml --input_trj_zip_path trjcat.zip --output_trj_path ref_trjcat.trr
+```
+### JSON
+#### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_trjcat.json)
+```python
+{
+  "properties": {
+    "binary_path": "gmx",
+    "restart": "False"
+  }
+}
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_trjcat_docker.json)
+```python
+{
+  "properties": {
+    "binary_path": "gmx",
+    "restart": "False",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:2022.2",
+    "container_volume_path": "/inout"
+  }
+}
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_trjcat_singularity.json)
+```python
+{
+  "properties": {
+    "binary_path": "gmx",
+    "restart": "False",
+    "container_path": "singularity",
+    "container_image": "gromacs.simg",
+    "container_volume_path": "/inout"
+  }
+}
+```
+#### Command line
+```python
+trjcat --config config_trjcat.json --input_trj_zip_path trjcat.zip --output_trj_path ref_trjcat.trr
+```
+
 ## Grompp_mdrun
 Wrapper of the GROMACS grompp module and the GROMACS mdrun module.
 ### Get help

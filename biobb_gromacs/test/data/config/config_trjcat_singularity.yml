@@ -1,0 +1,6 @@
+properties:
+  binary_path: gmx
+  container_image: gromacs.simg
+  container_path: singularity
+  container_volume_path: /inout
+  restart: 'False'

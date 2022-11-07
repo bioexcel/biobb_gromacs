@@ -84,3 +84,12 @@ gromacs.solvate module
     :members:
     :undoc-members:
     :show-inheritance:
+
+gromacs.trjcat module
+------------------------------
+
+.. automodule:: gromacs.trjcat
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

@@ -21,8 +21,8 @@ class Trjcat(BiobbObject):
     | The GROMACS solvate module generates a box around the selected structure.
 
     Args:
-        input_trj_zip_path (str): Path the input GROMACS trajectories (xtc, trr, cpt, gro, pdb, tng) to concatenate in zip format. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/>`_. Accepted formats: zip (edam:format_3987).
-        output_trj_path (str): Path to the output trajectory file. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/>`_. Accepted formats: pdb (edam:format_1476), gro (edam:format_2033), xtc (edam:format_3875), trr (edam:format_3910), tng (edam:format_3876).
+        input_trj_zip_path (str): Path the input GROMACS trajectories (xtc, trr, cpt, gro, pdb, tng) to concatenate in zip format. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/trjcat.zip>`_. Accepted formats: zip (edam:format_3987).
+        output_trj_path (str): Path to the output trajectory file. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_trjcat.trr>`_. Accepted formats: pdb (edam:format_1476), gro (edam:format_2033), xtc (edam:format_3875), trr (edam:format_3910), tng (edam:format_3876).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **concatenate** (*bool*) - (True) Only concatenate the files without removal of frames with identical timestamps.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.

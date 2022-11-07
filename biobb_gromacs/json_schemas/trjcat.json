@@ -1,0 +1,153 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_gromacs/json_schemas/1.0/trjcat",
+    "name": "biobb_gromacs Trjcat",
+    "title": "Wrapper class for the GROMACS trjcat module.",
+    "description": "The GROMACS solvate module generates a box around the selected structure.",
+    "type": "object",
+    "info": {
+        "wrapped_software": {
+            "name": "GROMACS trjcat",
+            "version": ">5.1",
+            "license": "LGPL 2.1"
+        },
+        "ontology": {
+            "name": "EDAM",
+            "schema": "http://edamontology.org/EDAM.owl"
+        }
+    },
+    "required": [
+        "input_trj_zip_path",
+        "output_trj_path"
+    ],
+    "properties": {
+        "input_trj_zip_path": {
+            "type": "string",
+            "description": "Path the input GROMACS trajectories (xtc, trr, cpt, gro, pdb, tng) to concatenate in zip format",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/trjcat.zip",
+            "enum": [
+                ".*\\.zip$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.zip$",
+                    "description": "Path the input GROMACS trajectories (xtc, trr, cpt, gro, pdb, tng) to concatenate in zip format",
+                    "edam": "format_3987"
+                }
+            ]
+        },
+        "output_trj_path": {
+            "type": "string",
+            "description": "Path to the output trajectory file",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_trjcat.trr",
+            "enum": [
+                ".*\\.pdb$",
+                ".*\\.gro$",
+                ".*\\.xtc$",
+                ".*\\.trr$",
+                ".*\\.tng$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the output trajectory file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the output trajectory file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.xtc$",
+                    "description": "Path to the output trajectory file",
+                    "edam": "format_3875"
+                },
+                {
+                    "extension": ".*\\.trr$",
+                    "description": "Path to the output trajectory file",
+                    "edam": "format_3910"
+                },
+                {
+                    "extension": ".*\\.tng$",
+                    "description": "Path to the output trajectory file",
+                    "edam": "format_3876"
+                }
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "concatenate": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": false,
+                    "description": "Only concatenate the files without removal of frames with identical timestamps."
+                },
+                "gmx_lib": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path set GROMACS GMXLIB environment variable."
+                },
+                "binary_path": {
+                    "type": "string",
+                    "default": "gmx",
+                    "wf_prop": false,
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": true,
+                    "description": "Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": true,
+                    "description": "Do not execute if output files exist."
+                },
+                "container_path": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path to the binary executable of your container."
+                },
+                "container_image": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container Image identifier."
+                },
+                "container_volume_path": {
+                    "type": "string",
+                    "default": "/data",
+                    "wf_prop": false,
+                    "description": "Path to an internal directory in the container."
+                },
+                "container_working_dir": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path to the internal CWD in the container."
+                },
+                "container_user_id": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "User number id to be mapped inside the container."
+                },
+                "container_shell_path": {
+                    "type": "string",
+                    "default": "/bin/bash",
+                    "wf_prop": false,
+                    "description": "Path to the binary executable of the container shell."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

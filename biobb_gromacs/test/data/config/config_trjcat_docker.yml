@@ -1,0 +1,6 @@
+properties:
+  binary_path: gmx
+  container_image: gromacs/gromacs:2022.2
+  container_path: docker
+  container_volume_path: /inout
+  restart: 'False'
