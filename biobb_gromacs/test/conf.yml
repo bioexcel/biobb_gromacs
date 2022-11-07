@@ -398,6 +398,40 @@ solvate_singularity:
     container_image: gromacs.simg
     container_volume_path: /inout
 
+trjcat:
+  paths:
+    input_trj_zip_path: file:test_data_dir/gromacs/trjcat.zip
+    output_trj_path: output_trjcat.trr
+    ref_output_trj_path: file:test_reference_dir/gromacs/ref_trjcat.trr
+  properties:
+    binary_path: "gmx"
+    restart: "False"
+
+trjcat_docker:
+  paths:
+    input_trj_zip_path: file:test_data_dir/gromacs/trjcat.zip
+    output_trj_path: output_trjcat.trr
+    ref_output_trj_path: file:test_reference_dir/gromacs/ref_trjcat.trr
+  properties:
+    binary_path: "gmx"
+    restart: "False"
+    container_path: docker
+    container_image: gromacs/gromacs:2022.2
+    container_volume_path: /inout
+
+trjcat_singularity:
+  paths:
+    input_trj_zip_path: file:test_data_dir/gromacs/trjcat.zip
+    output_trj_path: output_trjcat.trr
+    ref_output_trj_path: file:test_reference_dir/gromacs/ref_trjcat.trr
+  properties:
+    binary_path: "gmx"
+    restart: "False"
+    container_path: singularity
+    container_image: gromacs.simg
+    container_volume_path: /inout
+
+
 ndx2resttop:
   paths:
     input_ndx_path: file:test_data_dir/gromacs_extra/ndx2resttop.ndx
