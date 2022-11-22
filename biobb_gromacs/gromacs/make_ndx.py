@@ -68,7 +68,6 @@ class MakeNdx(BiobbObject):
 
         # Properties specific for BB
         self.binary_path = properties.get('binary_path', 'gmx')
-        self.print_command_path = properties.get('print_command_path', 'echo -e')
         self.selection = properties.get('selection', "a CA C N O")
 
         # Properties common in all GROMACS BB
