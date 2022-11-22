@@ -67,11 +67,12 @@ class MakeNdx(BiobbObject):
         }
 
         # Properties specific for BB
+        self.binary_path = properties.get('binary_path', 'gmx')
+        self.print_command_path = properties.get('print_command_path', 'echo -e')
         self.selection = properties.get('selection', "a CA C N O")
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
         self.gmx_nobackup = properties.get('gmx_nobackup', True)
         self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
@@ -88,21 +89,28 @@ class MakeNdx(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`MakeNdx <gromacs.make_ndx.MakeNdx>` object."""
 
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}\nq\n')
+
         # Setup Biobb
         if self.check_restart(): return 0
         self.stage_files()
 
+
+
         # Create command line
-        self.cmd = ['echo', '-e', '\'' + self.selection + '\\nq' + '\'', '|',
-               self.binary_path, 'make_ndx',
-               '-f', self.stage_io_dict["in"]["input_structure_path"],
-               '-o', self.stage_io_dict["out"]["output_ndx_path"]
-               ]
+        self.cmd = [self.binary_path, 'make_ndx',
+                    '-f', self.stage_io_dict["in"]["input_structure_path"],
+                    '-o', self.stage_io_dict["out"]["output_ndx_path"]
+                   ]
 
         if self.stage_io_dict["in"].get("input_ndx_path")\
                 and Path(self.stage_io_dict["in"].get("input_ndx_path")).exists():
             self.cmd.append('-n')
             self.cmd.append(self.stage_io_dict["in"].get("input_ndx_path"))
+
+        # Add stdin input file
+        self.cmd.append('<')
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
             self.environment = os.environ.copy()
@@ -121,7 +129,7 @@ class MakeNdx(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.append(self.stage_io_dict.get("unique_dir"))
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), self.stage_io_dict.get("stdin_file_path")])
         self.remove_tmp_files()
 
         return self.return_code
