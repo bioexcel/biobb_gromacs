@@ -103,6 +103,8 @@ class Genion(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`Genion <gromacs.genion.Genion>` object."""
 
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.replaced_group}')
+
         # Setup Biobb
         if self.check_restart(): return 0
         self.stage_files()
@@ -115,8 +117,7 @@ class Genion(BiobbObject):
             shutil.copytree(top_dir, Path(self.stage_io_dict.get("unique_dir")).joinpath(Path(top_dir).name))
             top_file = str(Path(self.container_volume_path).joinpath(Path(top_dir).name, Path(top_file).name))
 
-        self.cmd = ['echo', '\"'+self.replaced_group+'\"', '|',
-                    self.binary_path, 'genion',
+        self.cmd = [self.binary_path, 'genion',
                     '-s', self.stage_io_dict["in"]["input_tpr_path"],
                     '-o', self.stage_io_dict["out"]["output_gro_path"],
                     '-p', top_file]
@@ -137,6 +138,10 @@ class Genion(BiobbObject):
         if self.seed is not None:
             self.cmd.append('-seed')
             self.cmd.append(str(self.seed))
+
+        # Add stdin input file
+        self.cmd.append('<')
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
             self.environment = os.environ.copy()
@@ -163,7 +168,7 @@ class Genion(BiobbObject):
         fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=top_file, out_log=self.out_log)
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), top_dir])
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), top_dir, self.io_dict['in'].get("stdin_file_path")])
         self.remove_tmp_files()
 
         return self.return_code

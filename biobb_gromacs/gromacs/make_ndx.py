@@ -99,8 +99,7 @@ class MakeNdx(BiobbObject):
         # Create command line
         self.cmd = [self.binary_path, 'make_ndx',
                     '-f', self.stage_io_dict["in"]["input_structure_path"],
-                    '-o', self.stage_io_dict["out"]["output_ndx_path"]
-                   ]
+                    '-o', self.stage_io_dict["out"]["output_ndx_path"]]
 
         if self.stage_io_dict["in"].get("input_ndx_path")\
                 and Path(self.stage_io_dict["in"].get("input_ndx_path")).exists():
