@@ -297,11 +297,14 @@ grompp_mdrun_singularity:
 
 make_ndx:
   paths:
-    input_structure_path: file:test_data_dir/gromacs/make_ndx.tpr
+    #input_structure_path: file:test_data_dir/gromacs/make_ndx.tpr
+    input_structure_path: file:test_data_dir/gromacs/make_ndx_protein_dna.pdb
     output_ndx_path: output_ndx.ndx
-    ref_output_ndx_path: file:test_reference_dir/gromacs/ref_make_ndx.ndx
+    #ref_output_ndx_path: file:test_reference_dir/gromacs/ref_make_ndx.ndx
+    ref_output_ndx_path: file:test_reference_dir/gromacs/ref_make_ndx_protein_dna.ndx
   properties:
-    selection: "a CA C N O"
+    #selection: "a CA C N O"
+    selection: "a C*\n0 & ! 13\nname 14 FREEZE"
 
 make_ndx_docker:
   paths:
