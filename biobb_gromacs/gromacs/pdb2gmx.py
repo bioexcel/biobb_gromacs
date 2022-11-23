@@ -62,6 +62,9 @@ class Pdb2gmx(BiobbObject):
                  **kwargs) -> None:
         properties = properties or {}
 
+        # Check arguments
+        
+
         # Call parent class constructor
         super().__init__(properties)
 
@@ -99,6 +102,9 @@ class Pdb2gmx(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` object."""
 
+        if self.his:
+            self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.his}')
+
         # Setup Biobb
         if self.check_restart(): return 0
         self.stage_files()
@@ -115,14 +121,15 @@ class Pdb2gmx(BiobbObject):
                     "-ff", self.force_field,
                     "-i", internal_itp_name]
 
-        if self.his:
-            self.cmd.append("-his")
-            self.cmd = ['echo', self.his, '|'] + self.cmd
         if self.ignh:
             self.cmd.append("-ignh")
         if self.merge:
             self.cmd.append("-merge")
             self.cmd.append("all")
+        if self.his:
+            self.cmd.append("-his")
+            self.cmd.append('<')
+            self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
             self.environment = os.environ.copy()
@@ -149,7 +156,7 @@ class Pdb2gmx(BiobbObject):
         fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=internal_top_name, out_log=self.out_log)
 
         # Remove temporal files
-        self.tmp_files.extend([self.internal_top_name, self.internal_itp_name, self.stage_io_dict.get("unique_dir")])
+        self.tmp_files.extend([self.internal_top_name, self.internal_itp_name, self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path")])
         self.remove_tmp_files()
 
         return self.return_code
