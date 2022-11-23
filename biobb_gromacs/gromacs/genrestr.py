@@ -91,12 +91,13 @@ class Genrestr(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`Grompp <gromacs.grompp.Grompp>` object."""
 
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.restrained_group}')
+
         # Setup Biobb
         if self.check_restart(): return 0
         self.stage_files()
 
-        self.cmd = ['echo', '\"'+self.restrained_group+'\"', '|',
-                    self.binary_path, "genrestr",
+        self.cmd = [self.binary_path, "genrestr",
                     "-f", self.stage_io_dict["in"]["input_structure_path"],
                     "-o", self.stage_io_dict["out"]["output_itp_path"]]
 
@@ -109,6 +110,10 @@ class Genrestr(BiobbObject):
         if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append('-n')
             self.cmd.append(self.stage_io_dict["in"]["input_ndx_path"])
+
+        # Add stdin input file
+        self.cmd.append('<')
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
             self.environment = os.environ.copy()
@@ -127,7 +132,7 @@ class Genrestr(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.append(self.stage_io_dict.get("unique_dir"))
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path")])
         self.remove_tmp_files()
 
         return self.return_code
