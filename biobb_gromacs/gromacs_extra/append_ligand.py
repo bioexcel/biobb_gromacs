@@ -52,6 +52,7 @@ class AppendLigand(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Input/Output files
         self.io_dict = {
@@ -65,6 +66,7 @@ class AppendLigand(BiobbObject):
 
         # Check the properties
         self.check_properties(properties)
+        self.check_arguments()
 
     @launchlogger
     def launch(self) -> int:
@@ -146,6 +148,7 @@ class AppendLigand(BiobbObject):
         self.tmp_files.append(top_dir)
         self.remove_tmp_files()
 
+        self.check_arguments(output_files_created=True, raise_exception=False)
         return 0
 
 

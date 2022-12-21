@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_gromacs",
-    version="3.8.1",
+    version="3.9.0",
     author="Biobb developers",
     author_email="pau.andrio@bsc.es",
     description="biobb_gromacs is the Biobb module collection to perform molecular dynamics simulations.",
@@ -18,8 +18,8 @@ setuptools.setup(
         "Bioexcel": "https://bioexcel.eu/"
     },
     packages=setuptools.find_packages(exclude=['docs', 'test']),
-    install_requires=['biobb_common==3.8.1'],
-    python_requires='>=3.7',
+    install_requires=['biobb_common==3.9.0'],
+    python_requires='>=3.7,<3.10',
     entry_points={
         "console_scripts": [
             "editconf = biobb_gromacs.gromacs.editconf:main",

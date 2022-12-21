@@ -49,6 +49,7 @@ class Ndx2resttop(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Input/Output files
         self.io_dict = {
@@ -62,6 +63,7 @@ class Ndx2resttop(BiobbObject):
 
         # Check the properties
         self.check_properties(properties)
+        self.check_arguments()
 
     @launchlogger
     def launch(self) -> int:
@@ -123,6 +125,7 @@ class Ndx2resttop(BiobbObject):
         # Remove temporal files
         self.remove_tmp_files()
 
+        self.check_arguments(output_files_created=True, raise_exception=False)
         return 0
 
 

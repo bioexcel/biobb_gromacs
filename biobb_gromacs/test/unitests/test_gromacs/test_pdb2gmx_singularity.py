@@ -1,5 +1,6 @@
 from biobb_common.tools import test_fixtures as fx
 from biobb_gromacs.gromacs.pdb2gmx import pdb2gmx
+import pytest
 
 
 class TestPdb2gmxSingularity:
@@ -10,6 +11,7 @@ class TestPdb2gmxSingularity:
         #pass
         fx.test_teardown(self)
 
+    @pytest.mark.skip(reason="singularity currently not available")
     def test_pdb2gmx_singularity(self):
         returncode = pdb2gmx(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_top_zip_path'])

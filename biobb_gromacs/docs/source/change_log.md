@@ -1,5 +1,13 @@
 # Biobb GROMACS changelog
 
+
+## What's new in version [3.9.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v3.9.0)?
+
+### New features
+
+* All inputs/outputs are checked for correct file format, extension and type (general)
+
+
 ## What's new in version [3.8.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v3.8.1)?
 
 ### New features

@@ -1,5 +1,6 @@
 from biobb_common.tools import test_fixtures as fx
 from biobb_gromacs.gromacs.trjcat import trjcat
+import pytest
 
 
 class TestSolvate():
@@ -10,6 +11,7 @@ class TestSolvate():
         #pass
         fx.test_teardown(self)
 
+    @pytest.mark.skip(reason="singularity currently not available")
     def test_solvate(self):
         returncode = trjcat(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_trj_path'])

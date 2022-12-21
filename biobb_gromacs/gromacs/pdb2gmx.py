@@ -62,11 +62,9 @@ class Pdb2gmx(BiobbObject):
                  **kwargs) -> None:
         properties = properties or {}
 
-        # Check arguments
-        
-
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Input/Output files
         self.io_dict = {
@@ -97,6 +95,7 @@ class Pdb2gmx(BiobbObject):
 
         # Check the properties
         self.check_properties(properties)
+        self.check_arguments()
 
     @launchlogger
     def launch(self) -> int:
@@ -132,8 +131,8 @@ class Pdb2gmx(BiobbObject):
             self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
-            self.environment = os.environ.copy()
-            self.environment['GMXLIB'] = self.gmx_lib
+            
+            self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version
         if not self.container_path:
@@ -159,6 +158,7 @@ class Pdb2gmx(BiobbObject):
         self.tmp_files.extend([self.internal_top_name, self.internal_itp_name, self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path")])
         self.remove_tmp_files()
 
+        self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
 
 

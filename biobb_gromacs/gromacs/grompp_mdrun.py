@@ -95,6 +95,7 @@ class GromppMdrun(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         grompp_properties_keys = ['mdp', 'maxwarn', 'simulation_type']
         mdrun_properties_keys = ['mpi_bin', 'mpi_np', 'mpi_hostlist', 'checkpoint_time', 'num_threads', 'num_threads_mpi', 'num_threads_omp', 'num_threads_omp_pme', 'use_gpu', 'gpu_id', 'gpu_tasks', 'dev']
@@ -126,6 +127,8 @@ class GromppMdrun(BiobbObject):
         self.output_xtc_path = output_xtc_path
         self.output_cpt_path = output_cpt_path
         self.output_dhdl_path = output_dhdl_path
+
+
 
     @launchlogger
     def launch(self) -> int:

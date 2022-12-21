@@ -1,5 +1,6 @@
 from biobb_common.tools import test_fixtures as fx
 from biobb_gromacs.gromacs.solvate import solvate
+import pytest
 
 
 class TestSolvateSingularity():
@@ -10,6 +11,7 @@ class TestSolvateSingularity():
         #pass
         fx.test_teardown(self)
 
+    @pytest.mark.skip(reason="singularity currently not available")
     def test_solvate_singularity(self):
         returncode = solvate(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_gro_path'])

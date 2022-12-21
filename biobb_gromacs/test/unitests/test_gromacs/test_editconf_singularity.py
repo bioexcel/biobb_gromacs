@@ -1,5 +1,7 @@
 from biobb_common.tools import test_fixtures as fx
 from biobb_gromacs.gromacs.editconf import editconf
+import pytest
+
 
 class TestEditconfSingularity():
     def setup_class(self):
@@ -9,6 +11,7 @@ class TestEditconfSingularity():
         #pass
         fx.test_teardown(self)
 
+    @pytest.mark.skip(reason="singularity currently not available")
     def test_editconf_singularity(self):
         editconf(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_gro_path'])

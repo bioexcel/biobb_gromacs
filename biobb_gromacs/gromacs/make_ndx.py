@@ -59,6 +59,7 @@ class MakeNdx(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Input/Output files
         self.io_dict = {
@@ -82,7 +83,8 @@ class MakeNdx(BiobbObject):
             self.gmx_version = get_gromacs_version(self.binary_path)
 
         # Check the properties
-        fu.check_properties(self, properties)
+        self.check_properties(properties)
+        self.check_arguments()
 
     @launchlogger
     def launch(self) -> int:
@@ -93,8 +95,6 @@ class MakeNdx(BiobbObject):
         # Setup Biobb
         if self.check_restart(): return 0
         self.stage_files()
-
-
 
         # Create command line
         self.cmd = [self.binary_path, 'make_ndx',
@@ -111,8 +111,7 @@ class MakeNdx(BiobbObject):
         self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
-            self.environment = os.environ.copy()
-            self.environment['GMXLIB'] = self.gmx_lib
+            self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version
         if not self.container_path:
@@ -130,6 +129,7 @@ class MakeNdx(BiobbObject):
         self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path")])
         self.remove_tmp_files()
 
+        self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
 
 

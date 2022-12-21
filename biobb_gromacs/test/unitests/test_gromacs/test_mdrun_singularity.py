@@ -1,6 +1,7 @@
 from biobb_common.tools import test_fixtures as fx
 from biobb_gromacs.gromacs.mdrun import mdrun
 from biobb_gromacs.gromacs.common import gmx_rms
+import pytest
 
 
 class TestMdrunSingularity():
@@ -11,6 +12,7 @@ class TestMdrunSingularity():
         #pass
         fx.test_teardown(self)
 
+    @pytest.mark.skip(reason="singularity currently not available")
     def test_mdrun_singularity(self):
         returncode = mdrun(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_trr_path'])

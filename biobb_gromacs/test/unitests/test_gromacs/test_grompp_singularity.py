@@ -1,6 +1,7 @@
 from biobb_common.tools import test_fixtures as fx
 from biobb_gromacs.gromacs.grompp import grompp
 from biobb_gromacs.gromacs.common import gmx_check
+import pytest
 
 
 class TestGromppSingularity():
@@ -11,6 +12,7 @@ class TestGromppSingularity():
         #pass
         fx.test_teardown(self)
 
+    @pytest.mark.skip(reason="singularity currently not available")
     def test_grompp_singulariy(self):
         returncode = grompp(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_tpr_path'])
