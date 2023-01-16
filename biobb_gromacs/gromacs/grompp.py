@@ -120,25 +120,18 @@ class Grompp(BiobbObject):
         self.stage_files()
 
         # Unzip topology to topology_out
-        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log)
-        top_dir = str(Path(top_file).parent)
+        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir"))
 
         # Create MDP file
-        mdp_dir = fu.create_unique_dir()
-        self.output_mdp_path = create_mdp(output_mdp_path=str(Path(mdp_dir).joinpath(self.output_mdp_path)),
+        self.output_mdp_path = create_mdp(output_mdp_path=str(Path(self.stage_io_dict.get("unique_dir")).joinpath(self.output_mdp_path)),
                                           input_mdp_path=self.io_dict["in"]["input_mdp_path"],
                                           preset_dict=mdp_preset(self.simulation_type),
                                           mdp_properties_dict=self.mdp)
 
         # Copy extra files to container: MDP file and topology folder
         if self.container_path:
-            fu.log('Container execution enabled', self.out_log)
-
-            shutil.copy2(self.output_mdp_path, self.stage_io_dict.get("unique_dir"))
             self.output_mdp_path = str(Path(self.container_volume_path).joinpath(Path(self.output_mdp_path).name))
-
-            shutil.copytree(top_dir, str(Path(self.stage_io_dict.get("unique_dir")).joinpath(Path(top_dir).name)))
-            top_file = str(Path(self.container_volume_path).joinpath(Path(top_dir).name, Path(top_file).name))
+            top_file = str(Path(self.container_volume_path).joinpath(Path(top_file).name))
 
         self.cmd = [self.binary_path, 'grompp',
                '-f', self.output_mdp_path,
@@ -181,7 +174,7 @@ class Grompp(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), top_dir, mdp_dir, 'mdout.mdp'])
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), 'mdout.mdp'])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
