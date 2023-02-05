@@ -13,25 +13,7 @@ Command:
 ```python
 mdrun -h
 ```
-    usage: mdrun [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_trr_path OUTPUT_TRR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--input_cpt_path INPUT_CPT_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH]
-    
-    Wrapper for the GROMACS mdrun module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-      --input_cpt_path INPUT_CPT_PATH
-      --output_xtc_path OUTPUT_XTC_PATH
-      --output_cpt_path OUTPUT_CPT_PATH
-      --output_dhdl_path OUTPUT_DHDL_PATH
-    
-    required arguments:
-      --input_tpr_path INPUT_TPR_PATH
-      --output_trr_path OUTPUT_TRR_PATH
-      --output_gro_path OUTPUT_GRO_PATH
-      --output_edr_path OUTPUT_EDR_PATH
-      --output_log_path OUTPUT_LOG_PATH
+    /bin/sh: mdrun: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -140,19 +122,7 @@ Command:
 ```python
 make_ndx -h
 ```
-    usage: make_ndx [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --output_ndx_path OUTPUT_NDX_PATH [--input_ndx_path INPUT_NDX_PATH]
-    
-    Wrapper for the GROMACS make_ndx module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-      --input_ndx_path INPUT_NDX_PATH
-    
-    required arguments:
-      --input_structure_path INPUT_STRUCTURE_PATH
-      --output_ndx_path OUTPUT_NDX_PATH
+    /bin/sh: make_ndx: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -247,18 +217,7 @@ Command:
 ```python
 editconf -h
 ```
-    usage: editconf [-h] [-c CONFIG] --input_gro_path INPUT_GRO_PATH --output_gro_path OUTPUT_GRO_PATH
-    
-    Wrapper of the GROMACS gmx editconf module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-    
-    required arguments:
-      --input_gro_path INPUT_GRO_PATH
-      --output_gro_path OUTPUT_GRO_PATH
+    /bin/sh: editconf: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -353,19 +312,7 @@ Command:
 ```python
 ndx2resttop -h
 ```
-    usage: ndx2resttop [-h] [-c CONFIG] --input_ndx_path INPUT_NDX_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH
-    
-    Wrapper for the GROMACS extra ndx2resttop module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-    
-    required arguments:
-      --input_ndx_path INPUT_NDX_PATH
-      --input_top_zip_path INPUT_TOP_ZIP_PATH
-      --output_top_zip_path OUTPUT_TOP_ZIP_PATH
+    /bin/sh: ndx2resttop: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -412,22 +359,7 @@ Command:
 ```python
 grompp -h
 ```
-    usage: grompp [-h] [-c CONFIG] --input_gro_path INPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_tpr_path OUTPUT_TPR_PATH [--input_cpt_path INPUT_CPT_PATH] [--input_ndx_path INPUT_NDX_PATH] [--input_mdp_path INPUT_MDP_PATH]
-    
-    Wrapper for the GROMACS grompp module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-      --input_cpt_path INPUT_CPT_PATH
-      --input_ndx_path INPUT_NDX_PATH
-      --input_mdp_path INPUT_MDP_PATH
-    
-    required arguments:
-      --input_gro_path INPUT_GRO_PATH
-      --input_top_zip_path INPUT_TOP_ZIP_PATH
-      --output_tpr_path OUTPUT_TPR_PATH
+    /bin/sh: grompp: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -544,19 +476,7 @@ Command:
 ```python
 gmxselect -h
 ```
-    usage: gmxselect [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --output_ndx_path OUTPUT_NDX_PATH [--input_ndx_path INPUT_NDX_PATH]
-    
-    Wrapper for the GROMACS select module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-      --input_ndx_path INPUT_NDX_PATH
-    
-    required arguments:
-      --input_structure_path INPUT_STRUCTURE_PATH
-      --output_ndx_path OUTPUT_NDX_PATH
+    /bin/sh: gmxselect: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -655,19 +575,7 @@ Command:
 ```python
 pdb2gmx -h
 ```
-    usage: pdb2gmx [-h] [-c CONFIG] --input_pdb_path INPUT_PDB_PATH --output_gro_path OUTPUT_GRO_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH
-    
-    Wrapper of the GROMACS pdb2gmx module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-    
-    required arguments:
-      --input_pdb_path INPUT_PDB_PATH
-      --output_gro_path OUTPUT_GRO_PATH
-      --output_top_zip_path OUTPUT_TOP_ZIP_PATH
+    /bin/sh: pdb2gmx: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -766,7 +674,7 @@ Command:
 ```python
 append_ligand -h
 ```
-    /bin/sh: /Users/pau/anaconda3/envs/biobb/bin/append_ligand: Permission denied
+    /bin/sh: append_ligand: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -814,21 +722,7 @@ Command:
 ```python
 solvate -h
 ```
-    usage: solvate [-h] [-c CONFIG] --input_solute_gro_path INPUT_SOLUTE_GRO_PATH --output_gro_path OUTPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH [--input_solvent_gro_path INPUT_SOLVENT_GRO_PATH]
-    
-    Wrapper for the GROMACS solvate module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-      --input_solvent_gro_path INPUT_SOLVENT_GRO_PATH
-    
-    required arguments:
-      --input_solute_gro_path INPUT_SOLUTE_GRO_PATH
-      --output_gro_path OUTPUT_GRO_PATH
-      --input_top_zip_path INPUT_TOP_ZIP_PATH
-      --output_top_zip_path OUTPUT_TOP_ZIP_PATH
+    /bin/sh: solvate: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -923,20 +817,7 @@ Command:
 ```python
 genion -h
 ```
-    usage: genion [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH
-    
-    Wrapper for the GROMACS genion module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-    
-    required arguments:
-      --input_tpr_path INPUT_TPR_PATH
-      --output_gro_path OUTPUT_GRO_PATH
-      --input_top_zip_path INPUT_TOP_ZIP_PATH
-      --output_top_zip_path OUTPUT_TOP_ZIP_PATH
+    /bin/sh: genion: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1138,28 +1019,7 @@ Command:
 ```python
 grompp_mdrun -h
 ```
-    usage: grompp_mdrun [-h] [-c CONFIG] --input_gro_path INPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_trr_path OUTPUT_TRR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--input_cpt_path INPUT_CPT_PATH] [--input_ndx_path INPUT_NDX_PATH] [--input_mdp_path INPUT_MDP_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH]
-    
-    Wrapper for the GROMACS grompp_mdrun module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-      --input_cpt_path INPUT_CPT_PATH
-      --input_ndx_path INPUT_NDX_PATH
-      --input_mdp_path INPUT_MDP_PATH
-      --output_xtc_path OUTPUT_XTC_PATH
-      --output_cpt_path OUTPUT_CPT_PATH
-      --output_dhdl_path OUTPUT_DHDL_PATH
-    
-    required arguments:
-      --input_gro_path INPUT_GRO_PATH
-      --input_top_zip_path INPUT_TOP_ZIP_PATH
-      --output_trr_path OUTPUT_TRR_PATH
-      --output_gro_path OUTPUT_GRO_PATH
-      --output_edr_path OUTPUT_EDR_PATH
-      --output_log_path OUTPUT_LOG_PATH
+    /bin/sh: grompp_mdrun: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1313,19 +1173,7 @@ Command:
 ```python
 genrestr -h
 ```
-    usage: genrestr [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --output_itp_path OUTPUT_ITP_PATH [--input_ndx_path INPUT_NDX_PATH]
-    
-    Wrapper for the GROMACS genion module.
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-      --input_ndx_path INPUT_NDX_PATH
-    
-    required arguments:
-      --input_structure_path INPUT_STRUCTURE_PATH
-      --output_itp_path OUTPUT_ITP_PATH
+    /bin/sh: genrestr: command not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
