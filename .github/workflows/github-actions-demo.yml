@@ -9,7 +9,7 @@ on:
 
 jobs:
   # Name of the Job
-  Lint and Test:
+  lint_and_test:
     runs-on: self-hosted
     steps:
       - name: Check out repository code
