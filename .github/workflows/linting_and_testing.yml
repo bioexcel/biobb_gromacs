@@ -1,11 +1,11 @@
 name: linting_and_testing
 
-on:
+on: workflow_dispatch
   # push:
   #   branches: [ master ]
 
   # Allows to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  
 
 jobs:
   # Name of the Job
