@@ -30,7 +30,7 @@ jobs:
       - name: Install Conda environment with Micromamba
         uses: mamba-org/provision-with-micromamba@main
         with:
-          environment-file: env.yaml
+          environment-file: .github/env.yaml
           environment-name: test_env
           extra-specs: |
             pytest
