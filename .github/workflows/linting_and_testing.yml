@@ -31,8 +31,11 @@ jobs:
         uses: mamba-org/provision-with-micromamba@main
         with:
           environment-file: .github/env.yaml
-          environment-name: test_environment
+          extra-specs: |
+            python
+      
+      - name: List installed package versions
+        shell: bash -l {0}  # necessary for conda env to be active
+        run: micromamba list
 
-      - name: List env packages
-        run: mamba list
 
