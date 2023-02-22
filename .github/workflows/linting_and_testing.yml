@@ -32,8 +32,6 @@ jobs:
         with:
           environment-file: .github/env.yaml
           environment-name: test_env
-          extra-specs: |
-            pytest
 
       - name: List env packages
         run: mamba list
