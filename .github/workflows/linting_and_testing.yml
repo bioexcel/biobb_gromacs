@@ -31,7 +31,7 @@ jobs:
         uses: mamba-org/provision-with-micromamba@main
         with:
           environment-file: .github/env.yaml
-          environment-name: test_env
+          environment-name: test_environment
 
       - name: List env packages
         run: mamba list
