@@ -1,4 +1,4 @@
-name: simple
+name: linting_and_testing
 
 on:
   # push:
@@ -26,3 +26,14 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+      - name: Install Conda environment with Micromamba
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: env.yaml
+          environment-name: test_env
+          extra-specs: |
+            pytest
+
+      - name: List env packages
+        run: mamba list
