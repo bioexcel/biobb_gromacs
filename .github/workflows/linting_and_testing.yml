@@ -15,10 +15,10 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - run: echo "Repository: ${{ github.repository }}"
-      - run: echo "Branch: ${{ github.ref }}"
-      - run: echo "Trigger event: ${{ github.event_name }}"
-      - run: echo "Runner OS: ${{ runner.os }}"
+      - run: echo "Repository -> ${{ github.repository }}"
+      - run: echo "Branch -> ${{ github.ref }}"
+      - run: echo "Trigger event -> ${{ github.event_name }}"
+      - run: echo "Runner OS -> ${{ runner.os }}"
 
 
       - name: List files in the repository
