@@ -7,8 +7,8 @@ class TestGenrestrDocker:
         fx.test_setup(self, 'genrestr_docker')
 
     def teardown_class(self):
-        pass
-        #fx.test_teardown(self)
+        # pass
+        fx.test_teardown(self)
 
     def test_genrestr_docker(self):
         returncode = genrestr(properties=self.properties, **self.paths)

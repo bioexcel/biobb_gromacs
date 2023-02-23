@@ -8,8 +8,8 @@ class TestGromppDocker():
         fx.test_setup(self, 'grompp_docker')
 
     def teardown_class(self):
-        pass
-        #fx.test_teardown(self)
+        # pass
+        fx.test_teardown(self)
 
     def test_grompp(self):
         returncode = grompp(properties=self.properties, **self.paths)
