@@ -7,7 +7,7 @@ class TestSolvate():
         fx.test_setup(self, 'trjcat_docker')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_solvate(self):

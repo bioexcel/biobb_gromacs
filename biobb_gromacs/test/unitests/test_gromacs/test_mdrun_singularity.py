@@ -9,7 +9,7 @@ class TestMdrunSingularity():
         fx.test_setup(self, 'mdrun_singularity')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     @pytest.mark.skip(reason="singularity currently not available")

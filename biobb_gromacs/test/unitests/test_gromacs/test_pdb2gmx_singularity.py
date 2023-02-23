@@ -8,7 +8,7 @@ class TestPdb2gmxSingularity:
         fx.test_setup(self, 'pdb2gmx_singularity')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     @pytest.mark.skip(reason="singularity currently not available")

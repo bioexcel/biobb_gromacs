@@ -7,7 +7,7 @@ class TestSolvate():
         fx.test_setup(self, 'solvate')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_solvate(self):

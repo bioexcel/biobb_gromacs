@@ -7,7 +7,7 @@ class TestSelectDocker:
         fx.test_setup(self, 'gmxselect_docker')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_select_docker(self):

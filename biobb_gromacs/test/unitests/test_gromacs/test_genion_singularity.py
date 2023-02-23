@@ -8,7 +8,7 @@ class TestGenionSingularity:
         fx.test_setup(self, 'genion_singularity')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     @pytest.mark.skip(reason="singularity currently not available")

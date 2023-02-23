@@ -7,7 +7,7 @@ class TestGenion:
         fx.test_setup(self, 'genion')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_genion(self):

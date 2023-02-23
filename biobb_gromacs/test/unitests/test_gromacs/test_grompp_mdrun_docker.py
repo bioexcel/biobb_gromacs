@@ -8,7 +8,7 @@ class TestGromppMdrun_docker:
         fx.test_setup(self, 'grompp_mdrun_docker')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_grompp_mdrun_docker(self):

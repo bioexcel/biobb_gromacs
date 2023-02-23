@@ -9,7 +9,7 @@ class TestGromppMdrun_singularity:
         fx.test_setup(self, 'grompp_mdrun_singularity')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     @pytest.mark.skip(reason="singularity currently not available")

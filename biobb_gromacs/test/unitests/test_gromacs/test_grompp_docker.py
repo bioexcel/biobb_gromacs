@@ -14,5 +14,5 @@ class TestGromppDocker():
     def test_grompp(self):
         returncode = grompp(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_tpr_path'])
-        assert gmx_check(self.paths['output_tpr_path'], self.paths['ref_output_tpr_path'], gmx=self.properties.get('binary_path','gmx'))
+        assert gmx_check(self.paths['output_tpr_path'], self.paths['ref_output_tpr_path'], gmx=self.properties.get('binary_path', 'gmx'))
         assert fx.exe_success(returncode)

@@ -7,7 +7,7 @@ class TestAppendLigand:
         fx.test_setup(self, 'append_ligand')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_append_ligand(self):

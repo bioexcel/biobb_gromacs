@@ -8,7 +8,7 @@ class TestMdrunDocker():
         fx.test_setup(self, 'mdrun_docker')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_mdrun_docker(self):

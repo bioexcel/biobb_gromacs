@@ -7,7 +7,7 @@ class TestGenionDocker:
         fx.test_setup(self, 'genion_docker')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_genion_docker(self):

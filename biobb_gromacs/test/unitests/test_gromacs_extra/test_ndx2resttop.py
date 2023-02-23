@@ -6,7 +6,7 @@ class TestNdx2resttop():
         fx.test_setup(self,'ndx2resttop')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_ndx2resttop(self):

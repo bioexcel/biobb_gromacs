@@ -7,7 +7,7 @@ class TestMakeNdxDocker:
         fx.test_setup(self, 'make_ndx_docker')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_make_ndx_docker(self):

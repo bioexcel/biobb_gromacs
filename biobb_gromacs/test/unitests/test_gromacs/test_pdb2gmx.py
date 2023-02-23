@@ -7,7 +7,7 @@ class TestPdb2gmx:
         fx.test_setup(self, 'pdb2gmx')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_pdb2gmx(self):

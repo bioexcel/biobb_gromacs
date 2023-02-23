@@ -7,7 +7,7 @@ class TestGenrestr:
         fx.test_setup(self, 'genrestr')
 
     def teardown_class(self):
-        #pass
+        # pass
         fx.test_teardown(self)
 
     def test_genrestr(self):
