@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 """Module containing the Trjcat class and the command line interface."""
-import os
 import typing
 import shutil
 import argparse
@@ -62,7 +61,6 @@ class Trjcat(BiobbObject):
         super().__init__(properties)
         self.locals_var_dict = locals().copy()
 
-
         # Input/Output files
         self.io_dict: dict = {
             "in": {},
@@ -96,7 +94,8 @@ class Trjcat(BiobbObject):
         """Execute the :class:`Trjcat <gromacs.trjcat.Trjcat>` object."""
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         # Unzip trajectory bundle
@@ -119,7 +118,6 @@ class Trjcat(BiobbObject):
             fu.log('Only concatenate the files without removal of frames with identical timestamps.', self.out_log, self.global_log)
 
         if self.gmx_lib:
-            
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version

@@ -128,13 +128,11 @@ class GromppMdrun(BiobbObject):
         self.output_cpt_path = output_cpt_path
         self.output_dhdl_path = output_dhdl_path
 
-
-
     @launchlogger
     def launch(self) -> int:
         """Execute the :class:`GromppMdrun <gromacs.grompp_mdrun.GromppMdrun>` object."""
 
-        fu.log(f'Calling Grompp class', self.out_log, self.global_log)
+        fu.log('Calling Grompp class', self.out_log, self.global_log)
         grompp_return_code = grompp(input_gro_path=self.input_gro_path, input_top_zip_path=self.input_top_zip_path,
                                     output_tpr_path=self.output_tpr_path, input_cpt_path=self.input_cpt_path,
                                     input_ndx_path=self.input_ndx_path, input_mdp_path=self.input_mdp_path,
@@ -142,7 +140,7 @@ class GromppMdrun(BiobbObject):
         fu.log(f'Grompp return code: {grompp_return_code}', self.out_log, self.global_log)
 
         if not grompp_return_code:
-            fu.log(f'Grompp return code is correct. Calling MDRun class', self.out_log, self.global_log)
+            fu.log('Grompp return code is correct. Calling MDRun class', self.out_log, self.global_log)
             mdrun_return_code = mdrun(input_tpr_path=self.output_tpr_path, output_trr_path=self.output_trr_path,
                                       output_gro_path=self.output_gro_path, output_edr_path=self.output_edr_path,
                                       output_log_path=self.output_log_path, output_xtc_path=self.output_xtc_path,

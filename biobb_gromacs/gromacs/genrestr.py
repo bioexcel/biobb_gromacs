@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 """Module containing the Genrestr class and the command line interface."""
-import os
 import argparse
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -96,7 +95,8 @@ class Genrestr(BiobbObject):
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.restrained_group}')
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         self.cmd = [self.binary_path, "genrestr",
@@ -118,7 +118,6 @@ class Genrestr(BiobbObject):
         self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
-            
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version

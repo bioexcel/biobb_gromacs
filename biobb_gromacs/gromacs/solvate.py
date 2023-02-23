@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 """Module containing the Editconf class and the command line interface."""
-import os
 import shutil
 import argparse
 from pathlib import Path
@@ -102,7 +101,8 @@ class Solvate(BiobbObject):
         """Execute the :class:`Solvate <gromacs.solvate.Solvate>` object."""
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         # Unzip topology to topology_out
@@ -124,7 +124,6 @@ class Solvate(BiobbObject):
             self.cmd.append(str(self.shell))
 
         if self.gmx_lib:
-            
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 """Module containing the Select class and the command line interface."""
-import os
 import argparse
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
@@ -94,7 +93,8 @@ class Gmxselect(BiobbObject):
         """Execute the :class:`Gmxselect <gromacs.gmxselect.Gmxselect>` object."""
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         self.cmd = [self.binary_path, 'select',
@@ -111,7 +111,6 @@ class Gmxselect(BiobbObject):
         self.cmd.append("\'"+self.selection+"\'")
 
         if self.gmx_lib:
-            
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version

@@ -73,8 +73,8 @@ class Pdb2gmx(BiobbObject):
         }
 
         # Properties specific for BB
-        self.internal_top_name = properties.get('internal_top_name', 'p2g.top') # Excluded from documentation for simplicity
-        self.internal_itp_name = properties.get('internal_itp_name', 'posre.itp') # Excluded from documentation for simplicity
+        self.internal_top_name = properties.get('internal_top_name', 'p2g.top')  # Excluded from documentation for simplicity
+        self.internal_itp_name = properties.get('internal_itp_name', 'posre.itp')  # Excluded from documentation for simplicity
         self.water_type = properties.get('water_type', 'spce')
         self.force_field = properties.get('force_field', 'amber99sb-ildn')
         self.ignh = properties.get('ignh', False)
@@ -105,7 +105,8 @@ class Pdb2gmx(BiobbObject):
             self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.his}')
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         internal_top_name = fu.create_name(prefix=self.prefix, step=self.step, name=self.internal_top_name)
@@ -131,7 +132,6 @@ class Pdb2gmx(BiobbObject):
             self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
-            
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version

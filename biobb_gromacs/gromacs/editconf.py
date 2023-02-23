@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 """Module containing the Editconf class and the command line interface."""
-import os
 import argparse
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -96,7 +95,8 @@ class Editconf(BiobbObject):
         """Execute the :class:`Editconf <gromacs.editconf.Editconf>` object."""
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         # Create command line
@@ -119,11 +119,9 @@ class Editconf(BiobbObject):
             self.cmd.append('-c')
             fu.log('Centering molecule in the box.', self.out_log, self.global_log)
 
-
         fu.log("Box type: %s" % self.box_type, self.out_log, self.global_log)
 
         if self.gmx_lib:
-            
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version

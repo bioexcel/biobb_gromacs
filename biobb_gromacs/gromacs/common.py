@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
-from typing import List, Dict, Tuple, Mapping, Union, Set, Sequence
+from typing import Dict, Mapping
 
 
 def get_gromacs_version(gmx: str = "gmx") -> int:
@@ -30,7 +30,7 @@ def get_gromacs_version(gmx: str = "gmx") -> int:
                     break
         version = version_str.group(1).replace(".", "").replace("VERSION", "").strip()
         version = "".join([c for c in version if c.isdigit()])
-    except:
+    except Exception:
         return 0
     if version.startswith("2"):
         while len(version) < 5:
@@ -116,7 +116,7 @@ def mdp_preset(sim_type: str) -> Dict[str, str]:
     mdp_dict = {}
     if not sim_type or sim_type == 'index':
         return mdp_dict
-    
+
     minimization = (sim_type == 'minimization') or (sim_type == 'ions')
     nvt = (sim_type == 'nvt')
     npt = (sim_type == 'npt')
@@ -231,7 +231,7 @@ def mdp_preset(sim_type: str) -> Dict[str, str]:
 def write_mdp(output_mdp_path: str, mdp_dict: Mapping[str, str]):
     mdp_list = []
     for k, v in mdp_dict.items():
-        config_parameter_key = str(k).strip().replace('_','-')
+        config_parameter_key = str(k).strip().replace('_', '-')
         if config_parameter_key != 'type':
             mdp_list.append(config_parameter_key + ' = ' + str(v))
 
@@ -240,8 +240,8 @@ def write_mdp(output_mdp_path: str, mdp_dict: Mapping[str, str]):
             mdp_file.write(line + '\n')
 
     return output_mdp_path
-            
-            
+
+
 def create_mdp(output_mdp_path: str, input_mdp_path: str = None,
                preset_dict: Mapping[str, str] = None,
                mdp_properties_dict: Mapping[str, str] = None) -> str:

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 """Module containing the Grompp class and the command line interface."""
-import os
 import argparse
 import shutil
 from pathlib import Path
@@ -94,7 +93,6 @@ class Grompp(BiobbObject):
             self.maxwarn = str(properties.get('maxwarn', 10))
         self.mdp = {k: str(v) for k, v in properties.get('mdp', dict()).items()}
 
-
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
         self.binary_path = properties.get('binary_path', 'gmx')
@@ -116,7 +114,8 @@ class Grompp(BiobbObject):
         """Execute the :class:`Grompp <gromacs.grompp.Grompp>` object."""
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         # Unzip topology to topology_out
@@ -134,13 +133,13 @@ class Grompp(BiobbObject):
             top_file = str(Path(self.container_volume_path).joinpath(Path(top_file).name))
 
         self.cmd = [self.binary_path, 'grompp',
-               '-f', self.output_mdp_path,
-               '-c', self.stage_io_dict["in"]["input_gro_path"],
-               '-r', self.stage_io_dict["in"]["input_gro_path"],
-               '-p', top_file,
-               '-o', self.stage_io_dict["out"]["output_tpr_path"],
-               '-po', 'mdout.mdp',
-               '-maxwarn', self.maxwarn]
+                    '-f', self.output_mdp_path,
+                    '-c', self.stage_io_dict["in"]["input_gro_path"],
+                    '-r', self.stage_io_dict["in"]["input_gro_path"],
+                    '-p', top_file,
+                    '-o', self.stage_io_dict["out"]["output_tpr_path"],
+                    '-po', 'mdout.mdp',
+                    '-maxwarn', self.maxwarn]
 
         if self.stage_io_dict["in"].get("input_cpt_path") and Path(self.stage_io_dict["in"]["input_cpt_path"]).exists():
             self.cmd.append('-t')
@@ -158,7 +157,6 @@ class Grompp(BiobbObject):
                 self.cmd.append(self.stage_io_dict["in"]["input_ndx_path"])
 
         if self.gmx_lib:
-            
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version

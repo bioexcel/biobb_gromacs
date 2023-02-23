@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 """Module containing the Genion class and the command line interface."""
-import os
 import shutil
 import argparse
 from pathlib import Path
@@ -108,7 +107,8 @@ class Genion(BiobbObject):
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.replaced_group}')
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         # Unzip topology to topology_out
@@ -146,7 +146,6 @@ class Genion(BiobbObject):
         self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
-            
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Check GROMACS version

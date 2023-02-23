@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 """Module containing the MakeNdx class and the command line interface."""
-import os
 import argparse
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
@@ -93,7 +92,8 @@ class MakeNdx(BiobbObject):
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}\nq\n')
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         # Create command line
