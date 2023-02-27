@@ -31,6 +31,7 @@ jobs:
           environment-file: .github/env.yaml
           extra-specs: |
             pytest
+            pytest-cov
             flake8
       
       - name: List installed package versions
@@ -40,14 +41,24 @@ jobs:
       - name: Lint with flake8
         shell: bash -l {0}  # necessary for conda env to be active
         run: |
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # Exit-zero treats all errors as warnings.
-          # E226 Missing whitespace around arithmetic operator
-          # C901 Function is too complex
-          flake8 . --exclude=docs --ignore=C901,E226 --count --exit-zero --max-complexity=10 --max-line-length=999 --statistics
-      
+          # F Codes: https://flake8.pycqa.org/en/latest/user/error-codes.html
+          # E Code: https://pycodestyle.pycqa.org/en/latest/intro.html#error-codes
 
+          # Workflow fails: Stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+          # Exit-zero treats all errors as warnings, workflow will not fail:
+          flake8 . --exclude=docs --ignore=C901,E226 --count --exit-zero --max-complexity=10 --max-line-length=999 --statistics
+
+      - name: Run tests
+        shell: bash -l {0}  # necessary for conda env to be active
+        run: |
+          # ignore iotools & forecast; those tests are run in a separate workflow
+          pytest biobb_gromacs/test/unitests/ --cov=./ --cov-report=xml --ignore-glob=*docker.py --ignore-glob=*singularity.py
+          
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+      
       - name: Restore .bash_profile
         run: cp ~/.bash_profile_orig ~/.bash_profile
 
