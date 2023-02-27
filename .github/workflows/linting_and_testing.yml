@@ -50,11 +50,17 @@ jobs:
           # Exit-zero treats all errors as warnings, workflow will not fail:
           flake8 . --exclude=docs --ignore=C901,E226 --count --exit-zero --max-complexity=10 --max-line-length=999 --statistics
 
+      - name: Checkout biobb_common
+        uses: actions/checkout@v3
+        with:
+          repository: bioexcel/biobb_common
+          path: './biobb_common'
+
       - name: Run tests
         shell: bash -l {0}  # necessary for conda env to be active
         run: |
           # Ignoring docker and singularity tests
-          export PYTHONPATH=.::$PYTHONPATH
+          export PYTHONPATH=.:./biobb_common:$PYTHONPATH
           pytest biobb_gromacs/test/unitests/ --cov=./ --cov-report=xml --ignore-glob=*docker.py --ignore-glob=*singularity.py
 
       - name: Upload coverage reports to Codecov
