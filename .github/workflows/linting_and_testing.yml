@@ -1,11 +1,9 @@
 name: Tests
 
-on: workflow_dispatch
-  # push:
-  #   branches: [ master ]
-
-  # Allows to run this workflow manually from the Actions tab
-  
+on: 
+  # workflow_dispatch
+  push:
+   branches: [ master ]
 
 jobs:
   # Name of the Job
