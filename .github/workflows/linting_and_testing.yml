@@ -1,4 +1,4 @@
-name: linting_and_testing
+name: Tests
 
 on: workflow_dispatch
   # push:
