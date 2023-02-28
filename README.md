@@ -3,7 +3,7 @@
 <!---[![](https://img.shields.io/badge/docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs?tab=tags)
 [![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:3.9.0--pyhdfd78af_0)-->
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![linting_and_testing](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yml/badge.svg)](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yml)
+[![Tests](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yml/badge.svg)](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yml)
 [![codecov](https://codecov.io/github/bioexcel/biobb_gromacs/branch/master/graph/badge.svg?token=N3PQ4PQ6B9)](https://codecov.io/github/bioexcel/biobb_gromacs)
 
 # biobb_gromacs
