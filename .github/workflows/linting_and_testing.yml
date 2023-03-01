@@ -61,8 +61,6 @@ jobs:
           export PYTHONPATH=.:./biobb_common:$PYTHONPATH
           # Producction one
           pytest biobb_gromacs/test/unitests/ --cov=./ --cov-report=xml --ignore-glob=*docker.py --ignore-glob=*singularity.py
-          # Testing one
-          # pytest biobb_gromacs/test/unitests/ --cov=./ --cov-report=xml --ignore-glob=*mdrun*.py --ignore-glob=*genion.py --ignore-glob=*docker.py --ignore-glob=*singularity.py
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
