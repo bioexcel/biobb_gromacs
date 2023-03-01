@@ -149,7 +149,12 @@ class GromppMdrun(BiobbObject):
             fu.log(f'MDRun return code: {mdrun_return_code}', self.out_log, self.global_log)
         else:
             return 1
+        
+        # Remove temporal files
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), Path(self.output_tpr_path).parent])
+        self.remove_tmp_files()
 
+        self.check_arguments(output_files_created=True, raise_exception=False)
         return mdrun_return_code
 
 
