@@ -2,11 +2,11 @@
 [![](https://codecov.io/gh/bioexcel/biobb_gromacs/graph/badge.svg?token=N3PQ4PQ6B9)](https://codecov.io/gh/bioexcel/biobb_gromacs)
 [![](https://readthedocs.org/projects/biobb-gromacs/badge/?version=latest)](https://biobb-gromacs.readthedocs.io/en/latest/?badge=latest)
 
-[![](https://img.shields.io/badge/Install%20with-bioconda-brightgreen.svg?style=flat)](https://anaconda.org/bioconda/biobb_gromacs)
+[![](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](https://anaconda.org/bioconda/biobb_gromacs)
 [![](https://img.shields.io/badge/docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs?tab=tags)
 [![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:3.9.0--pyhdfd78af_0)
 
-[![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # biobb_gromacs
 
