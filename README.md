@@ -1,4 +1,4 @@
-[![](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yml/badge.svg)](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yml)
+[![](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml/badge.svg)](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml)
 [![](https://codecov.io/gh/bioexcel/biobb_gromacs/branch/master/graph/badge.svg?token=N3PQ4PQ6B9)](https://codecov.io/gh/bioexcel/biobb_gromacs)
 [![](https://readthedocs.org/projects/biobb-gromacs/badge/?version=latest)](https://biobb-gromacs.readthedocs.io/en/latest/?badge=latest)
 
