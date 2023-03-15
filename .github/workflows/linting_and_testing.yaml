@@ -1,7 +1,5 @@
 name: tests
 
-name: tests
-
 on: 
   # workflow_dispatch
   push:
