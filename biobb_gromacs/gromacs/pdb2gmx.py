@@ -101,12 +101,12 @@ class Pdb2gmx(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` object."""
 
-        if self.his:
-            self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.his}')
-
         # Setup Biobb
         if self.check_restart():
             return 0
+        
+        if self.his:
+            self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.his}')
         self.stage_files()
 
         internal_top_name = fu.create_name(prefix=self.prefix, step=self.step, name=self.internal_top_name)
@@ -155,7 +155,7 @@ class Pdb2gmx(BiobbObject):
         fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=internal_top_name, out_log=self.out_log)
 
         # Remove temporal files
-        self.tmp_files.extend([self.internal_top_name, self.internal_itp_name, self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path")])
+        self.tmp_files.extend([self.internal_top_name, self.internal_itp_name, self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path"), self.stage_io_dict["in"]["stdin_file_path"]])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)

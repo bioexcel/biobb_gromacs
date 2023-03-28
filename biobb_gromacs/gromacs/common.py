@@ -21,7 +21,7 @@ def get_gromacs_version(gmx: str = "gmx") -> int:
     out_log, err_log = fu.get_logs(path=unique_dir, can_write_console=False)
     cmd = [gmx, "-version"]
     try:
-        cmd_wrapper.CmdWrapper(cmd, out_log, err_log).launch()
+        cmd_wrapper.CmdWrapper(cmd=cmd, out_log=out_log, err_log=err_log).launch()
         pattern = re.compile(r"GROMACS version:\s+(.+)")
         with open(Path(unique_dir).joinpath('log.out')) as log_file:
             for line in log_file:
