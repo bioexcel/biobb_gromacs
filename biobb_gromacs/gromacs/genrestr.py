@@ -133,7 +133,7 @@ class Genrestr(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path"), self.stage_io_dict["in"]["stdin_file_path"]])
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path")])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
