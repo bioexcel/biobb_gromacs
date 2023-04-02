@@ -68,7 +68,7 @@ jobs:
 
           # Exit-zero treats all errors as warnings, workflow will not fail:
           flake8 . --exclude=docs --ignore=C901,E226 --count --exit-zero --max-complexity=10 --max-line-length=999 --statistics --format=html --htmldir=./reports/flake8/ --tee --output-file=./reports/flake8/flake8stats.txt
-          
+
       - name: Upload flake8 report
         uses: actions/upload-artifact@v3
         with:
@@ -84,7 +84,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: flake8stats.txt
-          path: ./reports/flake8/flake8.svg
+          path: ./reports/flake8/flake8-badge.svg
 
       - name: Checkout biobb_common
         uses: actions/checkout@v3
