@@ -15,7 +15,7 @@
 [![](https://zenodo.org/badge/DOI/10.1038/s41597-019-0177-4.svg)](https://doi.org/10.1038/s41597-019-0177-4)
 [![](https://img.shields.io/endpoint?color=brightgreen&url=https%3A%2F%2Fapi.juleskreuer.eu%2Fcitation-badge.php%3Fshield%26doi%3D10.1038%2Fs41597-019-0177-4)](https://www.nature.com/articles/s41597-019-0177-4#citeas)
 
-[![](https://docs.bioexcel.eu/biobb_gromacs/junit/testsbadge.svg)](https://docs.bioexcel.eu/biobb_gromacs/junit/)
+[![](https://docs.bioexcel.eu/biobb_gromacs/junit/testsbadge.svg)](https://docs.bioexcel.eu/biobb_gromacs/junit/report.html)
 [![](https://docs.bioexcel.eu/biobb_gromacs/coverage/coveragebadge.svg)](https://docs.bioexcel.eu/biobb_gromacs/coverage/)
 [![](https://docs.bioexcel.eu/biobb_gromacs/flake8/flake8badge.svg)](https://docs.bioexcel.eu/biobb_gromacs/flake8/)
 [![](https://img.shields.io/github/last-commit/bioexcel/biobb_gromacs?label=Last%20Commit)]()
