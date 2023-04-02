@@ -1,3 +1,28 @@
+[![](https://img.shields.io/github/v/tag/bioexcel/biobb_gromacs?label=Version)](https://GitHub.com/bioexcel/biobb_gromacs/tags/)
+[![](https://img.shields.io/pypi/v/biobb-gromacs.svg?label=Pypi)](https://pypi.python.org/pypi/biobb-gromacs/)
+[![](https://img.shields.io/conda/vn/bioconda/biobb_gromacs?label=Conda)](https://anaconda.org/bioconda/biobb_gromacs)
+[![](https://img.shields.io/badge/Docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs?tab=tags)
+[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:4.0.0--pyhdfd78af_0)
+
+[![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)]()
+[![](https://img.shields.io/pypi/pyversions/biobb-common.svg?label=Python%20Versions)]()
+[![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![](https://img.shields.io/badge/Open%20Source%3f-Yes!-blue)]()
+
+[![](https://readthedocs.org/projects/biobb-common/badge/?version=latest&label=Docs)](https://biobb-common.readthedocs.io/en/latest/?badge=latest)
+[![](https://img.shields.io/website?down_message=Offline&label=Biobb%20Website&up_message=Online&url=https%3A%2F%2Fmmb.irbbarcelona.org%2Fbiobb%2F)]()
+[![](https://img.shields.io/badge/Youtube-tutorial-blue?logo=youtube&logoColor=red)](https://www.youtube.com/watch?v=ou1DOGNs0xM)
+[![](https://zenodo.org/badge/DOI/10.1038/s41597-019-0177-4.svg)](https://doi.org/10.1038/s41597-019-0177-4)
+[![](https://img.shields.io/endpoint?color=brightgreen&url=https%3A%2F%2Fapi.juleskreuer.eu%2Fcitation-badge.php%3Fshield%26doi%3D10.1038%2Fs41597-019-0177-4)](https://www.nature.com/articles/s41597-019-0177-4#citeas)
+
+[![](https://img.shields.io/badge/Tests-Passing-brightgreen)]()
+[![](https://img.shields.io/badge/Coverage-90%25-brightgreen)]()
+[![](https://img.shields.io/github/last-commit/bioexcel/biobb_gromacs?label=Last%20Commit)]()
+[![](https://img.shields.io/github/issues/bioexcel/biobb_gromacs.svg?color=brightgreen&label=Issues)](https://GitHub.com/bioexcel/biobb_gromacs/issues/)
+
+[![Flake8 Status](./reports/flake8/flake8-badge.svg?dummy=8484744)](./reports/flake8/index.html)
+
+<!--
 [![](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml/badge.svg)](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml)
 [![](https://codecov.io/gh/bioexcel/biobb_gromacs/branch/master/graph/badge.svg?token=N3PQ4PQ6B9)](https://codecov.io/gh/bioexcel/biobb_gromacs)
 [![](https://readthedocs.org/projects/biobb-gromacs/badge/?version=latest)](https://biobb-gromacs.readthedocs.io/en/latest/?badge=latest)
@@ -7,7 +32,7 @@
 [![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:3.9.0--pyhdfd78af_0)
 
 [![](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
+-->
 # biobb_gromacs
 
 ### Introduction

@@ -146,6 +146,8 @@ class Mdrun(BiobbObject):
         if self.stage_io_dict["out"].get("output_xtc_path"):
             self.cmd.append('-x')
             self.cmd.append(self.stage_io_dict["out"]["output_xtc_path"])
+        else:
+            self.tmp_files.append('traj_comp.xtc')
         if self.stage_io_dict["out"].get("output_cpt_path"):
             self.cmd.append('-cpo')
             self.cmd.append(self.stage_io_dict["out"]["output_cpt_path"])

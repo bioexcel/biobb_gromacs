@@ -44,6 +44,11 @@ jobs:
             pytest
             pytest-cov
             flake8
+            pip
+      
+      - name: List installed package versions
+        shell: bash -l {0}  # necessary for conda env to be active
+        run: pip install genbadge[all]
       
       - name: List installed package versions
         shell: bash -l {0}  # necessary for conda env to be active
@@ -57,9 +62,29 @@ jobs:
 
           # Workflow fails: Stop the build if there are Python syntax errors or undefined names
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          
+          # Create directory for flake8 reports
+          mkdir -p ./reports/flake8
 
           # Exit-zero treats all errors as warnings, workflow will not fail:
-          flake8 . --exclude=docs --ignore=C901,E226 --count --exit-zero --max-complexity=10 --max-line-length=999 --statistics
+          flake8 . --exclude=docs --ignore=C901,E226 --count --exit-zero --max-complexity=10 --max-line-length=999 --statistics --format=html --htmldir ./reports/flake8 --tee --output-file flake8stats.txt
+
+      - name: Upload flake8 report
+        uses: actions/upload-artifact@v3
+        with:
+          name: flake8stats.txt
+          path: ./reports/flake8/flake8stats.txt
+      
+      - name: Generate badge
+        shell: bash -l {0}  # necessary for conda env to be active
+        run: |
+          genbadge flake8
+
+      - name: Upload flake8 badge
+        uses: actions/upload-artifact@v3
+        with:
+          name: flake8stats.txt
+          path: ./reports/flake8/flake8.svg
 
       - name: Checkout biobb_common
         uses: actions/checkout@v3
