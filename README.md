@@ -15,12 +15,13 @@
 [![](https://zenodo.org/badge/DOI/10.1038/s41597-019-0177-4.svg)](https://doi.org/10.1038/s41597-019-0177-4)
 [![](https://img.shields.io/endpoint?color=brightgreen&url=https%3A%2F%2Fapi.juleskreuer.eu%2Fcitation-badge.php%3Fshield%26doi%3D10.1038%2Fs41597-019-0177-4)](https://www.nature.com/articles/s41597-019-0177-4#citeas)
 
-[![](https://img.shields.io/badge/Tests-Passing-brightgreen)]()
-[![](https://img.shields.io/badge/Coverage-90%25-brightgreen)]()
+[![](https://docs.bioexcel.eu/biobb_gromacs/junit/testsbadge.svg)](https://docs.bioexcel.eu/biobb_gromacs/junit/)
+[![](https://docs.bioexcel.eu/biobb_gromacs/coverage/coveragebadge.svg)](https://docs.bioexcel.eu/biobb_gromacs/coverage/)
+[![](https://docs.bioexcel.eu/biobb_gromacs/flake8/flake8badge.svg)](https://docs.bioexcel.eu/biobb_gromacs/flake8/)
 [![](https://img.shields.io/github/last-commit/bioexcel/biobb_gromacs?label=Last%20Commit)]()
 [![](https://img.shields.io/github/issues/bioexcel/biobb_gromacs.svg?color=brightgreen&label=Issues)](https://GitHub.com/bioexcel/biobb_gromacs/issues/)
 
-[![Flake8 Status](./reports/flake8/flake8-badge.svg?dummy=8484744)](./reports/flake8/index.html)
+
 
 <!--
 [![](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml/badge.svg)](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml)

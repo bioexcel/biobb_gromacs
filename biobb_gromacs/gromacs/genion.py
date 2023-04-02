@@ -107,7 +107,7 @@ class Genion(BiobbObject):
         # Setup Biobb
         if self.check_restart():
             return 0
-        
+
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.replaced_group}')
         self.stage_files()
 
