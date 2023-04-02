@@ -1,8 +1,0 @@
-{
-  "properties": {
-    "his": "0 0 1 1 0 0 0",
-    "container_path": "docker",
-    "container_image": "gromacs/gromacs:2022.2",
-    "container_volume_path": "/inout"
-  }
-}

@@ -1,4 +1,0 @@
-properties:
-  container_image: gromacs/gromacs:2022.2
-  container_path: docker
-  container_volume_path: /tmp
