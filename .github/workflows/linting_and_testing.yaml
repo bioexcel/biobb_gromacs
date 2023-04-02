@@ -43,6 +43,7 @@ jobs:
             python=${{ matrix.python-version }}
             pytest
             pytest-cov
+            pytest-html
             flake8
             pip
       
@@ -90,7 +91,7 @@ jobs:
           mkdir -p ./reports/junit
 
           # Producction one
-          pytest biobb_gromacs/test/unitests/ --cov=./ --cov-report=xml --ignore-glob=*docker.py --ignore-glob=*singularity.py --junitxml=reports/junit/junit.xml --html=./reports/junit/report.html
+          pytest biobb_gromacs/test/unitests/ --cov=./ --cov-report=xml --ignore-glob=*docker.py --ignore-glob=*singularity.py --junit-xml=./preports/junit/junit.xml --html=./reports/junit/report.html
 
       - name: Generate Tests badge
         shell: bash -l {0}  # necessary for conda env to be active
