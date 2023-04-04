@@ -47,7 +47,7 @@ jobs:
             flake8
             pip
       
-      - name: List installed package versions
+      - name: Install genbadge from pip
         shell: bash -l {0}  # necessary for conda env to be active
         run: pip install genbadge[all]
       
@@ -91,7 +91,7 @@ jobs:
           mkdir -p ./reports/junit
 
           # Producction one
-          pytest biobb_gromacs/test/unitests/ --cov=./ --cov-report=xml --ignore-glob=*docker.py --ignore-glob=*singularity.py --junit-xml=./reports/junit/junit.xml --html=./reports/junit/report.html
+          pytest biobb_gromacs/test/unitests/ --cov=./ --cov-report=xml --ignore-glob=*container.py --ignore-glob=*docker.py --ignore-glob=*singularity.py --junit-xml=./reports/junit/junit.xml --html=./reports/junit/report.html
 
       - name: Generate Tests badge
         shell: bash -l {0}  # necessary for conda env to be active

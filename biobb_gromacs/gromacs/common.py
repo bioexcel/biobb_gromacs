@@ -71,6 +71,10 @@ def gmx_check(file_a: str, file_b: str, gmx: str = 'gmx') -> bool:
     print("Result file: %s" % str(Path(check_result).resolve()))
     with open(check_result) as check_file:
         for line_num, line in enumerate(check_file):
+            if not line.rstrip():
+                continue
+            if line.startswith("Both files read correctly"):
+                continue
             if not line.startswith('comparing'):
                 print('Discrepance found in line %d: %s' % (line_num, line))
                 return False
