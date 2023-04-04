@@ -1,12 +1,26 @@
-[![](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml/badge.svg)](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml)
-[![](https://codecov.io/gh/bioexcel/biobb_gromacs/branch/master/graph/badge.svg?token=N3PQ4PQ6B9)](https://codecov.io/gh/bioexcel/biobb_gromacs)
-[![](https://readthedocs.org/projects/biobb-gromacs/badge/?version=latest)](https://biobb-gromacs.readthedocs.io/en/latest/?badge=latest)
+[![](https://img.shields.io/github/v/tag/bioexcel/biobb_gromacs?label=Version)](https://GitHub.com/bioexcel/biobb_gromacs/tags/)
+[![](https://img.shields.io/pypi/v/biobb-gromacs.svg?label=Pypi)](https://pypi.python.org/pypi/biobb-gromacs/)
+[![](https://img.shields.io/conda/vn/bioconda/biobb_gromacs?label=Conda)](https://anaconda.org/bioconda/biobb_gromacs)
+[![](https://img.shields.io/badge/Docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs?tab=tags)
+[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:4.0.0--pyhdfd78af_0)
 
-[![](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](https://anaconda.org/bioconda/biobb_gromacs)
-[![](https://img.shields.io/badge/docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs?tab=tags)
-[![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:3.9.0--pyhdfd78af_0)
+[![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)]()
+[![](https://img.shields.io/pypi/pyversions/biobb-common.svg?label=Python%20Versions)]()
+[![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![](https://img.shields.io/badge/Open%20Source%3f-Yes!-blue)]()
 
-[![](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![](https://readthedocs.org/projects/biobb-common/badge/?version=latest&label=Docs)](https://biobb-common.readthedocs.io/en/latest/?badge=latest)
+[![](https://img.shields.io/website?down_message=Offline&label=Biobb%20Website&up_message=Online&url=https%3A%2F%2Fmmb.irbbarcelona.org%2Fbiobb%2F)]()
+[![](https://img.shields.io/badge/Youtube-tutorial-blue?logo=youtube&logoColor=red)](https://www.youtube.com/watch?v=ou1DOGNs0xM)
+[![](https://zenodo.org/badge/DOI/10.1038/s41597-019-0177-4.svg)](https://doi.org/10.1038/s41597-019-0177-4)
+[![](https://img.shields.io/endpoint?color=brightgreen&url=https%3A%2F%2Fapi.juleskreuer.eu%2Fcitation-badge.php%3Fshield%26doi%3D10.1038%2Fs41597-019-0177-4)](https://www.nature.com/articles/s41597-019-0177-4#citeas)
+
+[![](https://docs.bioexcel.eu/biobb_gromacs/junit/testsbadge.svg)](https://docs.bioexcel.eu/biobb_gromacs/junit/report.html)
+[![](https://docs.bioexcel.eu/biobb_gromacs/coverage/coveragebadge.svg)](https://docs.bioexcel.eu/biobb_gromacs/coverage/)
+[![](https://docs.bioexcel.eu/biobb_gromacs/flake8/flake8badge.svg)](https://docs.bioexcel.eu/biobb_gromacs/flake8/)
+[![](https://img.shields.io/github/last-commit/bioexcel/biobb_gromacs?label=Last%20Commit)]()
+[![](https://img.shields.io/github/issues/bioexcel/biobb_gromacs.svg?color=brightgreen&label=Issues)](https://GitHub.com/bioexcel/biobb_gromacs/issues/)
+
 
 # biobb_gromacs
 
@@ -19,7 +33,7 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb-gromacs.readthedocs.io/en/latest/).
 
 ### Version
-v3.9.0 2022.4
+v4.0.0 2022.4
 
 ### Installation
 Using PIP:
@@ -29,7 +43,7 @@ Using PIP:
 * Installation:
 
 
-        pip install "biobb_gromacs>=3.9.0"
+        pip install "biobb_gromacs>=4.0.0"
 
 
 * Usage: [Python API documentation](https://biobb-gromacs.readthedocs.io/en/latest/modules.html)
@@ -39,7 +53,7 @@ Using ANACONDA:
 * Installation:
 
 
-        conda install -c bioconda "biobb_gromacs>=3.9.0"
+        conda install -c bioconda "biobb_gromacs>=4.0.0"
 
 
 * Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-gromacs.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-gromacs.readthedocs.io/en/latest/command_line.html)
@@ -49,13 +63,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_gromacs:3.9.0--pyhdfd78af_0
+        docker pull quay.io/biocontainers/biobb_gromacs:4.0.0--pyhdfd78af_0
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_gromacs:3.9.0--pyhdfd78af_0 <command>
+        docker run quay.io/biocontainers/biobb_gromacs:4.0.0--pyhdfd78af_0 <command>
 
 
 Using SINGULARITY:
@@ -65,7 +79,7 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull --name biobb_gromacs.sif https://depot.galaxyproject.org/singularity/biobb_gromacs:3.9.0--pyhdfd78af_0
+        singularity pull --name biobb_gromacs.sif https://depot.galaxyproject.org/singularity/biobb_gromacs:4.0.0--pyhdfd78af_0
 
 
 * Usage:
@@ -87,4 +101,3 @@ Licensed under the
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), see the file LICENSE for details.
 
 ![](https://bioexcel.eu/wp-content/uploads/2019/04/Bioexcell_logo_1080px_transp.png "Bioexcel")
-

@@ -22,18 +22,6 @@
 [![](https://img.shields.io/github/issues/bioexcel/biobb_gromacs.svg?color=brightgreen&label=Issues)](https://GitHub.com/bioexcel/biobb_gromacs/issues/)
 
 
-
-<!--
-[![](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml/badge.svg)](https://github.com/bioexcel/biobb_gromacs/actions/workflows/linting_and_testing.yaml)
-[![](https://codecov.io/gh/bioexcel/biobb_gromacs/branch/master/graph/badge.svg?token=N3PQ4PQ6B9)](https://codecov.io/gh/bioexcel/biobb_gromacs)
-[![](https://readthedocs.org/projects/biobb-gromacs/badge/?version=latest)](https://biobb-gromacs.readthedocs.io/en/latest/?badge=latest)
-
-[![](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](https://anaconda.org/bioconda/biobb_gromacs)
-[![](https://img.shields.io/badge/docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs?tab=tags)
-[![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:3.9.0--pyhdfd78af_0)
-
-[![](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
--->
 # biobb_gromacs
 
 ### Introduction
@@ -45,7 +33,7 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb-gromacs.readthedocs.io/en/latest/).
 
 ### Version
-v3.9.0 2022.4
+v4.0.0 2022.4
 
 ### Installation
 Using PIP:
@@ -55,7 +43,7 @@ Using PIP:
 * Installation:
 
 
-        pip install "biobb_gromacs>=3.9.0"
+        pip install "biobb_gromacs>=4.0.0"
 
 
 * Usage: [Python API documentation](https://biobb-gromacs.readthedocs.io/en/latest/modules.html)
@@ -65,7 +53,7 @@ Using ANACONDA:
 * Installation:
 
 
-        conda install -c bioconda "biobb_gromacs>=3.9.0"
+        conda install -c bioconda "biobb_gromacs>=4.0.0"
 
 
 * Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-gromacs.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-gromacs.readthedocs.io/en/latest/command_line.html)
@@ -75,13 +63,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_gromacs:3.9.0--pyhdfd78af_0
+        docker pull quay.io/biocontainers/biobb_gromacs:4.0.0--pyhdfd78af_0
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_gromacs:3.9.0--pyhdfd78af_0 <command>
+        docker run quay.io/biocontainers/biobb_gromacs:4.0.0--pyhdfd78af_0 <command>
 
 
 Using SINGULARITY:
@@ -91,7 +79,7 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull --name biobb_gromacs.sif https://depot.galaxyproject.org/singularity/biobb_gromacs:3.9.0--pyhdfd78af_0
+        singularity pull --name biobb_gromacs.sif https://depot.galaxyproject.org/singularity/biobb_gromacs:4.0.0--pyhdfd78af_0
 
 
 * Usage:

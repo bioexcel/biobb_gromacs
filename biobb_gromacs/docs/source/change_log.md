@@ -1,5 +1,12 @@
 # Biobb GROMACS changelog
 
+## What's new in version [4.0.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v4.0.0)?
+
+### New features
+
+* New biobb_common new properties and features there.
+* New GROMACS default version 2022.4
+
 
 ## What's new in version [3.9.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v3.9.0)?
 
