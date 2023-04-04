@@ -5,11 +5,11 @@
 [![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:4.0.0--pyhdfd78af_0)
 
 [![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)]()
-[![](https://img.shields.io/pypi/pyversions/biobb-common.svg?label=Python%20Versions)]()
+[![](https://img.shields.io/pypi/pyversions/biobb-gromacs.svg?label=Python%20Versions)]()
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![](https://img.shields.io/badge/Open%20Source%3f-Yes!-blue)]()
 
-[![](https://readthedocs.org/projects/biobb-common/badge/?version=latest&label=Docs)](https://biobb-common.readthedocs.io/en/latest/?badge=latest)
+[![](https://readthedocs.org/projects/biobb-gromacs/badge/?version=latest&label=Docs)](https://biobb-gromacs.readthedocs.io/en/latest/?badge=latest)
 [![](https://img.shields.io/website?down_message=Offline&label=Biobb%20Website&up_message=Online&url=https%3A%2F%2Fmmb.irbbarcelona.org%2Fbiobb%2F)]()
 [![](https://img.shields.io/badge/Youtube-tutorial-blue?logo=youtube&logoColor=red)](https://www.youtube.com/watch?v=ou1DOGNs0xM)
 [![](https://zenodo.org/badge/DOI/10.1038/s41597-019-0177-4.svg)](https://doi.org/10.1038/s41597-019-0177-4)
