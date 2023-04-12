@@ -3,7 +3,7 @@
 [![](https://img.shields.io/conda/vn/bioconda/biobb_gromacs?label=Conda)](https://anaconda.org/bioconda/biobb_gromacs)
 [![](https://img.shields.io/conda/dn/bioconda/biobb_gromacs?label=Conda%20Downloads)](https://anaconda.org/bioconda/biobb_gromacs)
 [![](https://img.shields.io/badge/Docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs?tab=tags)
-[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:4.0.0--pyhdfd78af_0)
+[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:4.0.0--pyhdfd78af_1)
 
 [![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)](https://github.com/bioexcel/biobb_gromacs)
 [![](https://img.shields.io/pypi/pyversions/biobb-gromacs.svg?label=Python%20Versions)](https://pypi.org/project/biobb-gromacs/)
@@ -64,13 +64,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_gromacs:4.0.0--pyhdfd78af_0
+        docker pull quay.io/biocontainers/biobb_gromacs:4.0.0--pyhdfd78af_1
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_gromacs:4.0.0--pyhdfd78af_0 <command>
+        docker run quay.io/biocontainers/biobb_gromacs:4.0.0--pyhdfd78af_1 <command>
 
 
 Using SINGULARITY:
@@ -80,7 +80,7 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull --name biobb_gromacs.sif https://depot.galaxyproject.org/singularity/biobb_gromacs:4.0.0--pyhdfd78af_0
+        singularity pull --name biobb_gromacs.sif https://depot.galaxyproject.org/singularity/biobb_gromacs:4.0.0--pyhdfd78af_1
 
 
 * Usage:
