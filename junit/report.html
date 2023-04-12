@@ -253,7 +253,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 12-Apr-2023 at 18:08:19 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
+    <p>Report generated on 12-Apr-2023 at 18:12:05 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -264,15 +264,15 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <td>{"pluggy": "1.0.0", "pytest": "7.3.0"}</td></tr>
       <tr>
         <td>Platform</td>
-        <td>Linux-5.4.0-139-generic-x86_64-with-glibc2.31</td></tr>
+        <td>Linux-5.4.0-139-generic-x86_64-with-glibc2.10</td></tr>
       <tr>
         <td>Plugins</td>
         <td>{"cov": "4.0.0", "html": "3.2.0", "metadata": "2.0.4"}</td></tr>
       <tr>
         <td>Python</td>
-        <td>3.9.16</td></tr></table>
+        <td>3.8.16</td></tr></table>
     <h2>Summary</h2>
-    <p>14 tests ran in 184.57 seconds. </p>
+    <p>14 tests ran in 184.94 seconds. </p>
     <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">14 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
@@ -296,11 +296,11 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 Comparing ignoring first line of both files:
      FILE_A: /tmp/biobb/unitests_40/editconf/output_gro.gro
      FILE_B: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_editconf.gro
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     1827274e-dc7b-4f77-a73a-f61703a965ec/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     ba642813-a637-48b5-964f-7ce103f0c2f7/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     1827274e-dc7b-4f77-a73a-f61703a965ec/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     ba642813-a637-48b5-964f-7ce103f0c2f7/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     1827274e-dc7b-4f77-a73a-f61703a965ec/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     ba642813-a637-48b5-964f-7ce103f0c2f7/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -331,12 +331,12 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.editconf Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/editconf.gro to /tmp/biobb/unitests_40/editconf/6ee2df77-e434-4f22-96e1-60092971eb03
+INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/editconf.gro to /tmp/biobb/unitests_40/editconf/79206605-4e6e-4e06-83b3-8379aee13762
 INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:file_utils.py:346 Distance of the box to molecule:   1.00
 INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:file_utils.py:346 Centering molecule in the box.
 INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:file_utils.py:346 Box type: cubic
 INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:file_utils.py:346 GROMACS Editconf 20222 version detected
-INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright editconf -f /tmp/biobb/unitests_40/editconf/6ee2df77-e434-4f22-96e1-60092971eb03/editconf.gro -o /tmp/biobb/unitests_40/editconf/6ee2df77-e434-4f22-96e1-60092971eb03/output_gro.gro -bt cubic -d 1.0 -c
+INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright editconf -f /tmp/biobb/unitests_40/editconf/79206605-4e6e-4e06-83b3-8379aee13762/editconf.gro -o /tmp/biobb/unitests_40/editconf/79206605-4e6e-4e06-83b3-8379aee13762/output_gro.gro -bt cubic -d 1.0 -c
 
 INFO     /tmp/biobb/unitests_40/editconf/editconf_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -362,17 +362,17 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/editconf
 Command line:
-  gmx -nobackup -nocopyright editconf -f /tmp/biobb/unitests_40/editconf/6ee2df77-e434-4f22-96e1-60092971eb03/editconf.gro -o /tmp/biobb/unitests_40/editconf/6ee2df77-e434-4f22-96e1-60092971eb03/output_gro.gro -bt cubic -d 1.0 -c
+  gmx -nobackup -nocopyright editconf -f /tmp/biobb/unitests_40/editconf/79206605-4e6e-4e06-83b3-8379aee13762/editconf.gro -o /tmp/biobb/unitests_40/editconf/79206605-4e6e-4e06-83b3-8379aee13762/output_gro.gro -bt cubic -d 1.0 -c
 
 
-GROMACS reminds you: &quot;The great tragedy of science - the slaying of a beautiful hypothesis by an ugly fact.&quot; (Thomas Henry Huxley)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+GROMACS reminds you: &quot;It Just Tastes Better&quot; (Burger King)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_genion.py::TestGenion::test_genion</td>
-          <td class="col-duration">0.20</td>
+          <td class="col-duration">0.19</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -390,11 +390,11 @@ Comparing size of both files:
      SIZE_A: 375866 bytes
      SIZE_B: 375866 bytes
      TOLERANCE: 1.0%, Low: 372107.34 bytes, High: 379624.66 bytes
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     84ce8d92-676b-456f-a3a0-a045761383c1/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     66ef6518-cd54-4c44-b46d-3026e0ed1bcc/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     84ce8d92-676b-456f-a3a0-a045761383c1/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     66ef6518-cd54-4c44-b46d-3026e0ed1bcc/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     84ce8d92-676b-456f-a3a0-a045761383c1/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     66ef6518-cd54-4c44-b46d-3026e0ed1bcc/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -425,19 +425,19 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.genion Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genion.tpr to /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/genion/e473e58f-00a2-4e77-aabf-8b8adfaf8820.stdin to /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genion.tpr to /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/genion/01419d21-646f-4027-b7a2-884a138156e6.stdin to /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:159 Extracting: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genion.zip
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:160 to:
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:161 [&#x27;e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step8_gio_gio.top&#x27;]
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:161 [&#x27;8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step8_gio_gio.top&#x27;]
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:228 Unzipping: 
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:229 /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genion.zip
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:230 To: 
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:232 e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step4_p2g_p2g.itp
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:232 e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step8_gio_gio.top
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:232 8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step4_p2g_p2g.itp
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:232 8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step8_gio_gio.top
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 To reach up 0.05 mol/litre concentration
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 GROMACS Genion 20222 version detected
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright genion -s /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1/genion.tpr -o /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1/output_gro.gro -p e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step8_gio_gio.top -conc 0.05 -seed 1993 &lt; /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1/e473e58f-00a2-4e77-aabf-8b8adfaf8820.stdin
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright genion -s /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9/genion.tpr -o /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9/output_gro.gro -p 8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step8_gio_gio.top -conc 0.05 -seed 1993 &lt; /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9/01419d21-646f-4027-b7a2-884a138156e6.stdin
 
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -446,7 +446,7 @@ Select a continuous group of solvent molecules
 Selected 13: &#x27;SOL&#x27;
 
 Processing topology
-Replacing 44 solute molecules in topology file (e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step8_gio_gio.top)  by 22 NA and 22 CL ions.
+Replacing 44 solute molecules in topology file (8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step8_gio_gio.top)  by 22 NA and 22 CL ions.
 
 INFO     /tmp/biobb/unitests_40/genion/genion_log.err:cmd_wrapper.py:59                 :-) GROMACS - gmx genion, 2022.2-conda_forge (-:
 
@@ -454,10 +454,10 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/genion
 Command line:
-  gmx -nobackup -nocopyright genion -s /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1/genion.tpr -o /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1/output_gro.gro -p e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step8_gio_gio.top -conc 0.05 -seed 1993
+  gmx -nobackup -nocopyright genion -s /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9/genion.tpr -o /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9/output_gro.gro -p 8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step8_gio_gio.top -conc 0.05 -seed 1993
 
-Reading file /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1/genion.tpr, VERSION 5.1.2 (single precision)
-Reading file /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1/genion.tpr, VERSION 5.1.2 (single precision)
+Reading file /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9/genion.tpr, VERSION 5.1.2 (single precision)
+Reading file /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9/genion.tpr, VERSION 5.1.2 (single precision)
 Group     0 (         System) has 71702 elements
 Group     1 (        Protein) has  1196 elements
 Group     2 (      Protein-H) has   618 elements
@@ -521,24 +521,24 @@ Replacing solvent molecule 14301 (atom 44099) with CL
 Replacing solvent molecule 6548 (atom 20840) with CL
 
 
-GROMACS reminds you: &quot;The great tragedy of science - the slaying of a beautiful hypothesis by an ugly fact.&quot; (Thomas Henry Huxley)
+GROMACS reminds you: &quot;It Just Tastes Better&quot; (Burger King)
 
 
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 Compressing topology to: /tmp/biobb/unitests_40/genion/04853a4c-b1b7-42eb-95bd-999d69bb4cb1/output_top_zip.zip
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:188 Ignored file e11fca7d-ffa5-43d9-9e87-bf488da65b8e/amber99sb-ildn.ff/forcefield.itp
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:188 Ignored file e11fca7d-ffa5-43d9-9e87-bf488da65b8e/amber99sb-ildn.ff/spce.itp
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:188 Ignored file e11fca7d-ffa5-43d9-9e87-bf488da65b8e/amber99sb-ildn.ff/ions.itp
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 Compressing topology to: /tmp/biobb/unitests_40/genion/6736077b-6567-4e7f-a720-1e9d04a68ba9/output_top_zip.zip
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:188 Ignored file 8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/amber99sb-ildn.ff/forcefield.itp
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:188 Ignored file 8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/amber99sb-ildn.ff/spce.itp
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:188 Ignored file 8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/amber99sb-ildn.ff/ions.itp
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:137 Adding:
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:138 [&#x27;e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step8_gio_gio.top&#x27;]
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:138 [&#x27;8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step8_gio_gio.top&#x27;]
 INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:139 to: /tmp/biobb/unitests_40/genion/output_top_zip.zip
-INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 Removed: [&#x27;e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;e11fca7d-ffa5-43d9-9e87-bf488da65b8e/A.Lys58Glu_step8_gio_gio.top&#x27;]<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+INFO     /tmp/biobb/unitests_40/genion/genion_log.out:file_utils.py:346 Removed: [&#x27;8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;8c6a8cbf-ebe2-43cb-81b1-8cfcee643f15/A.Lys58Glu_step8_gio_gio.top&#x27;]<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_genrestr.py::TestGenrestr::test_genrestr</td>
-          <td class="col-duration">0.56</td>
+          <td class="col-duration">0.54</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -546,11 +546,11 @@ Removing: /tmp/biobb/unitests_40
 Comparing TOP/ITP:
      FILE_A: /tmp/biobb/unitests_40/genrestr/output_itp.itp
      FILE_B: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_genrestr.itp
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     cc0485e4-c0eb-4db2-a0d5-de0f51ac208b/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     bab27109-6f89-4594-b8f9-c87d4776afea/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     cc0485e4-c0eb-4db2-a0d5-de0f51ac208b/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     bab27109-6f89-4594-b8f9-c87d4776afea/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     cc0485e4-c0eb-4db2-a0d5-de0f51ac208b/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     bab27109-6f89-4594-b8f9-c87d4776afea/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -581,11 +581,11 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.genrestr Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genrestr.gro to /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9
-INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genrestr.ndx to /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9
-INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/genrestr/2e5cb0ba-9549-45bb-8829-c0513f55b10c.stdin to /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9
+INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genrestr.gro to /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40
+INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genrestr.ndx to /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40
+INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/genrestr/5a738ce8-9ac1-4b04-a1a2-2755a37a72fb.stdin to /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40
 INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:file_utils.py:346 GROMACS Genrestr 20222 version detected
-INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright genrestr -f /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9/genrestr.gro -o /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9/output_itp.itp -fc 500 500 500 -n /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9/genrestr.ndx &lt; /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9/2e5cb0ba-9549-45bb-8829-c0513f55b10c.stdin
+INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright genrestr -f /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40/genrestr.gro -o /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40/output_itp.itp -fc 500 500 500 -n /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40/genrestr.ndx &lt; /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40/5a738ce8-9ac1-4b04-a1a2-2755a37a72fb.stdin
 
 INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -598,7 +598,7 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/genrestr
 Command line:
-  gmx -nobackup -nocopyright genrestr -f /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9/genrestr.gro -o /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9/output_itp.itp -fc 500 500 500 -n /tmp/biobb/unitests_40/genrestr/1bd5c428-8937-4c30-8a70-36a30fb013d9/genrestr.ndx
+  gmx -nobackup -nocopyright genrestr -f /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40/genrestr.gro -o /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40/output_itp.itp -fc 500 500 500 -n /tmp/biobb/unitests_40/genrestr/0205ea13-192e-4411-8097-612e2bd35b40/genrestr.ndx
 
 
 Reading structure file
@@ -615,12 +615,12 @@ Group     9 (    SideChain-H) has  7376 elements
 Group    10 (    chA_&amp;_r_513) has    20 elements
 Group    11 (    chB_&amp;_r_513) has    20 elements
 Select a group: 
-GROMACS reminds you: &quot;A tidy laboratory means a lazy chemist.&quot; (J.J. Berzelius)<br/></div></td></tr></tbody>
+GROMACS reminds you: &quot;It Just Tastes Better&quot; (Burger King)<br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_genrestr.py::TestGenrestr::test_genrestr_noNDX</td>
-          <td class="col-duration">0.93</td>
+          <td class="col-duration">0.89</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -628,11 +628,11 @@ GROMACS reminds you: &quot;A tidy laboratory means a lazy chemist.&quot; (J.J. B
 Comparing TOP/ITP:
      FILE_A: /tmp/biobb/unitests_40/genrestr/output_itp.itp
      FILE_B: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_genrestr_noNDX.itp
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     f53e281e-baf6-4303-af6e-bea3adfcd475/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     a9f13558-dcef-4fa4-ac05-013fb77b9836/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     f53e281e-baf6-4303-af6e-bea3adfcd475/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     a9f13558-dcef-4fa4-ac05-013fb77b9836/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     f53e281e-baf6-4303-af6e-bea3adfcd475/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     a9f13558-dcef-4fa4-ac05-013fb77b9836/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -663,10 +663,10 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log1.out:file_utils.py:346 Executing biobb_gromacs.gromacs.genrestr Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log1.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genrestr.gro to /tmp/biobb/unitests_40/genrestr/3e7c22cc-a27f-4d31-ae70-214fa6c97685
-INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log1.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/genrestr/a291589f-1ef9-45cf-91a5-f37e0181cd79.stdin to /tmp/biobb/unitests_40/genrestr/3e7c22cc-a27f-4d31-ae70-214fa6c97685
+INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log1.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/genrestr.gro to /tmp/biobb/unitests_40/genrestr/6d872235-10dc-48a9-841c-a0f8fa53e0cb
+INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log1.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/genrestr/52269604-3d63-43ec-ae93-428148728aa9.stdin to /tmp/biobb/unitests_40/genrestr/6d872235-10dc-48a9-841c-a0f8fa53e0cb
 INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log1.out:file_utils.py:346 GROMACS Genrestr 20222 version detected
-INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log1.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright genrestr -f /tmp/biobb/unitests_40/genrestr/3e7c22cc-a27f-4d31-ae70-214fa6c97685/genrestr.gro -o /tmp/biobb/unitests_40/genrestr/3e7c22cc-a27f-4d31-ae70-214fa6c97685/output_itp.itp -fc 500 500 500 &lt; /tmp/biobb/unitests_40/genrestr/3e7c22cc-a27f-4d31-ae70-214fa6c97685/a291589f-1ef9-45cf-91a5-f37e0181cd79.stdin
+INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log1.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright genrestr -f /tmp/biobb/unitests_40/genrestr/6d872235-10dc-48a9-841c-a0f8fa53e0cb/genrestr.gro -o /tmp/biobb/unitests_40/genrestr/6d872235-10dc-48a9-841c-a0f8fa53e0cb/output_itp.itp -fc 500 500 500 &lt; /tmp/biobb/unitests_40/genrestr/6d872235-10dc-48a9-841c-a0f8fa53e0cb/52269604-3d63-43ec-ae93-428148728aa9.stdin
 
 INFO     /tmp/biobb/unitests_40/genrestr/genrestr_log1.out:cmd_wrapper.py:49 Exit code 0
 
@@ -679,7 +679,7 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/genrestr
 Command line:
-  gmx -nobackup -nocopyright genrestr -f /tmp/biobb/unitests_40/genrestr/3e7c22cc-a27f-4d31-ae70-214fa6c97685/genrestr.gro -o /tmp/biobb/unitests_40/genrestr/3e7c22cc-a27f-4d31-ae70-214fa6c97685/output_itp.itp -fc 500 500 500
+  gmx -nobackup -nocopyright genrestr -f /tmp/biobb/unitests_40/genrestr/6d872235-10dc-48a9-841c-a0f8fa53e0cb/genrestr.gro -o /tmp/biobb/unitests_40/genrestr/6d872235-10dc-48a9-841c-a0f8fa53e0cb/output_itp.itp -fc 500 500 500
 
 
 Reading structure file
@@ -702,14 +702,14 @@ Group    15 (            Ion) has     6 elements
 Group    16 (             NA) has     6 elements
 Group    17 ( Water_and_ions) has 70494 elements
 Select a group: 
-GROMACS reminds you: &quot;A tidy laboratory means a lazy chemist.&quot; (J.J. Berzelius)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+GROMACS reminds you: &quot;It seemed a good idea at first&quot; (Gerrit Groenhof)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_gmxselect.py::TestGmxselect::test_select</td>
-          <td class="col-duration">0.25</td>
+          <td class="col-duration">0.24</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -719,11 +719,11 @@ Comparing:
         File_B: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_select.ndx
         File_A hash: b&#x27;^v&gt;\xac\x07\xf2\tpB+\xc57\xf9X\xc8\xd3\xb6\xaf\xfb{\x18@\xe7\x8e\xaeF\x00b\xea\xc8\x19$&#x27;
         File_B hash: b&#x27;^v&gt;\xac\x07\xf2\tpB+\xc57\xf9X\xc8\xd3\xb6\xaf\xfb{\x18@\xe7\x8e\xaeF\x00b\xea\xc8\x19$&#x27;
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     1204474c-5b4d-47d4-ad88-2cecfa6c93ae/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     73dbf14c-3ab9-4a0c-b336-c1ea6af83f9b/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     1204474c-5b4d-47d4-ad88-2cecfa6c93ae/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     73dbf14c-3ab9-4a0c-b336-c1ea6af83f9b/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     1204474c-5b4d-47d4-ad88-2cecfa6c93ae/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     73dbf14c-3ab9-4a0c-b336-c1ea6af83f9b/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -754,9 +754,9 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/gmxselect/gmxselect_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.gmxselect Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/gmxselect/gmxselect_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/make_ndx.tpr to /tmp/biobb/unitests_40/gmxselect/224e17b7-789b-427d-9212-e3fe72228459
+INFO     /tmp/biobb/unitests_40/gmxselect/gmxselect_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/make_ndx.tpr to /tmp/biobb/unitests_40/gmxselect/855b2258-a019-41be-946d-4ecb93f433fa
 INFO     /tmp/biobb/unitests_40/gmxselect/gmxselect_log.out:file_utils.py:346 GROMACS Gmxselect 20222 version detected
-INFO     /tmp/biobb/unitests_40/gmxselect/gmxselect_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright select -s /tmp/biobb/unitests_40/gmxselect/224e17b7-789b-427d-9212-e3fe72228459/make_ndx.tpr -on /tmp/biobb/unitests_40/gmxselect/224e17b7-789b-427d-9212-e3fe72228459/output_ndx.ndx -select &#x27;&quot;Mynewgroup&quot; group &quot;Protein-H&quot; and not same residue as within 0.4 of resname ARG&#x27;
+INFO     /tmp/biobb/unitests_40/gmxselect/gmxselect_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright select -s /tmp/biobb/unitests_40/gmxselect/855b2258-a019-41be-946d-4ecb93f433fa/make_ndx.tpr -on /tmp/biobb/unitests_40/gmxselect/855b2258-a019-41be-946d-4ecb93f433fa/output_ndx.ndx -select &#x27;&quot;Mynewgroup&quot; group &quot;Protein-H&quot; and not same residue as within 0.4 of resname ARG&#x27;
 
 INFO     /tmp/biobb/unitests_40/gmxselect/gmxselect_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -766,20 +766,20 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/gmxselect
 Command line:
-  gmx -nobackup -nocopyright select -s /tmp/biobb/unitests_40/gmxselect/224e17b7-789b-427d-9212-e3fe72228459/make_ndx.tpr -on /tmp/biobb/unitests_40/gmxselect/224e17b7-789b-427d-9212-e3fe72228459/output_ndx.ndx -select &#x27;&quot;Mynewgroup&quot; group &quot;Protein-H&quot; and not same residue as within 0.4 of resname ARG&#x27;
+  gmx -nobackup -nocopyright select -s /tmp/biobb/unitests_40/gmxselect/855b2258-a019-41be-946d-4ecb93f433fa/make_ndx.tpr -on /tmp/biobb/unitests_40/gmxselect/855b2258-a019-41be-946d-4ecb93f433fa/output_ndx.ndx -select &#x27;&quot;Mynewgroup&quot; group &quot;Protein-H&quot; and not same residue as within 0.4 of resname ARG&#x27;
 
-Reading file /tmp/biobb/unitests_40/gmxselect/224e17b7-789b-427d-9212-e3fe72228459/make_ndx.tpr, VERSION 5.1.2 (single precision)
-Reading file /tmp/biobb/unitests_40/gmxselect/224e17b7-789b-427d-9212-e3fe72228459/make_ndx.tpr, VERSION 5.1.2 (single precision)
+Reading file /tmp/biobb/unitests_40/gmxselect/855b2258-a019-41be-946d-4ecb93f433fa/make_ndx.tpr, VERSION 5.1.2 (single precision)
+Reading file /tmp/biobb/unitests_40/gmxselect/855b2258-a019-41be-946d-4ecb93f433fa/make_ndx.tpr, VERSION 5.1.2 (single precision)
 Analyzed topology coordinates
 
-GROMACS reminds you: &quot;I Ripped the Cord Right Out Of the Phone&quot; (Capt. Beefheart)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+GROMACS reminds you: &quot;I&#x27;d be Safe and Warm if I was in L.A.&quot; (The Mamas and the Papas)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_grompp.py::TestGrompp::test_grompp</td>
-          <td class="col-duration">0.30</td>
+          <td class="col-duration">0.29</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -791,11 +791,11 @@ FILE_B: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromac
 cmd_wrapper commnand print: gmx check -s1 /tmp/biobb/unitests_40/grompp/output_tpr.tpr -s2 /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr &gt; check_result.out
 Exit, code 0
 Result file: /tmp/biobb/unitests_40/grompp/check_result.out
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     8e612c06-f641-48e9-919b-aa2f6e627ec1/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     7b0a8293-d50b-4837-9ad1-78ae50a64905/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     8e612c06-f641-48e9-919b-aa2f6e627ec1/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     7b0a8293-d50b-4837-9ad1-78ae50a64905/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     8e612c06-f641-48e9-919b-aa2f6e627ec1/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     7b0a8293-d50b-4837-9ad1-78ae50a64905/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -826,17 +826,17 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.grompp Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/grompp.gro to /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9
+INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/grompp.gro to /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3
 INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:159 Extracting: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/grompp.zip
 INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:160 to:
-INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:161 [&#x27;/tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;/tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/A.Lys58Glu_step6_sol_sol.top&#x27;]
+INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:161 [&#x27;/tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;/tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/A.Lys58Glu_step6_sol_sol.top&#x27;]
 INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:228 Unzipping: 
 INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:229 /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/grompp.zip
 INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:230 To: 
-INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:232 /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/A.Lys58Glu_step4_p2g_p2g.itp
-INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:232 /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/A.Lys58Glu_step6_sol_sol.top
+INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:232 /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/A.Lys58Glu_step4_p2g_p2g.itp
+INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:232 /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/A.Lys58Glu_step6_sol_sol.top
 INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:file_utils.py:346 GROMACS Grompp 20222 version detected
-INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright grompp -f /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/grompp.mdp -c /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/grompp.gro -r /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/grompp.gro -p /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/A.Lys58Glu_step6_sol_sol.top -o /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/output_tpr.tpr -po mdout.mdp -maxwarn 1
+INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright grompp -f /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/grompp.mdp -c /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/grompp.gro -r /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/grompp.gro -p /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/A.Lys58Glu_step6_sol_sol.top -o /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/output_tpr.tpr -po mdout.mdp -maxwarn 1
 
 INFO     /tmp/biobb/unitests_40/grompp/grompp_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -860,10 +860,10 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/grompp
 Command line:
-  gmx -nobackup -nocopyright grompp -f /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/grompp.mdp -c /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/grompp.gro -r /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/grompp.gro -p /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/A.Lys58Glu_step6_sol_sol.top -o /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/output_tpr.tpr -po mdout.mdp -maxwarn 1
+  gmx -nobackup -nocopyright grompp -f /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/grompp.mdp -c /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/grompp.gro -r /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/grompp.gro -p /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/A.Lys58Glu_step6_sol_sol.top -o /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/output_tpr.tpr -po mdout.mdp -maxwarn 1
 
 
-NOTE 1 [file /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/grompp.mdp]:
+NOTE 1 [file /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/grompp.mdp]:
   For a correct single-point energy evaluation with nsteps = 0, use
   continuation = yes to avoid constraining the input coordinates.
 
@@ -886,12 +886,12 @@ NOTE 3 [file A.Lys58Glu_step6_sol_sol.top, line 11402]:
 
 Number of degrees of freedom in T-Coupling group rest is 144597.00
 
-NOTE 4 [file /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/grompp.mdp]:
+NOTE 4 [file /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/grompp.mdp]:
   NVE simulation with an initial temperature of zero: will use a Verlet
   buffer of 10%. Check your energy drift!
 
 
-NOTE 5 [file /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/grompp.mdp]:
+NOTE 5 [file /tmp/biobb/unitests_40/grompp/7ed4eb7a-570a-4584-86ef-a0592d321ec3/grompp.mdp]:
   You are using a plain Coulomb cut-off, which might produce artifacts.
   You might want to consider using PME electrostatics.
 
@@ -899,14 +899,14 @@ NOTE 5 [file /tmp/biobb/unitests_40/grompp/d5fa2a07-5cc1-4506-ac3a-ee4a41ec93a9/
 
 There were 5 notes
 
-GROMACS reminds you: &quot;I Ripped the Cord Right Out Of the Phone&quot; (Capt. Beefheart)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+GROMACS reminds you: &quot;I&#x27;d be Safe and Warm if I was in L.A.&quot; (The Mamas and the Papas)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_grompp_mdrun.py::TestGromppMdrun::test_grompp_mdrun</td>
-          <td class="col-duration">66.63</td>
+          <td class="col-duration">67.12</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -922,11 +922,11 @@ Checking if empty file: /tmp/biobb/unitests_40/grompp_mdrun/output_gro_path.gro
 Checking if empty file: /tmp/biobb/unitests_40/grompp_mdrun/output_edr_path.edr
 Checking if empty file: /tmp/biobb/unitests_40/grompp_mdrun/output_log_path.log
 <br/> -------------------------------Captured log call-------------------------------- <br/>INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log.out:file_utils.py:346 Calling Grompp class
-INFO     3f9c0785-7045-49f1-a96b-9cea145a5ecd/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+INFO     f57d10cc-1ffd-43e1-8a4a-42b7b3ee2135/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     3f9c0785-7045-49f1-a96b-9cea145a5ecd/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     f57d10cc-1ffd-43e1-8a4a-42b7b3ee2135/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     3f9c0785-7045-49f1-a96b-9cea145a5ecd/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     f57d10cc-1ffd-43e1-8a4a-42b7b3ee2135/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -957,17 +957,17 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:346 Executing biobb_gromacs.gromacs.grompp Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/grompp.gro to /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d
+INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/grompp.gro to /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:159 Extracting: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/grompp.zip
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:160 to:
-INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:161 [&#x27;/tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;/tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/A.Lys58Glu_step6_sol_sol.top&#x27;]
+INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:161 [&#x27;/tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;/tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/A.Lys58Glu_step6_sol_sol.top&#x27;]
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:228 Unzipping: 
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:229 /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/grompp.zip
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:230 To: 
-INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:232 /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/A.Lys58Glu_step4_p2g_p2g.itp
-INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:232 /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/A.Lys58Glu_step6_sol_sol.top
+INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:232 /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/A.Lys58Glu_step4_p2g_p2g.itp
+INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:232 /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/A.Lys58Glu_step6_sol_sol.top
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:file_utils.py:346 GROMACS Grompp 20222 version detected
-INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright grompp -f /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/grompp.mdp -c /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/grompp.gro -r /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/grompp.gro -p /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/A.Lys58Glu_step6_sol_sol.top -o /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/internal.tpr -po mdout.mdp -maxwarn 1
+INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright grompp -f /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/grompp.mdp -c /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/grompp.gro -r /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/grompp.gro -p /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/A.Lys58Glu_step6_sol_sol.top -o /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/internal.tpr -po mdout.mdp -maxwarn 1
 
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log1.out:cmd_wrapper.py:49 Exit code 0
 
@@ -1017,7 +1017,7 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/grompp_mdrun
 Command line:
-  gmx -nobackup -nocopyright grompp -f /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/grompp.mdp -c /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/grompp.gro -r /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/grompp.gro -p /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/A.Lys58Glu_step6_sol_sol.top -o /tmp/biobb/unitests_40/grompp_mdrun/996ed420-c1f4-492e-a7db-e8865849b68d/internal.tpr -po mdout.mdp -maxwarn 1
+  gmx -nobackup -nocopyright grompp -f /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/grompp.mdp -c /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/grompp.gro -r /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/grompp.gro -p /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/A.Lys58Glu_step6_sol_sol.top -o /tmp/biobb/unitests_40/grompp_mdrun/35a7583b-5461-487c-8f53-f5b91aafa0b1/internal.tpr -po mdout.mdp -maxwarn 1
 
 Ignoring obsolete mdp entry &#x27;ns-type&#x27;
 Generating 1-4 interactions: fudge = 0.5
@@ -1045,16 +1045,16 @@ There was 1 note
 
 There was 1 warning
 
-GROMACS reminds you: &quot;I always seem to get inspiration and renewed vitality by contact with this great novel land of yours which sticks up out of the Atlantic.&quot; (Winston Churchill)
+GROMACS reminds you: &quot;I&#x27;d be Safe and Warm if I was in L.A.&quot; (The Mamas and the Papas)
 
 
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log.out:file_utils.py:346 Grompp return code: 0
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log.out:file_utils.py:346 Grompp return code is correct. Calling MDRun class
-INFO     626fa5db-fe6f-44ed-9749-00e318f1825d/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+INFO     90694294-d9fb-4b7e-98e2-3103831f62b8/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     626fa5db-fe6f-44ed-9749-00e318f1825d/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     90694294-d9fb-4b7e-98e2-3103831f62b8/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     626fa5db-fe6f-44ed-9749-00e318f1825d/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     90694294-d9fb-4b7e-98e2-3103831f62b8/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -1085,10 +1085,10 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log2.out:file_utils.py:346 Executing biobb_gromacs.gromacs.mdrun Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log2.out:file_utils.py:346 Copy: aaf58571-a6a9-4bba-9161-71c0549a71b6/internal.tpr to /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510
+INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log2.out:file_utils.py:346 Copy: 515e9735-2fb7-4864-92bf-6ee48e91add6/internal.tpr to /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log2.out:file_utils.py:346 User added number of gmx threads: 0
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log2.out:file_utils.py:346 GROMACS Mdrun 20222 version detected
-INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log2.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright mdrun -s /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/internal.tpr -o /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/output_trr_path.trr -c /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/output_gro_path.gro -e /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/output_edr_path.edr -g /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/output_log_path.log -nt 0
+INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log2.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright mdrun -s /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/internal.tpr -o /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/output_trr_path.trr -c /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/output_gro_path.gro -e /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/output_edr_path.edr -g /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/output_log_path.log -nt 0
 
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log2.out:cmd_wrapper.py:49 Exit code 0
 
@@ -1098,9 +1098,9 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/grompp_mdrun
 Command line:
-  gmx -nobackup -nocopyright mdrun -s /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/internal.tpr -o /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/output_trr_path.trr -c /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/output_gro_path.gro -e /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/output_edr_path.edr -g /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/output_log_path.log -nt 0
+  gmx -nobackup -nocopyright mdrun -s /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/internal.tpr -o /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/output_trr_path.trr -c /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/output_gro_path.gro -e /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/output_edr_path.edr -g /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/output_log_path.log -nt 0
 
-Reading file /tmp/biobb/unitests_40/grompp_mdrun/025e7951-57e0-4959-bb3e-c94b47ace510/internal.tpr, VERSION 2022.2-conda_forge (single precision)
+Reading file /tmp/biobb/unitests_40/grompp_mdrun/87bd8813-d3cc-4f3a-b472-5f4d98b03d9d/internal.tpr, VERSION 2022.2-conda_forge (single precision)
 Changing nstlist from 10 to 100, rlist from 1 to 1
 
 Using 1 MPI thread
@@ -1112,11 +1112,11 @@ starting mdrun &#x27;Protein in water&#x27;
 Writing final coordinates.
 
                Core t (s)   Wall t (s)        (%)
-       Time:      250.567       62.642      400.0
+       Time:      252.509       63.127      400.0
                  (ns/day)    (hour/ns)
-Performance:        0.690       34.794
+Performance:        0.684       35.064
 
-GROMACS reminds you: &quot;Molecular biology is essentially the practice of biochemistry without a license.&quot; (Edwin Chargaff)
+GROMACS reminds you: &quot;The public have an insatiable curiosity to know everything, except what is worth knowing.&quot; (Oscar Wilde)
 
 
 INFO     /tmp/biobb/unitests_40/grompp_mdrun/grompp_mdrun_log.out:file_utils.py:346 MDRun return code: 0<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
@@ -1136,11 +1136,11 @@ Comparing:
         File_B: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_make_ndx_protein_dna.ndx
         File_A hash: b&#x27;\xd7i\x10P\xf5\x975\xfe&lt;X\xaaf\x83H\x14i\x0f\xd1=I\xa3\xb92?\xaa\xf7\x10\xf0U\xdb\x90\xa9&#x27;
         File_B hash: b&#x27;\xd7i\x10P\xf5\x975\xfe&lt;X\xaaf\x83H\x14i\x0f\xd1=I\xa3\xb92?\xaa\xf7\x10\xf0U\xdb\x90\xa9&#x27;
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     dd280379-fea1-484f-911c-a871cee43f27/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     6b1ddb25-8248-4444-8bc5-a8ee1aabae9e/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     dd280379-fea1-484f-911c-a871cee43f27/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     6b1ddb25-8248-4444-8bc5-a8ee1aabae9e/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     dd280379-fea1-484f-911c-a871cee43f27/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     6b1ddb25-8248-4444-8bc5-a8ee1aabae9e/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -1171,10 +1171,10 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/make_ndx/make_ndx_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.make_ndx Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/make_ndx/make_ndx_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/make_ndx_protein_dna.pdb to /tmp/biobb/unitests_40/make_ndx/17884f7c-2444-4482-8504-87750931d29f
-INFO     /tmp/biobb/unitests_40/make_ndx/make_ndx_log.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/make_ndx/ffca034a-7567-4a07-b6aa-7c786acca98d.stdin to /tmp/biobb/unitests_40/make_ndx/17884f7c-2444-4482-8504-87750931d29f
+INFO     /tmp/biobb/unitests_40/make_ndx/make_ndx_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/make_ndx_protein_dna.pdb to /tmp/biobb/unitests_40/make_ndx/ff242ebc-c5a1-424d-8983-44f57ac0c39a
+INFO     /tmp/biobb/unitests_40/make_ndx/make_ndx_log.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/make_ndx/c2cad73e-60cc-41fe-9ff9-c76e9f0d97e8.stdin to /tmp/biobb/unitests_40/make_ndx/ff242ebc-c5a1-424d-8983-44f57ac0c39a
 INFO     /tmp/biobb/unitests_40/make_ndx/make_ndx_log.out:file_utils.py:346 GROMACS MakeNdx 20222 version detected
-INFO     /tmp/biobb/unitests_40/make_ndx/make_ndx_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright make_ndx -f /tmp/biobb/unitests_40/make_ndx/17884f7c-2444-4482-8504-87750931d29f/make_ndx_protein_dna.pdb -o /tmp/biobb/unitests_40/make_ndx/17884f7c-2444-4482-8504-87750931d29f/output_ndx.ndx &lt; /tmp/biobb/unitests_40/make_ndx/17884f7c-2444-4482-8504-87750931d29f/ffca034a-7567-4a07-b6aa-7c786acca98d.stdin
+INFO     /tmp/biobb/unitests_40/make_ndx/make_ndx_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright make_ndx -f /tmp/biobb/unitests_40/make_ndx/ff242ebc-c5a1-424d-8983-44f57ac0c39a/make_ndx_protein_dna.pdb -o /tmp/biobb/unitests_40/make_ndx/ff242ebc-c5a1-424d-8983-44f57ac0c39a/output_ndx.ndx &lt; /tmp/biobb/unitests_40/make_ndx/ff242ebc-c5a1-424d-8983-44f57ac0c39a/c2cad73e-60cc-41fe-9ff9-c76e9f0d97e8.stdin
 
 INFO     /tmp/biobb/unitests_40/make_ndx/make_ndx_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -1228,19 +1228,19 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/make_ndx
 Command line:
-  gmx -nobackup -nocopyright make_ndx -f /tmp/biobb/unitests_40/make_ndx/17884f7c-2444-4482-8504-87750931d29f/make_ndx_protein_dna.pdb -o /tmp/biobb/unitests_40/make_ndx/17884f7c-2444-4482-8504-87750931d29f/output_ndx.ndx
+  gmx -nobackup -nocopyright make_ndx -f /tmp/biobb/unitests_40/make_ndx/ff242ebc-c5a1-424d-8983-44f57ac0c39a/make_ndx_protein_dna.pdb -o /tmp/biobb/unitests_40/make_ndx/ff242ebc-c5a1-424d-8983-44f57ac0c39a/output_ndx.ndx
 
 
 Reading structure file
 
-GROMACS reminds you: &quot;What If None Of Your Dreams Come True ?&quot; (E. Costello)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+GROMACS reminds you: &quot;The public have an insatiable curiosity to know everything, except what is worth knowing.&quot; (Oscar Wilde)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_mdrun.py::TestMdrun::test_mdrun</td>
-          <td class="col-duration">107.48</td>
+          <td class="col-duration">107.67</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -1255,11 +1255,11 @@ Result file: /tmp/biobb/unitests_40/mdrun/rmsd.xvg
 Checking if empty file: /tmp/biobb/unitests_40/mdrun/output_gro_path.gro
 Checking if empty file: /tmp/biobb/unitests_40/mdrun/output_edr_path.edr
 Checking if empty file: /tmp/biobb/unitests_40/mdrun/output_log_path.log
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     06a1d65b-6703-4cc6-b024-aaa701b3019f/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     0cf8b831-67b2-4017-96c9-1fd33b4fb3fd/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     06a1d65b-6703-4cc6-b024-aaa701b3019f/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     0cf8b831-67b2-4017-96c9-1fd33b4fb3fd/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     06a1d65b-6703-4cc6-b024-aaa701b3019f/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     0cf8b831-67b2-4017-96c9-1fd33b4fb3fd/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -1290,10 +1290,10 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/mdrun/mdrun_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.mdrun Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/mdrun/mdrun_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/mdrun.tpr to /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656
+INFO     /tmp/biobb/unitests_40/mdrun/mdrun_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/mdrun.tpr to /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541
 INFO     /tmp/biobb/unitests_40/mdrun/mdrun_log.out:file_utils.py:346 User added number of gmx threads: 0
 INFO     /tmp/biobb/unitests_40/mdrun/mdrun_log.out:file_utils.py:346 GROMACS Mdrun 20222 version detected
-INFO     /tmp/biobb/unitests_40/mdrun/mdrun_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright mdrun -s /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/mdrun.tpr -o /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/output_trr_path.trr -c /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/output_gro_path.gro -e /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/output_edr_path.edr -g /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/output_log_path.log -nt 0
+INFO     /tmp/biobb/unitests_40/mdrun/mdrun_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright mdrun -s /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/mdrun.tpr -o /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/output_trr_path.trr -c /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/output_gro_path.gro -e /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/output_edr_path.edr -g /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/output_log_path.log -nt 0
 
 INFO     /tmp/biobb/unitests_40/mdrun/mdrun_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -1303,9 +1303,9 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/mdrun
 Command line:
-  gmx -nobackup -nocopyright mdrun -s /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/mdrun.tpr -o /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/output_trr_path.trr -c /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/output_gro_path.gro -e /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/output_edr_path.edr -g /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/output_log_path.log -nt 0
+  gmx -nobackup -nocopyright mdrun -s /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/mdrun.tpr -o /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/output_trr_path.trr -c /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/output_gro_path.gro -e /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/output_edr_path.edr -g /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/output_log_path.log -nt 0
 
-Reading file /tmp/biobb/unitests_40/mdrun/9f09c06c-8f1c-4ec3-9c5e-530619608656/mdrun.tpr, VERSION 2018.1 (single precision)
+Reading file /tmp/biobb/unitests_40/mdrun/e4b3f345-74b4-4a9c-873c-0cb174058541/mdrun.tpr, VERSION 2018.1 (single precision)
 Note: file tpx version 112, software tpx version 127
 Changing nstlist from 10 to 40, rlist from 1 to 1.096
 
@@ -1318,18 +1318,18 @@ starting mdrun &#x27;Protein in water&#x27;
 Writing final coordinates.
 
                Core t (s)   Wall t (s)        (%)
-       Time:      421.460      105.365      400.0
+       Time:      421.852      105.463      400.0
                  (ns/day)    (hour/ns)
-Performance:       24.602        0.976
+Performance:       24.579        0.976
 
-GROMACS reminds you: &quot;Check Your Output&quot; (P. Ahlstrom)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+GROMACS reminds you: &quot;Everybody is Smashing Things Down&quot; (Offspring)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_pdb2gmx.py::TestPdb2gmx::test_pdb2gmx</td>
-          <td class="col-duration">1.38</td>
+          <td class="col-duration">1.31</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -1339,20 +1339,20 @@ Unzipping:
 Creating a unique_dir for: /tmp/biobb/unitests_40/pdb2gmx/output_top_zip.zip
 Creating a unique_dir for: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_pdb2gmx.zip
 Comparing TOP/ITP:
-     FILE_A: b517737d-7f78-4304-a6f2-3e0883995a25/pdb2gmx_p2g.top
-     FILE_B: 7443c9f4-3627-4daa-b297-ab77d1dfae23/pdb2gmx_p2g.top
+     FILE_A: d432d4d8-ab99-49dc-a866-2047bc98e083/pdb2gmx_p2g.top
+     FILE_B: e997ec6a-1e0b-4d52-812e-388dcbbb709d/pdb2gmx_p2g.top
 Comparing TOP/ITP:
-     FILE_A: b517737d-7f78-4304-a6f2-3e0883995a25/pdb2gmx_posre.itp
-     FILE_B: 7443c9f4-3627-4daa-b297-ab77d1dfae23/pdb2gmx_posre.itp
+     FILE_A: d432d4d8-ab99-49dc-a866-2047bc98e083/pdb2gmx_posre.itp
+     FILE_B: e997ec6a-1e0b-4d52-812e-388dcbbb709d/pdb2gmx_posre.itp
 Checking if empty file: /tmp/biobb/unitests_40/pdb2gmx/output_gro.gro
 Comparing ignoring first line of both files:
      FILE_A: /tmp/biobb/unitests_40/pdb2gmx/output_gro.gro
      FILE_B: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_pdb2gmx.gro
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     871137e9-9e2e-435d-bfeb-9d2f3cd470a2/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     e525f2fd-1c9e-47f7-8d14-a79e1febb763/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     871137e9-9e2e-435d-bfeb-9d2f3cd470a2/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     e525f2fd-1c9e-47f7-8d14-a79e1febb763/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     871137e9-9e2e-435d-bfeb-9d2f3cd470a2/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     e525f2fd-1c9e-47f7-8d14-a79e1febb763/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -1383,10 +1383,10 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.pdb2gmx Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/egfr.pdb to /tmp/biobb/unitests_40/pdb2gmx/5294a36d-6e1a-4871-ada8-023ad862d9e6
-INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/pdb2gmx/b2999971-2a69-412e-a9a1-731c98c87aac.stdin to /tmp/biobb/unitests_40/pdb2gmx/5294a36d-6e1a-4871-ada8-023ad862d9e6
+INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/egfr.pdb to /tmp/biobb/unitests_40/pdb2gmx/c4391e7b-5a13-4206-8adc-d0dab9149a94
+INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:file_utils.py:346 Copy: /tmp/biobb/unitests_40/pdb2gmx/84cdc5fd-d96f-4b22-af77-6adfcf187202.stdin to /tmp/biobb/unitests_40/pdb2gmx/c4391e7b-5a13-4206-8adc-d0dab9149a94
 INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:file_utils.py:346 GROMACS Pdb2gmx 20222 version detected
-INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright pdb2gmx -f /tmp/biobb/unitests_40/pdb2gmx/5294a36d-6e1a-4871-ada8-023ad862d9e6/egfr.pdb -o /tmp/biobb/unitests_40/pdb2gmx/5294a36d-6e1a-4871-ada8-023ad862d9e6/output_gro.gro -p pdb2gmx_p2g.top -water spce -ff amber99sb-ildn -i pdb2gmx_posre.itp -his &lt; /tmp/biobb/unitests_40/pdb2gmx/5294a36d-6e1a-4871-ada8-023ad862d9e6/b2999971-2a69-412e-a9a1-731c98c87aac.stdin
+INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright pdb2gmx -f /tmp/biobb/unitests_40/pdb2gmx/c4391e7b-5a13-4206-8adc-d0dab9149a94/egfr.pdb -o /tmp/biobb/unitests_40/pdb2gmx/c4391e7b-5a13-4206-8adc-d0dab9149a94/output_gro.gro -p pdb2gmx_p2g.top -water spce -ff amber99sb-ildn -i pdb2gmx_posre.itp -his &lt; /tmp/biobb/unitests_40/pdb2gmx/c4391e7b-5a13-4206-8adc-d0dab9149a94/84cdc5fd-d96f-4b22-af77-6adfcf187202.stdin
 
 INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -1397,7 +1397,7 @@ going to rename amber99sb-ildn.ff/aminoacids.r2b
 going to rename amber99sb-ildn.ff/dna.r2b
 
 going to rename amber99sb-ildn.ff/rna.r2b
-Reading /tmp/biobb/unitests_40/pdb2gmx/5294a36d-6e1a-4871-ada8-023ad862d9e6/egfr.pdb...
+Reading /tmp/biobb/unitests_40/pdb2gmx/c4391e7b-5a13-4206-8adc-d0dab9149a94/egfr.pdb...
 Read &#x27;Protein in water&#x27;, 4698 atoms
 
 Analyzing pdb file
@@ -1488,7 +1488,7 @@ Writing coordinate file...
 
 		--------- PLEASE NOTE ------------
 
-You have successfully generated a topology from: /tmp/biobb/unitests_40/pdb2gmx/5294a36d-6e1a-4871-ada8-023ad862d9e6/egfr.pdb.
+You have successfully generated a topology from: /tmp/biobb/unitests_40/pdb2gmx/c4391e7b-5a13-4206-8adc-d0dab9149a94/egfr.pdb.
 
 The Amber99sb-ildn force field and the spce water model are used.
 
@@ -1500,7 +1500,7 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/pdb2gmx
 Command line:
-  gmx -nobackup -nocopyright pdb2gmx -f /tmp/biobb/unitests_40/pdb2gmx/5294a36d-6e1a-4871-ada8-023ad862d9e6/egfr.pdb -o /tmp/biobb/unitests_40/pdb2gmx/5294a36d-6e1a-4871-ada8-023ad862d9e6/output_gro.gro -p pdb2gmx_p2g.top -water spce -ff amber99sb-ildn -i pdb2gmx_posre.itp -his
+  gmx -nobackup -nocopyright pdb2gmx -f /tmp/biobb/unitests_40/pdb2gmx/c4391e7b-5a13-4206-8adc-d0dab9149a94/egfr.pdb -o /tmp/biobb/unitests_40/pdb2gmx/c4391e7b-5a13-4206-8adc-d0dab9149a94/output_gro.gro -p pdb2gmx_p2g.top -water spce -ff amber99sb-ildn -i pdb2gmx_posre.itp -his
 
 Opening force field file /home/user/micromamba/envs/test_environment/share/gromacs/top/amber99sb-ildn.ff/aminoacids.r2b
 Opening force field file /home/user/micromamba/envs/test_environment/share/gromacs/top/amber99sb-ildn.ff/dna.r2b
@@ -1577,7 +1577,7 @@ Opening force field file /home/user/micromamba/envs/test_environment/share/groma
 Before cleaning: 12511 pairs
 Before cleaning: 13015 dihedrals
 
-GROMACS reminds you: &quot;Ubiquitin&#x27;s just a rock&quot; (Berk Hess)
+GROMACS reminds you: &quot;Exactly&quot; (Pulp Fiction)
 
 
 INFO     /tmp/biobb/unitests_40/pdb2gmx/pdb2gmx_log.out:file_utils.py:346 Compressing topology to: /tmp/biobb/unitests_40/pdb2gmx/output_top_zip.zip
@@ -1594,7 +1594,7 @@ Removing: /tmp/biobb/unitests_40
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_solvate.py::TestSolvate::test_solvate</td>
-          <td class="col-duration">0.77</td>
+          <td class="col-duration">0.74</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -1608,16 +1608,16 @@ Unzipping:
 Creating a unique_dir for: /tmp/biobb/unitests_40/solvate/output_top_zip.zip
 Creating a unique_dir for: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_solvate.zip
 Comparing TOP/ITP:
-     FILE_A: 415e24a3-6540-4233-abbb-a6d3620ae5da/A.Lys58Glu_step4_p2g_p2g.itp
-     FILE_B: 31015d4d-cc41-4b1f-8ce8-3257d539e472/A.Lys58Glu_step4_p2g_p2g.itp
+     FILE_A: a697cb17-a6cd-4590-b1ea-698a78a05778/A.Lys58Glu_step4_p2g_p2g.itp
+     FILE_B: bea7f833-e123-4963-86b6-c7ca45f06756/A.Lys58Glu_step4_p2g_p2g.itp
 Comparing TOP/ITP:
-     FILE_A: 415e24a3-6540-4233-abbb-a6d3620ae5da/A.Lys58Glu_step4_p2g_p2g.top
-     FILE_B: 31015d4d-cc41-4b1f-8ce8-3257d539e472/A.Lys58Glu_step4_p2g_p2g.top
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     96048348-b5a1-4d0c-a72d-22cbc2a2aa5e/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+     FILE_A: a697cb17-a6cd-4590-b1ea-698a78a05778/A.Lys58Glu_step4_p2g_p2g.top
+     FILE_B: bea7f833-e123-4963-86b6-c7ca45f06756/A.Lys58Glu_step4_p2g_p2g.top
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     4d837235-e40a-497e-894b-242e96764a90/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     96048348-b5a1-4d0c-a72d-22cbc2a2aa5e/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     4d837235-e40a-497e-894b-242e96764a90/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     96048348-b5a1-4d0c-a72d-22cbc2a2aa5e/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     4d837235-e40a-497e-894b-242e96764a90/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -1648,17 +1648,17 @@ OpenCL version:     2.2
 
 
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.solvate Version: 4.0.0
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/solvate.gro to /tmp/biobb/unitests_40/solvate/87eec841-9efb-4276-a6bf-00ccce0cac25
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:346 Copy: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/solvate.gro to /tmp/biobb/unitests_40/solvate/1e48f020-8ddf-4210-8d4c-d0932bb0f75c
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:159 Extracting: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/solvate.zip
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:160 to:
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:161 [&#x27;6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.top&#x27;]
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:161 [&#x27;88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.top&#x27;]
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:228 Unzipping: 
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:229 /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/solvate.zip
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:230 To: 
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:232 6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.itp
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:232 6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.top
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:232 88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.itp
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:232 88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.top
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:346 GROMACS Solvate 20222 version detected
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright solvate -cp /tmp/biobb/unitests_40/solvate/87eec841-9efb-4276-a6bf-00ccce0cac25/solvate.gro -cs spc216.gro -o /tmp/biobb/unitests_40/solvate/87eec841-9efb-4276-a6bf-00ccce0cac25/output_gro.gro -p 6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.top
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright solvate -cp /tmp/biobb/unitests_40/solvate/1e48f020-8ddf-4210-8d4c-d0932bb0f75c/solvate.gro -cs spc216.gro -o /tmp/biobb/unitests_40/solvate/1e48f020-8ddf-4210-8d4c-d0932bb0f75c/output_gro.gro -p 88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.top
 
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -1682,7 +1682,7 @@ van der Waals Volumes and Radii
 J. Phys. Chem. 68 (1964) pp. 441-451
 -------- -------- --- Thank You --- -------- --------
 
-Adding line for 23502 solvent molecules with resname (SOL) to topology file (6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.top)
+Adding line for 23502 solvent molecules with resname (SOL) to topology file (88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.top)
 
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.err:cmd_wrapper.py:59                :-) GROMACS - gmx solvate, 2022.2-conda_forge (-:
 
@@ -1690,7 +1690,7 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/solvate
 Command line:
-  gmx -nobackup -nocopyright solvate -cp /tmp/biobb/unitests_40/solvate/87eec841-9efb-4276-a6bf-00ccce0cac25/solvate.gro -cs spc216.gro -o /tmp/biobb/unitests_40/solvate/87eec841-9efb-4276-a6bf-00ccce0cac25/output_gro.gro -p 6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.top
+  gmx -nobackup -nocopyright solvate -cp /tmp/biobb/unitests_40/solvate/1e48f020-8ddf-4210-8d4c-d0932bb0f75c/solvate.gro -cs spc216.gro -o /tmp/biobb/unitests_40/solvate/1e48f020-8ddf-4210-8d4c-d0932bb0f75c/output_gro.gro -p 88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.top
 
 Reading solute configuration
 Reading solvent configuration
@@ -1705,7 +1705,7 @@ Sorting configuration
 Found 1 molecule type:
     SOL (   3 atoms): 23502 residues
 Generated solvent containing 70506 atoms in 23502 residues
-Writing generated configuration to /tmp/biobb/unitests_40/solvate/87eec841-9efb-4276-a6bf-00ccce0cac25/output_gro.gro
+Writing generated configuration to /tmp/biobb/unitests_40/solvate/1e48f020-8ddf-4210-8d4c-d0932bb0f75c/output_gro.gro
 
 Output configuration contains 71702 atoms in 23581 residues
 Volume                 :      729.19 (nm^3)
@@ -1714,24 +1714,24 @@ Number of solvent molecules:  23502
 
 Processing topology
 
-GROMACS reminds you: &quot;I spent a lot of money on booze, birds and fast cars. The rest I just squandered.&quot; (George Best)
+GROMACS reminds you: &quot;Ich war schwanger, mir gings zum kotzen&quot; (Nina Hagen)
 
 
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:346 Compressing topology to: /tmp/biobb/unitests_40/solvate/87eec841-9efb-4276-a6bf-00ccce0cac25/output_top_zip.zip
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:188 Ignored file 6b483edd-9499-4978-aba7-3ed768b76d06/amber99sb-ildn.ff/forcefield.itp
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:188 Ignored file 6b483edd-9499-4978-aba7-3ed768b76d06/amber99sb-ildn.ff/spce.itp
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:188 Ignored file 6b483edd-9499-4978-aba7-3ed768b76d06/amber99sb-ildn.ff/ions.itp
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:346 Compressing topology to: /tmp/biobb/unitests_40/solvate/1e48f020-8ddf-4210-8d4c-d0932bb0f75c/output_top_zip.zip
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:188 Ignored file 88dd72f7-e079-40b7-ae98-9c2cbf73b55b/amber99sb-ildn.ff/forcefield.itp
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:188 Ignored file 88dd72f7-e079-40b7-ae98-9c2cbf73b55b/amber99sb-ildn.ff/spce.itp
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:188 Ignored file 88dd72f7-e079-40b7-ae98-9c2cbf73b55b/amber99sb-ildn.ff/ions.itp
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:137 Adding:
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:138 [&#x27;6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.top&#x27;]
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:138 [&#x27;88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.top&#x27;]
 INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:139 to: /tmp/biobb/unitests_40/solvate/output_top_zip.zip
-INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:346 Removed: [&#x27;6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;6b483edd-9499-4978-aba7-3ed768b76d06/A.Lys58Glu_step4_p2g_p2g.top&#x27;]<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+INFO     /tmp/biobb/unitests_40/solvate/solvate_log.out:file_utils.py:346 Removed: [&#x27;88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.itp&#x27;, &#x27;88dd72f7-e079-40b7-ae98-9c2cbf73b55b/A.Lys58Glu_step4_p2g_p2g.top&#x27;]<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs/test_trjcat.py::TestSolvate::test_solvate</td>
-          <td class="col-duration">0.26</td>
+          <td class="col-duration">0.27</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -1741,11 +1741,11 @@ Comparing:
         File_B: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs/ref_trjcat.trr
         File_A hash: b&#x27;\x0f\xc2\xe1L\xf6V&amp;\x05\x8e\xae\xb5\xdf\x9aJD1d\xf5\x1bl\x9b\xda\x82Fd\x96\xf1)&amp;\x0f6\xef&#x27;
         File_B hash: b&#x27;\x0f\xc2\xe1L\xf6V&amp;\x05\x8e\xae\xb5\xdf\x9aJD1d\xf5\x1bl\x9b\xda\x82Fd\x96\xf1)&amp;\x0f6\xef&#x27;
-<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     3350ee2f-c533-4f5e-a1a4-e9c42dcc2166/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     ab1ed8cd-732a-4d8a-866e-5723ab397138/log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright -version
 
-INFO     3350ee2f-c533-4f5e-a1a4-e9c42dcc2166/log.out:cmd_wrapper.py:49 Exit code 0
+INFO     ab1ed8cd-732a-4d8a-866e-5723ab397138/log.out:cmd_wrapper.py:49 Exit code 0
 
-INFO     3350ee2f-c533-4f5e-a1a4-e9c42dcc2166/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
+INFO     ab1ed8cd-732a-4d8a-866e-5723ab397138/log.out:cmd_wrapper.py:51                    :-) GROMACS - gmx, 2022.2-conda_forge (-:
 
 Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
@@ -1778,10 +1778,10 @@ OpenCL version:     2.2
 INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs.trjcat Version: 4.0.0
 INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:file_utils.py:159 Extracting: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs/trjcat.zip
 INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:file_utils.py:160 to:
-INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:file_utils.py:161 [&#x27;23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_a.trr&#x27;, &#x27;23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_b.trr&#x27;]
+INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:file_utils.py:161 [&#x27;1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_a.trr&#x27;, &#x27;1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_b.trr&#x27;]
 INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:file_utils.py:346 Only concatenate the files without removal of frames with identical timestamps.
 INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:file_utils.py:346 GROMACS Trjcat 20222 version detected
-INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright trjcat -f 23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_a.trr 23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_b.trr -o /tmp/biobb/unitests_40/trjcat/16917fb7-9a2a-4d96-9eec-21064f9b2518/output_trjcat.trr -cat
+INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:cmd_wrapper.py:32 gmx -nobackup -nocopyright trjcat -f 1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_a.trr 1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_b.trr -o /tmp/biobb/unitests_40/trjcat/6c181e84-2f8e-4cd5-b9f4-ef8dbc5339a9/output_trjcat.trr -cat
 
 INFO     /tmp/biobb/unitests_40/trjcat/trjcat_log.out:cmd_wrapper.py:49 Exit code 0
 
@@ -1796,7 +1796,7 @@ Executable:   /home/user/micromamba/envs/test_environment/bin.AVX2_256/gmx
 Data prefix:  /home/user/micromamba/envs/test_environment
 Working dir:  /tmp/biobb/unitests_40/trjcat
 Command line:
-  gmx -nobackup -nocopyright trjcat -f 23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_a.trr 23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_b.trr -o /tmp/biobb/unitests_40/trjcat/16917fb7-9a2a-4d96-9eec-21064f9b2518/output_trjcat.trr -cat
+  gmx -nobackup -nocopyright trjcat -f 1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_a.trr 1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_b.trr -o /tmp/biobb/unitests_40/trjcat/6c181e84-2f8e-4cd5-b9f4-ef8dbc5339a9/output_trjcat.trr -cat
 
 trr version: GMX_trn_file (single precision)
 Reading frame       0 time    0.000   Reading frame       1 time   10.000   Reading frame       0 time    0.000   Reading frame       1 time   10.000   
@@ -1805,26 +1805,26 @@ Summary of files and start times used:
 
           File                Start time       Time step
 ---------------------------------------------------------
-23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_a.trr        0.000 ps       10.000 ps
-23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_b.trr        0.000 ps       10.000 ps WARNING: same Start time as previous
+1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_a.trr        0.000 ps       10.000 ps
+1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_b.trr        0.000 ps       10.000 ps WARNING: same Start time as previous
 
 Reading frame       0 time    0.000   
-Continue writing frames from 23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_a.trr t=0 ps, frame=0      
+Continue writing frames from 1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_a.trr t=0 ps, frame=0      
  -&gt;  frame      0 time    0.000 ps     Reading frame       1 time   10.000    -&gt;  frame      1 time   10.000 ps     Reading frame       2 time   20.000    -&gt;  frame      2 time   20.000 ps     Reading frame       3 time   30.000    -&gt;  frame      3 time   30.000 ps     Last frame          3 time   30.000   
 Reading frame       0 time    0.000   
-Continue writing frames from 23edd10e-48e1-4f0a-9b21-582c9c8161bf/ref_trjcat_b.trr t=0 ps, frame=4      
+Continue writing frames from 1d636e02-21cc-46e0-8a7e-4fc06d8d5957/ref_trjcat_b.trr t=0 ps, frame=4      
  -&gt;  frame      4 time    0.000 ps     Reading frame       1 time   10.000    -&gt;  frame      5 time   10.000 ps     Reading frame       2 time   20.000    -&gt;  frame      6 time   20.000 ps     Reading frame       3 time   30.000    -&gt;  frame      7 time   30.000 ps     Last frame          3 time   30.000   
 
 Last frame written was 7, time 30.000000 ps
 
-GROMACS reminds you: &quot;I spent a lot of money on booze, birds and fast cars. The rest I just squandered.&quot; (George Best)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+GROMACS reminds you: &quot;Ich war schwanger, mir gings zum kotzen&quot; (Nina Hagen)<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs_extra/test_append_ligand.py::TestAppendLigand::test_append_ligand</td>
-          <td class="col-duration">2.49</td>
+          <td class="col-duration">2.43</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -1834,67 +1834,67 @@ Unzipping:
 Creating a unique_dir for: /tmp/biobb/unitests_40/append_ligand/output_top_zip.zip
 Creating a unique_dir for: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs_extra/ref_appendligand.zip
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/append_ligand_ligand.top
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/append_ligand_ligand.top
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/append_ligand_ligand.top
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/append_ligand_ligand.top
 Comparing TOP/ITP:
-     FILE_A: d6f6a370-8f6c-4a97-a68b-e24f69de7f23/pep_ligand.itp
-     FILE_B: 8d9c3cc7-94a7-41d0-a438-9cc244dc0090/pep_ligand.itp
+     FILE_A: 8464fc6d-796e-425b-8db3-d3c4fe0c739c/pep_ligand.itp
+     FILE_B: c5260f5b-d891-4d6e-b2c9-0bd138acc32a/pep_ligand.itp
 <br/> -------------------------------Captured log call-------------------------------- <br/>INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs_extra.append_ligand Version: 4.0.0
 INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:159 Extracting: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs_extra/ndx2resttop.zip
 INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:160 to:
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:161 [&#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step8_gio_gio.top&#x27;]
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:161 [&#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step8_gio_gio.top&#x27;]
 INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:228 Unzipping: 
 INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:229 /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs_extra/ndx2resttop.zip
 INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:230 To: 
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step8_gio_gio.top
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:232 bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step8_gio_gio.top
 INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:346 Compressing topology to: /tmp/biobb/unitests_40/append_ligand/output_top_zip.zip
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:188 Ignored file bb8c048b-e8cd-433c-aae6-ac5282df9978/amber99sb.ff/forcefield.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:188 Ignored file bb8c048b-e8cd-433c-aae6-ac5282df9978/posre_PEP-H.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:188 Ignored file bb8c048b-e8cd-433c-aae6-ac5282df9978/amber99sb.ff/tip3p.itp
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:188 Ignored file bb8c048b-e8cd-433c-aae6-ac5282df9978/amber99sb.ff/ions.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:188 Ignored file bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/amber99sb.ff/forcefield.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:188 Ignored file bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/posre_PEP-H.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:188 Ignored file bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/amber99sb.ff/tip3p.itp
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:188 Ignored file bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/amber99sb.ff/ions.itp
 INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:137 Adding:
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:138 [&#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/append_ligand_ligand.top&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/pep_ligand.itp&#x27;]
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:138 [&#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/append_ligand_ligand.top&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/pep_ligand.itp&#x27;]
 INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:139 to: /tmp/biobb/unitests_40/append_ligand/output_top_zip.zip
-INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:346 Removed: [&#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/append_ligand_ligand.top&#x27;, &#x27;bb8c048b-e8cd-433c-aae6-ac5282df9978/pep_ligand.itp&#x27;]<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+INFO     /tmp/biobb/unitests_40/append_ligand/append_ligand_log.out:file_utils.py:346 Removed: [&#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/append_ligand_ligand.top&#x27;, &#x27;bb128fd4-aa89-4e39-b3a8-ac17ef5417b2/pep_ligand.itp&#x27;]<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">biobb_gromacs/test/unitests/test_gromacs_extra/test_ndx2resttop.py::TestNdx2resttop::test_ndx2resttop</td>
-          <td class="col-duration">2.54</td>
+          <td class="col-duration">2.48</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -1904,60 +1904,60 @@ Unzipping:
 Creating a unique_dir for: /tmp/biobb/unitests_40/ndx2resttop/output_top_zip.zip
 Creating a unique_dir for: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/reference/gromacs_extra/ref_ndx2resttop.zip
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ALL.Ala115Pro_step8_gio_gio.top
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ALL.Ala115Pro_step8_gio_gio.top
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ALL.Ala115Pro_step8_gio_gio.top
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ALL.Ala115Pro_step8_gio_gio.top
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ndx2resttop_Chain_A_noMut.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ndx2resttop_Chain_A_noMut.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ndx2resttop_Chain_A_noMut.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ndx2resttop_Chain_A_noMut.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ndx2resttop_Chain_B_noMut.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ndx2resttop_Chain_B_noMut.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ndx2resttop_Chain_B_noMut.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ndx2resttop_Chain_B_noMut.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ndx2resttop_Chain_C_noMut.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ndx2resttop_Chain_C_noMut.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ndx2resttop_Chain_C_noMut.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ndx2resttop_Chain_C_noMut.itp
 Comparing TOP/ITP:
-     FILE_A: d348720c-1013-4ccd-8aee-eb0f4d4a08b8/ndx2resttop_Chain_D_noMut.itp
-     FILE_B: 9532eaad-b4e2-4ae1-9117-960676dd07c0/ndx2resttop_Chain_D_noMut.itp
+     FILE_A: d0a04c34-5bef-466d-8fc9-da22d3696b55/ndx2resttop_Chain_D_noMut.itp
+     FILE_B: a2585893-704d-4519-bc87-e83fc30a6256/ndx2resttop_Chain_D_noMut.itp
 <br/> -------------------------------Captured log call-------------------------------- <br/>INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Executing biobb_gromacs.gromacs_extra.ndx2resttop Version: 4.0.0
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:159 Extracting: /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs_extra/ndx2resttop.zip
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:160 to:
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:161 [&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step8_gio_gio.top&#x27;]
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:161 [&#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step8_gio_gio.top&#x27;]
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:228 Unzipping: 
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:229 /home/user/actions-runner/_work/biobb_gromacs/biobb_gromacs/biobb_gromacs/test/data/gromacs_extra/ndx2resttop.zip
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:230 To: 
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step8_gio_gio.top
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:232 077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step8_gio_gio.top
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Index_dic: {&#x27;[ System ]&#x27;: (0,), &#x27;[ Protein ]&#x27;: (26363, 26363), &#x27;[ Protein-H ]&#x27;: (28474, 28474), &#x27;[ C-alpha ]&#x27;: (29520, 29520), &#x27;[ Backbone ]&#x27;: (29659, 29659), &#x27;[ MainChain ]&#x27;: (30074, 30074), &#x27;[ MainChain+Cb ]&#x27;: (30627, 30627), &#x27;[ MainChain+H ]&#x27;: (31306, 31306), &#x27;[ SideChain ]&#x27;: (31990, 31990), &#x27;[ SideChain-H ]&#x27;: (33418, 33418), &#x27;[ Prot-Masses ]&#x27;: (33912, 33912), &#x27;[ non-Protein ]&#x27;: (36023, 36023), &#x27;[ Water ]&#x27;: (60276, 60276), &#x27;[ SOL ]&#x27;: (84512, 84512), &#x27;[ non-Water ]&#x27;: (108748, 108748), &#x27;[ Ion ]&#x27;: (110876, 110876), &#x27;[ NA ]&#x27;: (110894, 110894), &#x27;[ CL ]&#x27;: (110904, 110904), &#x27;[ Water_and_ions ]&#x27;: (110914, 110914), &#x27;[ Chain_A ]&#x27;: (135167, 135167), &#x27;[ Chain_B ]&#x27;: (135696, 135696), &#x27;[ Chain_C ]&#x27;: (136225, 136225), &#x27;[ Chain_D ]&#x27;: (136754, 136754), &#x27;[ Chain_A_noMut ]&#x27;: (137283, 137283), &#x27;[ Chain_B_noMut ]&#x27;: (137545, 137545), &#x27;[ Chain_C_noMut ]&#x27;: (137807, 137807), &#x27;[ Chain_D_noMut ]&#x27;: (138069, 138069), &#x27;[ Chain_A_backbone ]&#x27;: (138331, 138331), &#x27;[ Chain_B_backbone ]&#x27;: (138470, 138470), &#x27;[ Chain_C_backbone ]&#x27;: (138609, 138609), &#x27;[ Chain_D_backbone ]&#x27;: (138748, 138748), &#x27;[ Chain_all_noMut ]&#x27;: (138887, 138887), &#x27;[ Chain_all_backbone ]&#x27;: (139932, 139932), &#x27;[ Chain_A_Heavy ]&#x27;: (140485, 140485), &#x27;[ Chain_B_Heavy ]&#x27;: (140748, 140748), &#x27;[ Chain_C_Heavy ]&#x27;: (141011, 141011), &#x27;[ Chain_D_Heavy ]&#x27;: (141274, 141536)}
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 ref_rest_chain_triplet_list: [(&#x27;Chain_A&#x27;, &#x27;Chain_A_noMut&#x27;, &#x27;A&#x27;), (&#x27;Chain_B&#x27;, &#x27;Chain_B_noMut&#x27;, &#x27;B&#x27;), (&#x27;Chain_C&#x27;, &#x27;Chain_C_noMut&#x27;, &#x27;C&#x27;), (&#x27;Chain_D&#x27;, &#x27;Chain_D_noMut&#x27;, &#x27;D&#x27;)]
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Reference group: Chain_A
@@ -1965,35 +1965,35 @@ INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:34
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Chain: A
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 reference_group_index: start_closed:135168 stop_open: 135167
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 restrain_group_index: start_closed:137284 stop_open: 137283
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Creating: &lt;_io.TextIOWrapper name=&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_A_noMut.itp&#x27; mode=&#x27;w&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the selected atoms force constants
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Opening: &lt;_io.TextIOWrapper name=&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27; mode=&#x27;a&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the ifdef include statement
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Creating: &lt;_io.TextIOWrapper name=&#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_A_noMut.itp&#x27; mode=&#x27;w&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the selected atoms force constants
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Opening: &lt;_io.TextIOWrapper name=&#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27; mode=&#x27;a&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the ifdef include statement
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Reference group: Chain_B
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Restrain group: Chain_B_noMut
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Chain: B
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 reference_group_index: start_closed:135697 stop_open: 135696
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 restrain_group_index: start_closed:137546 stop_open: 137545
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Creating: &lt;_io.TextIOWrapper name=&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_B_noMut.itp&#x27; mode=&#x27;w&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the selected atoms force constants
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Opening: &lt;_io.TextIOWrapper name=&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27; mode=&#x27;a&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the ifdef include statement
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Creating: &lt;_io.TextIOWrapper name=&#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_B_noMut.itp&#x27; mode=&#x27;w&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the selected atoms force constants
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Opening: &lt;_io.TextIOWrapper name=&#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27; mode=&#x27;a&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the ifdef include statement
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Reference group: Chain_C
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Restrain group: Chain_C_noMut
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Chain: C
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 reference_group_index: start_closed:136226 stop_open: 136225
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 restrain_group_index: start_closed:137808 stop_open: 137807
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Creating: &lt;_io.TextIOWrapper name=&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_C_noMut.itp&#x27; mode=&#x27;w&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the selected atoms force constants
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Opening: &lt;_io.TextIOWrapper name=&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27; mode=&#x27;a&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the ifdef include statement
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Creating: &lt;_io.TextIOWrapper name=&#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_C_noMut.itp&#x27; mode=&#x27;w&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the selected atoms force constants
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Opening: &lt;_io.TextIOWrapper name=&#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27; mode=&#x27;a&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the ifdef include statement
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Reference group: Chain_D
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Restrain group: Chain_D_noMut
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Chain: D
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 reference_group_index: start_closed:136755 stop_open: 136754
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 restrain_group_index: start_closed:138070 stop_open: 138069
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Creating: &lt;_io.TextIOWrapper name=&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_D_noMut.itp&#x27; mode=&#x27;w&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the selected atoms force constants
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Opening: &lt;_io.TextIOWrapper name=&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27; mode=&#x27;a&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the ifdef include statement
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:188 Ignored file 4a85888d-5dff-42f7-98b6-6c24b5c12623/amber99sb.ff/forcefield.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:188 Ignored file 4a85888d-5dff-42f7-98b6-6c24b5c12623/amber99sb.ff/tip3p.itp
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:188 Ignored file 4a85888d-5dff-42f7-98b6-6c24b5c12623/amber99sb.ff/ions.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Creating: &lt;_io.TextIOWrapper name=&#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_D_noMut.itp&#x27; mode=&#x27;w&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the selected atoms force constants
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Opening: &lt;_io.TextIOWrapper name=&#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27; mode=&#x27;a&#x27; encoding=&#x27;UTF-8&#x27;&gt; and adding the ifdef include statement
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:188 Ignored file 077ec191-b415-4006-aa22-453612fdede2/amber99sb.ff/forcefield.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:188 Ignored file 077ec191-b415-4006-aa22-453612fdede2/amber99sb.ff/tip3p.itp
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:188 Ignored file 077ec191-b415-4006-aa22-453612fdede2/amber99sb.ff/ions.itp
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:137 Adding:
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:138 [&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step8_gio_gio.top&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_A_noMut.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_B_noMut.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_C_noMut.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_D_noMut.itp&#x27;]
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:138 [&#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step8_gio_gio.top&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_A_noMut.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_B_noMut.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_C_noMut.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_D_noMut.itp&#x27;]
 INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:139 to: /tmp/biobb/unitests_40/ndx2resttop/output_top_zip.zip
-INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Removed: [&#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ALL.Ala115Pro_step8_gio_gio.top&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_A_noMut.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_B_noMut.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_C_noMut.itp&#x27;, &#x27;4a85888d-5dff-42f7-98b6-6c24b5c12623/ndx2resttop_Chain_D_noMut.itp&#x27;]<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
+INFO     /tmp/biobb/unitests_40/ndx2resttop/ndx2resttop_log.out:file_utils.py:346 Removed: [&#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_A_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_B_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_C_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step4_p2g_p2g_Protein_chain_D_pr.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ALL.Ala115Pro_step8_gio_gio.top&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_A_noMut.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_B_noMut.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_C_noMut.itp&#x27;, &#x27;077ec191-b415-4006-aa22-453612fdede2/ndx2resttop_Chain_D_noMut.itp&#x27;]<br/> ----------------------------Captured stdout teardown---------------------------- <br/>
 Removing: /tmp/biobb/unitests_40
 <br/></div></td></tr></tbody></table></body></html>
