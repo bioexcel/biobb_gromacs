@@ -116,10 +116,10 @@
     ],
     "dep_pypi" : [
         "install_requires=['biobb_common==4.0.0']",
-        "python_requires='>=3.7,<=3.10'"
+        "python_requires='>=3.7,<3.10'"
     ],
     "dep_conda" : [
-        "python >=3.7,<=3.10",
+        "python >=3.7,<3.10",
         "biobb_common ==4.0.0",
         "gromacs=2022.2=nompi_h1c20066_100"
     ],
