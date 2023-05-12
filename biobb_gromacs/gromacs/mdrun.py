@@ -18,10 +18,10 @@ class Mdrun(BiobbObject):
 
     Args:
         input_tpr_path (str): Path to the portable binary run input file TPR. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/mdrun.tpr>`_. Accepted formats: tpr (edam:format_2333).
-        output_trr_path (str): Path to the GROMACS uncompressed raw trajectory file TRR. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.trr>`_. Accepted formats: trr (edam:format_3910).
         output_gro_path (str): Path to the output GROMACS structure GRO file. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.gro>`_. Accepted formats: gro (edam:format_2033).
         output_edr_path (str): Path to the output GROMACS portable energy file EDR. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.edr>`_. Accepted formats: edr (edam:format_2330).
         output_log_path (str): Path to the output GROMACS trajectory log file LOG. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.log>`_. Accepted formats: log (edam:format_2330).
+        output_trr_path (str) (Optional): Path to the GROMACS uncompressed raw trajectory file TRR. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.trr>`_. Accepted formats: trr (edam:format_3910).
         input_cpt_path (str) (Optional): Path to the input GROMACS checkpoint file CPT. File type: input. Accepted formats: cpt (edam:format_2333).
         output_xtc_path (str) (Optional): Path to the GROMACS compressed trajectory file XTC. File type: output. Accepted formats: xtc (edam:format_3875).
         output_cpt_path (str) (Optional): Path to the output GROMACS checkpoint file CPT. File type: output. Accepted formats: cpt (edam:format_2333).
@@ -73,8 +73,9 @@ class Mdrun(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_tpr_path: str, output_trr_path: str, output_gro_path: str, output_edr_path: str,
-                 output_log_path: str, input_cpt_path: str = None, output_xtc_path: str = None, output_cpt_path: str = None,
+    def __init__(self, input_tpr_path: str, output_gro_path: str, output_edr_path: str,
+                 output_log_path: str, output_trr_path: str = None, input_cpt_path: str = None,
+                 output_xtc_path: str = None, output_cpt_path: str = None,
                  output_dhdl_path: str = None, properties: dict = None, **kwargs) -> None:
         properties = properties or {}
 
@@ -90,6 +91,8 @@ class Mdrun(BiobbObject):
                     "output_xtc_path": output_xtc_path, "output_cpt_path": output_cpt_path,
                     "output_dhdl_path": output_dhdl_path}
         }
+
+        #
 
         # Properties specific for BB
         # general mpi properties
@@ -131,11 +134,17 @@ class Mdrun(BiobbObject):
         # Setup Biobb
         if self.check_restart():
             return 0
+
+        # Optional output files (if not added mrun will create them using a generic name)
+        if not self.stage_io_dict["out"].get("output_trr_path"):
+            self.stage_io_dict["out"]["output_trr_path"] = fu.create_name(prefix=self.prefix, step=self.step, name='trajectory.trr')
+            self.tmp_files.append(self.stage_io_dict["out"]["output_trr_path"])
+
         self.stage_files()
 
         self.cmd = [self.binary_path, 'mdrun',
-                    '-s', self.stage_io_dict["in"]["input_tpr_path"],
                     '-o', self.stage_io_dict["out"]["output_trr_path"],
+                    '-s', self.stage_io_dict["in"]["input_tpr_path"],
                     '-c', self.stage_io_dict["out"]["output_gro_path"],
                     '-e', self.stage_io_dict["out"]["output_edr_path"],
                     '-g', self.stage_io_dict["out"]["output_log_path"]]
@@ -221,8 +230,9 @@ class Mdrun(BiobbObject):
         return self.return_code
 
 
-def mdrun(input_tpr_path: str, output_trr_path: str, output_gro_path: str, output_edr_path: str,
-          output_log_path: str, input_cpt_path: str = None, output_xtc_path: str = None, output_cpt_path: str = None,
+def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
+          output_log_path: str, output_trr_path: str = None, input_cpt_path: str = None,
+          output_xtc_path: str = None, output_cpt_path: str = None,
           output_dhdl_path: str = None, properties: dict = None, **kwargs) -> int:
     """Create :class:`Mdrun <gromacs.mdrun.Mdrun>` class and
     execute the :meth:`launch() <gromacs.mdrun.Mdrun.launch>` method."""
@@ -244,10 +254,10 @@ def main():
     # Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_tpr_path', required=True)
-    required_args.add_argument('--output_trr_path', required=True)
     required_args.add_argument('--output_gro_path', required=True)
     required_args.add_argument('--output_edr_path', required=True)
     required_args.add_argument('--output_log_path', required=True)
+    parser.add_argument('--output_trr_path', required=False)
     parser.add_argument('--input_cpt_path', required=False)
     parser.add_argument('--output_xtc_path', required=False)
     parser.add_argument('--output_cpt_path', required=False)
