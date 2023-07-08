@@ -13,7 +13,7 @@ Command:
 ```python
 mdrun -h
 ```
-    usage: mdrun [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_trr_path OUTPUT_TRR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--input_cpt_path INPUT_CPT_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH]
+    usage: mdrun [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--output_trr_path OUTPUT_TRR_PATH] [--input_cpt_path INPUT_CPT_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH]
     
     Wrapper for the GROMACS mdrun module.
     
@@ -21,6 +21,7 @@ mdrun -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
+      --output_trr_path OUTPUT_TRR_PATH
       --input_cpt_path INPUT_CPT_PATH
       --output_xtc_path OUTPUT_XTC_PATH
       --output_cpt_path OUTPUT_CPT_PATH
@@ -28,7 +29,6 @@ mdrun -h
     
     required arguments:
       --input_tpr_path INPUT_TPR_PATH
-      --output_trr_path OUTPUT_TRR_PATH
       --output_gro_path OUTPUT_GRO_PATH
       --output_edr_path OUTPUT_EDR_PATH
       --output_log_path OUTPUT_LOG_PATH
@@ -37,10 +37,10 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 * **input_tpr_path** (*string*): Path to the portable binary run input file TPR. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/mdrun.tpr). Accepted formats: TPR
-* **output_trr_path** (*string*): Path to the GROMACS uncompressed raw trajectory file TRR. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.trr). Accepted formats: TRR
 * **output_gro_path** (*string*): Path to the output GROMACS structure GRO file. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.gro). Accepted formats: GRO
 * **output_edr_path** (*string*): Path to the output GROMACS portable energy file EDR. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.edr). Accepted formats: EDR
 * **output_log_path** (*string*): Path to the output GROMACS trajectory log file LOG. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.log). Accepted formats: LOG
+* **output_trr_path** (*string*): Path to the GROMACS uncompressed raw trajectory file TRR. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.trr). Accepted formats: TRR
 * **input_cpt_path** (*string*): Path to the input GROMACS checkpoint file CPT. File type: input. [Sample file](None). Accepted formats: CPT
 * **output_xtc_path** (*string*): Path to the GROMACS compressed trajectory file XTC. File type: output. [Sample file](None). Accepted formats: XTC
 * **output_cpt_path** (*string*): Path to the output GROMACS checkpoint file CPT. File type: output. [Sample file](None). Accepted formats: CPT
@@ -96,7 +96,7 @@ properties:
 ```
 #### Command line
 ```python
-mdrun --config config_mdrun.yml --input_tpr_path mdrun.tpr --output_trr_path ref_mdrun.trr --output_gro_path ref_mdrun.gro --output_edr_path ref_mdrun.edr --output_log_path ref_mdrun.log --input_cpt_path input.cpt --output_xtc_path output.xtc --output_cpt_path output.cpt --output_dhdl_path output.xvg
+mdrun --config config_mdrun.yml --input_tpr_path mdrun.tpr --output_gro_path ref_mdrun.gro --output_edr_path ref_mdrun.edr --output_log_path ref_mdrun.log --output_trr_path ref_mdrun.trr --input_cpt_path input.cpt --output_xtc_path output.xtc --output_cpt_path output.cpt --output_dhdl_path output.xvg
 ```
 ### JSON
 #### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_mdrun.json)
@@ -130,7 +130,7 @@ mdrun --config config_mdrun.yml --input_tpr_path mdrun.tpr --output_trr_path ref
 ```
 #### Command line
 ```python
-mdrun --config config_mdrun.json --input_tpr_path mdrun.tpr --output_trr_path ref_mdrun.trr --output_gro_path ref_mdrun.gro --output_edr_path ref_mdrun.edr --output_log_path ref_mdrun.log --input_cpt_path input.cpt --output_xtc_path output.xtc --output_cpt_path output.cpt --output_dhdl_path output.xvg
+mdrun --config config_mdrun.json --input_tpr_path mdrun.tpr --output_gro_path ref_mdrun.gro --output_edr_path ref_mdrun.edr --output_log_path ref_mdrun.log --output_trr_path ref_mdrun.trr --input_cpt_path input.cpt --output_xtc_path output.xtc --output_cpt_path output.cpt --output_dhdl_path output.xvg
 ```
 
 ## Make_ndx

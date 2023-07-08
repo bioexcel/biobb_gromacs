@@ -19,7 +19,6 @@
     },
     "required": [
         "input_tpr_path",
-        "output_trr_path",
         "output_gro_path",
         "output_edr_path",
         "output_log_path"
@@ -38,22 +37,6 @@
                     "extension": ".*\\.tpr$",
                     "description": "Path to the portable binary run input file TPR",
                     "edam": "format_2333"
-                }
-            ]
-        },
-        "output_trr_path": {
-            "type": "string",
-            "description": "Path to the GROMACS uncompressed raw trajectory file TRR",
-            "filetype": "output",
-            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.trr",
-            "enum": [
-                ".*\\.trr$"
-            ],
-            "file_formats": [
-                {
-                    "extension": ".*\\.trr$",
-                    "description": "Path to the GROMACS uncompressed raw trajectory file TRR",
-                    "edam": "format_3910"
                 }
             ]
         },
@@ -102,6 +85,22 @@
                     "extension": ".*\\.log$",
                     "description": "Path to the output GROMACS trajectory log file LOG",
                     "edam": "format_2330"
+                }
+            ]
+        },
+        "output_trr_path": {
+            "type": "string",
+            "description": "Path to the GROMACS uncompressed raw trajectory file TRR",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.trr",
+            "enum": [
+                ".*\\.trr$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.trr$",
+                    "description": "Path to the GROMACS uncompressed raw trajectory file TRR",
+                    "edam": "format_3910"
                 }
             ]
         },
