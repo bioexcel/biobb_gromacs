@@ -38,6 +38,7 @@ jobs:
       - name: provision-with-micromamba
         uses: mamba-org/setup-micromamba@v1
         with:
+          post-cleanup: all
           environment-file: .github/env.yaml
           create-args: >-
             python=${{ matrix.python-version }}
