@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
-from typing import Dict, Mapping
+from typing import Dict, Mapping, Optional
 
 
 def get_gromacs_version(gmx: str = "gmx") -> int:
@@ -23,11 +23,14 @@ def get_gromacs_version(gmx: str = "gmx") -> int:
     try:
         cmd_wrapper.CmdWrapper(cmd=cmd, out_log=out_log, err_log=err_log).launch()
         pattern = re.compile(r"GROMACS version:\s+(.+)")
+        version_str: Optional[re.Match[str]] = None
         with open(Path(unique_dir).joinpath('log.out')) as log_file:
             for line in log_file:
                 version_str = pattern.match(line.strip())
                 if version_str:
                     break
+        if not version_str:
+            return 0
         version = version_str.group(1).replace(".", "").replace("VERSION", "").strip()
         version = "".join([c for c in version if c.isdigit()])
     except Exception:
