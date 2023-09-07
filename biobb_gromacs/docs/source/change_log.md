@@ -1,5 +1,13 @@
 # Biobb GROMACS changelog
 
+## What's new in version [4.1.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v4.1.0)?
+
+### New features
+
+* TRR file output is now optional in mdrun.
+* Extended functionality and usage of gmx_check.
+
+
 ## What's new in version [4.0.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v4.0.0)?
 
 ### New features
