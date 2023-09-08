@@ -3,6 +3,7 @@
 """Module containing the Grompp class and the command line interface."""
 import argparse
 import shutil
+from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -67,7 +68,7 @@ class Grompp(BiobbObject):
     """
 
     def __init__(self, input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
-                 input_cpt_path: str = None, input_ndx_path: str = None, input_mdp_path: str = None,
+                 input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
                  properties: dict = None, **kwargs) -> None:
         properties = properties or {}
 
@@ -180,8 +181,8 @@ class Grompp(BiobbObject):
 
 
 def grompp(input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
-           input_cpt_path: str = None, input_ndx_path: str = None, input_mdp_path: str = None,
-           properties: dict = None, **kwargs) -> int:
+           input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
+           properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Grompp <gromacs.grompp.Grompp>` class and
     execute the :meth:`launch() <gromacs.grompp.Grompp.launch>` method."""
 

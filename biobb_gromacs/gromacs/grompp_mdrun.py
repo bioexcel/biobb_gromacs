@@ -2,6 +2,7 @@
 
 """Module containing the GromppMDrun class and the command line interface."""
 import argparse
+from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -87,9 +88,9 @@ class GromppMdrun(BiobbObject):
 
     def __init__(self, input_gro_path: str, input_top_zip_path: str, output_trr_path: str,
                  output_gro_path: str, output_edr_path: str, output_log_path: str,
-                 input_cpt_path: str = None, input_ndx_path: str = None, input_mdp_path: str = None,
-                 output_xtc_path: str = None, output_cpt_path: str = None, output_dhdl_path: str = None,
-                 properties: dict = None, **kwargs) -> None:
+                 input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
+                 output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None, output_dhdl_path: Optional[str] = None,
+                 output_tpr_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         # Properties management
         properties = properties or {}
 
@@ -113,7 +114,9 @@ class GromppMdrun(BiobbObject):
         # Grompp arguments
         self.input_gro_path = input_gro_path
         self.input_top_zip_path = input_top_zip_path
-        self.output_tpr_path = str(Path(fu.create_unique_dir()).joinpath('internal.tpr'))
+        self.output_tpr_path = output_tpr_path
+        if not self.output_tpr_path:
+            self.output_tpr_path = str(Path(fu.create_unique_dir()).joinpath('internal.tpr'))
         self.input_cpt_path = input_cpt_path
         self.input_ndx_path = input_ndx_path
         self.input_mdp_path = input_mdp_path
@@ -160,16 +163,16 @@ class GromppMdrun(BiobbObject):
 
 def grompp_mdrun(input_gro_path: str, input_top_zip_path: str, output_trr_path: str,
                  output_gro_path: str, output_edr_path: str, output_log_path: str,
-                 input_cpt_path: str = None, input_ndx_path: str = None, input_mdp_path: str = None,
-                 output_xtc_path: str = None, output_cpt_path: str = None, output_dhdl_path: str = None,
-                 properties: dict = None, **kwargs) -> int:
+                 input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
+                 output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None, output_dhdl_path: Optional[str] = None,
+                 output_tpr_path: Optional[str] = None, properties: dict = None, **kwargs) -> int:
     return GromppMdrun(input_gro_path=input_gro_path, input_top_zip_path=input_top_zip_path,
                        output_trr_path=output_trr_path, output_gro_path=output_gro_path,
                        output_edr_path=output_edr_path, output_log_path=output_log_path,
                        input_cpt_path=input_cpt_path, input_ndx_path=input_ndx_path,
                        input_mdp_path=input_mdp_path, output_xtc_path=output_xtc_path,
                        output_cpt_path=output_cpt_path, output_dhdl_path=output_dhdl_path,
-                       properties=properties, **kwargs).launch()
+                       output_tpr_path=output_tpr_path, properties=properties, **kwargs).launch()
 
 
 def main():
@@ -192,6 +195,7 @@ def main():
     parser.add_argument('--output_xtc_path', required=False)
     parser.add_argument('--output_cpt_path', required=False)
     parser.add_argument('--output_dhdl_path', required=False)
+    parser.add_argument('--output_tpr_path', required=False)
 
     args = parser.parse_args()
     config = args.config if args.config else None
@@ -204,7 +208,7 @@ def main():
                  input_cpt_path=args.input_cpt_path, input_ndx_path=args.input_ndx_path,
                  input_mdp_path=args.input_mdp_path, output_xtc_path=args.output_xtc_path,
                  output_cpt_path=args.output_cpt_path, output_dhdl_path=args.output_dhdl_path,
-                 properties=properties)
+                 output_tpr_path=args.output_tpr_path, properties=properties)
 
 
 if __name__ == '__main__':

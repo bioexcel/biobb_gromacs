@@ -249,9 +249,9 @@ def write_mdp(output_mdp_path: str, mdp_dict: Mapping[str, str]):
     return output_mdp_path
 
 
-def create_mdp(output_mdp_path: str, input_mdp_path: str = None,
-               preset_dict: Mapping[str, str] = None,
-               mdp_properties_dict: Mapping[str, str] = None) -> str:
+def create_mdp(output_mdp_path: str, input_mdp_path: Optional[str] = None,
+               preset_dict: Optional[Mapping[str, str]] = None,
+               mdp_properties_dict: Optional[Mapping[str, str]] = None) -> str:
     """Creates an MDP file using the following hierarchy  mdp_properties_dict > input_mdp_path > preset_dict"""
     mdp_dict = {}
 

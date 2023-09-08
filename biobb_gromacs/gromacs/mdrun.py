@@ -2,6 +2,7 @@
 
 """Module containing the MDrun class and the command line interface."""
 import argparse
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -74,9 +75,9 @@ class Mdrun(BiobbObject):
     """
 
     def __init__(self, input_tpr_path: str, output_gro_path: str, output_edr_path: str,
-                 output_log_path: str, output_trr_path: str = None, input_cpt_path: str = None,
-                 output_xtc_path: str = None, output_cpt_path: str = None,
-                 output_dhdl_path: str = None, properties: dict = None, **kwargs) -> None:
+                 output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
+                 output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
+                 output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -231,9 +232,9 @@ class Mdrun(BiobbObject):
 
 
 def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
-          output_log_path: str, output_trr_path: str = None, input_cpt_path: str = None,
-          output_xtc_path: str = None, output_cpt_path: str = None,
-          output_dhdl_path: str = None, properties: dict = None, **kwargs) -> int:
+          output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
+          output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
+          output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Mdrun <gromacs.mdrun.Mdrun>` class and
     execute the :meth:`launch() <gromacs.mdrun.Mdrun.launch>` method."""
 
