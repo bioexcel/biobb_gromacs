@@ -10,7 +10,7 @@ from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
-from biobb_gromacs.gromacs.common import GromacsVersionError
+
 from biobb_gromacs.gromacs.common import create_mdp
 from biobb_gromacs.gromacs.common import mdp_preset
 
@@ -159,12 +159,6 @@ class Grompp(BiobbObject):
 
         if self.gmx_lib:
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
-
-        # Check GROMACS version
-        if not self.container_path:
-            if self.gmx_version < 512:
-                raise GromacsVersionError("Gromacs version should be 5.1.2 or newer %d detected" % self.gmx_version)
-            fu.log("GROMACS %s %d version detected" % (self.__class__.__name__, self.gmx_version), self.out_log)
 
         # Run Biobb block
         self.run_biobb()

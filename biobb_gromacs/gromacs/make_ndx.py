@@ -8,7 +8,6 @@ from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
-from biobb_gromacs.gromacs.common import GromacsVersionError
 
 
 class MakeNdx(BiobbObject):
@@ -52,6 +51,7 @@ class MakeNdx(BiobbObject):
             * name: EDAM
             * schema: http://edamontology.org/EDAM.owl
     """
+
     def __init__(self, input_structure_path: str, output_ndx_path: str, input_ndx_path: str = None,
                  properties: dict = None, **kwargs) -> None:
         properties = properties or {}
@@ -114,12 +114,6 @@ class MakeNdx(BiobbObject):
 
         if self.gmx_lib:
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
-
-        # Check GROMACS version
-        if not self.container_path:
-            if self.gmx_version < 512:
-                raise GromacsVersionError("Gromacs version should be 5.1.2 or newer %d detected" % self.gmx_version)
-            fu.log("GROMACS %s %d version detected" % (self.__class__.__name__, self.gmx_version), self.out_log)
 
         # create_cmd_line and execute_command
         self.run_biobb()
