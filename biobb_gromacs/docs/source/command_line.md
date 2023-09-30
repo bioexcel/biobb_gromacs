@@ -766,7 +766,7 @@ Command:
 ```python
 append_ligand -h
 ```
-    /bin/sh: /Users/pau/anaconda3/envs/dev/bin/append_ligand: Permission denied
+    /bin/sh: /Users/pau/mambaforge/envs/dev38/bin/append_ligand: Permission denied
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1149,7 +1149,7 @@ Command:
 ```python
 grompp_mdrun -h
 ```
-    usage: grompp_mdrun [-h] [-c CONFIG] --input_gro_path INPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_trr_path OUTPUT_TRR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--input_cpt_path INPUT_CPT_PATH] [--input_ndx_path INPUT_NDX_PATH] [--input_mdp_path INPUT_MDP_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH]
+    usage: grompp_mdrun [-h] [-c CONFIG] --input_gro_path INPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_trr_path OUTPUT_TRR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--input_cpt_path INPUT_CPT_PATH] [--input_ndx_path INPUT_NDX_PATH] [--input_mdp_path INPUT_MDP_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH] [--output_tpr_path OUTPUT_TPR_PATH]
     
     Wrapper for the GROMACS grompp_mdrun module.
     
@@ -1163,6 +1163,7 @@ grompp_mdrun -h
       --output_xtc_path OUTPUT_XTC_PATH
       --output_cpt_path OUTPUT_CPT_PATH
       --output_dhdl_path OUTPUT_DHDL_PATH
+      --output_tpr_path OUTPUT_TPR_PATH
     
     required arguments:
       --input_gro_path INPUT_GRO_PATH

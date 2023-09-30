@@ -1,5 +1,11 @@
 # Biobb GROMACS changelog
 
+## What's new in version [4.1.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v4.1.1)?
+
+### New features
+
+* Check for GROMACS version now raises a warning instead of an Exception.
+
 ## What's new in version [4.1.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v4.1.0)?
 
 ### New features
