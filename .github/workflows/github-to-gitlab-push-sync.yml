@@ -1,0 +1,23 @@
+name: build
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'releases/**'
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    name: Git Repo Sync
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - uses: bioexcel/biobb_gromacs@master
+      with:
+        target-url: 'https://codehub.hlrs.de/coes/bioexcel/biobb/biobb_gromacs.git'
+        target-username: ${{ secrets.ACCESS_TOKEN_NAME }}
+        target-token: ${{ secrets.ACCESS_TOKEN }}
