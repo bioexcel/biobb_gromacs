@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - uses: bioexcel/biobb_gromacs@master
+    - uses: cniethammer/git-repo-sync@main
       with:
         target-url: 'https://codehub.hlrs.de/coes/bioexcel/biobb/biobb_gromacs.git'
         target-username: ${{ secrets.ACCESS_TOKEN_NAME }}
