@@ -126,7 +126,7 @@ def read_mdp(input_mdp_path: str) -> Dict[str, str]:
 
 
 def mdp_preset(sim_type: str) -> Dict[str, str]:
-    mdp_dict = {}
+    mdp_dict: Dict[str, str] = {}
     if not sim_type or sim_type == 'index':
         return mdp_dict
 
