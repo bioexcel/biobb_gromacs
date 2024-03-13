@@ -1,0 +1,18 @@
+{
+  "@context": "http://schema.org",
+  "@id": "https://github.com/bioexcel/biobb_gromacs",
+  "@type": "ItemList",
+  "name": "biobb_gromacs",
+  "itemListElement":[  
+    {
+      "@type": "SoftwareApplication",
+      "description": "A free and open-source software suite for high-performance molecular dynamics and output analysis.",
+      "name": "GROMACS",
+      "url": "https://www.gromacs.org/",
+      "applicationCategory": "Computational Biology tool",
+      "citation": "https://doi.org/10.1063/5.0018516",
+      "license": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html",
+      "softwareVersion": "2022.2"
+    }
+  ]
+}
