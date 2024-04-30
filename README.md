@@ -27,7 +27,7 @@
 
 [](https://bestpractices.coreinfrastructure.org/projects/8847/badge)
 
- [//]: # (The invisible link in the line above is be compatible with the howfairis https://github.com/fair-software/howfairis-github-action/tree/main wich uses the old bestpractives URL)
+ [//]: # (The previous line invisible link is for compatibility with the howfairis script https://github.com/fair-software/howfairis-github-action/tree/main wich uses the old bestpractives URL)
 
 
 
