@@ -5,6 +5,7 @@ import re
 import argparse
 import shutil
 from pathlib import Path
+from typing import Optional, Dict
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -47,7 +48,7 @@ class AppendLigand(BiobbObject):
     """
 
     def __init__(self, input_top_zip_path: str, input_itp_path: str, output_top_zip_path: str,
-                 input_posres_itp_path: str = None, properties: dict = None, **kwargs) -> None:
+                 input_posres_itp_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor

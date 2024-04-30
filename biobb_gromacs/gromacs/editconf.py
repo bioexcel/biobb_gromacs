@@ -7,6 +7,7 @@ from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
+from typing import Optional, Dict
 
 
 class Editconf(BiobbObject):
@@ -54,7 +55,7 @@ class Editconf(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_gro_path: str, output_gro_path: str, properties: dict = None, **kwargs) -> None:
+    def __init__(self, input_gro_path: str, output_gro_path: str, properties: Optional[Dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -75,7 +76,7 @@ class Editconf(BiobbObject):
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
+        self.binary_path: str = properties.get('binary_path', 'gmx')
         self.gmx_nobackup = properties.get('gmx_nobackup', True)
         self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
@@ -121,7 +122,7 @@ class Editconf(BiobbObject):
         fu.log("Box type: %s" % self.box_type, self.out_log, self.global_log)
 
         if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
+            self.env_vars_dict = self.gmx_lib
 
         # Run Biobb block
         self.run_biobb()

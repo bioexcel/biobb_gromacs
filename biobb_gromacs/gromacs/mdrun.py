@@ -92,8 +92,6 @@ class Mdrun(BiobbObject):
                     "output_dhdl_path": output_dhdl_path}
         }
 
-        #
-
         # Properties specific for BB
         # general mpi properties
         self.mpi_bin = properties.get('mpi_bin')
@@ -113,7 +111,7 @@ class Mdrun(BiobbObject):
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
+        self.binary_path: str = properties.get('binary_path', 'gmx')
         self.gmx_nobackup = properties.get('gmx_nobackup', True)
         self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
@@ -133,7 +131,7 @@ class Mdrun(BiobbObject):
 
         # Setup Biobb
         if self.check_restart():
-            return 0
+            return d0
 
         # Optional output files (if not added mrun will create them using a generic name)
         if not self.stage_io_dict["out"].get("output_trr_path"):
