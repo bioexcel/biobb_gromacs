@@ -131,7 +131,7 @@ class Mdrun(BiobbObject):
 
         # Setup Biobb
         if self.check_restart():
-            return d0
+            return 0
 
         # Optional output files (if not added mrun will create them using a generic name)
         if not self.stage_io_dict["out"].get("output_trr_path"):
