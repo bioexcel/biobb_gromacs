@@ -24,6 +24,8 @@
 
 [![](https://www.bestpractices.dev/projects/8860/badge)](https://www.bestpractices.dev/projects/8860)
 
+[//]: # (https://bestpractices.coreinfrastructure.org/projects/8860/badge to be compatible with the howfairis https://github.com/fair-software/howfairis-github-action/tree/main wich uses the old bestpractives URL)
+
 
 # biobb_gromacs
 
