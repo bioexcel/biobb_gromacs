@@ -9,6 +9,7 @@ from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
+from typing import Optional, Dict, Union
 
 
 class Genion(BiobbObject):
@@ -61,8 +62,8 @@ class Genion(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_tpr_path: str, output_gro_path: str, input_top_zip_path: str,
-                 output_top_zip_path: str, input_ndx_path: str = None, properties: dict = None, **kwargs) -> None:
+    def __init__(self, input_tpr_path: Union[str, Path], output_gro_path: Union[str, Path], input_top_zip_path: Union[str, Path],
+                 output_top_zip_path: Union[str, Path], input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[Dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -90,11 +91,11 @@ class Genion(BiobbObject):
         self.gmx_nobackup = properties.get('gmx_nobackup', True)
         self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
+            self.binary_path = f"{self.binary_path} -nobackup"
         if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
+            self.binary_path = f"{self.binary_path} -nocopyright"
         if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
+            self.gmx_version = get_gromacs_version(str(self.binary_path))
 
         # Check the properties
         self.check_properties(properties)
@@ -116,10 +117,10 @@ class Genion(BiobbObject):
         top_dir = str(Path(top_file).parent)
 
         if self.container_path:
-            shutil.copytree(top_dir, Path(self.stage_io_dict.get("unique_dir")).joinpath(Path(top_dir).name))
+            shutil.copytree(top_dir, Path(str(self.stage_io_dict.get("unique_dir"))).joinpath(Path(top_dir).name))
             top_file = str(Path(self.container_volume_path).joinpath(Path(top_dir).name, Path(top_file).name))
 
-        self.cmd = [self.binary_path, 'genion',
+        self.cmd = [str(self.binary_path), 'genion',
                     '-s', self.stage_io_dict["in"]["input_tpr_path"],
                     '-o', self.stage_io_dict["out"]["output_gro_path"],
                     '-p', top_file]
@@ -155,7 +156,7 @@ class Genion(BiobbObject):
         self.copy_to_host()
 
         if self.container_path:
-            top_file = str(Path(self.stage_io_dict.get("unique_dir")).joinpath(Path(top_dir).name, Path(top_file).name))
+            top_file = str(Path(str(self.stage_io_dict.get("unique_dir"))).joinpath(Path(top_dir).name, Path(top_file).name))
 
         # zip topology
         fu.log('Compressing topology to: %s' % self.stage_io_dict["out"]["output_top_zip_path"],
@@ -163,20 +164,20 @@ class Genion(BiobbObject):
         fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=top_file, out_log=self.out_log)
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), top_dir, self.io_dict['in'].get("stdin_file_path")])
+        self.tmp_files.extend([str(self.stage_io_dict.get("unique_dir")), top_dir, str(self.io_dict['in'].get("stdin_file_path"))])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=True)
         return self.return_code
 
 
-def genion(input_tpr_path: str, output_gro_path: str, input_top_zip_path: str,
-           output_top_zip_path: str, properties: dict = None, **kwargs) -> int:
+def genion(input_tpr_path: Union[str, Path], output_gro_path: Union[str, Path], input_top_zip_path: Union[str, Path],
+           output_top_zip_path: Union[str, Path], input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[Dict] = None, **kwargs) -> int:
     """Create :class:`Genion <gromacs.genion.Genion>` class and
         execute the :meth:`launch() <gromacs.genion.Genion.launch>` method."""
     return Genion(input_tpr_path=input_tpr_path, output_gro_path=output_gro_path,
                   input_top_zip_path=input_top_zip_path, output_top_zip_path=output_top_zip_path,
-                  properties=properties, **kwargs).launch()
+                  input_ndx_path=input_ndx_path, properties=properties, **kwargs).launch()
 
 
 def main():
@@ -191,6 +192,7 @@ def main():
     required_args.add_argument('--output_gro_path', required=True)
     required_args.add_argument('--input_top_zip_path', required=True)
     required_args.add_argument('--output_top_zip_path', required=True)
+    parser.add_argument('--input_ndx_path', required=False)
 
     args = parser.parse_args()
     config = args.config if args.config else None
@@ -199,7 +201,7 @@ def main():
     # Specific call of each building block
     genion(input_tpr_path=args.input_tpr_path, output_gro_path=args.output_gro_path,
            input_top_zip_path=args.input_top_zip_path, output_top_zip_path=args.output_top_zip_path,
-           properties=properties)
+           input_ndx_path=args.input_ndx_path, properties=properties)
 
 
 if __name__ == '__main__':

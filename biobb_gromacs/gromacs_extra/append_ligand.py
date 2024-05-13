@@ -77,9 +77,9 @@ class AppendLigand(BiobbObject):
             return 0
 
         # Unzip topology
-        top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path"), out_log=self.out_log)
+        top_file = fu.unzip_top(zip_file=str(self.io_dict['in'].get("input_top_zip_path")), out_log=self.out_log)
         top_dir = str(Path(top_file).parent)
-        itp_name = str(Path(self.io_dict['in'].get("input_itp_path")).name)
+        itp_name = str(Path(str(self.io_dict['in'].get("input_itp_path"))).name)
 
         with open(top_file) as top_f:
             top_lines = top_f.readlines()
