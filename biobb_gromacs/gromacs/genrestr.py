@@ -7,6 +7,8 @@ from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
+from pathlib import Path
+from typing import Union, Optional, Dict
 
 
 class Genrestr(BiobbObject):
@@ -53,8 +55,8 @@ class Genrestr(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_structure_path: str, output_itp_path: str, input_ndx_path: str = None,
-                 properties: dict = None, **kwargs) -> None:
+    def __init__(self, input_structure_path: Union[str, Path], output_itp_path: Union[str, Path],
+                 input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[Dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -77,11 +79,11 @@ class Genrestr(BiobbObject):
         self.gmx_nobackup = properties.get('gmx_nobackup', True)
         self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
+            self.binary_path = f"{self.binary_path}  -nobackup"
         if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
+            self.binary_path = f"{self.binary_path} -nocopyright"
         if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
+            self.gmx_version = get_gromacs_version(str(self.binary_path))
 
         # Check the properties
         self.check_properties(properties)
@@ -98,7 +100,7 @@ class Genrestr(BiobbObject):
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.restrained_group}')
         self.stage_files()
 
-        self.cmd = [self.binary_path, "genrestr",
+        self.cmd = [str(self.binary_path), "genrestr",
                     "-f", self.stage_io_dict["in"]["input_structure_path"],
                     "-o", self.stage_io_dict["out"]["output_itp_path"]]
 
@@ -126,15 +128,15 @@ class Genrestr(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path")])
+        self.tmp_files.extend([str(self.stage_io_dict.get("unique_dir")), str(self.io_dict['in'].get("stdin_file_path"))])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
 
 
-def genrestr(input_structure_path: str, output_itp_path: str,
-             input_ndx_path: str = None, properties: dict = None, **kwargs) -> int:
+def genrestr(input_structure_path: Union[str, Path], output_itp_path: Union[str, Path],
+             input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[Dict] = None, **kwargs) -> int:
     """Create :class:`Genrestr <gromacs.genrestr.Genrestr>` class and
     execute the :meth:`launch() <gromacs.genrestr.Genrestr.launch>` method."""
 
