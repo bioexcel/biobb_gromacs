@@ -923,7 +923,7 @@ Command:
 ```python
 genion -h
 ```
-    usage: genion [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH
+    usage: genion [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH [--input_ndx_path INPUT_NDX_PATH]
     
     Wrapper for the GROMACS genion module.
     
@@ -931,6 +931,7 @@ genion -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
+      --input_ndx_path INPUT_NDX_PATH
     
     required arguments:
       --input_tpr_path INPUT_TPR_PATH

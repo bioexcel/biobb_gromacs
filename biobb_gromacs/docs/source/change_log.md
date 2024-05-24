@@ -1,5 +1,18 @@
 # Biobb GROMACS changelog
 
+## What's new in version [4.2.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v4.2.0)?
+
+### Changes
+
+* [DOCS] Adding fair software badge and GA
+* [FIX] Fixing type hints problems
+* [FIX] Type Hints Errors
+* [DOCS] Adding CITATION.cff in paths-ignore
+* [DOCS] Howfairis checker
+* [DOCS] Adding CITATION.cff and badges to the readme
+* [CI/CD] Adding Castiel Gitlab push sync github Action
+
+
 ## What's new in version [4.1.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v4.1.1)?
 
 ### New features
