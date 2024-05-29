@@ -3,7 +3,7 @@
 """Module containing the Grompp class and the command line interface."""
 import argparse
 import shutil
-from typing import Optional
+from typing import Optional, Dict
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -69,7 +69,7 @@ class Grompp(BiobbObject):
 
     def __init__(self, input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
                  input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
-                 properties: dict = None, **kwargs) -> None:
+                 properties: Optional[Dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -120,12 +120,12 @@ class Grompp(BiobbObject):
         self.stage_files()
 
         # Unzip topology to topology_out
-        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir"))
+        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
 
         # Create MDP file
-        self.output_mdp_path = create_mdp(output_mdp_path=str(Path(self.stage_io_dict.get("unique_dir")).joinpath(self.output_mdp_path)),
+        self.output_mdp_path = create_mdp(output_mdp_path=str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(self.output_mdp_path)),
                                           input_mdp_path=self.io_dict["in"]["input_mdp_path"],
-                                          preset_dict=mdp_preset(self.simulation_type),
+                                          preset_dict=mdp_preset(str(self.simulation_type)),
                                           mdp_properties_dict=self.mdp)
 
         # Copy extra files to container: MDP file and topology folder
@@ -145,15 +145,15 @@ class Grompp(BiobbObject):
         if self.stage_io_dict["in"].get("input_cpt_path") and Path(self.stage_io_dict["in"]["input_cpt_path"]).exists():
             self.cmd.append('-t')
             if self.container_path:
-                shutil.copy2(self.stage_io_dict["in"]["input_cpt_path"], self.stage_io_dict.get("unique_dir"))
+                shutil.copy2(self.stage_io_dict["in"]["input_cpt_path"], self.stage_io_dict.get("unique_dir", ""))
                 self.cmd.append(str(Path(self.container_volume_path).joinpath(Path(self.stage_io_dict["in"]["input_cpt_path"]).name)))
             else:
                 self.cmd.append(self.stage_io_dict["in"]["input_cpt_path"])
         if self.stage_io_dict["in"].get("input_ndx_path") and Path(self.stage_io_dict["in"]["input_ndx_path"]).exists():
             self.cmd.append('-n')
             if self.container_path:
-                shutil.copy2(self.stage_io_dict["in"]["input_ndx_path"], self.stage_io_dict.get("unique_dir"))
-                self.cmd.append(Path(self.container_volume_path).joinpath(Path(self.stage_io_dict["in"]["input_ndx_path"]).name))
+                shutil.copy2(self.stage_io_dict["in"]["input_ndx_path"], self.stage_io_dict.get("unique_dir", ""))
+                self.cmd.append(str(Path(self.container_volume_path).joinpath(Path(self.stage_io_dict["in"]["input_ndx_path"]).name)))
             else:
                 self.cmd.append(self.stage_io_dict["in"]["input_ndx_path"])
 
@@ -167,7 +167,7 @@ class Grompp(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), 'mdout.mdp'])
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir", ''), 'mdout.mdp'])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)

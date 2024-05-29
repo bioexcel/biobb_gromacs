@@ -1,3 +1,4 @@
+# type: ignore
 from biobb_common.tools import test_fixtures as fx
 from biobb_gromacs.gromacs_extra.ndx2resttop import Ndx2resttop
 

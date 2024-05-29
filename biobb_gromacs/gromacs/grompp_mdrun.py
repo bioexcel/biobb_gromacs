@@ -2,7 +2,7 @@
 
 """Module containing the GromppMDrun class and the command line interface."""
 import argparse
-from typing import Optional
+from typing import Optional, Dict
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -137,14 +137,14 @@ class GromppMdrun(BiobbObject):
 
         fu.log('Calling Grompp class', self.out_log, self.global_log)
         grompp_return_code = grompp(input_gro_path=self.input_gro_path, input_top_zip_path=self.input_top_zip_path,
-                                    output_tpr_path=self.output_tpr_path, input_cpt_path=self.input_cpt_path,
+                                    output_tpr_path=self.output_tpr_path, input_cpt_path=self.input_cpt_path,  # type: ignore
                                     input_ndx_path=self.input_ndx_path, input_mdp_path=self.input_mdp_path,
                                     properties=self.properties_grompp)
         fu.log(f'Grompp return code: {grompp_return_code}', self.out_log, self.global_log)
 
         if not grompp_return_code:
             fu.log('Grompp return code is correct. Calling MDRun class', self.out_log, self.global_log)
-            mdrun_return_code = mdrun(input_tpr_path=self.output_tpr_path, output_trr_path=self.output_trr_path,
+            mdrun_return_code = mdrun(input_tpr_path=self.output_tpr_path, output_trr_path=self.output_trr_path,  # type: ignore
                                       output_gro_path=self.output_gro_path, output_edr_path=self.output_edr_path,
                                       output_log_path=self.output_log_path, output_xtc_path=self.output_xtc_path,
                                       output_cpt_path=self.output_cpt_path, output_dhdl_path=self.output_dhdl_path,
@@ -154,7 +154,7 @@ class GromppMdrun(BiobbObject):
             return 1
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), Path(self.output_tpr_path).parent])
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir", ''), Path(str(self.output_tpr_path)).parent])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -165,7 +165,7 @@ def grompp_mdrun(input_gro_path: str, input_top_zip_path: str, output_trr_path: 
                  output_gro_path: str, output_edr_path: str, output_log_path: str,
                  input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None, output_dhdl_path: Optional[str] = None,
-                 output_tpr_path: Optional[str] = None, properties: dict = None, **kwargs) -> int:
+                 output_tpr_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> int:
     return GromppMdrun(input_gro_path=input_gro_path, input_top_zip_path=input_top_zip_path,
                        output_trr_path=output_trr_path, output_gro_path=output_gro_path,
                        output_edr_path=output_edr_path, output_log_path=output_log_path,

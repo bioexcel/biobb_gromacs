@@ -5,6 +5,7 @@ import typing
 import shutil
 import argparse
 from pathlib import Path
+from typing import Optional, Dict
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -53,8 +54,8 @@ class Trjcat(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_trj_zip_path: str, output_trj_path: str, properties: dict = None, **kwargs) -> None:
-        properties: dict = properties or {}
+    def __init__(self, input_trj_zip_path: str, output_trj_path: str, properties: Optional[Dict] = None, **kwargs) -> None:
+        properties = properties or {}
 
         # Call parent class constructor
         super().__init__(properties)
@@ -104,7 +105,7 @@ class Trjcat(BiobbObject):
         # Copy trajectories to container
         if self.container_path:
             for index, trajectory_file_path in enumerate(trj_list):
-                shutil.copy2(trajectory_file_path, self.stage_io_dict.get("unique_dir"))
+                shutil.copy2(trajectory_file_path, self.stage_io_dict.get("unique_dir", ""))
                 trj_list[index] = str(Path(self.container_volume_path).joinpath(Path(trajectory_file_path).name))
 
         # Create command line
@@ -126,14 +127,14 @@ class Trjcat(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), trj_dir])
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir", ""), trj_dir])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
 
 
-def trjcat(input_trj_zip_path: str, output_trj_path: str, properties: dict = None, **kwargs) -> int:
+def trjcat(input_trj_zip_path: str, output_trj_path: str, properties: Optional[Dict] = None, **kwargs) -> int:
     """Create :class:`Trjcat <gromacs.trjcat.Trjcat>` class and
     execute the :meth:`launch() <gromacs.trjcat.Trjcat.launch>` method."""
 

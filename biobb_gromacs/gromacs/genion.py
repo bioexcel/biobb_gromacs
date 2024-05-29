@@ -117,7 +117,7 @@ class Genion(BiobbObject):
         top_dir = str(Path(top_file).parent)
 
         if self.container_path:
-            shutil.copytree(top_dir, Path(str(self.stage_io_dict.get("unique_dir"))).joinpath(Path(top_dir).name))
+            shutil.copytree(top_dir, Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(Path(top_dir).name))
             top_file = str(Path(self.container_volume_path).joinpath(Path(top_dir).name, Path(top_file).name))
 
         self.cmd = [str(self.binary_path), 'genion',
@@ -156,7 +156,7 @@ class Genion(BiobbObject):
         self.copy_to_host()
 
         if self.container_path:
-            top_file = str(Path(str(self.stage_io_dict.get("unique_dir"))).joinpath(Path(top_dir).name, Path(top_file).name))
+            top_file = str(Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(Path(top_dir).name, Path(top_file).name))
 
         # zip topology
         fu.log('Compressing topology to: %s' % self.stage_io_dict["out"]["output_top_zip_path"],
@@ -164,7 +164,7 @@ class Genion(BiobbObject):
         fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=top_file, out_log=self.out_log)
 
         # Remove temporal files
-        self.tmp_files.extend([str(self.stage_io_dict.get("unique_dir")), top_dir, str(self.io_dict['in'].get("stdin_file_path"))])
+        self.tmp_files.extend([str(self.stage_io_dict.get("unique_dir", "")), top_dir, str(self.io_dict['in'].get("stdin_file_path"))])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=True)

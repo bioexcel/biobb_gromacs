@@ -1,3 +1,4 @@
+# type: ignore
 from biobb_common.tools import test_fixtures as fx
 from biobb_gromacs.gromacs.grompp_mdrun import grompp_mdrun
 from biobb_gromacs.gromacs.common import gmx_rms

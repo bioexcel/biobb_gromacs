@@ -4,6 +4,7 @@
 import shutil
 import argparse
 from pathlib import Path
+from typing import Optional, Dict
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -59,7 +60,7 @@ class Solvate(BiobbObject):
     """
 
     def __init__(self, input_solute_gro_path: str, output_gro_path: str, input_top_zip_path: str,
-                 output_top_zip_path: str, input_solvent_gro_path: str = None, properties: dict = None, **kwargs) -> None:
+                 output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -110,7 +111,7 @@ class Solvate(BiobbObject):
         top_dir = str(Path(top_file).parent)
 
         if self.container_path:
-            shutil.copytree(top_dir, str(Path(self.stage_io_dict.get("unique_dir")).joinpath(Path(top_dir).name)))
+            shutil.copytree(top_dir, str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(Path(top_dir).name)))
             top_file = str(Path(self.container_volume_path).joinpath(Path(top_dir).name, Path(top_file).name))
 
         self.cmd = [self.binary_path, 'solvate',
@@ -133,7 +134,7 @@ class Solvate(BiobbObject):
         self.copy_to_host()
 
         if self.container_path:
-            top_file = str(Path(self.stage_io_dict.get("unique_dir")).joinpath(Path(top_dir).name, Path(top_file).name))
+            top_file = str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(Path(top_dir).name, Path(top_file).name))
 
         # zip topology
         fu.log('Compressing topology to: %s' % self.stage_io_dict["out"]["output_top_zip_path"], self.out_log,
@@ -141,7 +142,7 @@ class Solvate(BiobbObject):
         fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=top_file, out_log=self.out_log)
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir"), top_dir])
+        self.tmp_files.extend([self.stage_io_dict.get("unique_dir", ""), top_dir])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -149,7 +150,7 @@ class Solvate(BiobbObject):
 
 
 def solvate(input_solute_gro_path: str, output_gro_path: str, input_top_zip_path: str,
-            output_top_zip_path: str, input_solvent_gro_path: str = None, properties: dict = None, **kwargs) -> int:
+            output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> int:
     """Create :class:`Solvate <gromacs.solvate.Solvate>` class and
     execute the :meth:`launch() <gromacs.solvate.Solvate.launch>` method."""
 

@@ -3,12 +3,12 @@
 """Module containing the Pdb2gmx class and the command line interface."""
 import os
 import argparse
+from typing import Optional, Dict
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
-from typing import Optional, Dict
 
 
 class Pdb2gmx(BiobbObject):
@@ -141,7 +141,7 @@ class Pdb2gmx(BiobbObject):
         self.copy_to_host()
 
         if self.container_path:
-            internal_top_name = os.path.join(self.stage_io_dict.get("unique_dir"), internal_top_name)
+            internal_top_name = os.path.join(self.stage_io_dict.get("unique_dir", ""), internal_top_name)
 
         # zip topology
         fu.log('Compressing topology to: %s' % self.io_dict["out"]["output_top_zip_path"], self.out_log,
@@ -149,7 +149,7 @@ class Pdb2gmx(BiobbObject):
         fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=internal_top_name, out_log=self.out_log)
 
         # Remove temporal files
-        self.tmp_files.extend([self.internal_top_name, self.internal_itp_name, self.stage_io_dict.get("unique_dir"), self.io_dict['in'].get("stdin_file_path")])
+        self.tmp_files.extend([self.internal_top_name, self.internal_itp_name, self.stage_io_dict.get("unique_dir", ""), self.io_dict['in'].get("stdin_file_path", "")])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -157,7 +157,7 @@ class Pdb2gmx(BiobbObject):
 
 
 def pdb2gmx(input_pdb_path: str, output_gro_path: str, output_top_zip_path: str,
-            properties: dict = None, **kwargs) -> int:
+            properties: Optional[Dict] = None, **kwargs) -> int:
     """Create :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` class and
     execute the :meth:`launch() <gromacs.pdb2gmx.Pdb2gmx.launch>` method."""
 

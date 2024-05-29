@@ -3,6 +3,7 @@
 """Module containing the Select class and the command line interface."""
 import argparse
 from pathlib import Path
+from typing import Optional, Dict
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -53,8 +54,8 @@ class Gmxselect(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_structure_path: str, output_ndx_path: str, input_ndx_path: str = None,
-                 properties: dict = None, **kwargs) -> None:
+    def __init__(self, input_structure_path: str, output_ndx_path: str, input_ndx_path: Optional[str] = None,
+                 properties: Optional[Dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -123,12 +124,12 @@ class Gmxselect(BiobbObject):
                 fu.log(f"Appending {self.io_dict['in'].get('input_ndx_path')} to {self.io_dict['out']['output_ndx_path']}", self.out_log, self.global_log)
                 with open(self.io_dict["out"]["output_ndx_path"], 'a') as out_ndx_file:
                     out_ndx_file.write('\n')
-                    with open(self.io_dict["in"].get("input_ndx_path")) as in_ndx_file:
+                    with open(self.io_dict["in"].get("input_ndx_path", '')) as in_ndx_file:
                         for line in in_ndx_file:
                             out_ndx_file.write(line)
 
         # Remove temporal files
-        self.tmp_files.append(self.stage_io_dict.get("unique_dir"))
+        self.tmp_files.append(self.stage_io_dict.get("unique_dir", ''))
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -136,7 +137,7 @@ class Gmxselect(BiobbObject):
 
 
 def gmxselect(input_structure_path: str, output_ndx_path: str,
-              input_ndx_path: str = None, properties: dict = None,
+              input_ndx_path: Optional[str] = None, properties: Optional[Dict] = None,
               **kwargs) -> int:
     """Create :class:`Gmxselect <gromacs.gmxselect.Gmxselect>` class and
     execute the :meth:`launch() <gromacs.gmxselect.Gmxselect.launch>` method."""

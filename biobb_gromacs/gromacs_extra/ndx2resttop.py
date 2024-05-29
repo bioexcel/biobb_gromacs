@@ -4,6 +4,7 @@
 import fnmatch
 import argparse
 from pathlib import Path
+from typing import Optional, Dict, Any
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -44,7 +45,7 @@ class Ndx2resttop(BiobbObject):
     """
 
     def __init__(self, input_ndx_path: str, input_top_zip_path: str, output_top_zip_path: str,
-                 properties: dict = None, **kwargs) -> None:
+                 properties: Optional[Dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -72,11 +73,11 @@ class Ndx2resttop(BiobbObject):
         if self.check_restart():
             return 0
 
-        top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path"), out_log=self.out_log)
+        top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path", ""), out_log=self.out_log)
 
         # Create index list of index file :)
-        index_dic = {}
-        lines = open(self.io_dict['in'].get("input_ndx_path")).read().splitlines()
+        index_dic: Dict[str, Any] = {}
+        lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()
         for index, line in enumerate(lines):
             if line.startswith('['):
                 index_dic[line] = index,
@@ -86,7 +87,7 @@ class Ndx2resttop(BiobbObject):
         index_dic[label] = index_dic[label][0], index
         fu.log('Index_dic: '+str(index_dic), self.out_log, self.global_log)
 
-        self.ref_rest_chain_triplet_list = [tuple(elem.strip(' ()').replace(' ', '').split(',')) for elem in self.ref_rest_chain_triplet_list.split('),')]
+        self.ref_rest_chain_triplet_list = [tuple(elem.strip(' ()').replace(' ', '').split(',')) for elem in str(self.ref_rest_chain_triplet_list).split('),')]
         fu.log('ref_rest_chain_triplet_list: ' + str(self.ref_rest_chain_triplet_list), self.out_log, self.global_log)
         for reference_group, restrain_group, chain in self.ref_rest_chain_triplet_list:
             fu.log('Reference group: '+reference_group, self.out_log, self.global_log)
@@ -101,7 +102,7 @@ class Ndx2resttop(BiobbObject):
             restrain_group_list = [int(elem) for line in lines[index_dic['[ '+restrain_group+' ]'][0]+1: index_dic['[ '+restrain_group+' ]'][1]] for elem in line.split()]
             selected_list = [reference_group_list.index(atom)+1 for atom in restrain_group_list]
             # Creating new ITP with restrictions
-            with open(self.io_dict['out'].get("output_itp_path"), 'w') as f:
+            with open(self.io_dict['out'].get("output_itp_path", ''), 'w') as f:
                 fu.log('Creating: '+str(f)+' and adding the selected atoms force constants', self.out_log, self.global_log)
                 f.write('[ position_restraints ]\n')
                 f.write('; atom  type      fx      fy      fz\n')
@@ -117,11 +118,11 @@ class Ndx2resttop(BiobbObject):
                             f.write('\n')
                             f.write('; Include Position restraint file\n')
                             f.write('#ifdef CUSTOM_POSRES\n')
-                            f.write('#include "'+str(Path(self.io_dict['out'].get("output_itp_path")).name)+'"\n')
+                            f.write('#include "'+str(Path(self.io_dict['out'].get("output_itp_path", "")).name)+'"\n')
                             f.write('#endif\n')
 
         # zip topology
-        fu.zip_top(zip_file=self.io_dict['out'].get("output_top_zip_path"), top_file=top_file, out_log=self.out_log)
+        fu.zip_top(zip_file=self.io_dict['out'].get("output_top_zip_path", ""), top_file=top_file, out_log=self.out_log)
 
         # Remove temporal files
         self.remove_tmp_files()
@@ -131,7 +132,7 @@ class Ndx2resttop(BiobbObject):
 
 
 def ndx2resttop(input_ndx_path: str, input_top_zip_path: str, output_top_zip_path: str,
-                properties: dict = None, **kwargs) -> int:
+                properties: Optional[Dict] = None, **kwargs) -> int:
     """Create :class:`Ndx2resttop <gromacs_extra.ndx2resttop.Ndx2resttop>` class and
     execute the :meth:`launch() <gromacs_extra.ndx2resttop.Ndx2resttop.launch>` method."""
     return Ndx2resttop(input_ndx_path=input_ndx_path,

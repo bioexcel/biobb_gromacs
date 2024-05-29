@@ -102,12 +102,12 @@ class AppendLigand(BiobbObject):
         if self.io_dict['in'].get("input_posres_itp_path"):
             top_lines.insert(index+5, '; Ligand position restraints'+'\n')
             top_lines.insert(index+6, '#ifdef '+self.posres_name+'\n')
-            top_lines.insert(index+7, '#include "'+str(Path(self.io_dict['in'].get("input_posres_itp_path")).name)+'"\n')
+            top_lines.insert(index+7, '#include "'+str(Path(self.io_dict['in'].get("input_posres_itp_path", "")).name)+'"\n')
             top_lines.insert(index+8, '#endif'+'\n')
             top_lines.insert(index+9, '\n')
 
         inside_moleculetype_section = False
-        with open(self.io_dict['in'].get("input_itp_path")) as itp_file:
+        with open(self.io_dict['in'].get("input_itp_path", "")) as itp_file:
             moleculetype_pattern = r'\[ moleculetype \]'
             for line in itp_file:
                 if re.search(moleculetype_pattern, line):
@@ -120,7 +120,7 @@ class AppendLigand(BiobbObject):
         molecules_pattern = r'\[ molecules \]'
         inside_molecules_section = False
         index_molecule = None
-        molecule_string = moleculetype+(20-len(moleculetype))*' '+'1'+'\n'
+        molecule_string = str(moleculetype)+int(20-len(moleculetype))*' '+'1'+'\n'
         for index, line in enumerate(top_lines):
             if re.search(molecules_pattern, line):
                 inside_molecules_section = True
@@ -138,13 +138,13 @@ class AppendLigand(BiobbObject):
         with open(new_top, 'w') as new_top_f:
             new_top_f.write("".join(top_lines))
 
-        shutil.copy2(self.io_dict['in'].get("input_itp_path"), top_dir)
+        shutil.copy2(self.io_dict['in'].get("input_itp_path", ""), top_dir)
         if self.io_dict['in'].get("input_posres_itp_path"):
-            shutil.copy2(self.io_dict['in'].get("input_posres_itp_path"), top_dir)
+            shutil.copy2(self.io_dict['in'].get("input_posres_itp_path", ""), top_dir)
 
         # zip topology
         fu.log('Compressing topology to: %s' % self.io_dict['out'].get("output_top_zip_path"), self.out_log, self.global_log)
-        fu.zip_top(zip_file=self.io_dict['out'].get("output_top_zip_path"), top_file=new_top, out_log=self.out_log)
+        fu.zip_top(zip_file=self.io_dict['out'].get("output_top_zip_path", ""), top_file=new_top, out_log=self.out_log)
 
         # Remove temporal files
         self.tmp_files.append(top_dir)
@@ -155,7 +155,7 @@ class AppendLigand(BiobbObject):
 
 
 def append_ligand(input_top_zip_path: str, input_itp_path: str, output_top_zip_path: str,
-                  input_posres_itp_path: str = None, properties: dict = None, **kwargs) -> int:
+                  input_posres_itp_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> int:
     """Create :class:`AppendLigand <gromacs_extra.append_ligand.AppendLigand>` class and
     execute the :meth:`launch() <gromacs_extra.append_ligand.AppendLigand.launch>` method."""
     return AppendLigand(input_top_zip_path=input_top_zip_path,
