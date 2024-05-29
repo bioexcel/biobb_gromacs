@@ -64,8 +64,8 @@
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="z_d969b490049b982d_editconf_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.2">coverage.py v7.5.2</a>,
-            created at 2024-05-28 09:52 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.3">coverage.py v7.5.3</a>,
+            created at 2024-05-29 13:12 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -210,7 +210,7 @@
     <p class="run"><span class="n"><a id="t128" href="#t128">128</a></span><span class="t"><span class="key">def</span> <span class="nam">mdp_preset</span><span class="op">(</span><span class="nam">sim_type</span><span class="op">:</span> <span class="nam">str</span><span class="op">)</span> <span class="op">-></span> <span class="nam">Dict</span><span class="op">[</span><span class="nam">str</span><span class="op">,</span> <span class="nam">str</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t129" href="#t129">129</a></span><span class="t">    <span class="nam">mdp_dict</span><span class="op">:</span> <span class="nam">Dict</span><span class="op">[</span><span class="nam">str</span><span class="op">,</span> <span class="nam">str</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t130" href="#t130">130</a></span><span class="t">    <span class="key">if</span> <span class="key">not</span> <span class="nam">sim_type</span> <span class="key">or</span> <span class="nam">sim_type</span> <span class="op">==</span> <span class="str">'index'</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t131" href="#t131">131</a></span><span class="t">        <span class="key">return</span> <span class="nam">mdp_dict</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t131" href="#t131">131</a></span><span class="t">        <span class="key">return</span> <span class="nam">mdp_dict</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t132" href="#t132">132</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t133" href="#t133">133</a></span><span class="t">    <span class="nam">minimization</span> <span class="op">=</span> <span class="op">(</span><span class="nam">sim_type</span> <span class="op">==</span> <span class="str">'minimization'</span><span class="op">)</span> <span class="key">or</span> <span class="op">(</span><span class="nam">sim_type</span> <span class="op">==</span> <span class="str">'ions'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t134" href="#t134">134</a></span><span class="t">    <span class="nam">nvt</span> <span class="op">=</span> <span class="op">(</span><span class="nam">sim_type</span> <span class="op">==</span> <span class="str">'nvt'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -220,7 +220,7 @@
     <p class="pln"><span class="n"><a id="t138" href="#t138">138</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t139" href="#t139">139</a></span><span class="t">    <span class="com"># Position restrain</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t140" href="#t140">140</a></span><span class="t">    <span class="key">if</span> <span class="key">not</span> <span class="nam">free</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t141" href="#t141">141</a></span><span class="t">        <span class="nam">mdp_dict</span><span class="op">[</span><span class="str">'Define'</span><span class="op">]</span> <span class="op">=</span> <span class="str">'-DPOSRES'</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t141" href="#t141">141</a></span><span class="t">        <span class="nam">mdp_dict</span><span class="op">[</span><span class="str">'Define'</span><span class="op">]</span> <span class="op">=</span> <span class="str">'-DPOSRES'</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t142" href="#t142">142</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t143" href="#t143">143</a></span><span class="t">    <span class="com"># Run parameters</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t144" href="#t144">144</a></span><span class="t">    <span class="nam">mdp_dict</span><span class="op">[</span><span class="str">'nsteps'</span><span class="op">]</span> <span class="op">=</span> <span class="str">'5000'</span>&nbsp;</span><span class="r"></span></p>
@@ -363,8 +363,8 @@
             <a class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a class="nav" href="z_d969b490049b982d_editconf_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.2">coverage.py v7.5.2</a>,
-            created at 2024-05-28 09:52 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.3">coverage.py v7.5.3</a>,
+            created at 2024-05-29 13:12 +0000
         </p>
     </div>
 </footer>
