@@ -27,6 +27,7 @@ class AppendLigand(BiobbObject):
             * **posres_name** (*str*) - ("POSRES_LIGAND") String to be included in the ifdef clause.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+            * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
 
     Examples:
         This is a use example of how to use the building block from Python::
