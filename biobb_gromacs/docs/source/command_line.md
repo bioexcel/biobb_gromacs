@@ -64,6 +64,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (None) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -169,6 +170,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -277,6 +279,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (None) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -449,6 +452,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -574,6 +578,7 @@ Config parameters for this building block:
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -688,6 +693,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -766,7 +772,20 @@ Command:
 ```python
 append_ligand -h
 ```
-    /bin/sh: /Users/pau/mambaforge/envs/dev38/bin/append_ligand: Permission denied
+    usage: append_ligand [-h] [-c CONFIG] --input_top_zip_path INPUT_TOP_ZIP_PATH --input_itp_path INPUT_ITP_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH [--input_posres_itp_path INPUT_POSRES_ITP_PATH]
+    
+    Wrapper of the GROMACS editconf module.
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
+      --input_posres_itp_path INPUT_POSRES_ITP_PATH
+    
+    required arguments:
+      --input_top_zip_path INPUT_TOP_ZIP_PATH
+      --input_itp_path INPUT_ITP_PATH
+      --output_top_zip_path OUTPUT_TOP_ZIP_PATH
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -782,6 +801,7 @@ Config parameters for this building block:
 * **posres_name** (*string*): (POSRES_LIGAND) String to be included in the ifdef clause..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 ### YAML
 #### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_append_ligand.yml)
 ```python
@@ -847,6 +867,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -959,6 +980,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -1066,6 +1088,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (None) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -1211,6 +1234,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
@@ -1356,6 +1380,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Path to the binary executable of your container..
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier..
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container..
