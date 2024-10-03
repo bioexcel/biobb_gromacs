@@ -118,3 +118,9 @@ traj_comp.xtc
 
 # Pycharm
 .idea
+
+# VSCode
+.vscode
+
+# MyPy
+.mypy_cache/
