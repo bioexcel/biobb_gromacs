@@ -1,4 +1,3 @@
-
 global_properties:
   can_write_console_log: False
   remove_tmp: False
