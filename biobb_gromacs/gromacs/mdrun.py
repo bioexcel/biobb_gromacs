@@ -3,7 +3,6 @@
 """Module containing the MDrun class and the command line interface."""
 import argparse
 from typing import Optional
-from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu

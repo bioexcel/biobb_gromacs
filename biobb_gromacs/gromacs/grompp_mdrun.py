@@ -3,7 +3,6 @@
 """Module containing the GromppMDrun class and the command line interface."""
 import argparse
 from typing import Optional
-from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
