@@ -4,14 +4,12 @@
 import argparse
 from typing import Optional
 import shutil
-from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
-
 from biobb_gromacs.gromacs.common import create_mdp
 from biobb_gromacs.gromacs.common import mdp_preset
 

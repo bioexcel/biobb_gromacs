@@ -4,8 +4,8 @@
 import fnmatch
 import argparse
 from typing import Optional
+from typing import Any
 from pathlib import Path
-from typing import Optional, Any
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
