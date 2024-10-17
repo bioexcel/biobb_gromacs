@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 """Module containing the Trjcat class and the command line interface."""
-import typing
 import shutil
 import argparse
+from typing import Optional
 from pathlib import Path
-from typing import Optional, Dict
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -55,7 +55,7 @@ class Trjcat(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_trj_zip_path: str, output_trj_path: str, properties: Optional[Dict] = None, **kwargs) -> None:
+    def __init__(self, input_trj_zip_path: str, output_trj_path: str, properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -101,7 +101,7 @@ class Trjcat(BiobbObject):
 
         # Unzip trajectory bundle
         trj_dir: str = fu.create_unique_dir()
-        trj_list: typing.List[str] = fu.unzip_list(self.input_trj_zip_path, trj_dir, self.out_log)
+        trj_list: list[str] = fu.unzip_list(self.input_trj_zip_path, trj_dir, self.out_log)
 
         # Copy trajectories to container
         if self.container_path:
@@ -135,7 +135,7 @@ class Trjcat(BiobbObject):
         return self.return_code
 
 
-def trjcat(input_trj_zip_path: str, output_trj_path: str, properties: Optional[Dict] = None, **kwargs) -> int:
+def trjcat(input_trj_zip_path: str, output_trj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Trjcat <gromacs.trjcat.Trjcat>` class and
     execute the :meth:`launch() <gromacs.trjcat.Trjcat.launch>` method."""
 

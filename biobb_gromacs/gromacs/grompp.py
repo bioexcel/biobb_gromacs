@@ -2,8 +2,9 @@
 
 """Module containing the Grompp class and the command line interface."""
 import argparse
+from typing import Optional
 import shutil
-from typing import Optional, Dict
+from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -70,7 +71,7 @@ class Grompp(BiobbObject):
 
     def __init__(self, input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
                  input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
-                 properties: Optional[Dict] = None, **kwargs) -> None:
+                 properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor

@@ -4,7 +4,7 @@ import warnings
 from pathlib import Path
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
-from typing import Dict, Mapping, Optional
+from typing import Mapping, Optional
 
 
 def get_gromacs_version(gmx: str = "gmx", minimum_version: int = 512) -> int:
@@ -108,7 +108,7 @@ def gmx_rms(file_a: str, file_b: str, file_tpr: str, gmx: str = 'gmx', tolerance
     return True
 
 
-def read_mdp(input_mdp_path: str) -> Dict[str, str]:
+def read_mdp(input_mdp_path: str) -> dict[str, str]:
     # Credit for these two reg exps to:
     # https://github.com/Becksteinlab/GromacsWrapper/blob/master/gromacs/fileformats/mdp.py
     parameter_re = re.compile(r"\s*(?P<parameter>[^=]+?)\s*=\s*(?P<value>[^;]*)(?P<comment>\s*;.*)?", re.VERBOSE)
@@ -125,8 +125,8 @@ def read_mdp(input_mdp_path: str) -> Dict[str, str]:
     return mdp_dict
 
 
-def mdp_preset(sim_type: str) -> Dict[str, str]:
-    mdp_dict: Dict[str, str] = {}
+def mdp_preset(sim_type: str) -> dict[str, str]:
+    mdp_dict: dict[str, str] = {}
     if not sim_type or sim_type == 'index':
         return mdp_dict
 

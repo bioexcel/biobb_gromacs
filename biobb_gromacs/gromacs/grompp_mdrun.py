@@ -2,7 +2,8 @@
 
 """Module containing the GromppMDrun class and the command line interface."""
 import argparse
-from typing import Optional, Dict
+from typing import Optional
+from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -44,8 +45,8 @@ class GromppMdrun(BiobbObject):
             * **num_threads_omp** (*int*) - (0) [0-1000|1] Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used.
             * **num_threads_omp_pme** (*int*) - (0) [0-1000|1] Let GROMACS guess. The number of GROMACS OPENMP_PME threads that are going to be used.
             * **use_gpu** (*bool*) - (False) Use settings appropriate for GPU. Adds: -nb gpu -pme gpu
-            * **gpu_id** (*str*) - (None) List of unique GPU device IDs available to use.
-            * **gpu_tasks** (*str*) - (None) List of GPU device IDs, mapping each PP task on each node to a device.
+            * **gpu_id** (*str*) - (None) list of unique GPU device IDs available to use.
+            * **gpu_tasks** (*str*) - (None) list of GPU device IDs, mapping each PP task on each node to a device.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
@@ -166,7 +167,7 @@ def grompp_mdrun(input_gro_path: str, input_top_zip_path: str, output_trr_path: 
                  output_gro_path: str, output_edr_path: str, output_log_path: str,
                  input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None, output_dhdl_path: Optional[str] = None,
-                 output_tpr_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> int:
+                 output_tpr_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     return GromppMdrun(input_gro_path=input_gro_path, input_top_zip_path=input_top_zip_path,
                        output_trr_path=output_trr_path, output_gro_path=output_gro_path,
                        output_edr_path=output_edr_path, output_log_path=output_log_path,

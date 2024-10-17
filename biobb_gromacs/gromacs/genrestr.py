@@ -2,13 +2,14 @@
 
 """Module containing the Genrestr class and the command line interface."""
 import argparse
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
 from pathlib import Path
-from typing import Union, Optional, Dict
+from typing import Union, Optional
 
 
 class Genrestr(BiobbObject):
@@ -57,7 +58,7 @@ class Genrestr(BiobbObject):
     """
 
     def __init__(self, input_structure_path: Union[str, Path], output_itp_path: Union[str, Path],
-                 input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[Dict] = None, **kwargs) -> None:
+                 input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -137,7 +138,7 @@ class Genrestr(BiobbObject):
 
 
 def genrestr(input_structure_path: Union[str, Path], output_itp_path: Union[str, Path],
-             input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[Dict] = None, **kwargs) -> int:
+             input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Genrestr <gromacs.genrestr.Genrestr>` class and
     execute the :meth:`launch() <gromacs.genrestr.Genrestr.launch>` method."""
 

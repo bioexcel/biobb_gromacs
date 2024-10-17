@@ -3,6 +3,7 @@
 """Module containing the MDrun class and the command line interface."""
 import argparse
 from typing import Optional
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -36,8 +37,8 @@ class Mdrun(BiobbObject):
             * **num_threads_omp** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used.
             * **num_threads_omp_pme** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of GROMACS OPENMP_PME threads that are going to be used.
             * **use_gpu** (*bool*) - (False) Use settings appropriate for GPU. Adds: -nb gpu -pme gpu
-            * **gpu_id** (*str*) - (None) List of unique GPU device IDs available to use.
-            * **gpu_tasks** (*str*) - (None) List of GPU device IDs, mapping each PP task on each node to a device.
+            * **gpu_id** (*str*) - (None) list of unique GPU device IDs available to use.
+            * **gpu_tasks** (*str*) - (None) list of GPU device IDs, mapping each PP task on each node to a device.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
@@ -198,11 +199,11 @@ class Mdrun(BiobbObject):
             fu.log('Adding GPU specific settings adds: -nb gpu -pme gpu', self.out_log)
             self.cmd += ["-nb", "gpu", "-pme", "gpu"]
         if self.gpu_id:
-            fu.log(f'List of unique GPU device IDs available to use: {self.gpu_id}', self.out_log)
+            fu.log(f'list of unique GPU device IDs available to use: {self.gpu_id}', self.out_log)
             self.cmd.append('-gpu_id')
             self.cmd.append(self.gpu_id)
         if self.gpu_tasks:
-            fu.log(f'List of GPU device IDs, mapping each PP task on each node to a device: {self.gpu_tasks}', self.out_log)
+            fu.log(f'list of GPU device IDs, mapping each PP task on each node to a device: {self.gpu_tasks}', self.out_log)
             self.cmd.append('-gputasks')
             self.cmd.append(self.gpu_tasks)
 

@@ -3,8 +3,9 @@
 """Module containing the Ndx2resttop class and the command line interface."""
 import fnmatch
 import argparse
+from typing import Optional
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Optional, Any
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -45,7 +46,7 @@ class Ndx2resttop(BiobbObject):
     """
 
     def __init__(self, input_ndx_path: str, input_top_zip_path: str, output_top_zip_path: str,
-                 properties: Optional[Dict] = None, **kwargs) -> None:
+                 properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -76,7 +77,7 @@ class Ndx2resttop(BiobbObject):
         top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path", ""), out_log=self.out_log)
 
         # Create index list of index file :)
-        index_dic: Dict[str, Any] = {}
+        index_dic: dict[str, Any] = {}
         lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()
         for index, line in enumerate(lines):
             if line.startswith('['):
@@ -132,7 +133,7 @@ class Ndx2resttop(BiobbObject):
 
 
 def ndx2resttop(input_ndx_path: str, input_top_zip_path: str, output_top_zip_path: str,
-                properties: Optional[Dict] = None, **kwargs) -> int:
+                properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Ndx2resttop <gromacs_extra.ndx2resttop.Ndx2resttop>` class and
     execute the :meth:`launch() <gromacs_extra.ndx2resttop.Ndx2resttop.launch>` method."""
     return Ndx2resttop(input_ndx_path=input_ndx_path,

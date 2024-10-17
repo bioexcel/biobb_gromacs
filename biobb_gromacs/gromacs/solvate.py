@@ -3,8 +3,9 @@
 """Module containing the Editconf class and the command line interface."""
 import shutil
 import argparse
+from typing import Optional
 from pathlib import Path
-from typing import Optional, Dict
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -61,7 +62,7 @@ class Solvate(BiobbObject):
     """
 
     def __init__(self, input_solute_gro_path: str, output_gro_path: str, input_top_zip_path: str,
-                 output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> None:
+                 output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -151,7 +152,7 @@ class Solvate(BiobbObject):
 
 
 def solvate(input_solute_gro_path: str, output_gro_path: str, input_top_zip_path: str,
-            output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> int:
+            output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Solvate <gromacs.solvate.Solvate>` class and
     execute the :meth:`launch() <gromacs.solvate.Solvate.launch>` method."""
 

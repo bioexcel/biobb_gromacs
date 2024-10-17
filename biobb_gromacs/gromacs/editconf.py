@@ -2,12 +2,13 @@
 
 """Module containing the Editconf class and the command line interface."""
 import argparse
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
-from typing import Optional, Dict
+from typing import Optional
 
 
 class Editconf(BiobbObject):
@@ -56,7 +57,7 @@ class Editconf(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_gro_path: str, output_gro_path: str, properties: Optional[Dict] = None, **kwargs) -> None:
+    def __init__(self, input_gro_path: str, output_gro_path: str, properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -139,7 +140,7 @@ class Editconf(BiobbObject):
         return self.return_code
 
 
-def editconf(input_gro_path: str, output_gro_path: str, properties: Optional[Dict] = None, **kwargs) -> int:
+def editconf(input_gro_path: str, output_gro_path: str, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Editconf <gromacs.editconf.Editconf>` class and
     execute the :meth:`launch() <gromacs.editconf.Editconf.launch>` method."""
 

@@ -3,7 +3,8 @@
 """Module containing the Pdb2gmx class and the command line interface."""
 import os
 import argparse
-from typing import Optional, Dict
+from typing import Optional
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -59,7 +60,7 @@ class Pdb2gmx(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_pdb_path: str, output_gro_path: str, output_top_zip_path: str, properties: Optional[Dict] = None,
+    def __init__(self, input_pdb_path: str, output_gro_path: str, output_top_zip_path: str, properties: Optional[dict] = None,
                  **kwargs) -> None:
         properties = properties or {}
 
@@ -158,7 +159,7 @@ class Pdb2gmx(BiobbObject):
 
 
 def pdb2gmx(input_pdb_path: str, output_gro_path: str, output_top_zip_path: str,
-            properties: Optional[Dict] = None, **kwargs) -> int:
+            properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` class and
     execute the :meth:`launch() <gromacs.pdb2gmx.Pdb2gmx.launch>` method."""
 

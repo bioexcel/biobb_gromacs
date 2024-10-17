@@ -3,13 +3,14 @@
 """Module containing the Genion class and the command line interface."""
 import shutil
 import argparse
+from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
-from typing import Optional, Dict, Union
+from typing import Optional, Union
 
 
 class Genion(BiobbObject):
@@ -64,7 +65,7 @@ class Genion(BiobbObject):
     """
 
     def __init__(self, input_tpr_path: Union[str, Path], output_gro_path: Union[str, Path], input_top_zip_path: Union[str, Path],
-                 output_top_zip_path: Union[str, Path], input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[Dict] = None, **kwargs) -> None:
+                 output_top_zip_path: Union[str, Path], input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -173,7 +174,7 @@ class Genion(BiobbObject):
 
 
 def genion(input_tpr_path: Union[str, Path], output_gro_path: Union[str, Path], input_top_zip_path: Union[str, Path],
-           output_top_zip_path: Union[str, Path], input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[Dict] = None, **kwargs) -> int:
+           output_top_zip_path: Union[str, Path], input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Genion <gromacs.genion.Genion>` class and
         execute the :meth:`launch() <gromacs.genion.Genion.launch>` method."""
     return Genion(input_tpr_path=input_tpr_path, output_gro_path=output_gro_path,

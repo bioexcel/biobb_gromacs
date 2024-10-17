@@ -3,9 +3,10 @@
 """Module containing the AppendLigand class and the command line interface."""
 import re
 import argparse
+from typing import Optional
 import shutil
 from pathlib import Path
-from typing import Optional, Dict
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -49,7 +50,7 @@ class AppendLigand(BiobbObject):
     """
 
     def __init__(self, input_top_zip_path: str, input_itp_path: str, output_top_zip_path: str,
-                 input_posres_itp_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> None:
+                 input_posres_itp_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -156,7 +157,7 @@ class AppendLigand(BiobbObject):
 
 
 def append_ligand(input_top_zip_path: str, input_itp_path: str, output_top_zip_path: str,
-                  input_posres_itp_path: Optional[str] = None, properties: Optional[Dict] = None, **kwargs) -> int:
+                  input_posres_itp_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`AppendLigand <gromacs_extra.append_ligand.AppendLigand>` class and
     execute the :meth:`launch() <gromacs_extra.append_ligand.AppendLigand.launch>` method."""
     return AppendLigand(input_top_zip_path=input_top_zip_path,

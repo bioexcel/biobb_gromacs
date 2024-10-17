@@ -2,8 +2,9 @@
 
 """Module containing the Select class and the command line interface."""
 import argparse
+from typing import Optional
 from pathlib import Path
-from typing import Optional, Dict
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -56,7 +57,7 @@ class Gmxselect(BiobbObject):
     """
 
     def __init__(self, input_structure_path: str, output_ndx_path: str, input_ndx_path: Optional[str] = None,
-                 properties: Optional[Dict] = None, **kwargs) -> None:
+                 properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -138,7 +139,7 @@ class Gmxselect(BiobbObject):
 
 
 def gmxselect(input_structure_path: str, output_ndx_path: str,
-              input_ndx_path: Optional[str] = None, properties: Optional[Dict] = None,
+              input_ndx_path: Optional[str] = None, properties: Optional[dict] = None,
               **kwargs) -> int:
     """Create :class:`Gmxselect <gromacs.gmxselect.Gmxselect>` class and
     execute the :meth:`launch() <gromacs.gmxselect.Gmxselect.launch>` method."""
