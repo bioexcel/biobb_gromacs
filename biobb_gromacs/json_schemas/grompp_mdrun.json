@@ -336,13 +336,13 @@
                     "type": "string",
                     "default": null,
                     "wf_prop": false,
-                    "description": "List of unique GPU device IDs available to use."
+                    "description": "list of unique GPU device IDs available to use."
                 },
                 "gpu_tasks": {
                     "type": "string",
                     "default": null,
                     "wf_prop": false,
-                    "description": "List of GPU device IDs, mapping each PP task on each node to a device."
+                    "description": "list of GPU device IDs, mapping each PP task on each node to a device."
                 },
                 "gmx_lib": {
                     "type": "string",

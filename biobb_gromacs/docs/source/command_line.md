@@ -58,8 +58,8 @@ Config parameters for this building block:
 * **num_threads_omp** (*integer*): (0) Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used..
 * **num_threads_omp_pme** (*integer*): (0) Let GROMACS guess. The number of GROMACS OPENMP_PME threads that are going to be used..
 * **use_gpu** (*boolean*): (False) Use settings appropriate for GPU. Adds: -nb gpu -pme gpu.
-* **gpu_id** (*string*): (None) List of unique GPU device IDs available to use..
-* **gpu_tasks** (*string*): (None) List of GPU device IDs, mapping each PP task on each node to a device..
+* **gpu_id** (*string*): (None) list of unique GPU device IDs available to use..
+* **gpu_tasks** (*string*): (None) list of GPU device IDs, mapping each PP task on each node to a device..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
@@ -1228,8 +1228,8 @@ Config parameters for this building block:
 * **num_threads_omp** (*integer*): (0) Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used..
 * **num_threads_omp_pme** (*integer*): (0) Let GROMACS guess. The number of GROMACS OPENMP_PME threads that are going to be used..
 * **use_gpu** (*boolean*): (False) Use settings appropriate for GPU. Adds: -nb gpu -pme gpu.
-* **gpu_id** (*string*): (None) List of unique GPU device IDs available to use..
-* **gpu_tasks** (*string*): (None) List of GPU device IDs, mapping each PP task on each node to a device..
+* **gpu_id** (*string*): (None) list of unique GPU device IDs available to use..
+* **gpu_tasks** (*string*): (None) list of GPU device IDs, mapping each PP task on each node to a device..
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable..
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
