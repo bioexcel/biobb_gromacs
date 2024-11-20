@@ -1,1 +1,1 @@
-4     F811 redefinition of unused 'Optional' from line 5
+5     W503 line break before binary operator
