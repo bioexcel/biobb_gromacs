@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 
 """Module containing the Genrestr class and the command line interface."""
+
 import argparse
-from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from pathlib import Path
+from typing import Optional, Union
+
 from biobb_common.configuration import settings
+from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
+
 from biobb_gromacs.gromacs.common import get_gromacs_version
-from pathlib import Path
-from typing import Union, Optional
 
 
 class Genrestr(BiobbObject):
@@ -57,8 +59,14 @@ class Genrestr(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_structure_path: Union[str, Path], output_itp_path: Union[str, Path],
-                 input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[dict] = None, **kwargs) -> None:
+    def __init__(
+        self,
+        input_structure_path: Union[str, Path],
+        output_itp_path: Union[str, Path],
+        input_ndx_path: Optional[Union[str, Path]] = None,
+        properties: Optional[dict] = None,
+        **kwargs,
+    ) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -67,19 +75,22 @@ class Genrestr(BiobbObject):
 
         # Input/Output files
         self.io_dict = {
-            "in": {"input_structure_path": input_structure_path, "input_ndx_path": input_ndx_path},
-            "out": {"output_itp_path": output_itp_path}
+            "in": {
+                "input_structure_path": input_structure_path,
+                "input_ndx_path": input_ndx_path,
+            },
+            "out": {"output_itp_path": output_itp_path},
         }
 
         # Properties specific for BB
-        self.force_constants = str(properties.get('force_constants', '500 500 500'))
-        self.restrained_group = properties.get('restrained_group', 'system')
+        self.force_constants = str(properties.get("force_constants", "500 500 500"))
+        self.restrained_group = properties.get("restrained_group", "system")
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
+        self.gmx_lib = properties.get("gmx_lib", None)
+        self.binary_path = properties.get("binary_path", "gmx")
+        self.gmx_nobackup = properties.get("gmx_nobackup", True)
+        self.gmx_nocopyright = properties.get("gmx_nocopyright", True)
         if self.gmx_nobackup:
             self.binary_path = f"{self.binary_path}  -nobackup"
         if self.gmx_nocopyright:
@@ -99,12 +110,19 @@ class Genrestr(BiobbObject):
         if self.check_restart():
             return 0
 
-        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.restrained_group}')
+        self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(
+            f"{self.restrained_group}"
+        )
         self.stage_files()
 
-        self.cmd = [str(self.binary_path), "genrestr",
-                    "-f", self.stage_io_dict["in"]["input_structure_path"],
-                    "-o", self.stage_io_dict["out"]["output_itp_path"]]
+        self.cmd = [
+            str(self.binary_path),
+            "genrestr",
+            "-f",
+            self.stage_io_dict["in"]["input_structure_path"],
+            "-o",
+            self.stage_io_dict["out"]["output_itp_path"],
+        ]
 
         if not isinstance(self.force_constants, str):
             self.force_constants = " ".join(map(str, self.force_constants))
@@ -113,15 +131,15 @@ class Genrestr(BiobbObject):
         self.cmd.append(self.force_constants)
 
         if self.stage_io_dict["in"].get("input_ndx_path"):
-            self.cmd.append('-n')
+            self.cmd.append("-n")
             self.cmd.append(self.stage_io_dict["in"]["input_ndx_path"])
 
         # Add stdin input file
-        self.cmd.append('<')
+        self.cmd.append("<")
         self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
+            self.env_vars_dict["GMXLIB"] = self.gmx_lib
 
         # Run Biobb block
         self.run_biobb()
@@ -130,42 +148,68 @@ class Genrestr(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.extend([str(self.stage_io_dict.get("unique_dir", "")), str(self.io_dict['in'].get("stdin_file_path"))])
+        self.tmp_files.extend(
+            [
+                str(self.stage_io_dict.get("unique_dir", "")),
+                str(self.io_dict["in"].get("stdin_file_path")),
+            ]
+        )
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
 
 
-def genrestr(input_structure_path: Union[str, Path], output_itp_path: Union[str, Path],
-             input_ndx_path: Optional[Union[str, Path]] = None, properties: Optional[dict] = None, **kwargs) -> int:
+def genrestr(
+    input_structure_path: Union[str, Path],
+    output_itp_path: Union[str, Path],
+    input_ndx_path: Optional[Union[str, Path]] = None,
+    properties: Optional[dict] = None,
+    **kwargs,
+) -> int:
     """Create :class:`Genrestr <gromacs.genrestr.Genrestr>` class and
     execute the :meth:`launch() <gromacs.genrestr.Genrestr.launch>` method."""
 
-    return Genrestr(input_structure_path=input_structure_path, output_itp_path=output_itp_path,
-                    input_ndx_path=input_ndx_path, properties=properties, **kwargs).launch()
+    return Genrestr(
+        input_structure_path=input_structure_path,
+        output_itp_path=output_itp_path,
+        input_ndx_path=input_ndx_path,
+        properties=properties,
+        **kwargs,
+    ).launch()
 
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS genion module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
+    parser = argparse.ArgumentParser(
+        description="Wrapper for the GROMACS genion module.",
+        formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999),
+    )
+    parser.add_argument(
+        "-c",
+        "--config",
+        required=False,
+        help="This file can be a YAML file, JSON file or JSON string",
+    )
 
     # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_structure_path', required=True)
-    required_args.add_argument('--output_itp_path', required=True)
-    parser.add_argument('--input_ndx_path', required=False)
+    required_args = parser.add_argument_group("required arguments")
+    required_args.add_argument("--input_structure_path", required=True)
+    required_args.add_argument("--output_itp_path", required=True)
+    parser.add_argument("--input_ndx_path", required=False)
 
     args = parser.parse_args()
     config = args.config if args.config else None
     properties = settings.ConfReader(config=config).get_prop_dic()
 
     # Specific call of each building block
-    genrestr(input_structure_path=args.input_structure_path, input_ndx_path=args.input_ndx_path,
-             output_itp_path=args.output_itp_path, properties=properties)
+    genrestr(
+        input_structure_path=args.input_structure_path,
+        input_ndx_path=args.input_ndx_path,
+        output_itp_path=args.output_itp_path,
+        properties=properties,
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

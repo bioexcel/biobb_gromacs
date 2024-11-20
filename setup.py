@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_gromacs",
-    version="4.2.0",
+    version="5.0.0",
     author="Biobb developers",
     author_email="pau.andrio@bsc.es",
     description="biobb_gromacs is the Biobb module collection to perform molecular dynamics simulations.",
@@ -15,12 +15,12 @@ setuptools.setup(
     url="https://github.com/bioexcel/biobb_gromacs",
     project_urls={
         "Documentation": "http://biobb-gromacs.readthedocs.io/en/latest/",
-        "Bioexcel": "https://bioexcel.eu/"
+        "Bioexcel": "https://bioexcel.eu/",
     },
-    packages=setuptools.find_packages(exclude=['docs', 'test']),
-    package_data={'biobb_gromacs': ['py.typed']},
-    install_requires=['biobb_common==4.2.0'],
-    python_requires='>=3.8',
+    packages=setuptools.find_packages(exclude=["docs", "test"]),
+    package_data={"biobb_gromacs": ["py.typed"]},
+    install_requires=["biobb_common==5.0.0"],
+    python_requires=">=3.9",
     entry_points={
         "console_scripts": [
             "editconf = biobb_gromacs.gromacs.editconf:main",
@@ -35,17 +35,15 @@ setuptools.setup(
             "solvate = biobb_gromacs.gromacs.solvate:main",
             "trjcat = biobb_gromacs.gromacs.trjcat:main",
             "ndx2resttop = biobb_gromacs.gromacs_extra.ndx2resttop:main",
-            "append_ligand = biobb_gromacs.gromacs_extra.append_ligand:main"
+            "append_ligand = biobb_gromacs.gromacs_extra.append_ligand:main",
         ]
     },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX",
-        "Operating System :: Unix"
+        "Operating System :: Unix",
     ],
 )

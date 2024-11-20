@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 
 """Module containing the Editconf class and the command line interface."""
+
 import argparse
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+
 from biobb_common.configuration import settings
+from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
+
 from biobb_gromacs.gromacs.common import get_gromacs_version
-from typing import Optional
 
 
 class Editconf(BiobbObject):
@@ -57,7 +59,13 @@ class Editconf(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self, input_gro_path: str, output_gro_path: str, properties: Optional[dict] = None, **kwargs) -> None:
+    def __init__(
+        self,
+        input_gro_path: str,
+        output_gro_path: str,
+        properties: Optional[dict] = None,
+        **kwargs,
+    ) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -67,24 +75,24 @@ class Editconf(BiobbObject):
         # Input/Output files
         self.io_dict = {
             "in": {"input_gro_path": input_gro_path},
-            "out": {"output_gro_path": output_gro_path}
+            "out": {"output_gro_path": output_gro_path},
         }
 
         # Properties specific for BB
-        self.distance_to_molecule = properties.get('distance_to_molecule', 1.0)
-        self.box_vector_lenghts = properties.get('box_vector_lenghts')
-        self.box_type = properties.get('box_type', 'cubic')
-        self.center_molecule = properties.get('center_molecule', True)
+        self.distance_to_molecule = properties.get("distance_to_molecule", 1.0)
+        self.box_vector_lenghts = properties.get("box_vector_lenghts")
+        self.box_type = properties.get("box_type", "cubic")
+        self.center_molecule = properties.get("center_molecule", True)
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path: str = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
+        self.gmx_lib = properties.get("gmx_lib", None)
+        self.binary_path: str = properties.get("binary_path", "gmx")
+        self.gmx_nobackup = properties.get("gmx_nobackup", True)
+        self.gmx_nocopyright = properties.get("gmx_nocopyright", True)
         if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
+            self.binary_path += " -nobackup"
         if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
+            self.binary_path += " -nocopyright"
         if not self.container_path:
             self.gmx_version = get_gromacs_version(self.binary_path)
 
@@ -102,10 +110,16 @@ class Editconf(BiobbObject):
         self.stage_files()
 
         # Create command line
-        self.cmd = [self.binary_path, 'editconf',
-                    '-f', self.stage_io_dict["in"]["input_gro_path"],
-                    '-o', self.stage_io_dict["out"]["output_gro_path"],
-                    '-bt', self.box_type]
+        self.cmd = [
+            self.binary_path,
+            "editconf",
+            "-f",
+            self.stage_io_dict["in"]["input_gro_path"],
+            "-o",
+            self.stage_io_dict["out"]["output_gro_path"],
+            "-bt",
+            self.box_type,
+        ]
 
         if self.box_vector_lenghts:
             if not isinstance(self.box_vector_lenghts, str):
@@ -113,13 +127,17 @@ class Editconf(BiobbObject):
             self.cmd.append("-box")
             self.cmd.append(self.box_vector_lenghts)
         else:
-            self.cmd.append('-d')
+            self.cmd.append("-d")
             self.cmd.append(str(self.distance_to_molecule))
-            fu.log("Distance of the box to molecule: %6.2f" % self.distance_to_molecule, self.out_log, self.global_log)
+            fu.log(
+                "Distance of the box to molecule: %6.2f" % self.distance_to_molecule,
+                self.out_log,
+                self.global_log,
+            )
 
         if self.center_molecule:
-            self.cmd.append('-c')
-            fu.log('Centering molecule in the box.', self.out_log, self.global_log)
+            self.cmd.append("-c")
+            fu.log("Centering molecule in the box.", self.out_log, self.global_log)
 
         fu.log("Box type: %s" % self.box_type, self.out_log, self.global_log)
 
@@ -140,32 +158,51 @@ class Editconf(BiobbObject):
         return self.return_code
 
 
-def editconf(input_gro_path: str, output_gro_path: str, properties: Optional[dict] = None, **kwargs) -> int:
+def editconf(
+    input_gro_path: str,
+    output_gro_path: str,
+    properties: Optional[dict] = None,
+    **kwargs,
+) -> int:
     """Create :class:`Editconf <gromacs.editconf.Editconf>` class and
     execute the :meth:`launch() <gromacs.editconf.Editconf.launch>` method."""
 
-    return Editconf(input_gro_path=input_gro_path, output_gro_path=output_gro_path,
-                    properties=properties, **kwargs).launch()
+    return Editconf(
+        input_gro_path=input_gro_path,
+        output_gro_path=output_gro_path,
+        properties=properties,
+        **kwargs,
+    ).launch()
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS gmx editconf module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
+    parser = argparse.ArgumentParser(
+        description="Wrapper of the GROMACS gmx editconf module.",
+        formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999),
+    )
+    parser.add_argument(
+        "-c",
+        "--config",
+        required=False,
+        help="This file can be a YAML file, JSON file or JSON string",
+    )
 
     # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_gro_path', required=True)
-    required_args.add_argument('--output_gro_path', required=True)
+    required_args = parser.add_argument_group("required arguments")
+    required_args.add_argument("--input_gro_path", required=True)
+    required_args.add_argument("--output_gro_path", required=True)
 
     args = parser.parse_args()
     config = args.config if args.config else None
     properties = settings.ConfReader(config=config).get_prop_dic()
 
     # Specific call of each building block
-    editconf(input_gro_path=args.input_gro_path, output_gro_path=args.output_gro_path,
-             properties=properties)
+    editconf(
+        input_gro_path=args.input_gro_path,
+        output_gro_path=args.output_gro_path,
+        properties=properties,
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

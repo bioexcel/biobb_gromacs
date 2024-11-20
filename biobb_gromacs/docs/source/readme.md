@@ -3,7 +3,7 @@
 [![](https://img.shields.io/conda/vn/bioconda/biobb_gromacs?label=Conda)](https://anaconda.org/bioconda/biobb_gromacs)
 [![](https://img.shields.io/conda/dn/bioconda/biobb_gromacs?label=Conda%20Downloads)](https://anaconda.org/bioconda/biobb_gromacs)
 [![](https://img.shields.io/badge/Docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_gromacs?tab=tags)
-[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:4.2.0--pyhdfd78af_0)
+[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_gromacs:5.0.0--pyhdfd78af_0)
 
 [![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)](https://github.com/bioexcel/biobb_gromacs)
 [![](https://img.shields.io/pypi/pyversions/biobb-gromacs.svg?label=Python%20Versions)](https://pypi.org/project/biobb-gromacs/)
@@ -12,7 +12,7 @@
 
 [![](https://readthedocs.org/projects/biobb-gromacs/badge/?version=latest&label=Docs)](https://biobb-gromacs.readthedocs.io/en/latest/?badge=latest)
 [![](https://img.shields.io/website?down_message=Offline&label=Biobb%20Website&up_message=Online&url=https%3A%2F%2Fmmb.irbbarcelona.org%2Fbiobb%2F)](https://mmb.irbbarcelona.org/biobb/)
-[![](https://img.shields.io/badge/Youtube-tutorial-blue?logo=youtube&logoColor=red)](https://www.youtube.com/watch?v=ou1DOGNs0xM)
+[![](https://img.shields.io/badge/Youtube-tutorials-blue?logo=youtube&logoColor=red)](https://www.youtube.com/@BioExcelCoE/search?query=biobb)
 [![](https://zenodo.org/badge/DOI/10.1038/s41597-019-0177-4.svg)](https://doi.org/10.1038/s41597-019-0177-4)
 [![](https://img.shields.io/endpoint?color=brightgreen&url=https%3A%2F%2Fapi.juleskreuer.eu%2Fcitation-badge.php%3Fshield%26doi%3D10.1038%2Fs41597-019-0177-4)](https://www.nature.com/articles/s41597-019-0177-4#citeas)
 
@@ -42,7 +42,7 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb-gromacs.readthedocs.io/en/latest/).
 
 ### Version
-v4.2.0 2024.2
+v5.0.0 2024.2
 
 ### Installation
 Using PIP:
@@ -52,7 +52,7 @@ Using PIP:
 * Installation:
 
 
-        pip install "biobb_gromacs>=4.2.0"
+        pip install "biobb_gromacs>=5.0.0"
 
 
 * Usage: [Python API documentation](https://biobb-gromacs.readthedocs.io/en/latest/modules.html)
@@ -62,7 +62,7 @@ Using ANACONDA:
 * Installation:
 
 
-        conda install -c bioconda "biobb_gromacs>=4.2.0"
+        conda install -c bioconda "biobb_gromacs>=5.0.0"
 
 
 * Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-gromacs.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-gromacs.readthedocs.io/en/latest/command_line.html)
@@ -72,13 +72,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_gromacs:4.2.0--pyhdfd78af_0
+        docker pull quay.io/biocontainers/biobb_gromacs:5.0.0--pyhdfd78af_0
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_gromacs:4.2.0--pyhdfd78af_0 <command>
+        docker run quay.io/biocontainers/biobb_gromacs:5.0.0--pyhdfd78af_0 <command>
 
 
 Using SINGULARITY:
@@ -88,7 +88,7 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull --name biobb_gromacs.sif https://depot.galaxyproject.org/singularity/biobb_gromacs:4.2.0--pyhdfd78af_0
+        singularity pull --name biobb_gromacs.sif https://depot.galaxyproject.org/singularity/biobb_gromacs:5.0.0--pyhdfd78af_0
 
 
 * Usage:

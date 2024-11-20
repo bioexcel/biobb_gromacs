@@ -1,5 +1,22 @@
 # Biobb GROMACS changelog
 
+## What's new in version [5.0.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.0.0)?
+
+### Changes
+
+* [CI/CD](env.yaml): Update biobb_common version.
+* [Typing](ALL): Update typing from python 3.8 style to python 3.9
+* [CI/CD](conf.yml): Adding global properties to test yaml configuration
+* [CI/CD](linting_and_testing.yaml): Update GA test workflow to Python >3.9
+* [DOCS](.readthedocs.yaml): Updating to Python 3.9
+* [CI/CD](GITIGNORE): Update .gitignore to include the new file extensions to ignore
+* [CI/CD](conf.yml): Change test conf.yml to adapt to new settings configuration
+* [CI/CD](py.typed): Adding the py.typed
+* [FIX] Adding execution permissions to append_ligand
+* [UPDATE] Adding sandbox_path property to the json schemas
+* [FEATURE] New sandbox_path property
+* [CI/CD] Update grompp reference files and GA WF
+
 ## What's new in version [4.2.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v4.2.0)?
 
 ### Changes
