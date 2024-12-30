@@ -23,6 +23,7 @@ class Ndx2resttop(BiobbObject):
         input_top_zip_path (str): Path the input TOP topology in zip format. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs_extra/ndx2resttop.zip>`_. Accepted formats: zip (edam:format_3987).
         output_top_zip_path (str): Path the output TOP topology in zip format. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs_extra/ref_ndx2resttop.zip>`_. Accepted formats: zip (edam:format_3987).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
+            * **posres_names** (*list*) - ("CUSTOM_POSRES") String with names of the position restraints to be included in the topology file separated by spaces. If provided it should match the length of the ref_rest_chain_triplet_list.
             * **force_constants** (*str*) - ("500 500 500") Array of three floats defining the force constants.
             * **ref_rest_chain_triplet_list** (*str*) - (None) Triplet list composed by (reference group, restrain group, chain) list.
 
@@ -60,6 +61,7 @@ class Ndx2resttop(BiobbObject):
         }
 
         # Properties specific for BB
+        self.posres_names = properties.get('posres_names')
         self.force_constants = properties.get('force_constants', '500 500 500')
         self.ref_rest_chain_triplet_list = properties.get('ref_rest_chain_triplet_list')
 
@@ -105,7 +107,22 @@ class Ndx2resttop(BiobbObject):
 
         self.ref_rest_chain_triplet_list = [tuple(elem.strip(' ()').replace(' ', '').split(',')) for elem in str(self.ref_rest_chain_triplet_list).split('),')]
         fu.log('ref_rest_chain_triplet_list: ' + str(self.ref_rest_chain_triplet_list), self.out_log, self.global_log)
-        for reference_group, restrain_group, chain in self.ref_rest_chain_triplet_list:
+        
+        if self.posres_names:
+            self.posres_names = [elem.strip() for elem in self.posres_names.split()]
+            fu.log('posres_names: ' + str(self.posres_names), self.out_log, self.global_log)
+        else:
+            self.posres_names = ['CUSTOM_POSRES']*len(self.ref_rest_chain_triplet_list)
+            fu.log('posres_names: ' + str(self.posres_names), self.out_log, self.global_log)
+            
+        # Check if the number of posres_names matches the number of ref_rest_chain_triplet_list
+        if len(self.posres_names) != len(self.ref_rest_chain_triplet_list):
+            raise ValueError("If posres_names is provided, it should match the number of ref_rest_chain_triplet_list")
+        
+        for triplet, posre_name in zip(self.ref_rest_chain_triplet_list, self.posres_names):
+            
+            reference_group, restrain_group, chain = triplet
+            
             fu.log('Reference group: '+reference_group, self.out_log, self.global_log)
             fu.log('Restrain group: '+restrain_group, self.out_log, self.global_log)
             fu.log('Chain: '+chain, self.out_log, self.global_log)
@@ -133,7 +150,7 @@ class Ndx2resttop(BiobbObject):
                             fu.log('Opening: '+str(f)+' and adding the ifdef include statement', self.out_log, self.global_log)
                             f.write('\n')
                             f.write('; Include Position restraint file\n')
-                            f.write('#ifdef CUSTOM_POSRES\n')
+                            f.write(f'#ifdef '+str(posre_name)+'\n')
                             f.write('#include "'+str(Path(self.io_dict['out'].get("output_itp_path", "")).name)+'"\n')
                             f.write('#endif\n')
 
