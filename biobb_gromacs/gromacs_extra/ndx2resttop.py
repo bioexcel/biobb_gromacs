@@ -76,16 +76,31 @@ class Ndx2resttop(BiobbObject):
 
         top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path", ""), out_log=self.out_log)
 
-        # Create index list of index file :)
+        # Create index list of index file (dictionary with the index of the start and stop lines of each group) :)
         index_dic: dict[str, Any] = {}
         lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()
         for index, line in enumerate(lines):
+            
+            # New group
             if line.startswith('['):
-                index_dic[line] = index,
-                label = line
+                index_dic[line] = [index, 0]
+                
+                # Close previous group
                 if index > 0:
-                    index_dic[label] = index_dic[label][0], index
-        index_dic[label] = index_dic[label][0], index
+                    index_dic[label] = [index_dic[label][0], index]
+                    
+                # Update current group
+                label = line
+            
+            # Last group of the file
+            if index == len(lines)-1:
+                index_dic[label] = [index_dic[label][0], index]
+        
+        # Catch groups with just one line
+        for label in index_dic.keys():
+            if (index_dic[label][0]+1) == index_dic[label][1]:
+                index_dic[label][1] += 1
+    
         fu.log('Index_dic: '+str(index_dic), self.out_log, self.global_log)
 
         self.ref_rest_chain_triplet_list = [tuple(elem.strip(' ()').replace(' ', '').split(',')) for elem in str(self.ref_rest_chain_triplet_list).split('),')]
