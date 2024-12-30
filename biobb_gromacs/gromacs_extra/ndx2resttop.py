@@ -142,10 +142,13 @@ class Ndx2resttop(BiobbObject):
                 for atom in selected_list:
                     f.write(str(atom)+'     1  '+self.force_constants+'\n')
 
+            multi_chain = False
+            # For multi-chain topologies
             # Including new ITP in the corresponding ITP-chain file
             for file_dir in Path(top_file).parent.iterdir():
-                if not file_dir.name.startswith("posre") and not file_dir.name.endswith("_pr.itp"):
+                if "posre" not in file_dir.name and not file_dir.name.endswith("_pr.itp"):
                     if fnmatch.fnmatch(str(file_dir), "*_chain_"+chain+".itp"):
+                        multi_chain = True
                         with open(str(file_dir), 'a') as f:
                             fu.log('Opening: '+str(f)+' and adding the ifdef include statement', self.out_log, self.global_log)
                             f.write('\n')
@@ -153,7 +156,47 @@ class Ndx2resttop(BiobbObject):
                             f.write(f'#ifdef '+str(posre_name)+'\n')
                             f.write('#include "'+str(Path(self.io_dict['out'].get("output_itp_path", "")).name)+'"\n')
                             f.write('#endif\n')
-
+                            f.write('\n')
+                    
+            # For single-chain topologies
+            # Including new ITP in the TOP file
+            if not multi_chain:
+                
+                # Read all lines of the top file
+                with open(top_file, 'r') as f:
+                    lines = f.readlines()
+                
+                main_chain = False
+                index = 0
+                
+                # Find the index of the line where the custom position restraints are going to be included
+                for line in lines:
+                    
+                    # Find the moleculetype directive of the main chain
+                    if line.startswith('Protein_chain_'+chain):
+                        main_chain = True 
+                        index = lines.index(line) + 3
+                    
+                    # Find the end of the moleculetype directive of the main chain
+                    if main_chain:
+                        if line.startswith('[system]') or line.startswith('[molecules]') or line.startswith('#include ') or line.startswith('#ifdef POSRES'):
+                            index = lines.index(line) - 1
+                            break
+                
+                if index == 0:
+                    raise ValueError(f"Protein_chain_{chain} not found in the topology file")
+                
+                # Include the custom position restraints in the top file
+                lines.insert(index, '\n')
+                lines.insert(index + 1, '; Include Position restraint file\n')
+                lines.insert(index + 2, '#ifdef '+str(posre_name)+'\n')
+                lines.insert(index + 3, '#include "'+str(Path(self.io_dict['out'].get("output_itp_path", "")).name)+'"\n')
+                lines.insert(index + 4, '#endif\n')
+                
+                # Write the new top file
+                with open(top_file, 'w') as f:
+                    f.writelines(lines)
+                     
         # zip topology
         fu.zip_top(zip_file=self.io_dict['out'].get("output_top_zip_path", ""), top_file=top_file, out_log=self.out_log)
 
