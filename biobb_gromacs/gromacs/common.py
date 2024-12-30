@@ -138,7 +138,7 @@ def mdp_preset(sim_type: str) -> dict[str, str]:
 
     # Position restrain
     if not free:
-        mdp_dict['Define'] = '-DPOSRES'
+        mdp_dict['define'] = '-DPOSRES'
 
     # Run parameters
     mdp_dict['nsteps'] = '5000'
