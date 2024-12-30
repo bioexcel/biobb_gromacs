@@ -126,15 +126,15 @@ class Ndx2resttop(BiobbObject):
             fu.log('Reference group: '+reference_group, self.out_log, self.global_log)
             fu.log('Restrain group: '+restrain_group, self.out_log, self.global_log)
             fu.log('Chain: '+chain, self.out_log, self.global_log)
-            self.io_dict['out']["output_itp_path"] = fu.create_name(path=str(Path(top_file).parent), prefix=self.prefix, step=self.step, name=restrain_group+'.itp')
-
+            self.io_dict['out']["output_itp_path"] = fu.create_name(path=str(Path(top_file).parent), prefix=self.prefix, step=self.step, name=restrain_group+'_posre.itp')
+            
             # Mapping atoms from absolute enumeration to Chain relative enumeration
             fu.log('reference_group_index: start_closed:'+str(index_dic['[ '+reference_group+' ]'][0]+1)+' stop_open: '+str(index_dic['[ '+reference_group+' ]'][1]), self.out_log, self.global_log)
             reference_group_list = [int(elem) for line in lines[index_dic['[ '+reference_group+' ]'][0]+1: index_dic['[ '+reference_group+' ]'][1]] for elem in line.split()]
             fu.log('restrain_group_index: start_closed:'+str(index_dic['[ '+restrain_group+' ]'][0]+1)+' stop_open: '+str(index_dic['[ '+restrain_group+' ]'][1]), self.out_log, self.global_log)
             restrain_group_list = [int(elem) for line in lines[index_dic['[ '+restrain_group+' ]'][0]+1: index_dic['[ '+restrain_group+' ]'][1]] for elem in line.split()]
             selected_list = [reference_group_list.index(atom)+1 for atom in restrain_group_list]
-            # Creating new ITP with restrictions
+            # Creating new ITP with restrains
             with open(self.io_dict['out'].get("output_itp_path", ''), 'w') as f:
                 fu.log('Creating: '+str(f)+' and adding the selected atoms force constants', self.out_log, self.global_log)
                 f.write('[ position_restraints ]\n')
