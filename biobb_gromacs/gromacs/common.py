@@ -263,13 +263,19 @@ def create_mdp(output_mdp_path: str, input_mdp_path: Optional[str] = None,
 
     if preset_dict:
         for k, v in preset_dict.items():
-            mdp_dict[k] = v
+            mdp_dict[clean_key(k)] = v
     if input_mdp_path:
         input_mdp_dict = read_mdp(input_mdp_path)
         for k, v in input_mdp_dict.items():
-            mdp_dict[k] = v
+            mdp_dict[clean_key(k)] = v
     if mdp_properties_dict:
         for k, v in mdp_properties_dict.items():
-            mdp_dict[k] = v
+            mdp_dict[clean_key(k)] = v
 
     return write_mdp(output_mdp_path, mdp_dict)
+
+def clean_key(key: str) -> str:
+    """ Cleans a keyword by converting it to lower case and replacing '_' by '-' as gromacs will not be sensitive to these differences and every keyword
+    can only be defined once in the MDP file. """
+    
+    return key.lower().replace('_', '-')
