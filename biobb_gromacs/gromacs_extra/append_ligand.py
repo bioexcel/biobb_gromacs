@@ -124,9 +124,7 @@ class AppendLigand(BiobbObject):
             top_lines.insert(index + 6, "#ifdef " + self.posres_name + "\n")
             top_lines.insert(
                 index + 7,
-                '#include "'
-                + str(Path(self.io_dict["in"].get("input_posres_itp_path", "")).name)
-                + '"\n',
+                '#include "' + str(Path(self.io_dict["in"].get("input_posres_itp_path", "")).name) + '"\n',
             )
             top_lines.insert(index + 8, "#endif" + "\n")
             top_lines.insert(index + 9, "\n")
@@ -153,9 +151,7 @@ class AppendLigand(BiobbObject):
                 inside_molecules_section = True
                 continue
             if (
-                inside_molecules_section
-                and not line.startswith(";")
-                and line.upper().startswith("PROTEIN")
+                inside_molecules_section and not line.startswith(";") and line.upper().startswith("PROTEIN")
             ):
                 index_molecule = index
 

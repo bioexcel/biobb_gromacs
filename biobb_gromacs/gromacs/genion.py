@@ -160,8 +160,7 @@ class Genion(BiobbObject):
         ]
 
         if (
-            self.stage_io_dict["in"].get("input_ndx_path")
-            and Path(self.stage_io_dict["in"].get("input_ndx_path")).exists()
+            self.stage_io_dict["in"].get("input_ndx_path") and Path(self.stage_io_dict["in"].get("input_ndx_path")).exists()
         ):
             self.cmd.append("-n")
             self.cmd.append(self.stage_io_dict["in"].get("input_ndx_path"))
