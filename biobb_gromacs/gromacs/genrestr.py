@@ -150,7 +150,7 @@ class Genrestr(BiobbObject):
         # Remove temporal files
         self.tmp_files.extend(
             [
-                str(self.stage_io_dict.get("unique_dir", "")),
+                # str(self.stage_io_dict.get("unique_dir", "")),
                 str(self.io_dict["in"].get("stdin_file_path")),
             ]
         )
@@ -177,6 +177,8 @@ def genrestr(
         properties=properties,
         **kwargs,
     ).launch()
+
+    genrestr.__doc__ = Genrestr.__doc__
 
 
 def main():

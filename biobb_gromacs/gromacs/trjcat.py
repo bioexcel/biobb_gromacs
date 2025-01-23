@@ -127,7 +127,10 @@ class Trjcat(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir", ""), trj_dir])
+        self.tmp_files.extend([
+            # self.stage_io_dict.get("unique_dir", ""),
+            trj_dir
+        ])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -140,6 +143,8 @@ def trjcat(input_trj_zip_path: str, output_trj_path: str, properties: Optional[d
 
     return Trjcat(input_trj_zip_path=input_trj_zip_path, output_trj_path=output_trj_path,
                   properties=properties, **kwargs).launch()
+
+    trjcat.__doc__ = Trjcat.__doc__
 
 
 def main():

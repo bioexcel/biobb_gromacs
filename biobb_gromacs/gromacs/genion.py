@@ -217,7 +217,7 @@ class Genion(BiobbObject):
         # Remove temporal files
         self.tmp_files.extend(
             [
-                str(self.stage_io_dict.get("unique_dir", "")),
+                # str(self.stage_io_dict.get("unique_dir", "")),
                 top_dir,
                 str(self.io_dict["in"].get("stdin_file_path")),
             ]
@@ -248,6 +248,8 @@ def genion(
         properties=properties,
         **kwargs,
     ).launch()
+
+    genion.__doc__ = Genion.__doc__
 
 
 def main():

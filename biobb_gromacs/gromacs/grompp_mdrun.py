@@ -155,7 +155,10 @@ class GromppMdrun(BiobbObject):
             return 1
 
         # Remove temporal files
-        self.tmp_files.extend([self.stage_io_dict.get("unique_dir", ''), Path(str(self.output_tpr_path)).parent])
+        self.tmp_files.extend([
+            # self.stage_io_dict.get("unique_dir", ''),
+            Path(str(self.output_tpr_path)).parent]
+        )
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -174,6 +177,8 @@ def grompp_mdrun(input_gro_path: str, input_top_zip_path: str, output_trr_path: 
                        input_mdp_path=input_mdp_path, output_xtc_path=output_xtc_path,
                        output_cpt_path=output_cpt_path, output_dhdl_path=output_dhdl_path,
                        output_tpr_path=output_tpr_path, properties=properties, **kwargs).launch()
+
+    grompp_mdrun.__doc__ = GromppMdrun.__doc__
 
 
 def main():
