@@ -216,7 +216,7 @@ class Mdrun(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.append(self.stage_io_dict.get("unique_dir", ""))
+        # self.tmp_files.append(self.stage_io_dict.get("unique_dir", ""))
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -236,6 +236,8 @@ def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
                  output_xtc_path=output_xtc_path, output_cpt_path=output_cpt_path,
                  output_dhdl_path=output_dhdl_path, properties=properties,
                  **kwargs).launch()
+
+    mdrun.__doc__ = Mdrun.__doc__
 
 
 def main():
