@@ -25,7 +25,12 @@ class Pdb2gmx(BiobbObject):
             * **water_type** (*str*) - ("spce") Water molecule type. Values: spc, spce, tip3p, tip4p, tip5p, tips3p.
             * **force_field** (*str*) - ("amber99sb-ildn") Force field to be used during the conversion.  Values: gromos45a3, charmm27, gromos53a6, amber96, amber99, gromos43a2, gromos54a7, gromos43a1, amberGS, gromos53a5, amber99sb, amber03, amber99sb-ildn, oplsaa, amber94, amber99sb-star-ildn-mut.
             * **ignh** (*bool*) - (False) Should pdb2gmx ignore the hidrogens in the original structure.
-            * **his** (*str*) - (None) Histidine protonation array.
+            * **lys** (*str*) - (None) Lysine protonation array (0: not protonated, 1: protonated).
+            * **arg** (*str*) - (None) Arginine protonation array (0: not protonated, 1: protonated).
+            * **asp** (*str*) - (None) Aspartic acid protonation array (0: not protonated, 1: protonated).
+            * **glu** (*str*) - (None) Glutamic acid protonation array (0: not protonated, 1: protonated).
+            * **gln** (*str*) - (None) Glutamine protonation array (0: not protonated, 1: protonated).
+            * **his** (*str*) - (None) Histidine protonation array (0: HID, 1: HIE, 2: HIP).
             * **merge** (*bool*) - (False) Merge all chains into a single molecule.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
@@ -79,6 +84,11 @@ class Pdb2gmx(BiobbObject):
         self.water_type = properties.get('water_type', 'spce')
         self.force_field = properties.get('force_field', 'amber99sb-ildn')
         self.ignh = properties.get('ignh', False)
+        self.lys = properties.get('lys', None)
+        self.arg = properties.get('arg', None)
+        self.asp = properties.get('asp', None)
+        self.glu = properties.get('glu', None)
+        self.gln = properties.get('gln', None)
         self.his = properties.get('his', None)
         self.merge = properties.get('merge', False)
 
@@ -105,9 +115,23 @@ class Pdb2gmx(BiobbObject):
         # Setup Biobb
         if self.check_restart():
             return 0
-
+        
+        # Create stdin file if needed
+        stdin_content = ''
+        if self.lys:
+            stdin_content = f'{self.lys}'
+        if self.arg:
+            stdin_content += f' {self.arg}'
+        if self.asp:
+            stdin_content += f' {self.asp}'
+        if self.glu:
+            stdin_content += f' {self.glu}'
+        if self.gln:
+            stdin_content += f' {self.gln}'
         if self.his:
-            self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.his}')
+            stdin_content += f' {self.his}'
+        if stdin_content:
+            self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(stdin_content)
         self.stage_files()
 
         internal_top_name = fu.create_name(prefix=self.prefix, step=self.step, name=self.internal_top_name)
@@ -127,8 +151,20 @@ class Pdb2gmx(BiobbObject):
         if self.merge:
             self.cmd.append("-merge")
             self.cmd.append("all")
+        if self.lys:
+            self.cmd.append("-lys")
+        if self.arg:
+            self.cmd.append("-arg")
+        if self.asp:
+            self.cmd.append("-asp")
+        if self.glu:
+            self.cmd.append("-glu")
+        if self.gln:
+            self.cmd.append("-gln")
         if self.his:
             self.cmd.append("-his")
+            
+        if stdin_content:
             self.cmd.append('<')
             self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
