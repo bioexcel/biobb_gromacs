@@ -25,12 +25,12 @@ class Pdb2gmx(BiobbObject):
             * **water_type** (*str*) - ("spce") Water molecule type. Values: spc, spce, tip3p, tip4p, tip5p, tips3p.
             * **force_field** (*str*) - ("amber99sb-ildn") Force field to be used during the conversion.  Values: gromos45a3, charmm27, gromos53a6, amber96, amber99, gromos43a2, gromos54a7, gromos43a1, amberGS, gromos53a5, amber99sb, amber03, amber99sb-ildn, oplsaa, amber94, amber99sb-star-ildn-mut.
             * **ignh** (*bool*) - (False) Should pdb2gmx ignore the hidrogens in the original structure.
-            * **lys** (*str*) - (None) Lysine protonation array (0: not protonated, 1: protonated).
-            * **arg** (*str*) - (None) Arginine protonation array (0: not protonated, 1: protonated).
-            * **asp** (*str*) - (None) Aspartic acid protonation array (0: not protonated, 1: protonated).
-            * **glu** (*str*) - (None) Glutamic acid protonation array (0: not protonated, 1: protonated).
-            * **gln** (*str*) - (None) Glutamine protonation array (0: not protonated, 1: protonated).
-            * **his** (*str*) - (None) Histidine protonation array (0: HID, 1: HIE, 2: HIP).
+            * **lys** (*list*) - (None) Lysine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated).
+            * **arg** (*list*) - (None) Arginine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated).
+            * **asp** (*list*) - (None) Aspartic acid protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated).
+            * **glu** (*list*) - (None) Glutamic acid protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated).
+            * **gln** (*list*) - (None) Glutamine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated).
+            * **his** (*list*) - (None) Histidine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain. Make sure residues are named HIS (0: HID, 1: HIE, 2: HIP, 3: HIS1).
             * **merge** (*bool*) - (False) Merge all chains into a single molecule.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
@@ -48,7 +48,7 @@ class Pdb2gmx(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_gromacs.gromacs.pdb2gmx import pdb2gmx
-            prop = { 'his': '0 0 1 1 0 0 0' }
+            prop = { 'his': ['0 0 1 1 0 0 0', '1 1 0 1'] }
             pdb2gmx(input_pdb_path='/path/to/myStructure.pdb',
                     output_gro_path='/path/to/newStructure.gro',
                     output_top_zip_path='/path/to/newTopology.zip',
@@ -91,7 +91,7 @@ class Pdb2gmx(BiobbObject):
         self.gln = properties.get('gln', None)
         self.his = properties.get('his', None)
         self.merge = properties.get('merge', False)
-
+            
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
         self.binary_path: str = properties.get('binary_path', 'gmx')
@@ -103,6 +103,23 @@ class Pdb2gmx(BiobbObject):
             self.binary_path += ' -nocopyright'
         if not self.container_path:
             self.gmx_version = get_gromacs_version(self.binary_path)
+
+        # Support string for single chain
+        if isinstance(self.lys, str):
+            self.lys = [self.lys]
+        if isinstance(self.arg, str):
+            self.arg = [self.arg]
+        if isinstance(self.asp, str):
+            self.asp = [self.asp]
+        if isinstance(self.glu, str):
+            self.glu = [self.glu]  
+        if isinstance(self.gln, str):
+            self.gln = [self.gln]  
+        if isinstance(self.his, str):
+            self.his = [self.his] 
+            
+        # Make sure all have the same length 
+        self.check_lengths(self.lys, self.arg, self.asp, self.glu, self.gln, self.his)
 
         # Check the properties
         self.check_properties(properties)
@@ -118,18 +135,21 @@ class Pdb2gmx(BiobbObject):
         
         # Create stdin file if needed
         stdin_content = ''
-        if self.lys:
-            stdin_content = f'{self.lys}'
-        if self.arg:
-            stdin_content += f' {self.arg}'
-        if self.asp:
-            stdin_content += f' {self.asp}'
-        if self.glu:
-            stdin_content += f' {self.glu}'
-        if self.gln:
-            stdin_content += f' {self.gln}'
-        if self.his:
-            stdin_content += f' {self.his}'
+        num_chains = self.find_length(self.lys, self.arg, self.asp, self.glu, self.gln, self.his)
+        for i in range(num_chains):
+            if self.lys is not None:
+                stdin_content += f' {self.lys[i]}'
+            if self.arg is not None:
+                stdin_content += f' {self.arg[i]}'
+            if self.asp is not None:
+                stdin_content += f' {self.asp[i]}'
+            if self.glu is not None:
+                stdin_content += f' {self.glu[i]}'
+            if self.gln is not None:
+                stdin_content += f' {self.gln[i]}'
+            if self.his is not None:
+                stdin_content += f' {self.his[i]}'
+
         if stdin_content:
             self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(stdin_content)
         self.stage_files()
@@ -196,7 +216,35 @@ class Pdb2gmx(BiobbObject):
         self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
 
-
+    def check_lengths(self, *lists):
+        """ 
+        Make sure all lists are the same length
+        """
+        # Find length of each list
+        lengths = [len(lst) for lst in lists if lst is not None]
+        
+        # Check if all lengths are the same
+        all_equal = True
+        if len(lengths) > 0:
+            all_equal = len(set(lengths)) == 1
+            
+        if not all_equal:
+            raise ValueError(f"""All protonation arrays (lys, arg, asp, glu, gln, his) must have the same length 
+                             (one string per chain and empty string if residue is not present in that chain). Found lengths: {lengths}""")
+            
+    def find_length(self, *lists) -> int:
+        """ 
+        Find length of the first list
+        """
+        # Find length of each list
+        lengths = [len(lst) for lst in lists if lst is not None]
+        
+        # Return the length of the first list, if any
+        if len(lengths) > 0:
+            return lengths[0]
+        else:
+            return 0
+        
 def pdb2gmx(input_pdb_path: str, output_gro_path: str, output_top_zip_path: str,
             properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` class and
