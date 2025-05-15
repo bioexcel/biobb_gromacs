@@ -189,8 +189,10 @@ class AppendLigand(BiobbObject):
             top_lines.insert(at_index + 5, "; Ligand position restraints" + "\n")
             top_lines.insert(at_index + 6, "#ifdef " + self.posres_name + "\n")
             top_lines.insert(
-                index + 7,
-                '#include "' + str(Path(self.io_dict["in"].get("input_posres_itp_path", "")).name) + '"\n',
+                at_index + 7,
+                '#include "'
+                + str(Path(self.io_dict["in"].get("input_posres_itp_path", "")).name)
+                + '"\n',
             )
             top_lines.insert(at_index + 8, "#endif" + "\n")
             top_lines.insert(at_index + 9, "\n")
