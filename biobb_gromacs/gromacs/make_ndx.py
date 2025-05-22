@@ -91,8 +91,6 @@ class MakeNdx(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`MakeNdx <gromacs.make_ndx.MakeNdx>` object."""
 
-        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}\nq\n')
-
         # Setup Biobb
         if self.check_restart():
             return 0
