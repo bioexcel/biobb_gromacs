@@ -1,3 +1,4 @@
 1     E302 expected 2 blank lines, found 1
-7     W291 trailing whitespace
-9     W293 blank line contains whitespace
+10    W291 trailing whitespace
+22    W293 blank line contains whitespace
+2     W503 line break before binary operator
