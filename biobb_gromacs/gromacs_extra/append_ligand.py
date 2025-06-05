@@ -104,7 +104,7 @@ class AppendLigand(BiobbObject):
 
         forcefield_pattern = r"#include.*forcefield.itp\""
         if top_lines:
-            for index, line in enumerate(top_lines):
+            for ff_index, line in enumerate(top_lines):
                 if re.search(forcefield_pattern, line):
                     break
         else:
@@ -114,20 +114,88 @@ class AppendLigand(BiobbObject):
                 self.global_log,
             )
             return 1
+        
+        ligand_itp_path = self.io_dict["in"].get("input_itp_path")
+        
+        # Read ligand itp contents
+        with open(ligand_itp_path, 'r') as itp_file:
+            ligand_itp_contents = itp_file.readlines()
+            
+        # Separate ligand [ atomtypes ] section from the rest
+        lig_atomtypes_section = []
+        remaining_itp_contents = []
+        in_atomtypes_section = False      
+        for line in ligand_itp_contents:
+            if line.strip().startswith("[ atomtypes ]"):
+                in_atomtypes_section = True
+                lig_atomtypes_section.append(line)
+            elif in_atomtypes_section:
+                if line.strip() == "" or line.startswith("["):
+                    in_atomtypes_section = False
+                    remaining_itp_contents.append(line)
+                else:
+                    lig_atomtypes_section.append(line)
+            else:
+                remaining_itp_contents.append(line)
+                
+        # If the ligand itp contains an [ atomtypes ] section, merge it into the main topology
+        if lig_atomtypes_section:
+           
+            # Look for the [ atomtypes ] section in the main topology
+            top_atomtypes_section = []
+            in_atomtypes_section = False  
+            for line in top_lines:
+                if line.strip().startswith("[ atomtypes ]"):
+                    in_atomtypes_section = True
+                    top_atomtypes_section.append(line)
+                elif in_atomtypes_section:
+                    if line.strip() == "" or line.startswith("["):
+                        in_atomtypes_section = False
+                    else:
+                        top_atomtypes_section.append(line)
 
-        top_lines.insert(index + 1, "\n")
-        top_lines.insert(index + 2, "; Including ligand ITP\n")
-        top_lines.insert(index + 3, '#include "' + itp_name + '"\n')
-        top_lines.insert(index + 4, "\n")
+            # If there is already an [ atomtypes ] section in the main topology
+            if top_atomtypes_section:
+                
+                # Remove the header and comments of the ligand [ atomtypes ] section
+                lig_atomtypes_section = lig_atomtypes_section[2:]
+                
+                # Remove the [ atomtypes ] section from top_lines
+                top_lines = [line for line in top_lines if line not in top_atomtypes_section]
+                
+            # NOTE: Check for repeated atoms in the [ atomtypes ] section
+            # NOTE: raise error if there are conflicts - atoms named equally with different parameters
+            # NOTE: raise error if there are different number of columns in the atomtypes sections
+            
+            top_lines.insert(ff_index + 1, "\n")
+            
+            # Merge both [ atomtypes ] sections 
+            atomtype_section = top_atomtypes_section + lig_atomtypes_section
+            
+            # Write the merged [ atomtypes ] section into the main topology after the forcefield include
+            for atomtype_index in range(len(atomtype_section)):
+                top_lines.insert(ff_index + atomtype_index + 2, atomtype_section[atomtype_index])
+            
+            # Update the index for the remaining directives
+            at_index = ff_index + atomtype_index + 2
+        else:
+            at_index = ff_index
+
+        top_lines.insert(at_index + 1, "\n")
+        top_lines.insert(at_index + 2, "; Including ligand ITP\n")
+        top_lines.insert(at_index + 3, '#include "' + itp_name + '"\n')
+        top_lines.insert(at_index + 4, "\n")
         if self.io_dict["in"].get("input_posres_itp_path"):
-            top_lines.insert(index + 5, "; Ligand position restraints" + "\n")
-            top_lines.insert(index + 6, "#ifdef " + self.posres_name + "\n")
+            top_lines.insert(at_index + 5, "; Ligand position restraints" + "\n")
+            top_lines.insert(at_index + 6, "#ifdef " + self.posres_name + "\n")
             top_lines.insert(
-                index + 7,
-                '#include "' + str(Path(self.io_dict["in"].get("input_posres_itp_path", "")).name) + '"\n',
+                at_index + 7,
+                '#include "'
+                + str(Path(self.io_dict["in"].get("input_posres_itp_path", "")).name)
+                + '"\n'
             )
-            top_lines.insert(index + 8, "#endif" + "\n")
-            top_lines.insert(index + 9, "\n")
+            top_lines.insert(at_index + 8, "#endif" + "\n")
+            top_lines.insert(at_index + 9, "\n")
 
         inside_moleculetype_section = False
         with open(self.io_dict["in"].get("input_itp_path", "")) as itp_file:
@@ -167,7 +235,11 @@ class AppendLigand(BiobbObject):
         with open(new_top, "w") as new_top_f:
             new_top_f.write("".join(top_lines))
 
-        shutil.copy2(self.io_dict["in"].get("input_itp_path", ""), top_dir)
+        # Create a new itp ligand file without the [ atomtypes ] section
+        new_ligand_tip_path = str(Path(top_dir) / itp_name)
+        with open(new_ligand_tip_path, 'w') as new_itp_file:
+            new_itp_file.write("".join(remaining_itp_contents))
+        
         if self.io_dict["in"].get("input_posres_itp_path"):
             shutil.copy2(self.io_dict["in"].get("input_posres_itp_path", ""), top_dir)
 
