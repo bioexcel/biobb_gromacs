@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>flake8 violations: biobb_gromacs/gromacs_extra/ndx2resttop.py</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+<script>
+function bindHandler(link) {
+   var code = link.getAttribute('data-code');
+   var key = location.pathname + '#' + code;
+
+   var ul = link.parentNode.querySelector('.details');
+   if (sessionStorage[key] != 'open') {
+      ul.style.display = 'none';
+   }
+   link.addEventListener('click', function (event) {
+      if (!ul.style.display || ul.style.display == 'none') {
+         ul.style.display = 'block';
+         sessionStorage[key] = 'open';
+      } else {
+         ul.style.display = 'none';
+         sessionStorage[key] = 'closed';
+      }
+   });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+   var links = document.querySelectorAll('#index > li > a');
+   for (var i = 0; i < links.length; i++) {
+      bindHandler(links[i]);
+   }
+});
+</script>
+   </head>
+   <body>
+      <div id="masthead" class="sev-1"></div>
+      <div id="page">
+         <p id="srclink">
+            <a title="View full annotated source"
+               href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html">
+               <img src="file.svg" alt="&#x2261;">
+            </a></p>
+         <h1>
+            <a href="index.html">
+               <img src="back.svg" alt="&#x2B05;">
+               biobb_gromacs/gromacs_extra/ndx2resttop.py
+            </a>
+         </h1>
+
+         <ul id="index">
+         
+         <li>
+            <a data-code="F821">
+               <span class="count sev-1">
+                  2
+               </span>
+               <strong>F821:</strong> undefined name 'label'
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>Undefined name 'label' (in 2 places):</p>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l92">
+                  <tt><i>92</i>                     <span class="n">index_dic</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">index_dic</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">index</span><span class="p">]</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="F541">
+               <span class="count sev-1">
+                  1
+               </span>
+               <strong>F541:</strong> f-string is missing placeholders
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l156">
+                  <tt><i>156</i>                             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;#ifdef &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">posre_name</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W293">
+               <span class="count sev-2">
+                  22
+               </span>
+               <strong>W293:</strong> blank line contains whitespace
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l85">
+                  <tt><i>85</i>             </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l89">
+                  <tt><i>89</i>                 </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l93">
+                  <tt><i>93</i>                     </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l96">
+                  <tt><i>96</i>             </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l100">
+                  <tt><i>100</i>         </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l105">
+                  <tt><i>105</i>     </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l110">
+                  <tt><i>110</i>         </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l117">
+                  <tt><i>117</i>             </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l121">
+                  <tt><i>121</i>         </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l123">
+                  <tt><i>123</i>             </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l125">
+                  <tt><i>125</i>             </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l130">
+                  <tt><i>130</i>             </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l160">
+                  <tt><i>160</i>                     </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l164">
+                  <tt><i>164</i>                 </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l168">
+                  <tt><i>168</i>                 </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l171">
+                  <tt><i>171</i>                 </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l174">
+                  <tt><i>174</i>                     </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l179">
+                  <tt><i>179</i>                     </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l185">
+                  <tt><i>185</i>                 </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l188">
+                  <tt><i>188</i>                 </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l195">
+                  <tt><i>195</i>                 </tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l199">
+                  <tt><i>199</i>                      </tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W291">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>W291:</strong> trailing whitespace
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_gromacs.gromacs_extra.ndx2resttop.source.html#l177">
+                  <tt><i>177</i>                         <span class="n">main_chain</span> <span class="o">=</span> <span class="kc">True</span> </tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         </ul>
+      </div>
+   </body>
+</html>
