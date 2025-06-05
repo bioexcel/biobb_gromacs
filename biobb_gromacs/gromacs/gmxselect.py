@@ -130,7 +130,7 @@ class Gmxselect(BiobbObject):
                             out_ndx_file.write(line)
 
         # Remove temporal files
-        self.tmp_files.append(self.stage_io_dict.get("unique_dir", ''))
+        # self.tmp_files.append(self.stage_io_dict.get("unique_dir", ''))
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -146,6 +146,8 @@ def gmxselect(input_structure_path: str, output_ndx_path: str,
                      output_ndx_path=output_ndx_path,
                      input_ndx_path=input_ndx_path,
                      properties=properties, **kwargs).launch()
+
+    gmxselect.__doc__ = Gmxselect.__doc__
 
 
 def main():

@@ -151,10 +151,10 @@ class Editconf(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.append(str(self.stage_io_dict.get("unique_dir", "")))
+        # self.tmp_files.append(str(self.stage_io_dict.get("unique_dir", "")))
         self.remove_tmp_files()
 
-        self.check_arguments(output_files_created=True, raise_exception=False)
+        # self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
 
 
@@ -173,6 +173,8 @@ def editconf(
         properties=properties,
         **kwargs,
     ).launch()
+
+    editconf.__doc__ = Editconf.__doc__
 
 
 def main():
