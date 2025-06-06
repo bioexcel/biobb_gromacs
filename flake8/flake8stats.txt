@@ -1,4 +1,3 @@
-1     E265 block comment should start with '# '
 2     E302 expected 2 blank lines, found 1
 1     F541 f-string is missing placeholders
 2     F821 undefined name 'label'
