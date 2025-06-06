@@ -54,9 +54,9 @@
             </div>
         </aside>
         <h2>
-            <span class="text">119 statements &nbsp;</span>
+            <span class="text">120 statements &nbsp;</span>
             <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">81<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">38<span class="text"> missing</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">39<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_bfca24d363d6bdc9___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.8.2">coverage.py v7.8.2</a>,
-            created at 2025-06-06 10:39 +0000
+            created at 2025-06-06 10:47 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -235,7 +235,7 @@
     <p class="run"><span class="n"><a id="t153" href="#t153">153</a></span><span class="t">                            <span class="nam">fu</span><span class="op">.</span><span class="nam">log</span><span class="op">(</span><span class="str">'Opening: '</span><span class="op">+</span><span class="nam">str</span><span class="op">(</span><span class="nam">f</span><span class="op">)</span><span class="op">+</span><span class="str">' and adding the ifdef include statement'</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">out_log</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">global_log</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t154" href="#t154">154</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t155" href="#t155">155</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'; Include Position restraint file\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t156" href="#t156">156</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="fst">f'</span><span class="fst">#ifdef </span><span class="fst">'</span><span class="op">+</span><span class="nam">str</span><span class="op">(</span><span class="nam">posre_name</span><span class="op">)</span><span class="op">+</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t156" href="#t156">156</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">f'#ifdef '</span><span class="op">+</span><span class="nam">str</span><span class="op">(</span><span class="nam">posre_name</span><span class="op">)</span><span class="op">+</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t157" href="#t157">157</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'#include "'</span><span class="op">+</span><span class="nam">str</span><span class="op">(</span><span class="nam">Path</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">'out'</span><span class="op">]</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"output_itp_path"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span><span class="op">)</span><span class="op">.</span><span class="nam">name</span><span class="op">)</span><span class="op">+</span><span class="str">'"\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t158" href="#t158">158</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'#endif\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t159" href="#t159">159</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -266,7 +266,7 @@
     <p class="mis show_mis"><span class="n"><a id="t184" href="#t184">184</a></span><span class="t">                            <span class="key">break</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t185" href="#t185">185</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t186" href="#t186">186</a></span><span class="t">                <span class="key">if</span> <span class="nam">index</span> <span class="op">==</span> <span class="num">0</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t187" href="#t187">187</a></span><span class="t">                    <span class="key">raise</span> <span class="nam">ValueError</span><span class="op">(</span><span class="fst">f"</span><span class="fst">Protein_chain_</span><span class="op">{</span><span class="nam">chain</span><span class="op">}</span><span class="fst"> not found in the topology file</span><span class="fst">"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t187" href="#t187">187</a></span><span class="t">                    <span class="key">raise</span> <span class="nam">ValueError</span><span class="op">(</span><span class="str">f"Protein_chain_{chain} not found in the topology file"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t188" href="#t188">188</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t189" href="#t189">189</a></span><span class="t">                <span class="com"># Include the custom position restraints in the top file</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t190" href="#t190">190</a></span><span class="t">                <span class="nam">lines</span><span class="op">.</span><span class="nam">insert</span><span class="op">(</span><span class="nam">index</span><span class="op">,</span> <span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -298,7 +298,7 @@
     <p class="pln"><span class="n"><a id="t216" href="#t216">216</a></span><span class="t">                       <span class="nam">output_top_zip_path</span><span class="op">=</span><span class="nam">output_top_zip_path</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t217" href="#t217">217</a></span><span class="t">                       <span class="nam">properties</span><span class="op">=</span><span class="nam">properties</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span><span class="op">.</span><span class="nam">launch</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t218" href="#t218">218</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t219" href="#t219">219</a></span><span class="t">    <span class="nam">ndx2resttop</span><span class="op">.</span><span class="nam">__doc__</span> <span class="op">=</span> <span class="nam">Ndx2resttop</span><span class="op">.</span><span class="nam">__doc__</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t219" href="#t219">219</a></span><span class="t">    <span class="nam">ndx2resttop</span><span class="op">.</span><span class="nam">__doc__</span> <span class="op">=</span> <span class="nam">Ndx2resttop</span><span class="op">.</span><span class="nam">__doc__</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t220" href="#t220">220</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t221" href="#t221">221</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t222" href="#t222">222</a></span><span class="t"><span class="key">def</span> <span class="nam">main</span><span class="op">(</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -333,7 +333,7 @@
             <a class="nav" href="z_bfca24d363d6bdc9___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.8.2">coverage.py v7.8.2</a>,
-            created at 2025-06-06 10:39 +0000
+            created at 2025-06-06 10:47 +0000
         </p>
     </div>
 </footer>
