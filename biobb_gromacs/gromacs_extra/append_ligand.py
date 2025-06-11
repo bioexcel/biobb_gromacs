@@ -114,17 +114,17 @@ class AppendLigand(BiobbObject):
                 self.global_log,
             )
             return 1
-        
+
         ligand_itp_path = self.io_dict["in"].get("input_itp_path")
-        
+
         # Read ligand itp contents
         with open(ligand_itp_path, 'r') as itp_file:
             ligand_itp_contents = itp_file.readlines()
-            
+
         # Separate ligand [ atomtypes ] section from the rest
         lig_atomtypes_section = []
         remaining_itp_contents = []
-        in_atomtypes_section = False      
+        in_atomtypes_section = False
         for line in ligand_itp_contents:
             if line.strip().startswith("[ atomtypes ]"):
                 in_atomtypes_section = True
@@ -137,13 +137,13 @@ class AppendLigand(BiobbObject):
                     lig_atomtypes_section.append(line)
             else:
                 remaining_itp_contents.append(line)
-                
+
         # If the ligand itp contains an [ atomtypes ] section, merge it into the main topology
         if lig_atomtypes_section:
-           
+
             # Look for the [ atomtypes ] section in the main topology
             top_atomtypes_section = []
-            in_atomtypes_section = False  
+            in_atomtypes_section = False
             for line in top_lines:
                 if line.strip().startswith("[ atomtypes ]"):
                     in_atomtypes_section = True
@@ -156,26 +156,26 @@ class AppendLigand(BiobbObject):
 
             # If there is already an [ atomtypes ] section in the main topology
             if top_atomtypes_section:
-                
+
                 # Remove the header and comments of the ligand [ atomtypes ] section
                 lig_atomtypes_section = lig_atomtypes_section[2:]
-                
+
                 # Remove the [ atomtypes ] section from top_lines
                 top_lines = [line for line in top_lines if line not in top_atomtypes_section]
-                
+
             # NOTE: Check for repeated atoms in the [ atomtypes ] section
             # NOTE: raise error if there are conflicts - atoms named equally with different parameters
             # NOTE: raise error if there are different number of columns in the atomtypes sections
-            
+
             top_lines.insert(ff_index + 1, "\n")
-            
-            # Merge both [ atomtypes ] sections 
+
+            # Merge both [ atomtypes ] sections
             atomtype_section = top_atomtypes_section + lig_atomtypes_section
-            
+
             # Write the merged [ atomtypes ] section into the main topology after the forcefield include
             for atomtype_index in range(len(atomtype_section)):
                 top_lines.insert(ff_index + atomtype_index + 2, atomtype_section[atomtype_index])
-            
+
             # Update the index for the remaining directives
             at_index = ff_index + atomtype_index + 2
         else:
@@ -190,9 +190,7 @@ class AppendLigand(BiobbObject):
             top_lines.insert(at_index + 6, "#ifdef " + self.posres_name + "\n")
             top_lines.insert(
                 at_index + 7,
-                '#include "'
-                + str(Path(self.io_dict["in"].get("input_posres_itp_path", "")).name)
-                + '"\n'
+                '#include "' + str(Path(self.io_dict["in"].get("input_posres_itp_path", "")).name) + '"\n'
             )
             top_lines.insert(at_index + 8, "#endif" + "\n")
             top_lines.insert(at_index + 9, "\n")
@@ -239,7 +237,7 @@ class AppendLigand(BiobbObject):
         new_ligand_tip_path = str(Path(top_dir) / itp_name)
         with open(new_ligand_tip_path, 'w') as new_itp_file:
             new_itp_file.write("".join(remaining_itp_contents))
-        
+
         if self.io_dict["in"].get("input_posres_itp_path"):
             shutil.copy2(self.io_dict["in"].get("input_posres_itp_path", ""), top_dir)
 
@@ -254,6 +252,7 @@ class AppendLigand(BiobbObject):
             zip_file=self.io_dict["out"].get("output_top_zip_path", ""),
             top_file=new_top,
             out_log=self.out_log,
+            remove_original_files=self.remove_tmp
         )
 
         # Remove temporal files

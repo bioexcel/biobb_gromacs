@@ -82,52 +82,52 @@ class Ndx2resttop(BiobbObject):
         index_dic: dict[str, Any] = {}
         lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()
         for index, line in enumerate(lines):
-            
+
             # New group
             if line.startswith('['):
                 index_dic[line] = [index, 0]
-                
+
+                # Update current group
+                label = line
+
                 # Close previous group
                 if index > 0:
                     index_dic[label] = [index_dic[label][0], index]
-                    
-                # Update current group
-                label = line
-            
+
             # Last group of the file
             if index == len(lines)-1:
                 index_dic[label] = [index_dic[label][0], index]
-        
+
         # Catch groups with just one line
         for label in index_dic.keys():
             if (index_dic[label][0]+1) == index_dic[label][1]:
                 index_dic[label][1] += 1
-    
+
         fu.log('Index_dic: '+str(index_dic), self.out_log, self.global_log)
 
         self.ref_rest_chain_triplet_list = [tuple(elem.strip(' ()').replace(' ', '').split(',')) for elem in str(self.ref_rest_chain_triplet_list).split('),')]
         fu.log('ref_rest_chain_triplet_list: ' + str(self.ref_rest_chain_triplet_list), self.out_log, self.global_log)
-        
+
         if self.posres_names:
             self.posres_names = [elem.strip() for elem in self.posres_names.split()]
             fu.log('posres_names: ' + str(self.posres_names), self.out_log, self.global_log)
         else:
             self.posres_names = ['CUSTOM_POSRES']*len(self.ref_rest_chain_triplet_list)
             fu.log('posres_names: ' + str(self.posres_names), self.out_log, self.global_log)
-            
+
         # Check if the number of posres_names matches the number of ref_rest_chain_triplet_list
         if len(self.posres_names) != len(self.ref_rest_chain_triplet_list):
             raise ValueError("If posres_names is provided, it should match the number of ref_rest_chain_triplet_list")
-        
+
         for triplet, posre_name in zip(self.ref_rest_chain_triplet_list, self.posres_names):
-            
+
             reference_group, restrain_group, chain = triplet
-            
+
             fu.log('Reference group: '+reference_group, self.out_log, self.global_log)
             fu.log('Restrain group: '+restrain_group, self.out_log, self.global_log)
             fu.log('Chain: '+chain, self.out_log, self.global_log)
             self.io_dict['out']["output_itp_path"] = fu.create_name(path=str(Path(top_file).parent), prefix=self.prefix, step=self.step, name=restrain_group+'_posre.itp')
-            
+
             # Mapping atoms from absolute enumeration to Chain relative enumeration
             fu.log('reference_group_index: start_closed:'+str(index_dic['[ '+reference_group+' ]'][0]+1)+' stop_open: '+str(index_dic['[ '+reference_group+' ]'][1]), self.out_log, self.global_log)
             reference_group_list = [int(elem) for line in lines[index_dic['[ '+reference_group+' ]'][0]+1: index_dic['[ '+reference_group+' ]'][1]] for elem in line.split()]
@@ -153,52 +153,52 @@ class Ndx2resttop(BiobbObject):
                             fu.log('Opening: '+str(f)+' and adding the ifdef include statement', self.out_log, self.global_log)
                             f.write('\n')
                             f.write('; Include Position restraint file\n')
-                            f.write(f'#ifdef '+str(posre_name)+'\n')
+                            f.write('#ifdef '+str(posre_name)+'\n')
                             f.write('#include "'+str(Path(self.io_dict['out'].get("output_itp_path", "")).name)+'"\n')
                             f.write('#endif\n')
                             f.write('\n')
-                    
+
             # For single-chain topologies
             # Including new ITP in the TOP file
             if not multi_chain:
-                
+
                 # Read all lines of the top file
                 with open(top_file, 'r') as f:
                     lines = f.readlines()
-                
+
                 main_chain = False
                 index = 0
-                
+
                 # Find the index of the line where the custom position restraints are going to be included
                 for line in lines:
-                    
+
                     # Find the moleculetype directive of the main chain
                     if line.startswith('Protein_chain_'+chain):
-                        main_chain = True 
+                        main_chain = True
                         index = lines.index(line) + 3
-                    
+
                     # Find the end of the moleculetype directive of the main chain
                     if main_chain:
                         if line.startswith('[system]') or line.startswith('[molecules]') or line.startswith('#include ') or line.startswith('#ifdef POSRES'):
                             index = lines.index(line) - 1
                             break
-                
+
                 if index == 0:
                     raise ValueError(f"Protein_chain_{chain} not found in the topology file")
-                
+
                 # Include the custom position restraints in the top file
                 lines.insert(index, '\n')
                 lines.insert(index + 1, '; Include Position restraint file\n')
                 lines.insert(index + 2, '#ifdef '+str(posre_name)+'\n')
                 lines.insert(index + 3, '#include "'+str(Path(self.io_dict['out'].get("output_itp_path", "")).name)+'"\n')
                 lines.insert(index + 4, '#endif\n')
-                
+
                 # Write the new top file
                 with open(top_file, 'w') as f:
                     f.writelines(lines)
-                     
+
         # zip topology
-        fu.zip_top(zip_file=self.io_dict['out'].get("output_top_zip_path", ""), top_file=top_file, out_log=self.out_log)
+        fu.zip_top(zip_file=self.io_dict['out'].get("output_top_zip_path", ""), top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
         # Remove temporal files
         self.remove_tmp_files()

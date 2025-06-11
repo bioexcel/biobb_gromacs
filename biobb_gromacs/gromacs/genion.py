@@ -212,6 +212,7 @@ class Genion(BiobbObject):
             zip_file=self.io_dict["out"]["output_top_zip_path"],
             top_file=top_file,
             out_log=self.out_log,
+            remove_original_files=self.remove_tmp
         )
 
         # Remove temporal files
