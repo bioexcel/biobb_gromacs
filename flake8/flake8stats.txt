@@ -1,7 +1,0 @@
-2     E302 expected 2 blank lines, found 1
-1     F541 f-string is missing placeholders
-2     F821 undefined name 'label'
-11    W291 trailing whitespace
-1     W292 no newline at end of file
-45    W293 blank line contains whitespace
-2     W503 line break before binary operator

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Coverage for biobb_gromacs/gromacs_extra/ndx2resttop.py: 68%</title>
+    <title>Coverage for biobb_gromacs/gromacs_extra/ndx2resttop.py: 67%</title>
     <link rel="icon" sizes="32x32" href="favicon_32_cb_58284776.png">
     <link rel="stylesheet" href="style_cb_8e611ae1.css" type="text/css">
     <script src="coverage_html_cb_6fb7b396.js" defer></script>
@@ -12,7 +12,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>biobb_gromacs/gromacs_extra/ndx2resttop.py</b>:
-            <span class="pc_cov">68%</span>
+            <span class="pc_cov">67%</span>
         </h1>
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -55,8 +55,8 @@
         </aside>
         <h2>
             <span class="text">119 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">81<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">38<span class="text"> missing</span></button>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">80<span class="text"> run</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">39<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_bfca24d363d6bdc9___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.8.2">coverage.py v7.8.2</a>,
-            created at 2025-06-06 11:01 +0000
+            created at 2025-06-11 08:37 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -169,12 +169,12 @@
     <p class="run"><span class="n"><a id="t87" href="#t87">87</a></span><span class="t">            <span class="key">if</span> <span class="nam">line</span><span class="op">.</span><span class="nam">startswith</span><span class="op">(</span><span class="str">'['</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t88" href="#t88">88</a></span><span class="t">                <span class="nam">index_dic</span><span class="op">[</span><span class="nam">line</span><span class="op">]</span> <span class="op">=</span> <span class="op">[</span><span class="nam">index</span><span class="op">,</span> <span class="num">0</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t89" href="#t89">89</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t90" href="#t90">90</a></span><span class="t">                <span class="com"># Close previous group</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t91" href="#t91">91</a></span><span class="t">                <span class="key">if</span> <span class="nam">index</span> <span class="op">></span> <span class="num">0</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t92" href="#t92">92</a></span><span class="t">                    <span class="nam">index_dic</span><span class="op">[</span><span class="nam">label</span><span class="op">]</span> <span class="op">=</span> <span class="op">[</span><span class="nam">index_dic</span><span class="op">[</span><span class="nam">label</span><span class="op">]</span><span class="op">[</span><span class="num">0</span><span class="op">]</span><span class="op">,</span> <span class="nam">index</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t93" href="#t93">93</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t94" href="#t94">94</a></span><span class="t">                <span class="com"># Update current group</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t95" href="#t95">95</a></span><span class="t">                <span class="nam">label</span> <span class="op">=</span> <span class="nam">line</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t90" href="#t90">90</a></span><span class="t">                <span class="com"># Update current group</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t91" href="#t91">91</a></span><span class="t">                <span class="nam">label</span> <span class="op">=</span> <span class="nam">line</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t92" href="#t92">92</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t93" href="#t93">93</a></span><span class="t">                <span class="com"># Close previous group</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t94" href="#t94">94</a></span><span class="t">                <span class="key">if</span> <span class="nam">index</span> <span class="op">></span> <span class="num">0</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t95" href="#t95">95</a></span><span class="t">                    <span class="nam">index_dic</span><span class="op">[</span><span class="nam">label</span><span class="op">]</span> <span class="op">=</span> <span class="op">[</span><span class="nam">index_dic</span><span class="op">[</span><span class="nam">label</span><span class="op">]</span><span class="op">[</span><span class="num">0</span><span class="op">]</span><span class="op">,</span> <span class="nam">index</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t96" href="#t96">96</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t97" href="#t97">97</a></span><span class="t">            <span class="com"># Last group of the file</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t98" href="#t98">98</a></span><span class="t">            <span class="key">if</span> <span class="nam">index</span> <span class="op">==</span> <span class="nam">len</span><span class="op">(</span><span class="nam">lines</span><span class="op">)</span><span class="op">-</span><span class="num">1</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -222,7 +222,7 @@
     <p class="run"><span class="n"><a id="t140" href="#t140">140</a></span><span class="t">                <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'[ position_restraints ]\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t141" href="#t141">141</a></span><span class="t">                <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'; atom  type      fx      fy      fz\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t142" href="#t142">142</a></span><span class="t">                <span class="key">for</span> <span class="nam">atom</span> <span class="key">in</span> <span class="nam">selected_list</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t143" href="#t143">143</a></span><span class="t">                    <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="nam">str</span><span class="op">(</span><span class="nam">atom</span><span class="op">)</span><span class="op">+</span><span class="str">'     1  '</span><span class="op">+</span><span class="nam">self</span><span class="op">.</span><span class="nam">force_constants</span><span class="op">+</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t143" href="#t143">143</a></span><span class="t">                    <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="nam">str</span><span class="op">(</span><span class="nam">atom</span><span class="op">)</span><span class="op">+</span><span class="str">'     1  '</span><span class="op">+</span><span class="nam">self</span><span class="op">.</span><span class="nam">force_constants</span><span class="op">+</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t144" href="#t144">144</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t145" href="#t145">145</a></span><span class="t">            <span class="nam">multi_chain</span> <span class="op">=</span> <span class="key">False</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t146" href="#t146">146</a></span><span class="t">            <span class="com"># For multi-chain topologies</span>&nbsp;</span><span class="r"></span></p>
@@ -235,7 +235,7 @@
     <p class="run"><span class="n"><a id="t153" href="#t153">153</a></span><span class="t">                            <span class="nam">fu</span><span class="op">.</span><span class="nam">log</span><span class="op">(</span><span class="str">'Opening: '</span><span class="op">+</span><span class="nam">str</span><span class="op">(</span><span class="nam">f</span><span class="op">)</span><span class="op">+</span><span class="str">' and adding the ifdef include statement'</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">out_log</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">global_log</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t154" href="#t154">154</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t155" href="#t155">155</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'; Include Position restraint file\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t156" href="#t156">156</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">f'#ifdef '</span><span class="op">+</span><span class="nam">str</span><span class="op">(</span><span class="nam">posre_name</span><span class="op">)</span><span class="op">+</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t156" href="#t156">156</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'#ifdef '</span><span class="op">+</span><span class="nam">str</span><span class="op">(</span><span class="nam">posre_name</span><span class="op">)</span><span class="op">+</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t157" href="#t157">157</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'#include "'</span><span class="op">+</span><span class="nam">str</span><span class="op">(</span><span class="nam">Path</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">'out'</span><span class="op">]</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"output_itp_path"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span><span class="op">)</span><span class="op">.</span><span class="nam">name</span><span class="op">)</span><span class="op">+</span><span class="str">'"\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t158" href="#t158">158</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'#endif\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t159" href="#t159">159</a></span><span class="t">                            <span class="nam">f</span><span class="op">.</span><span class="nam">write</span><span class="op">(</span><span class="str">'\n'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -280,7 +280,7 @@
     <p class="mis show_mis"><span class="n"><a id="t198" href="#t198">198</a></span><span class="t">                    <span class="nam">f</span><span class="op">.</span><span class="nam">writelines</span><span class="op">(</span><span class="nam">lines</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t199" href="#t199">199</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t200" href="#t200">200</a></span><span class="t">        <span class="com"># zip topology</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t201" href="#t201">201</a></span><span class="t">        <span class="nam">fu</span><span class="op">.</span><span class="nam">zip_top</span><span class="op">(</span><span class="nam">zip_file</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">'out'</span><span class="op">]</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"output_top_zip_path"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span><span class="op">,</span> <span class="nam">top_file</span><span class="op">=</span><span class="nam">top_file</span><span class="op">,</span> <span class="nam">out_log</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">out_log</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t201" href="#t201">201</a></span><span class="t">        <span class="nam">fu</span><span class="op">.</span><span class="nam">zip_top</span><span class="op">(</span><span class="nam">zip_file</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">'out'</span><span class="op">]</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"output_top_zip_path"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span><span class="op">,</span> <span class="nam">top_file</span><span class="op">=</span><span class="nam">top_file</span><span class="op">,</span> <span class="nam">out_log</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">out_log</span><span class="op">,</span> <span class="nam">remove_original_files</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">remove_tmp</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t202" href="#t202">202</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t203" href="#t203">203</a></span><span class="t">        <span class="com"># Remove temporal files</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t204" href="#t204">204</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">remove_tmp_files</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -333,7 +333,7 @@
             <a class="nav" href="z_bfca24d363d6bdc9___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.8.2">coverage.py v7.8.2</a>,
-            created at 2025-06-06 11:01 +0000
+            created at 2025-06-11 08:37 +0000
         </p>
     </div>
 </footer>
