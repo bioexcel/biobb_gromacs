@@ -1,4 +1,4 @@
-;This mdp file has been created by the pymdsetup.gromacs_wrapper.grompp.create_mdp()
+;This mdp file has been created by the biobb_gromacs grompp building block
 ;Type of MDP: npt
 
 ;Position restrain
