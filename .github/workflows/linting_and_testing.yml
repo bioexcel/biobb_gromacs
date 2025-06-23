@@ -43,7 +43,7 @@ jobs:
           touch $HOME/.bash_profile
 
       - name: setup-micromamba
-        uses: mamba-org/setup-micromamba@v2.0.0
+        uses: mamba-org/setup-micromamba@v2.0.4
         with:
           generate-run-shell: true
           micromamba-version: '2.0.2-2'
@@ -57,6 +57,8 @@ jobs:
             pytest-html
             flake8
             pip
+          cache-environment: true
+          cache-downloads: true
 
       - name: Install genbadge from pip
         shell: bash -l {0}
