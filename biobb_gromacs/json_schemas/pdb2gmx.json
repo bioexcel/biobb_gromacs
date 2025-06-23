@@ -8,7 +8,7 @@
     "info": {
         "wrapped_software": {
             "name": "GROMACS Pdb2gmx",
-            "version": ">5.1",
+            "version": "2024.5",
             "license": "LGPL 2.1"
         },
         "ontology": {
@@ -209,11 +209,41 @@
                     "wf_prop": false,
                     "description": "Should pdb2gmx ignore the hidrogens in the original structure."
                 },
-                "his": {
-                    "type": "string",
+                "lys": {
+                    "type": "array",
                     "default": null,
                     "wf_prop": false,
-                    "description": "Histidine protonation array."
+                    "description": "Lysine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated)."
+                },
+                "arg": {
+                    "type": "array",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Arginine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated)."
+                },
+                "asp": {
+                    "type": "array",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Aspartic acid protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated)."
+                },
+                "glu": {
+                    "type": "array",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Glutamic acid protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated)."
+                },
+                "gln": {
+                    "type": "array",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Glutamine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated)."
+                },
+                "his": {
+                    "type": "array",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Histidine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain. Make sure residues are named HIS (0: HID, 1: HIE, 2: HIP, 3: HIS1)."
                 },
                 "merge": {
                     "type": "boolean",

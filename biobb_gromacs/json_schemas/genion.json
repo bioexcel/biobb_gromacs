@@ -8,7 +8,7 @@
     "info": {
         "wrapped_software": {
             "name": "GROMACS Genion",
-            "version": ">5.1",
+            "version": "2024.5",
             "license": "LGPL 2.1"
         },
         "ontology": {
@@ -120,7 +120,7 @@
                 },
                 "concentration": {
                     "type": "number",
-                    "default": 0.05,
+                    "default": 0.0,
                     "wf_prop": false,
                     "description": "Concentration of the ions in (mol/liter).",
                     "min": 0.0,

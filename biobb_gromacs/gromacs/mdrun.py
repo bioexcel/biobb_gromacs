@@ -66,7 +66,7 @@ class Mdrun(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Mdrun
-            * version: >5.1
+            * version: 2024.5
             * license: LGPL 2.1
             * multinode: mpi
         * ontology:

@@ -47,7 +47,7 @@ class MakeNdx(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS MakeNdx
-            * version: >5.1
+            * version: 2024.5
             * license: LGPL 2.1
         * ontology:
             * name: EDAM

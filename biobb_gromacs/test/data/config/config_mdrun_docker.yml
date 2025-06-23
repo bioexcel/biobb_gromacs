@@ -1,4 +1,4 @@
 properties:
-  container_image: gromacs/gromacs:2022.2
+  container_image: gromacs/gromacs:2024.5
   container_path: docker
   container_volume_path: /inout
