@@ -282,7 +282,8 @@ def append_ligand(
         **kwargs,
     ).launch()
 
-    append_ligand.__doc__ = AppendLigand.__doc__
+
+append_ligand.__doc__ = AppendLigand.__doc__
 
 
 def main():

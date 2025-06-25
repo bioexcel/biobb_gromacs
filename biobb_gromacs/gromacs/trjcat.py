@@ -144,7 +144,8 @@ def trjcat(input_trj_zip_path: str, output_trj_path: str, properties: Optional[d
     return Trjcat(input_trj_zip_path=input_trj_zip_path, output_trj_path=output_trj_path,
                   properties=properties, **kwargs).launch()
 
-    trjcat.__doc__ = Trjcat.__doc__
+
+trjcat.__doc__ = Trjcat.__doc__
 
 
 def main():

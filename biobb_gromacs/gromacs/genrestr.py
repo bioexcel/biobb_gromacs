@@ -178,7 +178,8 @@ def genrestr(
         **kwargs,
     ).launch()
 
-    genrestr.__doc__ = Genrestr.__doc__
+
+genrestr.__doc__ = Genrestr.__doc__
 
 
 def main():

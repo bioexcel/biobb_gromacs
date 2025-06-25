@@ -147,6 +147,7 @@ def gmxselect(input_structure_path: str, output_ndx_path: str,
                      input_ndx_path=input_ndx_path,
                      properties=properties, **kwargs).launch()
 
+
     gmxselect.__doc__ = Gmxselect.__doc__
 
 

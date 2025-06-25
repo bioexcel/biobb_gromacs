@@ -255,7 +255,8 @@ def pdb2gmx(input_pdb_path: str, output_gro_path: str, output_top_zip_path: str,
                    output_top_zip_path=output_top_zip_path, properties=properties,
                    **kwargs).launch()
 
-    pdb2gmx.__doc__ = Pdb2gmx.__doc__
+
+pdb2gmx.__doc__ = Pdb2gmx.__doc__
 
 
 def main():

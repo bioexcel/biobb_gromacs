@@ -174,7 +174,8 @@ def editconf(
         **kwargs,
     ).launch()
 
-    editconf.__doc__ = Editconf.__doc__
+
+editconf.__doc__ = Editconf.__doc__
 
 
 def main():

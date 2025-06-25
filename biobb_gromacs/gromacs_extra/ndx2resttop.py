@@ -216,7 +216,8 @@ def ndx2resttop(input_ndx_path: str, input_top_zip_path: str, output_top_zip_pat
                        output_top_zip_path=output_top_zip_path,
                        properties=properties, **kwargs).launch()
 
-    ndx2resttop.__doc__ = Ndx2resttop.__doc__
+
+ndx2resttop.__doc__ = Ndx2resttop.__doc__
 
 
 def main():

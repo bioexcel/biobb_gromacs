@@ -159,7 +159,8 @@ def solvate(input_solute_gro_path: str, output_gro_path: str, input_top_zip_path
                    input_top_zip_path=input_top_zip_path, output_top_zip_path=output_top_zip_path,
                    input_solvent_gro_path=input_solvent_gro_path, properties=properties, **kwargs).launch()
 
-    solvate.__doc__ = Solvate.__doc__
+
+solvate.__doc__ = Solvate.__doc__
 
 
 def main():

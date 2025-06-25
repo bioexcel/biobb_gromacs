@@ -141,7 +141,8 @@ def make_ndx(input_structure_path: str, output_ndx_path: str,
                    input_ndx_path=input_ndx_path,
                    properties=properties, **kwargs).launch()
 
-    make_ndx.__doc__ = MakeNdx.__doc__
+
+make_ndx.__doc__ = MakeNdx.__doc__
 
 
 def main():

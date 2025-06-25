@@ -250,7 +250,8 @@ def genion(
         **kwargs,
     ).launch()
 
-    genion.__doc__ = Genion.__doc__
+
+genion.__doc__ = Genion.__doc__
 
 
 def main():

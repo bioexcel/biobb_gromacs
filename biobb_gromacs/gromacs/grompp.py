@@ -188,7 +188,8 @@ def grompp(input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
                   input_ndx_path=input_ndx_path, input_mdp_path=input_mdp_path,
                   properties=properties, **kwargs).launch()
 
-    grompp.__doc__ = Grompp.__doc__
+
+grompp.__doc__ = Grompp.__doc__
 
 
 def main():
