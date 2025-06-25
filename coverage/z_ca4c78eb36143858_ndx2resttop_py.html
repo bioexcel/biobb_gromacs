@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Coverage for biobb_gromacs/gromacs_extra/ndx2resttop.py: 67%</title>
+    <title>Coverage for biobb_gromacs/gromacs_extra/ndx2resttop.py: 68%</title>
     <link rel="icon" sizes="32x32" href="favicon_32_cb_58284776.png">
     <link rel="stylesheet" href="style_cb_81f8c14c.css" type="text/css">
     <script src="coverage_html_cb_6fb7b396.js" defer></script>
@@ -12,7 +12,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>biobb_gromacs/gromacs_extra/ndx2resttop.py</b>:
-            <span class="pc_cov">67%</span>
+            <span class="pc_cov">68%</span>
         </h1>
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -55,8 +55,8 @@
         </aside>
         <h2>
             <span class="text">120 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">80<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">40<span class="text"> missing</span></button>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">81<span class="text"> run</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">39<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_bfca24d363d6bdc9___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.9.1">coverage.py v7.9.1</a>,
-            created at 2025-06-23 14:58 +0000
+            created at 2025-06-25 08:43 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -298,32 +298,33 @@
     <p class="pln"><span class="n"><a id="t216" href="#t216">216</a></span><span class="t">                       <span class="nam">output_top_zip_path</span><span class="op">=</span><span class="nam">output_top_zip_path</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t217" href="#t217">217</a></span><span class="t">                       <span class="nam">properties</span><span class="op">=</span><span class="nam">properties</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span><span class="op">.</span><span class="nam">launch</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t218" href="#t218">218</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t219" href="#t219">219</a></span><span class="t">    <span class="nam">ndx2resttop</span><span class="op">.</span><span class="nam">__doc__</span> <span class="op">=</span> <span class="nam">Ndx2resttop</span><span class="op">.</span><span class="nam">__doc__</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t220" href="#t220">220</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t219" href="#t219">219</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t220" href="#t220">220</a></span><span class="t"><span class="nam">ndx2resttop</span><span class="op">.</span><span class="nam">__doc__</span> <span class="op">=</span> <span class="nam">Ndx2resttop</span><span class="op">.</span><span class="nam">__doc__</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t221" href="#t221">221</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t222" href="#t222">222</a></span><span class="t"><span class="key">def</span> <span class="nam">main</span><span class="op">(</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t223" href="#t223">223</a></span><span class="t">    <span class="str">"""Command line execution of this building block. Please check the command line documentation."""</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t224" href="#t224">224</a></span><span class="t">    <span class="nam">parser</span> <span class="op">=</span> <span class="nam">argparse</span><span class="op">.</span><span class="nam">ArgumentParser</span><span class="op">(</span><span class="nam">description</span><span class="op">=</span><span class="str">"Wrapper for the GROMACS extra ndx2resttop module."</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t225" href="#t225">225</a></span><span class="t">                                     <span class="nam">formatter_class</span><span class="op">=</span><span class="key">lambda</span> <span class="nam">prog</span><span class="op">:</span> <span class="nam">argparse</span><span class="op">.</span><span class="nam">RawTextHelpFormatter</span><span class="op">(</span><span class="nam">prog</span><span class="op">,</span> <span class="nam">width</span><span class="op">=</span><span class="num">99999</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t226" href="#t226">226</a></span><span class="t">    <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">'-c'</span><span class="op">,</span> <span class="str">'--config'</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">False</span><span class="op">,</span> <span class="nam">help</span><span class="op">=</span><span class="str">"This file can be a YAML file, JSON file or JSON string"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t227" href="#t227">227</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t228" href="#t228">228</a></span><span class="t">    <span class="com"># Specific args of each building block</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t229" href="#t229">229</a></span><span class="t">    <span class="nam">required_args</span> <span class="op">=</span> <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument_group</span><span class="op">(</span><span class="str">'required arguments'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t230" href="#t230">230</a></span><span class="t">    <span class="nam">required_args</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">'--input_ndx_path'</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">True</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t231" href="#t231">231</a></span><span class="t">    <span class="nam">required_args</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">'--input_top_zip_path'</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">True</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t232" href="#t232">232</a></span><span class="t">    <span class="nam">required_args</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">'--output_top_zip_path'</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">True</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t233" href="#t233">233</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t234" href="#t234">234</a></span><span class="t">    <span class="nam">args</span> <span class="op">=</span> <span class="nam">parser</span><span class="op">.</span><span class="nam">parse_args</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t235" href="#t235">235</a></span><span class="t">    <span class="nam">config</span> <span class="op">=</span> <span class="nam">args</span><span class="op">.</span><span class="nam">config</span> <span class="key">if</span> <span class="nam">args</span><span class="op">.</span><span class="nam">config</span> <span class="key">else</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t236" href="#t236">236</a></span><span class="t">    <span class="nam">properties</span> <span class="op">=</span> <span class="nam">settings</span><span class="op">.</span><span class="nam">ConfReader</span><span class="op">(</span><span class="nam">config</span><span class="op">=</span><span class="nam">config</span><span class="op">)</span><span class="op">.</span><span class="nam">get_prop_dic</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t237" href="#t237">237</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t238" href="#t238">238</a></span><span class="t">    <span class="com"># Specific call of each building block</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t239" href="#t239">239</a></span><span class="t">    <span class="nam">ndx2resttop</span><span class="op">(</span><span class="nam">input_ndx_path</span><span class="op">=</span><span class="nam">args</span><span class="op">.</span><span class="nam">input_ndx_path</span><span class="op">,</span> <span class="nam">input_top_zip_path</span><span class="op">=</span><span class="nam">args</span><span class="op">.</span><span class="nam">input_top_zip_path</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t240" href="#t240">240</a></span><span class="t">                <span class="nam">output_top_zip_path</span><span class="op">=</span><span class="nam">args</span><span class="op">.</span><span class="nam">output_top_zip_path</span><span class="op">,</span> <span class="nam">properties</span><span class="op">=</span><span class="nam">properties</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t241" href="#t241">241</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t222" href="#t222">222</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t223" href="#t223">223</a></span><span class="t"><span class="key">def</span> <span class="nam">main</span><span class="op">(</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t224" href="#t224">224</a></span><span class="t">    <span class="str">"""Command line execution of this building block. Please check the command line documentation."""</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t225" href="#t225">225</a></span><span class="t">    <span class="nam">parser</span> <span class="op">=</span> <span class="nam">argparse</span><span class="op">.</span><span class="nam">ArgumentParser</span><span class="op">(</span><span class="nam">description</span><span class="op">=</span><span class="str">"Wrapper for the GROMACS extra ndx2resttop module."</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t226" href="#t226">226</a></span><span class="t">                                     <span class="nam">formatter_class</span><span class="op">=</span><span class="key">lambda</span> <span class="nam">prog</span><span class="op">:</span> <span class="nam">argparse</span><span class="op">.</span><span class="nam">RawTextHelpFormatter</span><span class="op">(</span><span class="nam">prog</span><span class="op">,</span> <span class="nam">width</span><span class="op">=</span><span class="num">99999</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t227" href="#t227">227</a></span><span class="t">    <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">'-c'</span><span class="op">,</span> <span class="str">'--config'</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">False</span><span class="op">,</span> <span class="nam">help</span><span class="op">=</span><span class="str">"This file can be a YAML file, JSON file or JSON string"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t228" href="#t228">228</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t229" href="#t229">229</a></span><span class="t">    <span class="com"># Specific args of each building block</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t230" href="#t230">230</a></span><span class="t">    <span class="nam">required_args</span> <span class="op">=</span> <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument_group</span><span class="op">(</span><span class="str">'required arguments'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t231" href="#t231">231</a></span><span class="t">    <span class="nam">required_args</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">'--input_ndx_path'</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">True</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t232" href="#t232">232</a></span><span class="t">    <span class="nam">required_args</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">'--input_top_zip_path'</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">True</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t233" href="#t233">233</a></span><span class="t">    <span class="nam">required_args</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">'--output_top_zip_path'</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">True</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t234" href="#t234">234</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t235" href="#t235">235</a></span><span class="t">    <span class="nam">args</span> <span class="op">=</span> <span class="nam">parser</span><span class="op">.</span><span class="nam">parse_args</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t236" href="#t236">236</a></span><span class="t">    <span class="nam">config</span> <span class="op">=</span> <span class="nam">args</span><span class="op">.</span><span class="nam">config</span> <span class="key">if</span> <span class="nam">args</span><span class="op">.</span><span class="nam">config</span> <span class="key">else</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t237" href="#t237">237</a></span><span class="t">    <span class="nam">properties</span> <span class="op">=</span> <span class="nam">settings</span><span class="op">.</span><span class="nam">ConfReader</span><span class="op">(</span><span class="nam">config</span><span class="op">=</span><span class="nam">config</span><span class="op">)</span><span class="op">.</span><span class="nam">get_prop_dic</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t238" href="#t238">238</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t239" href="#t239">239</a></span><span class="t">    <span class="com"># Specific call of each building block</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t240" href="#t240">240</a></span><span class="t">    <span class="nam">ndx2resttop</span><span class="op">(</span><span class="nam">input_ndx_path</span><span class="op">=</span><span class="nam">args</span><span class="op">.</span><span class="nam">input_ndx_path</span><span class="op">,</span> <span class="nam">input_top_zip_path</span><span class="op">=</span><span class="nam">args</span><span class="op">.</span><span class="nam">input_top_zip_path</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t241" href="#t241">241</a></span><span class="t">                <span class="nam">output_top_zip_path</span><span class="op">=</span><span class="nam">args</span><span class="op">.</span><span class="nam">output_top_zip_path</span><span class="op">,</span> <span class="nam">properties</span><span class="op">=</span><span class="nam">properties</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t242" href="#t242">242</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t243" href="#t243">243</a></span><span class="t"><span class="key">if</span> <span class="nam">__name__</span> <span class="op">==</span> <span class="str">'__main__'</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t244" href="#t244">244</a></span><span class="t">    <span class="nam">main</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t243" href="#t243">243</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t244" href="#t244">244</a></span><span class="t"><span class="key">if</span> <span class="nam">__name__</span> <span class="op">==</span> <span class="str">'__main__'</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t245" href="#t245">245</a></span><span class="t">    <span class="nam">main</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
 </main>
 <footer>
     <div class="content">
@@ -333,7 +334,7 @@
             <a class="nav" href="z_bfca24d363d6bdc9___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.9.1">coverage.py v7.9.1</a>,
-            created at 2025-06-23 14:58 +0000
+            created at 2025-06-25 08:43 +0000
         </p>
     </div>
 </footer>
