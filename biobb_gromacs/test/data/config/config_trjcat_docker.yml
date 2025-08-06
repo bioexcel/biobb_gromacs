@@ -1,6 +1,6 @@
 properties:
   binary_path: gmx
-  container_image: gromacs/gromacs:2024.5
+  container_image: gromacs/gromacs:2025.2
   container_path: docker
   container_volume_path: /inout
   restart: 'False'

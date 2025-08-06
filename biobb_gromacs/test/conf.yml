@@ -24,7 +24,7 @@ pdb2gmx_docker:
     his: 0 0 1 1 0 0 0
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /inout
 
@@ -58,7 +58,7 @@ editconf_docker:
   properties:
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /tmp
 
@@ -95,7 +95,7 @@ genion_docker:
   properties:
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /data
     container_working_dir: /data
@@ -135,7 +135,7 @@ genrestr_docker:
   properties:
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /data
     container_working_dir: /data
@@ -175,7 +175,7 @@ grompp_docker:
       ld-seed: '1'
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /tmp
 
@@ -217,7 +217,7 @@ mdrun_docker:
   properties:
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /inout
 
@@ -271,7 +271,7 @@ grompp_mdrun_docker:
     binary_path: "gmx"
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /inout
 
@@ -314,7 +314,7 @@ make_ndx_docker:
   properties:
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /tmp
 
@@ -346,7 +346,7 @@ gmxselect_docker:
     selection: '\"Mynewgroup\" group \"Protein-H\" and not same residue as within 0.4 of resname ARG'
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /inout
 
@@ -384,7 +384,7 @@ solvate_docker:
   properties:
     container_path: docker
     #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     #container_image: gromacs/gromacs:2021.4
     container_volume_path: /inout
 
@@ -419,7 +419,7 @@ trjcat_docker:
     binary_path: "gmx"
     restart: "False"
     container_path: docker
-    container_image: gromacs/gromacs:2024.5
+    container_image: gromacs/gromacs:2025.2
     container_volume_path: /inout
 
 trjcat_singularity:

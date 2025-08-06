@@ -53,7 +53,7 @@ class Solvate(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Solvate
-            * version: 2024.5
+            * version: 2025.2
             * license: LGPL 2.1
         * ontology:
             * name: EDAM

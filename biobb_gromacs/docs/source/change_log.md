@@ -1,5 +1,11 @@
 # Biobb GROMACS changelog
 
+## What's new in version [5.1.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.1.1)?
+
+### Changes
+* [UPDATE] Update gromacs version to 2025.2
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/5c429081aeaae513b61bc273aec2e6c67ff15dce): Fixed make_ndx stdin bug
+
 ## What's new in version [5.1.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.1.0)?
 
 ### Changes
