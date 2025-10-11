@@ -87,12 +87,12 @@ class Ndx2resttop(BiobbObject):
             if line.startswith('['):
                 index_dic[line] = [index, 0]
 
-                # Update current group
-                label = line
-
                 # Close previous group
                 if index > 0:
                     index_dic[label] = [index_dic[label][0], index]
+                    
+                # Update current group
+                label = line
 
             # Last group of the file
             if index == len(lines)-1:
