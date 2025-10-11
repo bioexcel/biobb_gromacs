@@ -47,7 +47,7 @@ class MakeNdx(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS MakeNdx
-            * version: >5.1
+            * version: 2025.2
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -91,12 +91,11 @@ class MakeNdx(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`MakeNdx <gromacs.make_ndx.MakeNdx>` object."""
 
-        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}\nq\n')
-
         # Setup Biobb
         if self.check_restart():
             return 0
 
+        self.selection = self.selection.replace("\\n", "\n")
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}\nq\n')
         self.stage_files()
 
@@ -143,7 +142,8 @@ def make_ndx(input_structure_path: str, output_ndx_path: str,
                    input_ndx_path=input_ndx_path,
                    properties=properties, **kwargs).launch()
 
-    make_ndx.__doc__ = MakeNdx.__doc__
+
+make_ndx.__doc__ = MakeNdx.__doc__
 
 
 def main():

@@ -52,7 +52,7 @@ class Editconf(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Solvate
-            * version: >5.1
+            * version: 2025.2
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -174,7 +174,8 @@ def editconf(
         **kwargs,
     ).launch()
 
-    editconf.__doc__ = Editconf.__doc__
+
+editconf.__doc__ = Editconf.__doc__
 
 
 def main():

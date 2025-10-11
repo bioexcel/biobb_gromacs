@@ -72,6 +72,12 @@
         "properties": {
             "type": "object",
             "properties": {
+                "posres_names": {
+                    "type": "array",
+                    "default": "CUSTOM_POSRES",
+                    "wf_prop": false,
+                    "description": "String with names of the position restraints to be included in the topology file separated by spaces. If provided it should match the length of the ref_rest_chain_triplet_list."
+                },
                 "force_constants": {
                     "type": "string",
                     "default": "500 500 500",

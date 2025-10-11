@@ -30,7 +30,7 @@ class Genion(BiobbObject):
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **replaced_group** (*str*) - ("SOL") Group of molecules that will be replaced by the solvent.
             * **neutral** (*bool*) - (False) Neutralize the charge of the system.
-            * **concentration** (*float*) - (0.05) [0~10|0.01] Concentration of the ions in (mol/liter).
+            * **concentration** (*float*) - (0.0) [0~10|0.01] Concentration of the ions in (mol/liter).
             * **seed** (*int*) - (1993) Seed for random number generator.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
@@ -59,7 +59,7 @@ class Genion(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Genion
-            * version: >5.1
+            * version: 2025.2
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -99,7 +99,7 @@ class Genion(BiobbObject):
         )  # Not in documentation for clarity
         self.replaced_group = properties.get("replaced_group", "SOL")
         self.neutral = properties.get("neutral", False)
-        self.concentration = properties.get("concentration", 0.05)
+        self.concentration = properties.get("concentration", 0.0)
         self.seed = properties.get("seed", 1993)
 
         # Properties common in all GROMACS BB
@@ -212,6 +212,7 @@ class Genion(BiobbObject):
             zip_file=self.io_dict["out"]["output_top_zip_path"],
             top_file=top_file,
             out_log=self.out_log,
+            remove_original_files=self.remove_tmp
         )
 
         # Remove temporal files
@@ -249,7 +250,8 @@ def genion(
         **kwargs,
     ).launch()
 
-    genion.__doc__ = Genion.__doc__
+
+genion.__doc__ = Genion.__doc__
 
 
 def main():

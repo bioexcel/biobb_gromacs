@@ -52,7 +52,7 @@ class Genrestr(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Genrestr
-            * version: >5.1
+            * version: 2025.2
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -178,7 +178,8 @@ def genrestr(
         **kwargs,
     ).launch()
 
-    genrestr.__doc__ = Genrestr.__doc__
+
+genrestr.__doc__ = Genrestr.__doc__
 
 
 def main():

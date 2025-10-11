@@ -9,7 +9,7 @@
     "num_threads": 0,
     "binary_path": "gmx",
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:2022.2",
+    "container_image": "gromacs/gromacs:2025.2",
     "container_volume_path": "/inout"
   }
 }

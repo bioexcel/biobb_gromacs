@@ -57,7 +57,7 @@ class Pdb2gmx(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Pdb2gmx
-            * version: >5.1
+            * version: 2025.2
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -91,7 +91,7 @@ class Pdb2gmx(BiobbObject):
         self.gln = properties.get('gln', None)
         self.his = properties.get('his', None)
         self.merge = properties.get('merge', False)
-            
+
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
         self.binary_path: str = properties.get('binary_path', 'gmx')
@@ -112,13 +112,13 @@ class Pdb2gmx(BiobbObject):
         if isinstance(self.asp, str):
             self.asp = [self.asp]
         if isinstance(self.glu, str):
-            self.glu = [self.glu]  
+            self.glu = [self.glu]
         if isinstance(self.gln, str):
-            self.gln = [self.gln]  
+            self.gln = [self.gln]
         if isinstance(self.his, str):
-            self.his = [self.his] 
-            
-        # Make sure all have the same length 
+            self.his = [self.his]
+
+        # Make sure all have the same length
         self.check_lengths(self.lys, self.arg, self.asp, self.glu, self.gln, self.his)
 
         # Check the properties
@@ -132,7 +132,7 @@ class Pdb2gmx(BiobbObject):
         # Setup Biobb
         if self.check_restart():
             return 0
-        
+
         # Create stdin file if needed
         stdin_content = ''
         num_chains = self.find_length(self.lys, self.arg, self.asp, self.glu, self.gln, self.his)
@@ -183,7 +183,7 @@ class Pdb2gmx(BiobbObject):
             self.cmd.append("-gln")
         if self.his:
             self.cmd.append("-his")
-            
+
         if stdin_content:
             self.cmd.append('<')
             self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
@@ -203,7 +203,7 @@ class Pdb2gmx(BiobbObject):
         # zip topology
         fu.log('Compressing topology to: %s' % self.io_dict["out"]["output_top_zip_path"], self.out_log,
                self.global_log)
-        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=internal_top_name, out_log=self.out_log)
+        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=internal_top_name, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
         # Remove temporal files
         self.tmp_files.extend([
@@ -217,34 +217,35 @@ class Pdb2gmx(BiobbObject):
         return self.return_code
 
     def check_lengths(self, *lists):
-        """ 
+        """
         Make sure all lists are the same length
         """
         # Find length of each list
         lengths = [len(lst) for lst in lists if lst is not None]
-        
+
         # Check if all lengths are the same
         all_equal = True
         if len(lengths) > 0:
             all_equal = len(set(lengths)) == 1
-            
+
         if not all_equal:
-            raise ValueError(f"""All protonation arrays (lys, arg, asp, glu, gln, his) must have the same length 
+            raise ValueError(f"""All protonation arrays (lys, arg, asp, glu, gln, his) must have the same length
                              (one string per chain and empty string if residue is not present in that chain). Found lengths: {lengths}""")
-            
+
     def find_length(self, *lists) -> int:
-        """ 
+        """
         Find length of the first list
         """
         # Find length of each list
         lengths = [len(lst) for lst in lists if lst is not None]
-        
+
         # Return the length of the first list, if any
         if len(lengths) > 0:
             return lengths[0]
         else:
             return 0
-        
+
+
 def pdb2gmx(input_pdb_path: str, output_gro_path: str, output_top_zip_path: str,
             properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` class and
@@ -254,7 +255,8 @@ def pdb2gmx(input_pdb_path: str, output_gro_path: str, output_top_zip_path: str,
                    output_top_zip_path=output_top_zip_path, properties=properties,
                    **kwargs).launch()
 
-    pdb2gmx.__doc__ = Pdb2gmx.__doc__
+
+pdb2gmx.__doc__ = Pdb2gmx.__doc__
 
 
 def main():

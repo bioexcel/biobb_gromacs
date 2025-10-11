@@ -66,7 +66,7 @@ class Mdrun(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Mdrun
-            * version: >5.1
+            * version: 2025.2
             * license: LGPL 2.1
             * multinode: mpi
         * ontology:
@@ -237,7 +237,8 @@ def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
                  output_dhdl_path=output_dhdl_path, properties=properties,
                  **kwargs).launch()
 
-    mdrun.__doc__ = Mdrun.__doc__
+
+mdrun.__doc__ = Mdrun.__doc__
 
 
 def main():

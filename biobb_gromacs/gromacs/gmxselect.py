@@ -48,7 +48,7 @@ class Gmxselect(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Gmxselect
-            * version: >5.1
+            * version: 2025.2
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -146,6 +146,7 @@ def gmxselect(input_structure_path: str, output_ndx_path: str,
                      output_ndx_path=output_ndx_path,
                      input_ndx_path=input_ndx_path,
                      properties=properties, **kwargs).launch()
+
 
     gmxselect.__doc__ = Gmxselect.__doc__
 

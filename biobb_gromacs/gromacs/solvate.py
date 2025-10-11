@@ -53,7 +53,7 @@ class Solvate(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Solvate
-            * version: >5.1
+            * version: 2025.2
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -140,7 +140,7 @@ class Solvate(BiobbObject):
         # zip topology
         fu.log('Compressing topology to: %s' % self.stage_io_dict["out"]["output_top_zip_path"], self.out_log,
                self.global_log)
-        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=top_file, out_log=self.out_log)
+        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
         # Remove temporal files
         # self.tmp_files.extend([self.stage_io_dict.get("unique_dir", ""), top_dir])
@@ -159,7 +159,8 @@ def solvate(input_solute_gro_path: str, output_gro_path: str, input_top_zip_path
                    input_top_zip_path=input_top_zip_path, output_top_zip_path=output_top_zip_path,
                    input_solvent_gro_path=input_solvent_gro_path, properties=properties, **kwargs).launch()
 
-    solvate.__doc__ = Solvate.__doc__
+
+solvate.__doc__ = Solvate.__doc__
 
 
 def main():

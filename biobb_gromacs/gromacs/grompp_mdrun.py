@@ -80,7 +80,7 @@ class GromppMdrun(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS Grompp & MDRun
-            * version: >5.1
+            * version: 2025.2
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -178,7 +178,8 @@ def grompp_mdrun(input_gro_path: str, input_top_zip_path: str, output_trr_path: 
                        output_cpt_path=output_cpt_path, output_dhdl_path=output_dhdl_path,
                        output_tpr_path=output_tpr_path, properties=properties, **kwargs).launch()
 
-    grompp_mdrun.__doc__ = GromppMdrun.__doc__
+
+grompp_mdrun.__doc__ = GromppMdrun.__doc__
 
 
 def main():

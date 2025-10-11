@@ -8,7 +8,7 @@
     "info": {
         "wrapped_software": {
             "name": "GROMACS Grompp & MDRun",
-            "version": ">5.1",
+            "version": "2025.2",
             "license": "LGPL 2.1"
         },
         "ontology": {

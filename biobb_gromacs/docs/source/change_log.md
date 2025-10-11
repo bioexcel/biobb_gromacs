@@ -1,5 +1,25 @@
 # Biobb GROMACS changelog
 
+## What's new in version [5.1.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.1.1)?
+
+### Changes
+* [UPDATE] Update gromacs version to 2025.2
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/5c429081aeaae513b61bc273aec2e6c67ff15dce): Fixed make_ndx stdin bug
+
+## What's new in version [5.1.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.1.0)?
+
+### Changes
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/acf09cbc4d4fa5dc5f2db8dee29434e313601beb): Append_ligand: take into account [ atomtype ] section when including itp files
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/aa6afa4b4346f800d00b5d86d0ba7d342ed74cdc): Avoid defining variable twice
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/db9a0a62bc38214e5aaeed9b61d1eafb6ad1e8f3): ndx2resttop: fixed index_dic creation
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/c3e9cd901bae89f087e8f5efdfaea8b981533b45): ndx2resttop: added custom posres name
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/1bcc746b60b6555cc244c086ab3483797e5c52bf): Take into account single chain situations with just a .top file
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/60f8d26e9495b41cd49797ee33ea5e8c59edfe53): ndx2resttop: clean mdp keywords before merging to avoid duplicates
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/4681ed7c380c2f83970da1280866c8eb414945b7): pdb2gmx: extend the interactive choice of protonation state for all titratable residues
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/your_commit_hash): pdb2gmx: support multi chain PDBs when titrating
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/762b3a6fcad3b2ad3238212c1190470ce2245b80): genion: fix default concentration 
+* [UPDATE] Update gromacs version to 2024.5
+
 ## What's new in version [5.0.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.0.0)?
 
 ### Changes
