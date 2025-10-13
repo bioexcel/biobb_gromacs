@@ -78,32 +78,40 @@ class Ndx2resttop(BiobbObject):
 
         top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path", ""), out_log=self.out_log)
 
-        # Create index list of index file (dictionary with the index of the start and stop lines of each group) :)
-        index_dic: dict[str, Any] = {}
-        lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()
-        for index, line in enumerate(lines):
-
-            # New group
+        # Create group dictionary from the ndx index file
+        # Each group will have a list with its starting and ending lines in the ndx file
+        groups_dic: dict[str, Any] = {}
+        current_group = ''
+        previous_group = ''
+        
+        # Iterate over the lines of the ndx file
+        ndx_lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()
+        for index, line in enumerate(ndx_lines):
+            
+            # Found a new group in the index file
             if line.startswith('['):
-                index_dic[line] = [index, 0]
+                current_group = line
+                
+                # Set the starting line of the new group
+                groups_dic[current_group] = [index, 0]
 
-                # Update current group
-                label = line
+                # Check if there was a previous group to set its ending line
+                if previous_group != '':
+                    groups_dic[previous_group][1] = index
+                    
+                # Update the previous group variable
+                previous_group = current_group
 
-                # Close previous group
-                if index > 0:
-                    index_dic[label] = [index_dic[label][0], index]
-
-            # Last group of the file
-            if index == len(lines)-1:
-                index_dic[label] = [index_dic[label][0], index]
+            # If we reach the last line of the file, set the ending line of the last group
+            if index == len(ndx_lines)-1:
+                groups_dic[current_group][1] = index
 
         # Catch groups with just one line
-        for label in index_dic.keys():
-            if (index_dic[label][0]+1) == index_dic[label][1]:
-                index_dic[label][1] += 1
+        for group_name in groups_dic.keys():
+            if (groups_dic[group_name][0]+1) == groups_dic[group_name][1]:
+                groups_dic[group_name][1] += 1
 
-        fu.log('Index_dic: '+str(index_dic), self.out_log, self.global_log)
+        fu.log('groups_dic: '+str(groups_dic), self.out_log, self.global_log)
 
         self.ref_rest_chain_triplet_list = [tuple(elem.strip(' ()').replace(' ', '').split(',')) for elem in str(self.ref_rest_chain_triplet_list).split('),')]
         fu.log('ref_rest_chain_triplet_list: ' + str(self.ref_rest_chain_triplet_list), self.out_log, self.global_log)
@@ -129,10 +137,10 @@ class Ndx2resttop(BiobbObject):
             self.io_dict['out']["output_itp_path"] = fu.create_name(path=str(Path(top_file).parent), prefix=self.prefix, step=self.step, name=restrain_group+'_posre.itp')
 
             # Mapping atoms from absolute enumeration to Chain relative enumeration
-            fu.log('reference_group_index: start_closed:'+str(index_dic['[ '+reference_group+' ]'][0]+1)+' stop_open: '+str(index_dic['[ '+reference_group+' ]'][1]), self.out_log, self.global_log)
-            reference_group_list = [int(elem) for line in lines[index_dic['[ '+reference_group+' ]'][0]+1: index_dic['[ '+reference_group+' ]'][1]] for elem in line.split()]
-            fu.log('restrain_group_index: start_closed:'+str(index_dic['[ '+restrain_group+' ]'][0]+1)+' stop_open: '+str(index_dic['[ '+restrain_group+' ]'][1]), self.out_log, self.global_log)
-            restrain_group_list = [int(elem) for line in lines[index_dic['[ '+restrain_group+' ]'][0]+1: index_dic['[ '+restrain_group+' ]'][1]] for elem in line.split()]
+            fu.log('reference_group_index: start_closed:'+str(groups_dic['[ '+reference_group+' ]'][0]+1)+' stop_open: '+str(groups_dic['[ '+reference_group+' ]'][1]), self.out_log, self.global_log)
+            reference_group_list = [int(elem) for line in ndx_lines[groups_dic['[ '+reference_group+' ]'][0]+1: groups_dic['[ '+reference_group+' ]'][1]] for elem in line.split()]
+            fu.log('restrain_group_index: start_closed:'+str(groups_dic['[ '+restrain_group+' ]'][0]+1)+' stop_open: '+str(groups_dic['[ '+restrain_group+' ]'][1]), self.out_log, self.global_log)
+            restrain_group_list = [int(elem) for line in ndx_lines[groups_dic['[ '+restrain_group+' ]'][0]+1: groups_dic['[ '+restrain_group+' ]'][1]] for elem in line.split()]
             selected_list = [reference_group_list.index(atom)+1 for atom in restrain_group_list]
             # Creating new ITP with restrains
             with open(self.io_dict['out'].get("output_itp_path", ''), 'w') as f:
