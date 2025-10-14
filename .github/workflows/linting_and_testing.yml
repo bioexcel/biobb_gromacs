@@ -57,8 +57,8 @@ jobs:
             pytest-html
             flake8
             pip
-          cache-environment: true
-          cache-downloads: true
+          # cache-environment: true
+          # cache-downloads: true
 
       - name: Install genbadge from pip
         shell: bash -l {0}
