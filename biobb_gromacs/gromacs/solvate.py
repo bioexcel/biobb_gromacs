@@ -143,7 +143,6 @@ class Solvate(BiobbObject):
         fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
         # Remove temporal files
-        # self.tmp_files.extend([self.stage_io_dict.get("unique_dir", ""), top_dir])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
