@@ -267,12 +267,15 @@ class Mdrun(BiobbObject):
                     parent_path = pathlib.Path(stage_file_path).parent
                     file_stem = pathlib.Path(stage_file_path).stem
                     file_suffix = pathlib.Path(stage_file_path).suffix
-                    # Create the new file name with the part pattern
-                    if part_pattern:
-                        new_file_name = f"{file_stem}.{part_pattern}{file_suffix}"
-                        new_file_path = parent_path / new_file_name
-                        # Update the stage_io_dict with the new file path
-                        self.stage_io_dict["out"][file_ref] = str(new_file_path)
+                    
+                    # Rename all output files except checkpoint files
+                    if file_suffix != '.cpt':
+                        # Create the new file name with the part pattern
+                        if part_pattern:
+                            new_file_name = f"{file_stem}.{part_pattern}{file_suffix}"
+                            new_file_path = parent_path / new_file_name
+                            # Update the stage_io_dict with the new file path
+                            self.stage_io_dict["out"][file_ref] = str(new_file_path)
 
         return super().copy_to_host()
 
