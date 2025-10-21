@@ -31,6 +31,7 @@ class Mdrun(BiobbObject):
             * **mpi_np** (*int*) - (0) [0~1000|1] Number of MPI processes. Usually an integer bigger than 1.
             * **mpi_flags** (*str*) - (None) Path to the MPI hostlist file.
             * **checkpoint_time** (*int*) - (15) [0~1000|1] Checkpoint writing interval in minutes. Only enabled if an output_cpt_path is provided.
+            * **noappend** (*bool*) - (False) Include the noappend flag to open new output files and add the simulation part number to all output file names
             * **num_threads** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of threads that are going to be used.
             * **num_threads_mpi** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of GROMACS MPI threads that are going to be used.
             * **num_threads_omp** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used.
@@ -109,6 +110,7 @@ class Mdrun(BiobbObject):
         self.gpu_tasks = str(properties.get('gpu_tasks', ''))
         # gromacs
         self.checkpoint_time = properties.get('checkpoint_time')
+        self.noappend = properties.get('noappend', False)
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
@@ -205,6 +207,9 @@ class Mdrun(BiobbObject):
             fu.log(f'list of GPU device IDs, mapping each PP task on each node to a device: {self.gpu_tasks}', self.out_log)
             self.cmd.append('-gputasks')
             self.cmd.append(self.gpu_tasks)
+            
+        if self.noappend:
+            self.cmd.append('-noappend')
 
         if self.gmx_lib:
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
@@ -221,6 +226,58 @@ class Mdrun(BiobbObject):
         self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
 
+    def copy_to_host(self):
+        """
+        Updates the path to the original output files in the sandbox,
+        to catch changes due to noappend restart.
+
+        GROMACS mdrun will change the output file names from md.gro to md.part0001.gro
+        if the noappend flag is used.
+        """
+        import pathlib
+        
+        def capture_part_pattern(filename):
+            """
+            Captures the 'part' pattern followed by digits from a string.
+            """
+            import re
+            pattern = r'part\d+'
+            
+            match = re.search(pattern, filename)
+            if match:
+                return match.group(0)
+            else:
+                return None
+
+        if self.noappend:
+            # List files in the staging directory
+            staging_path = self.stage_io_dict["unique_dir"]
+            files_in_staging = list(pathlib.Path(staging_path).glob('*'))
+
+            # Find the part000x pattern in the output files
+            for file in files_in_staging:
+                part_pattern = capture_part_pattern(file.name)
+                if part_pattern:
+                    break
+
+            # Update expected output files
+            for file_ref, stage_file_path in self.stage_io_dict["out"].items():
+                if stage_file_path:
+                    # Find the parent and the file name in the sandbox
+                    parent_path = pathlib.Path(stage_file_path).parent
+                    file_stem = pathlib.Path(stage_file_path).stem
+                    file_suffix = pathlib.Path(stage_file_path).suffix
+                    
+                    # Rename all output files except checkpoint files
+                    if file_suffix != '.cpt':
+                        # Create the new file name with the part pattern
+                        if part_pattern:
+                            new_file_name = f"{file_stem}.{part_pattern}{file_suffix}"
+                            new_file_path = parent_path / new_file_name
+                            # Update the stage_io_dict with the new file path
+                            self.stage_io_dict["out"][file_ref] = str(new_file_path)
+
+        return super().copy_to_host()
 
 def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
           output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
