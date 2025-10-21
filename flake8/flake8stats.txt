@@ -1,6 +1,7 @@
 1     E127 continuation line over-indented for visual indent
 1     E241 multiple spaces after ','
+1     E302 expected 2 blank lines, found 1
 1     E303 too many blank lines (2)
 1     E305 expected 2 blank lines after class or function definition, found 1
 1     W291 trailing whitespace
-5     W293 blank line contains whitespace
+9     W293 blank line contains whitespace
