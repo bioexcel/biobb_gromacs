@@ -1,5 +1,12 @@
 # Biobb GROMACS changelog
 
+## What's new in version [5.1.2](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.1.2)?
+
+### Changes
+* [UPDATE](https://github.com/bioexcel/biobb_gromacs/commit/37ecf702130ee32559f43838b2886032cf831892) Add npappend to mdrun
+* [FATURE](https://github.com/bioexcel/biobb_gromacs/commit/e44c7193b275810992b12948cbc1c50c680e5b63) Add convert.tpr block
+* [UPDATE] Update biobb_common to 5.1.1
+
 ## What's new in version [5.1.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.1.1)?
 
 ### Changes

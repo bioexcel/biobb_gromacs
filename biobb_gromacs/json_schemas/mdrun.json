@@ -201,6 +201,12 @@
                     "max": 1000,
                     "step": 1
                 },
+                "noappend": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": false,
+                    "description": "Include the noappend flag to open new output files and add the simulation part number to all output file names"
+                },
                 "num_threads": {
                     "type": "integer",
                     "default": 0,
