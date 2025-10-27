@@ -2,11 +2,9 @@
 
 """Module containing the Editconf class and the command line interface."""
 import shutil
-import argparse
 from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -153,37 +151,11 @@ def solvate(input_solute_gro_path: str, output_gro_path: str, input_top_zip_path
             output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Solvate <gromacs.solvate.Solvate>` class and
     execute the :meth:`launch() <gromacs.solvate.Solvate.launch>` method."""
-
-    return Solvate(input_solute_gro_path=input_solute_gro_path, output_gro_path=output_gro_path,
-                   input_top_zip_path=input_top_zip_path, output_top_zip_path=output_top_zip_path,
-                   input_solvent_gro_path=input_solvent_gro_path, properties=properties, **kwargs).launch()
+    return Solvate(**dict(locals())).launch()
 
 
 solvate.__doc__ = Solvate.__doc__
-
-
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS solvate module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_solute_gro_path', required=True)
-    required_args.add_argument('--output_gro_path', required=True)
-    required_args.add_argument('--input_top_zip_path', required=True)
-    required_args.add_argument('--output_top_zip_path', required=True)
-    parser.add_argument('--input_solvent_gro_path', required=False)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    solvate(input_solute_gro_path=args.input_solute_gro_path, output_gro_path=args.output_gro_path,
-            input_top_zip_path=args.input_top_zip_path, output_top_zip_path=args.output_top_zip_path,
-            input_solvent_gro_path=args.input_solvent_gro_path, properties=properties)
+main = Solvate.get_main(solvate, "Wrapper for the GROMACS solvate module.")
 
 
 if __name__ == '__main__':

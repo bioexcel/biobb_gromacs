@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 
 """Module containing the MDrun class and the command line interface."""
-import argparse
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -103,9 +101,11 @@ class Mdrun(BiobbObject):
         self.num_threads = str(properties.get('num_threads', ''))
         self.num_threads_mpi = str(properties.get('num_threads_mpi', ''))
         self.num_threads_omp = str(properties.get('num_threads_omp', ''))
-        self.num_threads_omp_pme = str(properties.get('num_threads_omp_pme', ''))
+        self.num_threads_omp_pme = str(
+            properties.get('num_threads_omp_pme', ''))
         # gromacs gpus
-        self.use_gpu = properties.get('use_gpu', False)  # Adds: -nb gpu -pme gpu
+        self.use_gpu = properties.get(
+            'use_gpu', False)  # Adds: -nb gpu -pme gpu
         self.gpu_id = str(properties.get('gpu_id', ''))
         self.gpu_tasks = str(properties.get('gpu_tasks', ''))
         # gromacs
@@ -138,7 +138,8 @@ class Mdrun(BiobbObject):
 
         # Optional output files (if not added mrun will create them using a generic name)
         if not self.stage_io_dict["out"].get("output_trr_path"):
-            self.stage_io_dict["out"]["output_trr_path"] = fu.create_name(prefix=self.prefix, step=self.step, name='trajectory.trr')
+            self.stage_io_dict["out"]["output_trr_path"] = fu.create_name(
+                prefix=self.prefix, step=self.step, name='trajectory.trr')
             self.tmp_files.append(self.stage_io_dict["out"]["output_trr_path"])
 
         self.stage_files()
@@ -180,19 +181,23 @@ class Mdrun(BiobbObject):
 
         # gromacs cpu mpi/openmp properties
         if self.num_threads:
-            fu.log(f'User added number of gmx threads: {self.num_threads}', self.out_log)
+            fu.log(
+                f'User added number of gmx threads: {self.num_threads}', self.out_log)
             self.cmd.append('-nt')
             self.cmd.append(self.num_threads)
         if self.num_threads_mpi:
-            fu.log(f'User added number of gmx mpi threads: {self.num_threads_mpi}', self.out_log)
+            fu.log(
+                f'User added number of gmx mpi threads: {self.num_threads_mpi}', self.out_log)
             self.cmd.append('-ntmpi')
             self.cmd.append(self.num_threads_mpi)
         if self.num_threads_omp:
-            fu.log(f'User added number of gmx omp threads: {self.num_threads_omp}', self.out_log)
+            fu.log(
+                f'User added number of gmx omp threads: {self.num_threads_omp}', self.out_log)
             self.cmd.append('-ntomp')
             self.cmd.append(self.num_threads_omp)
         if self.num_threads_omp_pme:
-            fu.log(f'User added number of gmx omp_pme threads: {self.num_threads_omp_pme}', self.out_log)
+            fu.log(
+                f'User added number of gmx omp_pme threads: {self.num_threads_omp_pme}', self.out_log)
             self.cmd.append('-ntomp_pme')
             self.cmd.append(self.num_threads_omp_pme)
         # GMX gpu properties
@@ -200,14 +205,16 @@ class Mdrun(BiobbObject):
             fu.log('Adding GPU specific settings adds: -nb gpu -pme gpu', self.out_log)
             self.cmd += ["-nb", "gpu", "-pme", "gpu"]
         if self.gpu_id:
-            fu.log(f'list of unique GPU device IDs available to use: {self.gpu_id}', self.out_log)
+            fu.log(
+                f'list of unique GPU device IDs available to use: {self.gpu_id}', self.out_log)
             self.cmd.append('-gpu_id')
             self.cmd.append(self.gpu_id)
         if self.gpu_tasks:
-            fu.log(f'list of GPU device IDs, mapping each PP task on each node to a device: {self.gpu_tasks}', self.out_log)
+            fu.log(
+                f'list of GPU device IDs, mapping each PP task on each node to a device: {self.gpu_tasks}', self.out_log)
             self.cmd.append('-gputasks')
             self.cmd.append(self.gpu_tasks)
-            
+
         if self.noappend:
             self.cmd.append('-noappend')
 
@@ -235,14 +242,14 @@ class Mdrun(BiobbObject):
         if the noappend flag is used.
         """
         import pathlib
-        
+
         def capture_part_pattern(filename):
             """
             Captures the 'part' pattern followed by digits from a string.
             """
             import re
             pattern = r'part\d+'
-            
+
             match = re.search(pattern, filename)
             if match:
                 return match.group(0)
@@ -267,7 +274,7 @@ class Mdrun(BiobbObject):
                     parent_path = pathlib.Path(stage_file_path).parent
                     file_stem = pathlib.Path(stage_file_path).stem
                     file_suffix = pathlib.Path(stage_file_path).suffix
-                    
+
                     # Rename all output files except checkpoint files
                     if file_suffix != '.cpt':
                         # Create the new file name with the part pattern
@@ -275,9 +282,10 @@ class Mdrun(BiobbObject):
                             new_file_name = f"{file_stem}.{part_pattern}{file_suffix}"
                             new_file_path = parent_path / new_file_name
                             # Update the stage_io_dict with the new file path
-                            self.stage_io_dict["out"][file_ref] = str(new_file_path)
-
+                            self.stage_io_dict["out"][file_ref] = str(
+                                new_file_path)
         return super().copy_to_host()
+
 
 def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
           output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
@@ -285,46 +293,11 @@ def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
           output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Mdrun <gromacs.mdrun.Mdrun>` class and
     execute the :meth:`launch() <gromacs.mdrun.Mdrun.launch>` method."""
-
-    return Mdrun(input_tpr_path=input_tpr_path, output_trr_path=output_trr_path,
-                 output_gro_path=output_gro_path, output_edr_path=output_edr_path,
-                 output_log_path=output_log_path, input_cpt_path=input_cpt_path,
-                 output_xtc_path=output_xtc_path, output_cpt_path=output_cpt_path,
-                 output_dhdl_path=output_dhdl_path, properties=properties,
-                 **kwargs).launch()
+    return Mdrun(**dict(locals())).launch()
 
 
 mdrun.__doc__ = Mdrun.__doc__
-
-
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS mdrun module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_tpr_path', required=True)
-    required_args.add_argument('--output_gro_path', required=True)
-    required_args.add_argument('--output_edr_path', required=True)
-    required_args.add_argument('--output_log_path', required=True)
-    parser.add_argument('--output_trr_path', required=False)
-    parser.add_argument('--input_cpt_path', required=False)
-    parser.add_argument('--output_xtc_path', required=False)
-    parser.add_argument('--output_cpt_path', required=False)
-    parser.add_argument('--output_dhdl_path', required=False)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    mdrun(input_tpr_path=args.input_tpr_path, output_trr_path=args.output_trr_path,
-          output_gro_path=args.output_gro_path, output_edr_path=args.output_edr_path,
-          output_log_path=args.output_log_path, input_cpt_path=args.input_cpt_path,
-          output_xtc_path=args.output_xtc_path, output_cpt_path=args.output_cpt_path,
-          output_dhdl_path=args.output_dhdl_path, properties=properties)
+main = Mdrun.get_main(mdrun, "Wrapper for the GROMACS mdrun module.")
 
 
 if __name__ == '__main__':

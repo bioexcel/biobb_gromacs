@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 
 """Module containing the GromppMDrun class and the command line interface."""
-import argparse
 from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.grompp import grompp
@@ -155,9 +153,7 @@ class GromppMdrun(BiobbObject):
             return 1
 
         # Remove temporal files
-        self.tmp_files.extend([
-            Path(str(self.output_tpr_path)).parent]
-        )
+        self.tmp_files.append(Path(str(self.output_tpr_path)).parent)
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -169,52 +165,11 @@ def grompp_mdrun(input_gro_path: str, input_top_zip_path: str, output_trr_path: 
                  input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None, output_dhdl_path: Optional[str] = None,
                  output_tpr_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    return GromppMdrun(input_gro_path=input_gro_path, input_top_zip_path=input_top_zip_path,
-                       output_trr_path=output_trr_path, output_gro_path=output_gro_path,
-                       output_edr_path=output_edr_path, output_log_path=output_log_path,
-                       input_cpt_path=input_cpt_path, input_ndx_path=input_ndx_path,
-                       input_mdp_path=input_mdp_path, output_xtc_path=output_xtc_path,
-                       output_cpt_path=output_cpt_path, output_dhdl_path=output_dhdl_path,
-                       output_tpr_path=output_tpr_path, properties=properties, **kwargs).launch()
+    return GromppMdrun(**dict(locals())).launch()
 
 
 grompp_mdrun.__doc__ = GromppMdrun.__doc__
-
-
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS grompp_mdrun module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_gro_path', required=True)
-    required_args.add_argument('--input_top_zip_path', required=True)
-    required_args.add_argument('--output_trr_path', required=True)
-    required_args.add_argument('--output_gro_path', required=True)
-    required_args.add_argument('--output_edr_path', required=True)
-    required_args.add_argument('--output_log_path', required=True)
-    parser.add_argument('--input_cpt_path', required=False)
-    parser.add_argument('--input_ndx_path', required=False)
-    parser.add_argument('--input_mdp_path', required=False)
-    parser.add_argument('--output_xtc_path', required=False)
-    parser.add_argument('--output_cpt_path', required=False)
-    parser.add_argument('--output_dhdl_path', required=False)
-    parser.add_argument('--output_tpr_path', required=False)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    grompp_mdrun(input_gro_path=args.input_gro_path, input_top_zip_path=args.input_top_zip_path,
-                 output_trr_path=args.output_trr_path, output_gro_path=args.output_gro_path,
-                 output_edr_path=args.output_edr_path, output_log_path=args.output_log_path,
-                 input_cpt_path=args.input_cpt_path, input_ndx_path=args.input_ndx_path,
-                 input_mdp_path=args.input_mdp_path, output_xtc_path=args.output_xtc_path,
-                 output_cpt_path=args.output_cpt_path, output_dhdl_path=args.output_dhdl_path,
-                 output_tpr_path=args.output_tpr_path, properties=properties)
+main = GromppMdrun.get_main(grompp_mdrun, "Wrapper for the GROMACS grompp_mdrun module.")
 
 
 if __name__ == '__main__':

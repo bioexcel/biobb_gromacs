@@ -2,11 +2,9 @@
 
 """Module containing the Trjcat class and the command line interface."""
 import shutil
-import argparse
 from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -139,32 +137,11 @@ class Trjcat(BiobbObject):
 def trjcat(input_trj_zip_path: str, output_trj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Trjcat <gromacs.trjcat.Trjcat>` class and
     execute the :meth:`launch() <gromacs.trjcat.Trjcat.launch>` method."""
-
-    return Trjcat(input_trj_zip_path=input_trj_zip_path, output_trj_path=output_trj_path,
-                  properties=properties, **kwargs).launch()
+    return Trjcat(**dict(locals())).launch()
 
 
 trjcat.__doc__ = Trjcat.__doc__
-
-
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS gmx trjcat module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_trj_zip_path', required=True)
-    required_args.add_argument('--output_trj_path', required=True)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    trjcat(input_trj_zip_path=args.input_trj_zip_path, output_trj_path=args.output_trj_path,
-           properties=properties)
+main = Trjcat.get_main(trjcat, "Wrapper for the GROMACS trjcat module.")
 
 
 if __name__ == '__main__':

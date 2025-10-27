@@ -2,10 +2,8 @@
 
 """Module containing the Pdb2gmx class and the command line interface."""
 import os
-import argparse
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -250,34 +248,11 @@ def pdb2gmx(input_pdb_path: str, output_gro_path: str, output_top_zip_path: str,
             properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` class and
     execute the :meth:`launch() <gromacs.pdb2gmx.Pdb2gmx.launch>` method."""
-
-    return Pdb2gmx(input_pdb_path=input_pdb_path, output_gro_path=output_gro_path,
-                   output_top_zip_path=output_top_zip_path, properties=properties,
-                   **kwargs).launch()
+    return Pdb2gmx(**dict(locals())).launch()
 
 
 pdb2gmx.__doc__ = Pdb2gmx.__doc__
-
-
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS pdb2gmx module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_pdb_path', required=True)
-    required_args.add_argument('--output_gro_path', required=True)
-    required_args.add_argument('--output_top_zip_path', required=True)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    pdb2gmx(input_pdb_path=args.input_pdb_path, output_gro_path=args.output_gro_path,
-            output_top_zip_path=args.output_top_zip_path, properties=properties)
+main = Pdb2gmx.get_main(pdb2gmx, "Wrapper for the GROMACS pdb2gmx module.")
 
 
 if __name__ == '__main__':

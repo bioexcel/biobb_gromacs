@@ -2,12 +2,10 @@
 
 """Module containing the Ndx2resttop class and the command line interface."""
 import fnmatch
-import argparse
 from typing import Optional
 from typing import Any
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 
@@ -83,22 +81,22 @@ class Ndx2resttop(BiobbObject):
         groups_dic: dict[str, Any] = {}
         current_group = ''
         previous_group = ''
-        
+
         # Iterate over the lines of the ndx file
         ndx_lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()
         for index, line in enumerate(ndx_lines):
-            
+
             # Found a new group in the index file
             if line.startswith('['):
                 current_group = line
-                
+
                 # Set the starting line of the new group
                 groups_dic[current_group] = [index, 0]
 
                 # Check if there was a previous group to set its ending line
                 if previous_group != '':
                     groups_dic[previous_group][1] = index
-                    
+
                 # Update the previous group variable
                 previous_group = current_group
 
@@ -219,34 +217,11 @@ def ndx2resttop(input_ndx_path: str, input_top_zip_path: str, output_top_zip_pat
                 properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Ndx2resttop <gromacs_extra.ndx2resttop.Ndx2resttop>` class and
     execute the :meth:`launch() <gromacs_extra.ndx2resttop.Ndx2resttop.launch>` method."""
-    return Ndx2resttop(input_ndx_path=input_ndx_path,
-                       input_top_zip_path=input_top_zip_path,
-                       output_top_zip_path=output_top_zip_path,
-                       properties=properties, **kwargs).launch()
+    return Ndx2resttop(**dict(locals())).launch()
 
 
 ndx2resttop.__doc__ = Ndx2resttop.__doc__
-
-
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS extra ndx2resttop module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_ndx_path', required=True)
-    required_args.add_argument('--input_top_zip_path', required=True)
-    required_args.add_argument('--output_top_zip_path', required=True)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    ndx2resttop(input_ndx_path=args.input_ndx_path, input_top_zip_path=args.input_top_zip_path,
-                output_top_zip_path=args.output_top_zip_path, properties=properties)
+main = Ndx2resttop.get_main(ndx2resttop, "Generate a restrained topology from an index NDX file.")
 
 
 if __name__ == '__main__':
