@@ -87,7 +87,7 @@
             "desc": "Creates a new compressed GROMACS topology file adding solvent molecules to a given input compressed GROMACS topology file.",
             "exec": "solvate",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.solvate",
-            "rest": true
+            "rest": false
         },
         {
             "block": "Trjcat",
