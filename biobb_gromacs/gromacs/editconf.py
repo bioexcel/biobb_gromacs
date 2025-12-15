@@ -15,7 +15,7 @@ class Editconf(BiobbObject):
     """
     | biobb_gromacs Editconf
     | Wrapper class for the `GROMACS editconf <http://manual.gromacs.org/current/onlinehelp/gmx-editconf.html>`_ module.
-    | The GROMACS solvate module generates a box around the selected structure.
+    | The GROMACS editconf converts generic structure format to .gro, .g96 or .pdb.
 
     Args:
         input_gro_path (str): Path to the input GRO file. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/editconf.gro>`_. Accepted formats: gro (edam:format_2033), pdb (edam:format_1476).
