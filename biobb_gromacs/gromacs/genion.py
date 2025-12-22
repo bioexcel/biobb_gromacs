@@ -212,12 +212,7 @@ class Genion(BiobbObject):
         )
 
         # Remove temporal files
-        self.tmp_files.extend(
-            [
-                top_dir,
-                str(self.io_dict["in"].get("stdin_file_path")),
-            ]
-        )
+        self.tmp_files.extend([top_dir, str(self.io_dict["in"].get("stdin_file_path"))])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=True)

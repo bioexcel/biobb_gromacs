@@ -21,8 +21,6 @@ append_ligand -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_posres_itp_path INPUT_POSRES_ITP_PATH
-                            Path to the position restriction ITP file. Accepted formats: itp.
     
     required arguments:
       --input_top_zip_path INPUT_TOP_ZIP_PATH
@@ -31,6 +29,10 @@ append_ligand -h
                             Path to the ligand ITP file to be inserted in the topology. Accepted formats: itp.
       -o OUTPUT_TOP_ZIP_PATH, --output_top_zip_path OUTPUT_TOP_ZIP_PATH
                             Path/Name the output topology TOP and ITP files zipball. Accepted formats: zip.
+    
+    optional arguments:
+      --input_posres_itp_path INPUT_POSRES_ITP_PATH
+                            Path to the position restriction ITP file. Accepted formats: itp.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -196,8 +198,6 @@ genion -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_ndx_path INPUT_NDX_PATH
-                            Path to the input index NDX file. Accepted formats: ndx.
     
     required arguments:
       --input_tpr_path INPUT_TPR_PATH
@@ -208,6 +208,10 @@ genion -h
                             Path the input TOP topology in zip format. Accepted formats: zip.
       --output_top_zip_path OUTPUT_TOP_ZIP_PATH
                             Path the output topology TOP and ITP files zipball. Accepted formats: zip.
+    
+    optional arguments:
+      --input_ndx_path INPUT_NDX_PATH
+                            Path to the input index NDX file. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -318,14 +322,16 @@ genrestr -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_ndx_path INPUT_NDX_PATH
-                            Path to the input GROMACS index file, NDX format. Accepted formats: ndx.
     
     required arguments:
       --input_structure_path INPUT_STRUCTURE_PATH
                             Path to the input structure PDB, GRO or TPR format. Accepted formats: pdb, gro, tpr.
       -o OUTPUT_ITP_PATH, --output_itp_path OUTPUT_ITP_PATH
                             Path the output ITP topology file with restrains. Accepted formats: itp.
+    
+    optional arguments:
+      --input_ndx_path INPUT_NDX_PATH
+                            Path to the input GROMACS index file, NDX format. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -432,14 +438,16 @@ gmxselect -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_ndx_path INPUT_NDX_PATH
-                            Path to the input index NDX file. Accepted formats: ndx.
     
     required arguments:
       --input_structure_path INPUT_STRUCTURE_PATH
                             Path to the input GRO/PDB/TPR file. Accepted formats: pdb, gro, tpr.
       -o OUTPUT_NDX_PATH, --output_ndx_path OUTPUT_NDX_PATH
                             Path to the output index NDX file. Accepted formats: ndx.
+    
+    optional arguments:
+      --input_ndx_path INPUT_NDX_PATH
+                            Path to the input index NDX file. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -547,12 +555,6 @@ grompp -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_cpt_path INPUT_CPT_PATH
-                            Path to the input GROMACS checkpoint file CPT. Accepted formats: cpt.
-      --input_ndx_path INPUT_NDX_PATH
-                            Path to the input GROMACS index files NDX. Accepted formats: ndx.
-      --input_mdp_path INPUT_MDP_PATH
-                            Path to the input GROMACS `MDP file <http://manual.gromacs.org/current/user-guide/mdp-options.html>`_. Accepted formats: mdp.
     
     required arguments:
       --input_gro_path INPUT_GRO_PATH
@@ -561,6 +563,14 @@ grompp -h
                             Path to the input GROMACS topology TOP and ITP files in zip format. Accepted formats: zip.
       -o OUTPUT_TPR_PATH, --output_tpr_path OUTPUT_TPR_PATH
                             Path to the output portable binary run file TPR. Accepted formats: tpr.
+    
+    optional arguments:
+      --input_cpt_path INPUT_CPT_PATH
+                            Path to the input GROMACS checkpoint file CPT. Accepted formats: cpt.
+      --input_ndx_path INPUT_NDX_PATH
+                            Path to the input GROMACS index files NDX. Accepted formats: ndx.
+      --input_mdp_path INPUT_MDP_PATH
+                            Path to the input GROMACS `MDP file <http://manual.gromacs.org/current/user-guide/mdp-options.html>`_. Accepted formats: mdp.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -686,18 +696,6 @@ grompp_mdrun -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_cpt_path INPUT_CPT_PATH
-                            Path to the input GROMACS checkpoint file CPT. Accepted formats: cpt.
-      --input_ndx_path INPUT_NDX_PATH
-                            Path to the input GROMACS index files NDX. Accepted formats: ndx.
-      --input_mdp_path INPUT_MDP_PATH
-                            Path to the input GROMACS `MDP file <http://manual.gromacs.org/current/user-guide/mdp-options.html>`_. Accepted formats: mdp.
-      --output_xtc_path OUTPUT_XTC_PATH
-                            Path to the GROMACS compressed trajectory file XTC. Accepted formats: xtc.
-      --output_cpt_path OUTPUT_CPT_PATH
-                            Path to the output GROMACS checkpoint file CPT. Accepted formats: cpt.
-      --output_dhdl_path OUTPUT_DHDL_PATH
-                            Path to the output dhdl.xvg file only used when free energy calculation is turned on. Accepted formats: xvg.
     
     required arguments:
       --input_gro_path INPUT_GRO_PATH
@@ -712,6 +710,20 @@ grompp_mdrun -h
                             Path to the output GROMACS portable energy file EDR. Accepted formats: edr.
       --output_log_path OUTPUT_LOG_PATH
                             Path to the output GROMACS trajectory log file LOG. Accepted formats: log.
+    
+    optional arguments:
+      --input_cpt_path INPUT_CPT_PATH
+                            Path to the input GROMACS checkpoint file CPT. Accepted formats: cpt.
+      --input_ndx_path INPUT_NDX_PATH
+                            Path to the input GROMACS index files NDX. Accepted formats: ndx.
+      --input_mdp_path INPUT_MDP_PATH
+                            Path to the input GROMACS `MDP file <http://manual.gromacs.org/current/user-guide/mdp-options.html>`_. Accepted formats: mdp.
+      --output_xtc_path OUTPUT_XTC_PATH
+                            Path to the GROMACS compressed trajectory file XTC. Accepted formats: xtc.
+      --output_cpt_path OUTPUT_CPT_PATH
+                            Path to the output GROMACS checkpoint file CPT. Accepted formats: cpt.
+      --output_dhdl_path OUTPUT_DHDL_PATH
+                            Path to the output dhdl.xvg file only used when free energy calculation is turned on. Accepted formats: xvg.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -874,14 +886,16 @@ make_ndx -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_ndx_path INPUT_NDX_PATH
-                            Path to the input index NDX file. Accepted formats: ndx.
     
     required arguments:
       --input_structure_path INPUT_STRUCTURE_PATH
                             Path to the input GRO/PDB/TPR file. Accepted formats: gro, pdb, tpr.
       -o OUTPUT_NDX_PATH, --output_ndx_path OUTPUT_NDX_PATH
                             Path to the output index NDX file. Accepted formats: ndx.
+    
+    optional arguments:
+      --input_ndx_path INPUT_NDX_PATH
+                            Path to the input index NDX file. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -985,16 +999,6 @@ mdrun -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --output_trr_path OUTPUT_TRR_PATH
-                            Path to the GROMACS uncompressed raw trajectory file TRR. Accepted formats: trr.
-      --input_cpt_path INPUT_CPT_PATH
-                            Path to the input GROMACS checkpoint file CPT. Accepted formats: cpt.
-      --output_xtc_path OUTPUT_XTC_PATH
-                            Path to the GROMACS compressed trajectory file XTC. Accepted formats: xtc.
-      --output_cpt_path OUTPUT_CPT_PATH
-                            Path to the output GROMACS checkpoint file CPT. Accepted formats: cpt.
-      --output_dhdl_path OUTPUT_DHDL_PATH
-                            Path to the output dhdl.xvg file only used when free energy calculation is turned on. Accepted formats: xvg.
     
     required arguments:
       --input_tpr_path INPUT_TPR_PATH
@@ -1005,6 +1009,18 @@ mdrun -h
                             Path to the output GROMACS portable energy file EDR. Accepted formats: edr.
       --output_log_path OUTPUT_LOG_PATH
                             Path to the output GROMACS trajectory log file LOG. Accepted formats: log.
+    
+    optional arguments:
+      --output_trr_path OUTPUT_TRR_PATH
+                            Path to the GROMACS uncompressed raw trajectory file TRR. Accepted formats: trr.
+      --input_cpt_path INPUT_CPT_PATH
+                            Path to the input GROMACS checkpoint file CPT. Accepted formats: cpt.
+      --output_xtc_path OUTPUT_XTC_PATH
+                            Path to the GROMACS compressed trajectory file XTC. Accepted formats: xtc.
+      --output_cpt_path OUTPUT_CPT_PATH
+                            Path to the output GROMACS checkpoint file CPT. Accepted formats: cpt.
+      --output_dhdl_path OUTPUT_DHDL_PATH
+                            Path to the output dhdl.xvg file only used when free energy calculation is turned on. Accepted formats: xvg.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1306,8 +1322,6 @@ solvate -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_solvent_gro_path INPUT_SOLVENT_GRO_PATH
-                            (spc216.gro) Path to the GRO file containing the structure of the solvent. Accepted formats: gro.
     
     required arguments:
       --input_solute_gro_path INPUT_SOLUTE_GRO_PATH
@@ -1318,6 +1332,10 @@ solvate -h
                             Path the input TOP topology in zip format. Accepted formats: zip.
       --output_top_zip_path OUTPUT_TOP_ZIP_PATH
                             Path the output topology in zip format. Accepted formats: zip.
+    
+    optional arguments:
+      --input_solvent_gro_path INPUT_SOLVENT_GRO_PATH
+                            (spc216.gro) Path to the GRO file containing the structure of the solvent. Accepted formats: gro.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
