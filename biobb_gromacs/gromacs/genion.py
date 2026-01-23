@@ -2,12 +2,10 @@
 
 """Module containing the Genion class and the command line interface."""
 
-import argparse
 import shutil
 from pathlib import Path
 from typing import Optional, Union
 
-from biobb_common.configuration import settings
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
@@ -214,12 +212,7 @@ class Genion(BiobbObject):
         )
 
         # Remove temporal files
-        self.tmp_files.extend(
-            [
-                top_dir,
-                str(self.io_dict["in"].get("stdin_file_path")),
-            ]
-        )
+        self.tmp_files.extend([top_dir, str(self.io_dict["in"].get("stdin_file_path"))])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=True)
@@ -237,54 +230,11 @@ def genion(
 ) -> int:
     """Create :class:`Genion <gromacs.genion.Genion>` class and
     execute the :meth:`launch() <gromacs.genion.Genion.launch>` method."""
-    return Genion(
-        input_tpr_path=input_tpr_path,
-        output_gro_path=output_gro_path,
-        input_top_zip_path=input_top_zip_path,
-        output_top_zip_path=output_top_zip_path,
-        input_ndx_path=input_ndx_path,
-        properties=properties,
-        **kwargs,
-    ).launch()
+    return Genion(**dict(locals())).launch()
 
 
 genion.__doc__ = Genion.__doc__
-
-
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(
-        description="Wrapper for the GROMACS genion module.",
-        formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999),
-    )
-    parser.add_argument(
-        "-c",
-        "--config",
-        required=False,
-        help="This file can be a YAML file, JSON file or JSON string",
-    )
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group("required arguments")
-    required_args.add_argument("--input_tpr_path", required=True)
-    required_args.add_argument("--output_gro_path", required=True)
-    required_args.add_argument("--input_top_zip_path", required=True)
-    required_args.add_argument("--output_top_zip_path", required=True)
-    parser.add_argument("--input_ndx_path", required=False)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    genion(
-        input_tpr_path=args.input_tpr_path,
-        output_gro_path=args.output_gro_path,
-        input_top_zip_path=args.input_top_zip_path,
-        output_top_zip_path=args.output_top_zip_path,
-        input_ndx_path=args.input_ndx_path,
-        properties=properties,
-    )
+main = Genion.get_main(genion, "Wrapper for the GROMACS genion module.")
 
 
 if __name__ == "__main__":

@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 
 """Module containing the Convert_tpr class and the command line interface."""
-import argparse
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
@@ -21,7 +19,7 @@ class ConvertTpr(BiobbObject):
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **extend** (*int*) - (0) Extend the runtime by this amount (ps).
             * **until** (*int*) - (0) Extend the runtime until this ending time (ps).
-            * **nsteps** (*int*) - (0) Change the number of steps remaining to be made. 
+            * **nsteps** (*int*) - (0) Change the number of steps remaining to be made.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
@@ -54,7 +52,7 @@ class ConvertTpr(BiobbObject):
             * schema: http://edamontology.org/EDAM.owl
     """
 
-    def __init__(self,  input_tpr_path: str, output_tpr_path: str,
+    def __init__(self, input_tpr_path: str, output_tpr_path: str,
                  properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
@@ -102,7 +100,7 @@ class ConvertTpr(BiobbObject):
                     '-s', self.stage_io_dict["in"]["input_tpr_path"],
                     '-o', self.stage_io_dict["out"]["output_tpr_path"]
                     ]
-        
+
         if self.extend:
             self.cmd.extend(['-extend', str(self.extend)])
         if self.until:
@@ -128,32 +126,13 @@ class ConvertTpr(BiobbObject):
 def convert_tpr(input_tpr_path: str, output_tpr_path: str, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`ConvertTpr <gromacs.convert_tpr.ConvertTpr>` class and
     execute the :meth:`launch() <gromacs.convert_tpr.ConvertTpr.launch>` method."""
-
-    return ConvertTpr(input_tpr_path=input_tpr_path, output_tpr_path=output_tpr_path,
-                      properties=properties, **kwargs).launch()
+    return ConvertTpr(**dict(locals())).launch()
 
 
 convert_tpr.__doc__ = ConvertTpr.__doc__
+main = ConvertTpr.get_main(
+    convert_tpr, "Wrapper of the GROMACS convert-tpr module.")
 
-
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS convert-tpr module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_tpr_path', required=True)
-    required_args.add_argument('--output_tpr_path', required=True)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    convert_tpr(input_tpr_path=args.input_tpr_path, output_tpr_path=args.output_tpr_path,
-                 properties=properties)
 
 if __name__ == '__main__':
     main()

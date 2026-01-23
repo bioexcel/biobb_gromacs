@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 
 """Module containing the Grompp class and the command line interface."""
-import argparse
 from typing import Optional
 import shutil
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -139,7 +137,7 @@ class Grompp(BiobbObject):
                     '-r', self.stage_io_dict["in"]["input_gro_path"],
                     '-p', top_file,
                     '-o', self.stage_io_dict["out"]["output_tpr_path"],
-                    '-po', 'mdout.mdp',
+                    '-po', self.create_tmp_file('mdout.mdp'),
                     '-maxwarn', self.maxwarn]
 
         if self.stage_io_dict["in"].get("input_cpt_path") and Path(self.stage_io_dict["in"]["input_cpt_path"]).exists():
@@ -167,10 +165,6 @@ class Grompp(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.extend([
-            # self.stage_io_dict.get("unique_dir", ''),
-            'mdout.mdp'
-        ])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -182,40 +176,11 @@ def grompp(input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
            properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Grompp <gromacs.grompp.Grompp>` class and
     execute the :meth:`launch() <gromacs.grompp.Grompp.launch>` method."""
-
-    return Grompp(input_gro_path=input_gro_path, input_top_zip_path=input_top_zip_path,
-                  output_tpr_path=output_tpr_path, input_cpt_path=input_cpt_path,
-                  input_ndx_path=input_ndx_path, input_mdp_path=input_mdp_path,
-                  properties=properties, **kwargs).launch()
+    return Grompp(**dict(locals())).launch()
 
 
 grompp.__doc__ = Grompp.__doc__
-
-
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS grompp module.",
-                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('-c', '--config', required=False, help="This file can be a YAML file, JSON file or JSON string")
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_gro_path', required=True)
-    required_args.add_argument('--input_top_zip_path', required=True)
-    required_args.add_argument('--output_tpr_path', required=True)
-    parser.add_argument('--input_cpt_path', required=False)
-    parser.add_argument('--input_ndx_path', required=False)
-    parser.add_argument('--input_mdp_path', required=False)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    grompp(input_gro_path=args.input_gro_path, input_top_zip_path=args.input_top_zip_path,
-           output_tpr_path=args.output_tpr_path, input_cpt_path=args.input_cpt_path,
-           input_ndx_path=args.input_ndx_path, input_mdp_path=args.input_mdp_path,
-           properties=properties)
+main = Grompp.get_main(grompp, "Wrapper for the GROMACS grompp module.")
 
 
 if __name__ == '__main__':

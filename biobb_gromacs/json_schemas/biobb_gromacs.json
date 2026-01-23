@@ -4,10 +4,10 @@
     "github": "https://github.com/bioexcel/biobb_gromacs",
     "readthedocs": "https://biobb-gromacs.readthedocs.io/en/latest/",
     "conda": "https://anaconda.org/bioconda/biobb_gromacs",
-    "docker": "https://quay.io/biocontainers/biobb_gromacs:5.1.1--pyhdfd78af_0",
-    "singularity": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.1.1--pyhdfd78af_0",
-    "version": "5.1.1",
-    "rest": false,
+    "docker": "https://quay.io/biocontainers/biobb_gromacs:5.2.0--pyhdfd78af_0",
+    "singularity": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.0--pyhdfd78af_0",
+    "version": "5.2.0",
+    "rest": true,
     "tools": [
         {
             "block": "Pdb2gmx",
@@ -15,7 +15,7 @@
             "desc": "Creates a compressed (ZIP) GROMACS topology (TOP and ITP files) from a given PDB file.",
             "exec": "pdb2gmx",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.pdb2gmx",
-            "rest": false
+            "rest": true
         },
         {
             "block": "Editconf",
@@ -23,7 +23,7 @@
             "desc": "Creates a GROMACS structure file (GRO) adding the information of the solvent box to the input structure file.",
             "exec": "editconf",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.editconf",
-            "rest": false
+            "rest": true
         },
         {
             "block": "Genion",
@@ -31,7 +31,7 @@
             "desc": "Creates a new compressed GROMACS topology adding ions until reaching the desired concentration to the input compressed GROMACS topology. ",
             "exec": "genion",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.genion",
-            "rest": false
+            "rest": true
         },
         {
             "block": "Genrestr",
@@ -39,7 +39,7 @@
             "desc": "Creates a new GROMACS compressed topology applying the indicated force restrains to the given input compressed topology.",
             "exec": "genrestr",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.genrestr",
-            "rest": false
+            "rest": true
         },
         {
             "block": "Grompp",
@@ -47,7 +47,7 @@
             "desc": "Creates a GROMACS portable binary run input file (TPR) applying the desired properties from the input compressed GROMACS topology.",
             "exec": "grompp",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.grompp",
-            "rest": false
+            "rest": true
         },
         {
             "block": "Mdrun",
@@ -55,7 +55,7 @@
             "desc": "Performs molecular dynamics simulations from an input GROMACS TPR file.",
             "exec": "mdrun",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.mdrun",
-            "rest": false
+            "rest": true
         },
         {
             "block": "GromppMdrun",
@@ -63,7 +63,7 @@
             "desc": "Combination of Grompp & Mdrun blocks. Grompp, creates a GROMACS portable binary run input file (TPR) applying the desired properties from the input compressed GROMACS topology. Mdrun, performs molecular dynamics simulations from an input GROMACS TPR file.",
             "exec": "grompp_mdrun",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.grompp_mdrun",
-            "rest": false
+            "rest": true
         },
         {
             "block": "MakeNdx",
@@ -71,7 +71,7 @@
             "desc": "Creates a GROMACS index file (NDX) from an input selection and an input GROMACS structure file.",
             "exec": "make_ndx",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.make_ndx",
-            "rest": false
+            "rest": true
         },
         {
             "block": "Gmxselect",
@@ -79,7 +79,7 @@
             "desc": "Creates a GROMACS index file (NDX) from an input selection and an input GROMACS structure file.",
             "exec": "gmxselect",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmxselect",
-            "rest": false
+            "rest": true
         },
         {
             "block": "Solvate",
@@ -95,7 +95,7 @@
             "desc": "Concatenates two or more GROMACS trajectory files.",
             "exec": "trjcat",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.trjcat",
-            "rest": false
+            "rest": true
         },
         {
             "block": "Ndx2resttop",
@@ -103,7 +103,7 @@
             "desc": "Creates a new GROMACS compressed topology applying the force restrains to the input groups in the input index file to the given input compressed topology.",
             "exec": "ndx2resttop",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs_extra.html#gromacs-extra-ndx2resttop-module",
-            "rest": false
+            "rest": true
         },
         {
             "block": "AppendLigand",
@@ -111,16 +111,16 @@
             "desc": "Takes a ligand ITP file and inserts it in a topology.",
             "exec": "append_ligand",
             "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs_extra.html#gromacs-extra-append-ligand-module",
-            "rest": false
+            "rest": true
         }
     ],
     "dep_pypi": [
-        "install_requires=['biobb_common==5.1.0']",
-        "python_requires='>=3.9'"
+        "install_requires=['biobb_common==5.2.0']",
+        "python_requires='>=3.10'"
     ],
     "dep_conda": [
-        "python >=3.9",
-        "biobb_common ==5.1.0",
+        "python >=3.10",
+        "biobb_common ==5.2.0",
         "gromacs=2022.2=nompi_h1c20066_100"
     ],
     "keywords": [

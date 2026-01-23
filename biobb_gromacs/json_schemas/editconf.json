@@ -3,7 +3,7 @@
     "$id": "http://bioexcel.eu/biobb_gromacs/json_schemas/1.0/editconf",
     "name": "biobb_gromacs Editconf",
     "title": "Wrapper class for the GROMACS editconf module.",
-    "description": "The GROMACS solvate module generates a box around the selected structure.",
+    "description": "The GROMACS editconf converts generic structure format to .gro, .g96 or .pdb.",
     "type": "object",
     "info": {
         "wrapped_software": {

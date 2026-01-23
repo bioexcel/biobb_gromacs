@@ -2,10 +2,8 @@
 
 """Module containing the Editconf class and the command line interface."""
 
-import argparse
 from typing import Optional
 
-from biobb_common.configuration import settings
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
@@ -17,7 +15,7 @@ class Editconf(BiobbObject):
     """
     | biobb_gromacs Editconf
     | Wrapper class for the `GROMACS editconf <http://manual.gromacs.org/current/onlinehelp/gmx-editconf.html>`_ module.
-    | The GROMACS solvate module generates a box around the selected structure.
+    | The GROMACS editconf converts generic structure format to .gro, .g96 or .pdb.
 
     Args:
         input_gro_path (str): Path to the input GRO file. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/editconf.gro>`_. Accepted formats: gro (edam:format_2033), pdb (edam:format_1476).
@@ -165,45 +163,11 @@ def editconf(
 ) -> int:
     """Create :class:`Editconf <gromacs.editconf.Editconf>` class and
     execute the :meth:`launch() <gromacs.editconf.Editconf.launch>` method."""
-
-    return Editconf(
-        input_gro_path=input_gro_path,
-        output_gro_path=output_gro_path,
-        properties=properties,
-        **kwargs,
-    ).launch()
+    return Editconf(**dict(locals())).launch()
 
 
 editconf.__doc__ = Editconf.__doc__
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Wrapper of the GROMACS gmx editconf module.",
-        formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999),
-    )
-    parser.add_argument(
-        "-c",
-        "--config",
-        required=False,
-        help="This file can be a YAML file, JSON file or JSON string",
-    )
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group("required arguments")
-    required_args.add_argument("--input_gro_path", required=True)
-    required_args.add_argument("--output_gro_path", required=True)
-
-    args = parser.parse_args()
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config).get_prop_dic()
-
-    # Specific call of each building block
-    editconf(
-        input_gro_path=args.input_gro_path,
-        output_gro_path=args.output_gro_path,
-        properties=properties,
-    )
+main = Editconf.get_main(editconf, "Wrapper of the GROMACS gmx editconf module.")
 
 
 if __name__ == "__main__":
