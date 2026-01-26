@@ -325,7 +325,8 @@ class Mdrun(BiobbObject):
 def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
           output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
           output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
-          output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
+          output_dhdl_path: Optional[str] = None, input_plumed_path: Optional[str] = None,
+          input_plumed_folder: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Mdrun <gromacs.mdrun.Mdrun>` class and
     execute the :meth:`launch() <gromacs.mdrun.Mdrun.launch>` method."""
     return Mdrun(**dict(locals())).launch()
