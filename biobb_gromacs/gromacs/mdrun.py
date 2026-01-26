@@ -24,8 +24,8 @@ class Mdrun(BiobbObject):
         output_xtc_path (str) (Optional): Path to the GROMACS compressed trajectory file XTC. File type: output. Accepted formats: xtc (edam:format_3875).
         output_cpt_path (str) (Optional): Path to the output GROMACS checkpoint file CPT. File type: output. Accepted formats: cpt (edam:format_2333).
         output_dhdl_path (str) (Optional): Path to the output dhdl.xvg file only used when free energy calculation is turned on. File type: output. Accepted formats: xvg (edam:format_2033).
-        input_plumed_path (str) (Optional): Path to the main PLUMED input file. If provided, PLUMED will be used during the simulation. All files used by the main PLUMED input file must exist in the input_plumed_folder and be called with just their name. Make sure to provide a GROMACS version with the PLUMED patch. File type: input. Accepted formats: txt (edam:format_2330).
-        input_plumed_folder (str) (Optional): Path to the folder with all files needed by the main PLUMED input file, see input_plumed_path. File type: input. Accepted formats: directory (edam:format_1915)
+        input_plumed_path (str) (Optional): Path to the main PLUMED input file. If provided, PLUMED will be used during the simulation. All files used by the main PLUMED input file must exist in the input_plumed_folder and be called with just their name. Make sure to provide a GROMACS version with the PLUMED patch. File type: input. Accepted formats: dat (edam:format_2330).
+        input_plumed_folder (dir) (Optional): Path to the folder with all files needed by the main PLUMED input file, see input_plumed_path. File type: input. Accepted formats: directory (edam:format_1915)
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **mpi_bin** (*str*) - (None) Path to the MPI runner. Usually "mpirun" or "srun".
             * **mpi_np** (*int*) - (0) [0~1000|1] Number of MPI processes. Usually an integer bigger than 1.
