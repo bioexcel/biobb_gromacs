@@ -86,7 +86,6 @@ class Mdrun(BiobbObject):
         super().__init__(properties)
         self.locals_var_dict = locals().copy()
 
-        fu.log("USIIIING GOOOOOOOD VERSIOOON!!! :)")
         # Input/Output files
         self.io_dict = {
             "in": {"input_tpr_path": input_tpr_path, "input_cpt_path": input_cpt_path,
@@ -147,8 +146,6 @@ class Mdrun(BiobbObject):
                 prefix=self.prefix, step=self.step, name='trajectory.trr')
             self.tmp_files.append(self.stage_io_dict["out"]["output_trr_path"])
         
-        fu.log("USIIIING GOOOOOOOD VERSIOOON!!! :)")
-        
         self.stage_files()
 
         self.cmd = [self.binary_path, 'mdrun',
@@ -159,7 +156,6 @@ class Mdrun(BiobbObject):
                     '-g', self.stage_io_dict["out"]["output_log_path"]]
 
         if self.stage_io_dict["in"].get("input_plumed_path"):
-            fu.log("ADDING PLUMED INPUT")
             self.cmd.append('-plumed')
             self.cmd.append(self.stage_io_dict["in"]["input_plumed_path"])
         
