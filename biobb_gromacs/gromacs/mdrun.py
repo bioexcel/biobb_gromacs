@@ -338,7 +338,10 @@ class Mdrun(BiobbObject):
             fu.log(f"Searching for PLUMED outputs in {unique_dir}...", self.out_log)
             for item in os.listdir(unique_dir):
                 if item not in input_filenames and item not in gmx_output_filenames:
-                    # NOTE: Here we could list specific PLUMED output patterns
+                    if os.path.isdir(os.path.join(unique_dir, item)):
+                        # Skip directories
+                        continue
+                    # NOTE: Here we could list specific PLUMED output patterns or skip files contained in the input_plumed_folder
                     src = os.path.join(unique_dir, item)
                     dst = os.path.join(dest_folder, item)
                     fu.log(f"Copying PLUMED output: {item} --> {dest_folder}", self.out_log)
