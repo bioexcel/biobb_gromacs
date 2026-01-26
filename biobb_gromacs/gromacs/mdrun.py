@@ -250,7 +250,8 @@ class Mdrun(BiobbObject):
         fu.log("STAGING FILES - CUSTOM METHOD")
         
         # If PLUMED is requested, change the working directory to the sandbox
-        if self.stage_io_dict["in"].get("input_plumed_path"):
+        if self.io_dict["in"].get("input_plumed_path"):
+            fu.log("PLUMED detected: Enabling chdir_sandbox to ensure relative paths work.", self.out_log)
             self.chdir_sandbox = True
         
         super().stage_files()
