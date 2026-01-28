@@ -1,2 +1,0 @@
-1     E302 expected 2 blank lines, found 1
-10    W293 blank line contains whitespace
