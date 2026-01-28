@@ -58,6 +58,14 @@
             "rest": true
         },
         {
+            "block": "MdrunPlumed",
+            "tool": "gmx mdrun",
+            "desc": "Performs molecular dynamics simulations from an input GROMACS TPR file.",
+            "exec": "mdrun_plumed",
+            "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.mdrun_plumed",
+            "rest": true
+        },
+        {
             "block": "GromppMdrun",
             "tool": "gmx grompp & gmx mdrun",
             "desc": "Combination of Grompp & Mdrun blocks. Grompp, creates a GROMACS portable binary run input file (TPR) applying the desired properties from the input compressed GROMACS topology. Mdrun, performs molecular dynamics simulations from an input GROMACS TPR file.",

@@ -69,6 +69,14 @@ gromacs.mdrun module
     :undoc-members:
     :show-inheritance:
 
+gromacs.mdrun_plumed module
+----------------------------
+
+.. automodule:: gromacs.mdrun_plumed
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 gromacs.pdb2gmx module
 ---------------------------
 
