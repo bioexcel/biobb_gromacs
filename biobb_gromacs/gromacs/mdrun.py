@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 """Module containing the MDrun class and the command line interface."""
+import os
+import shutil
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
@@ -24,6 +26,9 @@ class Mdrun(BiobbObject):
         output_xtc_path (str) (Optional): Path to the GROMACS compressed trajectory file XTC. File type: output. Accepted formats: xtc (edam:format_3875).
         output_cpt_path (str) (Optional): Path to the output GROMACS checkpoint file CPT. File type: output. Accepted formats: cpt (edam:format_2333).
         output_dhdl_path (str) (Optional): Path to the output dhdl.xvg file only used when free energy calculation is turned on. File type: output. Accepted formats: xvg (edam:format_2033).
+        input_plumed_path (str) (Optional): Path to the main PLUMED input file. If provided, PLUMED will be used during the simulation. All files used by the main PLUMED input file must exist in the input_plumed_folder and be called with just their name. Make sure to provide a GROMACS version with the PLUMED patch. File type: input. Accepted formats: dat (edam:format_2330).
+        input_plumed_folder (dir) (Optional): Path to the folder with all files needed by the main PLUMED input file, see input_plumed_path. File type: input. Accepted formats: directory (edam:format_1915)
+        output_plumed_folder (dir) (Optional): Folder where PLUMED generated output files will be saved. File type: output. Accepted formats: directory (edam:format_1915)
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **mpi_bin** (*str*) - (None) Path to the MPI runner. Usually "mpirun" or "srun".
             * **mpi_np** (*int*) - (0) [0~1000|1] Number of MPI processes. Usually an integer bigger than 1.
@@ -76,7 +81,9 @@ class Mdrun(BiobbObject):
     def __init__(self, input_tpr_path: str, output_gro_path: str, output_edr_path: str,
                  output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
-                 output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
+                 output_dhdl_path: Optional[str] = None, input_plumed_path: Optional[str] = None,
+                 input_plumed_folder: Optional[str] = None, output_plumed_folder: Optional[str] = None,
+                 properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -85,11 +92,12 @@ class Mdrun(BiobbObject):
 
         # Input/Output files
         self.io_dict = {
-            "in": {"input_tpr_path": input_tpr_path, "input_cpt_path": input_cpt_path},
+            "in": {"input_tpr_path": input_tpr_path, "input_cpt_path": input_cpt_path,
+                   "input_plumed_path": input_plumed_path, "input_plumed_folder": input_plumed_folder},
             "out": {"output_trr_path": output_trr_path, "output_gro_path": output_gro_path,
                     "output_edr_path": output_edr_path, "output_log_path": output_log_path,
                     "output_xtc_path": output_xtc_path, "output_cpt_path": output_cpt_path,
-                    "output_dhdl_path": output_dhdl_path}
+                    "output_dhdl_path": output_dhdl_path, "output_plumed_folder": output_plumed_folder}
         }
 
         # Properties specific for BB
@@ -141,7 +149,7 @@ class Mdrun(BiobbObject):
             self.stage_io_dict["out"]["output_trr_path"] = fu.create_name(
                 prefix=self.prefix, step=self.step, name='trajectory.trr')
             self.tmp_files.append(self.stage_io_dict["out"]["output_trr_path"])
-
+        
         self.stage_files()
 
         self.cmd = [self.binary_path, 'mdrun',
@@ -151,6 +159,10 @@ class Mdrun(BiobbObject):
                     '-e', self.stage_io_dict["out"]["output_edr_path"],
                     '-g', self.stage_io_dict["out"]["output_log_path"]]
 
+        if self.stage_io_dict["in"].get("input_plumed_path"):
+            self.cmd.append('-plumed')
+            self.cmd.append(self.stage_io_dict["in"]["input_plumed_path"])
+        
         if self.stage_io_dict["in"].get("input_cpt_path"):
             self.cmd.append('-cpi')
             self.cmd.append(self.stage_io_dict["in"]["input_cpt_path"])
@@ -232,7 +244,32 @@ class Mdrun(BiobbObject):
 
         self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
-
+    
+    def stage_files(self):
+        """
+        Stage the input/output files in a temporal unique directory aka sandbox.
+        
+        Overwrite the parent class method to handle PLUMED input files.
+        """
+        
+        # If PLUMED is requested, change the working directory to the sandbox
+        if self.io_dict["in"].get("input_plumed_path"):
+            fu.log("PLUMED detected: Enabling chdir_sandbox to ensure relative paths work.", self.out_log)
+            self.chdir_sandbox = True
+        
+        super().stage_files()
+        
+        # If plumed folder is provided, flatten its contents into the sandbox
+        if self.stage_io_dict["in"].get("input_plumed_folder"):
+            plumed_folder = self.stage_io_dict["in"]["input_plumed_folder"]
+            for item in os.listdir(plumed_folder):
+                s = os.path.join(plumed_folder, item)
+                d = os.path.join(self.stage_io_dict["unique_dir"], item)
+                if os.path.isdir(s):
+                    shutil.copytree(s, d, dirs_exist_ok=True)
+                else:
+                    shutil.copy2(s, d)
+        
     def copy_to_host(self):
         """
         Updates the path to the original output files in the sandbox,
@@ -284,13 +321,38 @@ class Mdrun(BiobbObject):
                             # Update the stage_io_dict with the new file path
                             self.stage_io_dict["out"][file_ref] = str(
                                 new_file_path)
-        return super().copy_to_host()
 
+        super().copy_to_host()
+
+        # Bulk Copy PLUMED outputs
+        if self.io_dict["out"].get("output_plumed_folder"):
+            dest_folder = self.io_dict["out"]["output_plumed_folder"]
+            os.makedirs(dest_folder, exist_ok=True)
+            
+            unique_dir = self.stage_io_dict["unique_dir"]
+            # We ignore files that were inputs
+            input_filenames = [os.path.basename(f) for f in self.io_dict["in"].values() if f]
+            # We ignore standard GMX outputs already copied
+            gmx_output_filenames = [os.path.basename(f) for f in self.stage_io_dict["out"].values() if f and isinstance(f, str)]
+            
+            fu.log(f"Searching for PLUMED outputs in {unique_dir}...", self.out_log)
+            for item in os.listdir(unique_dir):
+                if item not in input_filenames and item not in gmx_output_filenames:
+                    if os.path.isdir(os.path.join(unique_dir, item)):
+                        # Skip directories
+                        continue
+                    # NOTE: Here we could list specific PLUMED output patterns or skip files contained in the input_plumed_folder
+                    src = os.path.join(unique_dir, item)
+                    dst = os.path.join(dest_folder, item)
+                    fu.log(f"Copying PLUMED output: {item} --> {dest_folder}", self.out_log)
+                    shutil.copy2(src, dst)
 
 def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
           output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
           output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
-          output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
+          output_dhdl_path: Optional[str] = None, input_plumed_path: Optional[str] = None,
+          input_plumed_folder: Optional[str] = None, output_plumed_folder: Optional[str] = None,
+          properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`Mdrun <gromacs.mdrun.Mdrun>` class and
     execute the :meth:`launch() <gromacs.mdrun.Mdrun.launch>` method."""
     return Mdrun(**dict(locals())).launch()
