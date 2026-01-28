@@ -206,6 +206,18 @@ mdrun:
     num_threads: 0
     binary_path: "gmx"
 
+mdrun_plumed:
+  paths:
+    input_tpr_path: file:test_data_dir/gromacs/mdrun.tpr
+    output_trr_path: output_trr_path.trr
+    output_gro_path: output_gro_path.gro
+    output_edr_path: output_edr_path.edr
+    output_log_path: output_log_path.log
+    ref_output_trr_path: file:test_reference_dir/gromacs/ref_mdrun.trr
+  properties:
+    num_threads: 0
+    binary_path: "gmx"
+
 mdrun_docker:
   paths:
     input_tpr_path: file:test_data_dir/gromacs/mdrun.tpr

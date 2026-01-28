@@ -4,6 +4,7 @@ from . import genrestr
 from . import grompp
 from . import make_ndx
 from . import mdrun
+from . import mdrun_plumed
 from . import pdb2gmx
 from . import gmxselect
 from . import solvate
@@ -11,4 +12,4 @@ from . import grompp_mdrun
 from . import trjcat
 
 name = "gromacs"
-__all__ = ["editconf", "genion", "genrestr", "grompp", "make_ndx", "mdrun", "pdb2gmx", "gmxselect", "solvate", "grompp_mdrun", "trjcat"]
+__all__ = ["editconf", "genion", "genrestr", "grompp", "make_ndx", "mdrun", "mdrun_plumed", "pdb2gmx", "gmxselect", "solvate", "grompp_mdrun", "trjcat"]
