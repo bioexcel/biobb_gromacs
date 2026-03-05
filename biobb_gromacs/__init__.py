@@ -2,4 +2,4 @@ from . import gromacs, gromacs_extra
 
 name = "biobb_gromacs"
 __all__ = ["gromacs", "gromacs_extra"]
-__version__ = "5.2.0"
+__version__ = "5.2.1"
