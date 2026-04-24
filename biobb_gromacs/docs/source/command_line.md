@@ -397,14 +397,14 @@ Config input / output arguments for this building block:
 Syntax: input_parameter (datatype) - (default_value) Definition
 
 Config parameters for this building block:
-* **posres_names** (*array*): (CUSTOM_POSRES) String with names of the position restraints to be included in the topology file separated by spaces. If provided it should match the length of the ref_rest_chain_triplet_list..
+* **posres_names** (*array*): (CUSTOM_POSRES) String with names of the position restraints to be included in the topology file separated by spaces. If provided it should match the length of the ref_rest_mol_triplet_list..
 * **force_constants** (*string*): (500 500 500) Array of three floats defining the force constants..
-* **ref_rest_chain_triplet_list** (*string*): (None) Triplet list composed by (reference group, restrain group, chain) list..
+* **ref_rest_mol_triplet_list** (*string*): (None) Triplet list composed by (reference group, restrain group, chain) list..
 ### YAML
 #### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_ndx2resttop.yml)
 ```python
 properties:
-  ref_rest_chain_triplet_list: ( Chain_A, Chain_A_noMut, A ), ( Chain_B, Chain_B_noMut,
+  ref_rest_mol_triplet_list: ( Chain_A, Chain_A_noMut, A ), ( Chain_B, Chain_B_noMut,
     B ), ( Chain_C, Chain_C_noMut, C ), ( Chain_D, Chain_D_noMut, D )
 
 ```
@@ -417,7 +417,7 @@ ndx2resttop --config config_ndx2resttop.yml --input_ndx_path ndx2resttop.ndx --i
 ```python
 {
   "properties": {
-    "ref_rest_chain_triplet_list": "( Chain_A, Chain_A_noMut, A ), ( Chain_B, Chain_B_noMut, B ), ( Chain_C, Chain_C_noMut, C ), ( Chain_D, Chain_D_noMut, D )"
+    "ref_rest_mol_triplet_list": "( Chain_A, Chain_A_noMut, A ), ( Chain_B, Chain_B_noMut, B ), ( Chain_C, Chain_C_noMut, C ), ( Chain_D, Chain_D_noMut, D )"
   }
 }
 ```
