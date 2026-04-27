@@ -185,7 +185,7 @@
             ]
         },
         "input_plumed_folder": {
-            "type": "string",
+            "type": "dir",
             "description": "Path to the folder with all files needed by the main PLUMED input file, see input_plumed_path",
             "filetype": "input",
             "sample": null,
@@ -201,7 +201,7 @@
             ]
         },
         "output_plumed_folder": {
-            "type": "string",
+            "type": "dir",
             "description": "Folder where PLUMED generated output files will be saved",
             "filetype": "output",
             "sample": null,
