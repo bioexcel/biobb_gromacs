@@ -64,8 +64,8 @@
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="z_ca4c78eb36143858_ndx2resttop_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.13.5">coverage.py v7.13.5</a>,
-            created at 2026-04-27 08:50 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.14.0">coverage.py v7.14.0</a>,
+            created at 2026-05-14 10:00 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -170,9 +170,9 @@
     <p class="mis show_mis"><span class="n"><a id="t88" href="#t88">88</a></span><span class="t">            <span class="key">return</span> <span class="num">0</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t89" href="#t89">89</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t90" href="#t90">90</a></span><span class="t">        <span class="com"># Unzip topology</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t91" href="#t91">91</a></span><span class="t">        <span class="nam">top_file</span> <span class="op">=</span> <span class="nam">fu</span><span class="op">.</span><span class="nam">unzip_top</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run run2"><span class="n"><a id="t92" href="#t92">92</a></span><span class="t">            <span class="nam">zip_file</span><span class="op">=</span><span class="nam">str</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"in"</span><span class="op">]</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"input_top_zip_path"</span><span class="op">)</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run run2"><span class="n"><a id="t93" href="#t93">93</a></span><span class="t">            <span class="nam">out_log</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">out_log</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t91" href="#t91">91</a></span><span class="t">        <span class="nam">top_file</span> <span class="op">=</span> <span class="nam">fu</span><span class="op">.</span><span class="nam">unzip_top</span><span class="op">(</span><span class="nam">zip_file</span><span class="op">=</span><span class="nam">str</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"in"</span><span class="op">]</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"input_top_zip_path"</span><span class="op">)</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run run2"><span class="n"><a id="t92" href="#t92">92</a></span><span class="t">            <span class="nam">out_log</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">out_log</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run run2"><span class="n"><a id="t93" href="#t93">93</a></span><span class="t">            <span class="nam">unique_dir</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">stage_io_dict</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"unique_dir"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run run2"><span class="n"><a id="t94" href="#t94">94</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t95" href="#t95">95</a></span><span class="t">        <span class="nam">top_dir</span> <span class="op">=</span> <span class="nam">str</span><span class="op">(</span><span class="nam">Path</span><span class="op">(</span><span class="nam">top_file</span><span class="op">)</span><span class="op">.</span><span class="nam">parent</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t96" href="#t96">96</a></span><span class="t">        <span class="nam">itp_name</span> <span class="op">=</span> <span class="nam">str</span><span class="op">(</span><span class="nam">Path</span><span class="op">(</span><span class="nam">str</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"in"</span><span class="op">]</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"input_itp_path"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">.</span><span class="nam">name</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -189,7 +189,7 @@
     <p class="run"><span class="n"><a id="t107" href="#t107">107</a></span><span class="t">                    <span class="key">break</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t108" href="#t108">108</a></span><span class="t">        <span class="key">else</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t109" href="#t109">109</a></span><span class="t">            <span class="nam">fu</span><span class="op">.</span><span class="nam">log</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis mis2 show_mis"><span class="n"><a id="t110" href="#t110">110</a></span><span class="t">                <span class="fst">f'</span><span class="fst">FATAL: Input topfile </span><span class="op">{</span><span class="nam">top_file</span><span class="op">}</span><span class="fst"> from input_top_zip_path </span><span class="op">{</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"in"</span><span class="op">]</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"input_top_zip_path"</span><span class="op">)</span><span class="op">}</span><span class="fst"> is empty.</span><span class="fst">'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis mis2 show_mis"><span class="n"><a id="t110" href="#t110">110</a></span><span class="t">                <span class="str">f'FATAL: Input topfile {top_file} from input_top_zip_path {self.io_dict["in"].get("input_top_zip_path")} is empty.'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis mis2 show_mis"><span class="n"><a id="t111" href="#t111">111</a></span><span class="t">                <span class="nam">self</span><span class="op">.</span><span class="nam">out_log</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis mis2 show_mis"><span class="n"><a id="t112" href="#t112">112</a></span><span class="t">                <span class="nam">self</span><span class="op">.</span><span class="nam">global_log</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis mis2 show_mis"><span class="n"><a id="t113" href="#t113">113</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -370,8 +370,8 @@
             <a class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a class="nav" href="z_ca4c78eb36143858_ndx2resttop_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.13.5">coverage.py v7.13.5</a>,
-            created at 2026-04-27 08:50 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.14.0">coverage.py v7.14.0</a>,
+            created at 2026-05-14 10:00 +0000
         </p>
     </div>
 </footer>
