@@ -22,7 +22,7 @@ class Pdb2gmx(BiobbObject):
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **water_type** (*str*) - ("spce") Water molecule type. Values: spc, spce, tip3p, tip4p, tip5p, tips3p.
             * **force_field** (*str*) - ("amber99sb-ildn") Force field to be used during the conversion.  Values: gromos45a3, charmm27, gromos53a6, amber96, amber99, gromos43a2, gromos54a7, gromos43a1, amberGS, gromos53a5, amber99sb, amber03, amber99sb-ildn, oplsaa, amber94, amber99sb-star-ildn-mut.
-            * **ignh** (*bool*) - (False) Should pdb2gmx ignore the hidrogens in the original structure.
+            * **ignh** (*bool*) - (False) Should pdb2gmx ignore the hydrogens in the original structure.
             * **lys** (*list*) - (None) Lysine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated).
             * **arg** (*list*) - (None) Arginine protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated).
             * **asp** (*list*) - (None) Aspartic acid protonation states for each chain in the input pdb. Each item of the list should be a string with the protonation states for that chain or empty if the residue is not present in that chain (0: not protonated, 1: protonated).

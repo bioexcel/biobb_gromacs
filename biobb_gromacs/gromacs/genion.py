@@ -128,7 +128,7 @@ class Genion(BiobbObject):
         self.stage_files()
 
         # Unzip topology to topology_out
-        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log)
+        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
         top_dir = str(Path(top_file).parent)
 
         if self.container_path:

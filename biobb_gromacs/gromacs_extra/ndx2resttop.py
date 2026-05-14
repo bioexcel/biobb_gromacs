@@ -221,7 +221,7 @@ class Ndx2resttop(BiobbObject):
         if self.check_restart():
             return 0
 
-        top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path", ""), out_log=self.out_log)
+        top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path", ""), out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
 
         ndx_lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()
         groups_dic = self._parse_ndx_groups(ndx_lines)
