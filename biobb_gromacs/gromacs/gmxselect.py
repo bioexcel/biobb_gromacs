@@ -101,6 +101,10 @@ class Gmxselect(BiobbObject):
         else:
             working_dir = self.stage_io_dict.get('unique_dir', '')
 
+        selection_file_path = Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath("gmxselect_selection.dat")
+        with open(selection_file_path, "w") as selection_file:
+            selection_file.write(f"{self.selection}\n")
+
         self.cmd = ["cd", working_dir, ";",
                     self.binary_path, 'select',
                     '-s', PurePath(self.stage_io_dict["in"]["input_structure_path"]).name,
@@ -112,8 +116,8 @@ class Gmxselect(BiobbObject):
             self.cmd.append('-n')
             self.cmd.append(PurePath(self.stage_io_dict["in"].get("input_ndx_path")).name)
 
-        self.cmd.append('-select')
-        self.cmd.append(self.selection)
+        self.cmd.append('-sf')
+        self.cmd.append(PurePath(selection_file_path).name)
 
         if self.gmx_lib:
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
@@ -134,6 +138,7 @@ class Gmxselect(BiobbObject):
                             out_ndx_file.write(line)
 
         # Remove temporal files
+        self.tmp_files.append(str(selection_file_path))
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
