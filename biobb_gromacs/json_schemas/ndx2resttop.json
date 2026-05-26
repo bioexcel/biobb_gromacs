@@ -73,22 +73,22 @@
             "type": "object",
             "properties": {
                 "posres_names": {
-                    "type": "array",
+                    "type": "string",
                     "default": "CUSTOM_POSRES",
                     "wf_prop": false,
-                    "description": "String with names of the position restraints to be included in the topology file separated by spaces. If provided it should match the length of the ref_rest_chain_triplet_list."
+                    "description": "Space-separated preprocessor macro names, one per triplet (e.g. ``\"CHAIN_A_POSRES CHAIN_B_POSRES\"``). Activated at grompp time via ``-D <name>``. Must match the length of ref_rest_mol_triplet_list."
                 },
                 "force_constants": {
                     "type": "string",
                     "default": "500 500 500",
                     "wf_prop": false,
-                    "description": "Array of three floats defining the force constants."
+                    "description": "Three space-separated force constants Fx Fy Fz in kJ/mol/nm\u00b2. Written verbatim into each ITP line so the same value is applied to every restrained atom."
                 },
-                "ref_rest_chain_triplet_list": {
+                "ref_rest_mol_triplet_list": {
                     "type": "string",
                     "default": null,
                     "wf_prop": false,
-                    "description": "Triplet list composed by (reference group, restrain group, chain) list."
+                    "description": "Comma-separated triplets ``(reference_group, restrain_group, molecule_name)``, one per molecule to restrain.``reference_group``: NDX group containing *all* atoms of the molecule in global (system-wide) GROMACS numbering. Used only as a coordinate frame to convert global indices to molecule-local 1-based indices. Example: ``r_1-9280``. ``restrain_group``: NDX group with the subset of atoms to actually restrain (must be a strict subset of reference_group). Example: ``P_&_r_1-9280``. ``molecule_name``: the ``[ moleculetype ]`` name in the topology used to locate where to splice the ``#ifdef`` block. Example: ``1TSR``."
                 }
             }
         }
