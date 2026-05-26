@@ -113,7 +113,7 @@ class Gmxselect(BiobbObject):
             self.cmd.append(PurePath(self.stage_io_dict["in"].get("input_ndx_path")).name)
 
         self.cmd.append('-select')
-        self.cmd.append("\'"+self.selection+"\'")
+        self.cmd.append(self.selection)
 
         if self.gmx_lib:
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
