@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
 """Module containing the Trjcat class and the command line interface."""
-import shutil
 from typing import Optional
-from pathlib import Path
+from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
@@ -96,20 +95,20 @@ class Trjcat(BiobbObject):
             return 0
         self.stage_files()
 
-        # Unzip trajectory bundle
-        trj_dir: str = fu.create_unique_dir()
-        trj_list: list[str] = fu.unzip_list(self.input_trj_zip_path, trj_dir, self.out_log)
+        # Unzip trajectory bundle directly into unique_dir so basenames work after cd
+        trj_list: list[str] = fu.unzip_list(self.input_trj_zip_path, self.stage_io_dict.get("unique_dir", ""), self.out_log)
+        trj_list = [PurePath(p).name for p in trj_list]
 
-        # Copy trajectories to container
         if self.container_path:
-            for index, trajectory_file_path in enumerate(trj_list):
-                shutil.copy2(trajectory_file_path, self.stage_io_dict.get("unique_dir", ""))
-                trj_list[index] = str(Path(self.container_volume_path).joinpath(Path(trajectory_file_path).name))
+            working_dir = self.container_volume_path if self.container_volume_path else "/data"
+        else:
+            working_dir = self.stage_io_dict.get('unique_dir', '')
 
         # Create command line
-        self.cmd = [self.binary_path, 'trjcat',
+        self.cmd = ["cd", working_dir, ";",
+                    self.binary_path, 'trjcat',
                     '-f', " ".join(trj_list),
-                    '-o', self.stage_io_dict["out"]["output_trj_path"]]
+                    '-o', PurePath(self.stage_io_dict["out"]["output_trj_path"]).name]
 
         if self.concatenate:
             self.cmd.append('-cat')
@@ -125,7 +124,6 @@ class Trjcat(BiobbObject):
         self.copy_to_host()
 
         # Remove temporal files
-        self.tmp_files.append(trj_dir)
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)

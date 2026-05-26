@@ -3,6 +3,38 @@ global_properties:
   remove_tmp: False
   working_dir_path: /tmp/biobb/unitests
 
+convert_tpr:
+  paths:
+    input_tpr_path: file:test_data_dir/gromacs/genion.tpr
+    output_tpr_path: output.tpr
+    ref_output_tpr_path: file:test_reference_dir/gromacs/ref_convert.tpr
+  properties:
+    nsteps: 100
+
+convert_tpr_docker:
+  paths:
+    input_tpr_path: file:test_data_dir/gromacs/genion.tpr
+    output_tpr_path: output.tpr
+    ref_output_tpr_path: file:test_reference_dir/gromacs/ref_convert.tpr
+  properties:
+    nsteps: 100
+    container_path: docker
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
+
+convert_tpr_singularity:
+  paths:
+    input_tpr_path: file:test_data_dir/gromacs/genion.tpr
+    output_tpr_path: output.tpr
+    ref_output_tpr_path: file:test_reference_dir/gromacs/ref_convert.tpr
+  properties:
+    nsteps: 100
+    container_path: singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
+
 pdb2gmx:
   paths:
     input_pdb_path: file:test_data_dir/gromacs/egfr.pdb
@@ -23,10 +55,9 @@ pdb2gmx_docker:
   properties:
     his: 0 0 1 1 0 0 0
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
-    container_volume_path: /inout
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 pdb2gmx_singularity:
   paths:
@@ -38,8 +69,9 @@ pdb2gmx_singularity:
   properties:
     his: 0 0 1 1 0 0 0
     container_path: singularity
-    container_image: gromacs.simg
-    container_volume_path: /inout
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 editconf:
   paths:
@@ -56,11 +88,12 @@ editconf_docker:
     output_gro_path: output_gro.gro
     ref_output_gro_path: file:test_reference_dir/gromacs/ref_editconf.gro
   properties:
+    distance_to_molecule: 1.0
+    box_type: "cubic"
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
+    container_working_dir: /tmp
 
 editconf_singularity:
   paths:
@@ -68,9 +101,12 @@ editconf_singularity:
     output_gro_path: output_gro.gro
     ref_output_gro_path: file:test_reference_dir/gromacs/ref_editconf.gro
   properties:
+    distance_to_molecule: 1.0
+    box_type: "cubic"
     container_path: singularity
-    container_image: gromacs.simg
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
+    container_working_dir: /tmp
 
 genion:
   paths:
@@ -93,12 +129,12 @@ genion_docker:
     output_top_zip_path: output_top_zip.zip
     ref_output_top_zip_path: file:test_reference_dir/gromacs/ref_genion_container.zip
   properties:
+    concentration: 0.05
+    replaced_group: "SOL"
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
-    container_volume_path: /data
-    container_working_dir: /data
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 genion_singularity:
   paths:
@@ -109,11 +145,12 @@ genion_singularity:
     output_top_zip_path: output_top_zip.zip
     ref_output_top_zip_path: file:test_reference_dir/gromacs/ref_genion_container.zip
   properties:
+    concentration: 0.05
+    replaced_group: "SOL"
     container_path: singularity
-    container_image: gromacs.simg
-    container_volume_path: /data
-    container_working_dir: /data
-
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 genrestr:
   paths:
@@ -133,12 +170,12 @@ genrestr_docker:
     output_itp_path: output_itp.itp
     ref_output_itp_path: file:test_reference_dir/gromacs/ref_genrestr.itp
   properties:
+    restrained_group: "system"
+    force_constants: "500 500 500"
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
-    container_volume_path: /data
-    container_working_dir: /data
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 genrestr_singularity:
   paths:
@@ -147,10 +184,12 @@ genrestr_singularity:
     output_itp_path: output_itp.itp
     ref_output_itp_path: file:test_reference_dir/gromacs/ref_genrestr.itp
   properties:
+    restrained_group: "system"
+    force_constants: "500 500 500"
     container_path: singularity
-    container_image: gromacs.simg
-    container_volume_path: /data
-    container_working_dir: /data
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 grompp:
   paths:
@@ -174,10 +213,9 @@ grompp_docker:
     mdp:
       ld-seed: '1'
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
+    container_working_dir: /tmp
 
 grompp_singularity:
   paths:
@@ -190,23 +228,11 @@ grompp_singularity:
     mdp:
       ld-seed: '1'
     container_path: singularity
-    container_image: gromacs.simg
-    container_volume_path: /inout
-    container_working_dir: /inout
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 mdrun:
-  paths:
-    input_tpr_path: file:test_data_dir/gromacs/mdrun.tpr
-    output_trr_path: output_trr_path.trr
-    output_gro_path: output_gro_path.gro
-    output_edr_path: output_edr_path.edr
-    output_log_path: output_log_path.log
-    ref_output_trr_path: file:test_reference_dir/gromacs/ref_mdrun.trr
-  properties:
-    num_threads: 0
-    binary_path: "gmx"
-
-mdrun_plumed:
   paths:
     input_tpr_path: file:test_data_dir/gromacs/mdrun.tpr
     output_trr_path: output_trr_path.trr
@@ -227,11 +253,12 @@ mdrun_docker:
     output_log_path: output_log_path.log
     ref_output_trr_path: file:test_reference_dir/gromacs/ref_mdrun.trr
   properties:
+    num_threads: 0
+    binary_path: "gmx"
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
-    container_volume_path: /inout
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 mdrun_singularity:
   paths:
@@ -242,9 +269,56 @@ mdrun_singularity:
     output_log_path: output_log_path.log
     ref_output_trr_path: file:test_reference_dir/gromacs/ref_mdrun.trr
   properties:
+    num_threads: 0
+    binary_path: "gmx"
     container_path: singularity
-    container_image: gromacs.simg
-    container_volume_path: /inout
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
+
+mdrun_plumed:
+  paths:
+    input_tpr_path: file:test_data_dir/gromacs/mdrun.tpr
+    output_trr_path: output_trr_path.trr
+    output_gro_path: output_gro_path.gro
+    output_edr_path: output_edr_path.edr
+    output_log_path: output_log_path.log
+    ref_output_trr_path: file:test_reference_dir/gromacs/ref_mdrun.trr
+  properties:
+    num_threads: 0
+    binary_path: "gmx"
+
+mdrun_plumed_docker:
+  paths:
+    input_tpr_path: file:test_data_dir/gromacs/mdrun.tpr
+    output_trr_path: output_trr_path.trr
+    output_gro_path: output_gro_path.gro
+    output_edr_path: output_edr_path.edr
+    output_log_path: output_log_path.log
+    ref_output_trr_path: file:test_reference_dir/gromacs/ref_mdrun.trr
+  properties:
+    num_threads: 0
+    binary_path: "gmx"
+    container_path: docker
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
+
+mdrun_plumed_singularity:
+  paths:
+    input_tpr_path: file:test_data_dir/gromacs/mdrun.tpr
+    output_trr_path: output_trr_path.trr
+    output_gro_path: output_gro_path.gro
+    output_edr_path: output_edr_path.edr
+    output_log_path: output_log_path.log
+    ref_output_trr_path: file:test_reference_dir/gromacs/ref_mdrun.trr
+  properties:
+    num_threads: 0
+    binary_path: "gmx"
+    container_path: singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 grompp_mdrun:
   paths:
@@ -282,10 +356,9 @@ grompp_mdrun_docker:
     num_threads: 0
     binary_path: "gmx"
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
-    container_volume_path: /inout
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 grompp_mdrun_singularity:
   paths:
@@ -304,8 +377,9 @@ grompp_mdrun_singularity:
     num_threads: 0
     binary_path: "gmx"
     container_path: singularity
-    container_image: gromacs.simg
-    container_volume_path: /inout
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 make_ndx:
   paths:
@@ -324,10 +398,11 @@ make_ndx_docker:
     output_ndx_path: output_ndx.ndx
     ref_output_ndx_path: file:test_reference_dir/gromacs/ref_make_ndx.ndx
   properties:
+    selection: "a C*\n0 & ! 13\nname 14 FREEZE"
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp21.4
     container_volume_path: /tmp
 
 make_ndx_singularity:
@@ -336,9 +411,11 @@ make_ndx_singularity:
     output_ndx_path: output_ndx.ndx
     ref_output_ndx_path: file:test_reference_dir/gromacs/ref_make_ndx.ndx
   properties:
+    selection: "a C*\n0 & ! 13\nname 14 FREEZE"
     container_path: singularity
-    container_image: gromacs.simg
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
+    container_working_dir: /tmp
 
 gmxselect:
   paths:
@@ -357,10 +434,9 @@ gmxselect_docker:
   properties:
     selection: '\"Mynewgroup\" group \"Protein-H\" and not same residue as within 0.4 of resname ARG'
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
-    container_volume_path: /inout
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 gmxselect_singularity:
   paths:
@@ -370,8 +446,9 @@ gmxselect_singularity:
   properties:
     selection: '"Mynewgroup" group "Protein-H" and not same residue as within 0.4 of resname ARG'
     container_path: singularity
-    container_image: gromacs.simg
-    container_volume_path: /inout
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 solvate:
   paths:
@@ -394,11 +471,12 @@ solvate_docker:
     ref_output_gro_path: file:test_reference_dir/gromacs/ref_solvate_docker.gro
     ref_output_top_zip_path: file:test_reference_dir/gromacs/ref_solvate_docker.zip
   properties:
+    binary_path: "gmx"
+    restart: "False"
     container_path: docker
-    #container_image: longr/gromacs-docker:latest
-    container_image: gromacs/gromacs:2025.2
-    #container_image: gromacs/gromacs:2021.4
-    container_volume_path: /inout
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 solvate_singularity:
   paths:
@@ -409,9 +487,12 @@ solvate_singularity:
     ref_output_gro_path: file:test_reference_dir/gromacs/ref_solvate_docker.gro
     ref_output_top_zip_path: file:test_reference_dir/gromacs/ref_solvate_docker.zip
   properties:
+    binary_path: "gmx"
+    restart: "False"
     container_path: singularity
-    container_image: gromacs.simg
-    container_volume_path: /inout
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 trjcat:
   paths:
@@ -431,8 +512,9 @@ trjcat_docker:
     binary_path: "gmx"
     restart: "False"
     container_path: docker
-    container_image: gromacs/gromacs:2025.2
-    container_volume_path: /inout
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 trjcat_singularity:
   paths:
@@ -443,9 +525,9 @@ trjcat_singularity:
     binary_path: "gmx"
     restart: "False"
     container_path: singularity
-    container_image: gromacs.simg
-    container_volume_path: /inout
-
+    container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
 
 ndx2resttop:
   paths:

@@ -1,0 +1,40 @@
+# type: ignore
+from biobb_common.tools import test_fixtures as fx
+from biobb_gromacs.gromacs.genion import genion
+import pytest
+import sys
+
+
+class TestGenionDocker:
+    def setup_class(self):
+        fx.test_setup(self, 'genion_docker')
+
+    def teardown_class(self):
+        # pass
+        fx.test_teardown(self)
+
+    def test_genion_docker(self):
+        returncode = genion(properties=self.properties, **self.paths)
+        assert fx.not_empty(self.paths['output_gro_path'])
+        assert fx.equal(self.paths['output_gro_path'], self.paths['ref_output_gro_path'])
+        assert fx.not_empty(self.paths['output_top_zip_path'])
+        assert fx.equal(self.paths['output_top_zip_path'], self.paths['ref_output_top_zip_path'])
+        assert fx.exe_success(returncode)
+
+
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
+class TestGenionSingularity:
+    def setup_class(self):
+        fx.test_setup(self, 'genion_singularity')
+
+    def teardown_class(self):
+        # pass
+        fx.test_teardown(self)
+
+    def test_genion_singularity(self):
+        returncode = genion(properties=self.properties, **self.paths)
+        assert fx.not_empty(self.paths['output_gro_path'])
+        assert fx.equal(self.paths['output_gro_path'], self.paths['ref_output_gro_path'])
+        assert fx.not_empty(self.paths['output_top_zip_path'])
+        assert fx.equal(self.paths['output_top_zip_path'], self.paths['ref_output_top_zip_path'])
+        assert fx.exe_success(returncode)

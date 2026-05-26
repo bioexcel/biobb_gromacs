@@ -3,6 +3,7 @@
 """Module containing the MDrun class and the command line interface."""
 import os
 import shutil
+from pathlib import PurePath
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
@@ -152,34 +153,39 @@ class MdrunPlumed(BiobbObject):
 
         self.stage_files()
 
+        if self.container_path:
+            working_dir = self.container_volume_path if self.container_volume_path else "/data"
+        else:
+            working_dir = self.stage_io_dict.get('unique_dir', '')
+
         self.cmd = [self.binary_path, 'mdrun',
-                    '-o', self.stage_io_dict["out"]["output_trr_path"],
-                    '-s', self.stage_io_dict["in"]["input_tpr_path"],
-                    '-c', self.stage_io_dict["out"]["output_gro_path"],
-                    '-e', self.stage_io_dict["out"]["output_edr_path"],
-                    '-g', self.stage_io_dict["out"]["output_log_path"]]
+                    '-o', PurePath(self.stage_io_dict["out"]["output_trr_path"]).name,
+                    '-s', PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
+                    '-c', PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
+                    '-e', PurePath(self.stage_io_dict["out"]["output_edr_path"]).name,
+                    '-g', PurePath(self.stage_io_dict["out"]["output_log_path"]).name]
 
         if self.stage_io_dict["in"].get("input_plumed_path"):
             self.cmd.append('-plumed')
-            self.cmd.append(self.stage_io_dict["in"]["input_plumed_path"])
+            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_plumed_path"]).name)
 
         if self.stage_io_dict["in"].get("input_cpt_path"):
             self.cmd.append('-cpi')
-            self.cmd.append(self.stage_io_dict["in"]["input_cpt_path"])
+            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_cpt_path"]).name)
         if self.stage_io_dict["out"].get("output_xtc_path"):
             self.cmd.append('-x')
-            self.cmd.append(self.stage_io_dict["out"]["output_xtc_path"])
+            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_xtc_path"]).name)
         else:
             self.tmp_files.append('traj_comp.xtc')
         if self.stage_io_dict["out"].get("output_cpt_path"):
             self.cmd.append('-cpo')
-            self.cmd.append(self.stage_io_dict["out"]["output_cpt_path"])
+            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_cpt_path"]).name)
             if self.checkpoint_time:
                 self.cmd.append('-cpt')
                 self.cmd.append(str(self.checkpoint_time))
         if self.stage_io_dict["out"].get("output_dhdl_path"):
             self.cmd.append('-dhdl')
-            self.cmd.append(self.stage_io_dict["out"]["output_dhdl_path"])
+            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_dhdl_path"]).name)
 
         # general mpi properties
         if self.mpi_bin:
@@ -190,6 +196,8 @@ class MdrunPlumed(BiobbObject):
             if self.mpi_flags:
                 mpi_cmd.extend(self.mpi_flags)
             self.cmd = mpi_cmd + self.cmd
+
+        self.cmd = ["cd", working_dir, ";"] + self.cmd
 
         # gromacs cpu mpi/openmp properties
         if self.num_threads:

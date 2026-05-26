@@ -3,7 +3,7 @@
 """Module containing the Genion class and the command line interface."""
 
 import shutil
-from pathlib import Path
+from pathlib import Path, PurePath
 from typing import Optional, Union
 
 from biobb_common.generic.biobb_object import BiobbObject
@@ -129,6 +129,7 @@ class Genion(BiobbObject):
 
         # Unzip topology to topology_out
         top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log)
+        top_file = str(Path(top_file).resolve())  # Ensure absolute path before cd changes cwd
         top_dir = str(Path(top_file).parent)
 
         if self.container_path:
@@ -138,19 +139,21 @@ class Genion(BiobbObject):
                     Path(top_dir).name
                 ),
             )
-            top_file = str(
-                Path(self.container_volume_path).joinpath(
-                    Path(top_dir).name, Path(top_file).name
-                )
-            )
+            top_file = str(Path(Path(top_dir).name).joinpath(Path(top_file).name))
+
+        if self.container_path:
+            working_dir = self.container_volume_path if self.container_volume_path else "/data"
+        else:
+            working_dir = self.stage_io_dict.get('unique_dir', '')
 
         self.cmd = [
+            "cd", working_dir, ";",
             str(self.binary_path),
             "genion",
             "-s",
-            self.stage_io_dict["in"]["input_tpr_path"],
+            PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
             "-o",
-            self.stage_io_dict["out"]["output_gro_path"],
+            PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
             "-p",
             top_file,
         ]
@@ -159,7 +162,7 @@ class Genion(BiobbObject):
             self.stage_io_dict["in"].get("input_ndx_path") and Path(self.stage_io_dict["in"].get("input_ndx_path")).exists()
         ):
             self.cmd.append("-n")
-            self.cmd.append(self.stage_io_dict["in"].get("input_ndx_path"))
+            self.cmd.append(PurePath(self.stage_io_dict["in"].get("input_ndx_path")).name)
 
         if self.neutral:
             self.cmd.append("-neutral")
@@ -179,7 +182,7 @@ class Genion(BiobbObject):
 
         # Add stdin input file
         self.cmd.append("<")
-        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
+        self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
 
         if self.gmx_lib:
             self.env_vars_dict["GMXLIB"] = self.gmx_lib

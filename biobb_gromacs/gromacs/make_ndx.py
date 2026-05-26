@@ -2,7 +2,7 @@
 
 """Module containing the MakeNdx class and the command line interface."""
 from typing import Optional
-from pathlib import Path
+from pathlib import Path, PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
@@ -98,19 +98,25 @@ class MakeNdx(BiobbObject):
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}\nq\n')
         self.stage_files()
 
+        if self.container_path:
+            working_dir = self.container_volume_path if self.container_volume_path else "/data"
+        else:
+            working_dir = self.stage_io_dict.get('unique_dir', '')
+
         # Create command line
-        self.cmd = [self.binary_path, 'make_ndx',
-                    '-f', self.stage_io_dict["in"]["input_structure_path"],
-                    '-o', self.stage_io_dict["out"]["output_ndx_path"]]
+        self.cmd = ["cd", working_dir, ";",
+                    self.binary_path, 'make_ndx',
+                    '-f', PurePath(self.stage_io_dict["in"]["input_structure_path"]).name,
+                    '-o', PurePath(self.stage_io_dict["out"]["output_ndx_path"]).name]
 
         if self.stage_io_dict["in"].get("input_ndx_path")\
                 and Path(self.stage_io_dict["in"].get("input_ndx_path")).exists():
             self.cmd.append('-n')
-            self.cmd.append(self.stage_io_dict["in"].get("input_ndx_path"))
+            self.cmd.append(PurePath(self.stage_io_dict["in"].get("input_ndx_path")).name)
 
         # Add stdin input file
         self.cmd.append('<')
-        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
+        self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
 
         if self.gmx_lib:
             self.env_vars_dict['GMXLIB'] = self.gmx_lib

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Module containing the Convert_tpr class and the command line interface."""
+from pathlib import PurePath
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools.file_utils import launchlogger
@@ -96,9 +97,14 @@ class ConvertTpr(BiobbObject):
             return 0
         self.stage_files()
 
-        self.cmd = [self.binary_path, 'convert-tpr',
-                    '-s', self.stage_io_dict["in"]["input_tpr_path"],
-                    '-o', self.stage_io_dict["out"]["output_tpr_path"]
+        if self.container_path:
+            working_dir = self.container_volume_path if self.container_volume_path else "/data"
+        else:
+            working_dir = self.stage_io_dict.get('unique_dir', '')
+
+        self.cmd = ["cd", working_dir, ";", self.binary_path, 'convert-tpr',
+                    '-s', PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
+                    '-o', PurePath(self.stage_io_dict["out"]["output_tpr_path"]).name
                     ]
 
         if self.extend:

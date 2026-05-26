@@ -2,7 +2,7 @@
 
 """Module containing the Genrestr class and the command line interface."""
 
-from pathlib import Path
+from pathlib import Path, PurePath
 from typing import Optional, Union
 
 from biobb_common.generic.biobb_object import BiobbObject
@@ -111,13 +111,19 @@ class Genrestr(BiobbObject):
         self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.restrained_group}")
         self.stage_files()
 
+        if self.container_path:
+            working_dir = self.container_volume_path if self.container_volume_path else "/data"
+        else:
+            working_dir = self.stage_io_dict.get('unique_dir', '')
+
         self.cmd = [
+            "cd", working_dir, ";",
             str(self.binary_path),
             "genrestr",
             "-f",
-            self.stage_io_dict["in"]["input_structure_path"],
+            PurePath(self.stage_io_dict["in"]["input_structure_path"]).name,
             "-o",
-            self.stage_io_dict["out"]["output_itp_path"],
+            PurePath(self.stage_io_dict["out"]["output_itp_path"]).name,
         ]
 
         if not isinstance(self.force_constants, str):
@@ -128,11 +134,11 @@ class Genrestr(BiobbObject):
 
         if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append("-n")
-            self.cmd.append(self.stage_io_dict["in"]["input_ndx_path"])
+            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_ndx_path"]).name)
 
         # Add stdin input file
         self.cmd.append("<")
-        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
+        self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
 
         if self.gmx_lib:
             self.env_vars_dict["GMXLIB"] = self.gmx_lib

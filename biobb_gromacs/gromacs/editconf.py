@@ -2,6 +2,7 @@
 
 """Module containing the Editconf class and the command line interface."""
 
+from pathlib import PurePath
 from typing import Optional
 
 from biobb_common.generic.biobb_object import BiobbObject
@@ -107,14 +108,20 @@ class Editconf(BiobbObject):
             return 0
         self.stage_files()
 
+        if self.container_path:
+            working_dir = self.container_volume_path if self.container_volume_path else "/data"
+        else:
+            working_dir = self.stage_io_dict.get('unique_dir', '')
+
         # Create command line
         self.cmd = [
+            "cd", working_dir, ";",
             self.binary_path,
             "editconf",
             "-f",
-            self.stage_io_dict["in"]["input_gro_path"],
+            PurePath(self.stage_io_dict["in"]["input_gro_path"]).name,
             "-o",
-            self.stage_io_dict["out"]["output_gro_path"],
+            PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
             "-bt",
             self.box_type,
         ]

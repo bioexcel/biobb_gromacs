@@ -3,7 +3,7 @@
 """Module containing the Editconf class and the command line interface."""
 import shutil
 from typing import Optional
-from pathlib import Path
+from pathlib import Path, PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
@@ -107,16 +107,23 @@ class Solvate(BiobbObject):
 
         # Unzip topology to topology_out
         top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log)
+        top_file = str(Path(top_file).resolve())  # Ensure absolute path before cd changes cwd
         top_dir = str(Path(top_file).parent)
 
         if self.container_path:
             shutil.copytree(top_dir, str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(Path(top_dir).name)))
-            top_file = str(Path(self.container_volume_path).joinpath(Path(top_dir).name, Path(top_file).name))
+            top_file = str(Path(Path(top_dir).name).joinpath(Path(top_file).name))
 
-        self.cmd = [self.binary_path, 'solvate',
-                    '-cp', self.stage_io_dict["in"]["input_solute_gro_path"],
-                    '-cs', self.stage_io_dict["in"]["input_solvent_gro_path"],
-                    '-o', self.stage_io_dict["out"]["output_gro_path"],
+        if self.container_path:
+            working_dir = self.container_volume_path if self.container_volume_path else "/data"
+        else:
+            working_dir = self.stage_io_dict.get('unique_dir', '')
+
+        self.cmd = ["cd", working_dir, ";",
+                    self.binary_path, 'solvate',
+                    '-cp', PurePath(self.stage_io_dict["in"]["input_solute_gro_path"]).name,
+                    '-cs', PurePath(self.stage_io_dict["in"]["input_solvent_gro_path"]).name,
+                    '-o', PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
                     '-p', top_file]
 
         if self.shell:
@@ -133,7 +140,8 @@ class Solvate(BiobbObject):
         self.copy_to_host()
 
         if self.container_path:
-            top_file = str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(Path(top_dir).name, Path(top_file).name))
+            top_file = str(Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(
+                Path(top_dir).name, Path(top_file).name))
 
         # zip topology
         fu.log('Compressing topology to: %s' % self.stage_io_dict["out"]["output_top_zip_path"], self.out_log,
