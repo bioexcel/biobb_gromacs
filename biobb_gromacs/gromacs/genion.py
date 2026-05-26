@@ -16,7 +16,7 @@ from biobb_gromacs.gromacs.common import get_gromacs_version
 class Genion(BiobbObject):
     """
     | biobb_gromacs Genion
-    | Wrapper class for the `GROMACS genion <http://manual.gromacs.org/current/onlinehelp/gmx-genion.html>`_ module.
+    | Wrapper class for the `GROMACS genion <http://manual.gromacs.org/current/onlinehelp/gmx-genion.html>`_ module
     | The GROMACS genion module randomly replaces solvent molecules with monoatomic ions. The group of solvent molecules should be continuous and all molecules should have the same number of atoms.
 
     Args:

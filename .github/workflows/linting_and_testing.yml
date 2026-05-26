@@ -19,7 +19,6 @@ on:
       - '**/test/references/**'
       - '.github/workflows/test_containers.yml'
 
-
 jobs:
   # Name of the Job
   lint_and_test:
