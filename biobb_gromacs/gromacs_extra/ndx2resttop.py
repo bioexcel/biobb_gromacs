@@ -124,7 +124,7 @@ class Ndx2resttop(BiobbObject):
         """
         key = f'[ {group_name} ]'
         start = groups_dic[key][0] + 1
-        stop  = groups_dic[key][1]
+        stop = groups_dic[key][1]
         fu.log(f'{group_name}: start_closed={start} stop_open={stop}', self.out_log, self.global_log)
         atoms = [int(atom) for line in ndx_lines[start:stop] for atom in line.split()]
         return atoms
@@ -171,7 +171,7 @@ class Ndx2resttop(BiobbObject):
             lines = f.readlines()
 
         in_moleculetype = False
-        found_molecule  = False
+        found_molecule = False
         index = None
 
         for i, line in enumerate(lines):
@@ -203,7 +203,7 @@ class Ndx2resttop(BiobbObject):
         if index is None:
             index = len(lines)
 
-        lines.insert(index,     '\n')
+        lines.insert(index, '\n')
         lines.insert(index + 1, '; Include Position restraint file\n')
         lines.insert(index + 2, f'#ifdef {posre_name}\n')
         lines.insert(index + 3, f'#include "{itp_name}"\n')
@@ -267,8 +267,8 @@ class Ndx2resttop(BiobbObject):
             # GROMACS 1-based local numbering, which matches the atom order in the
             # [ atoms ] section of each moleculetype block.
             reference_atoms = self._read_ndx_atoms(ndx_lines, groups_dic, reference_group)
-            restrain_atoms  = self._read_ndx_atoms(ndx_lines, groups_dic, restrain_group)
-            selected_atoms  = [reference_atoms.index(atom) + 1 for atom in restrain_atoms]
+            restrain_atoms = self._read_ndx_atoms(ndx_lines, groups_dic, restrain_group)
+            selected_atoms = [reference_atoms.index(atom) + 1 for atom in restrain_atoms]
 
             self._write_posre_itp(itp_path, selected_atoms)
             itp_name = Path(itp_path).name
