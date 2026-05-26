@@ -444,7 +444,7 @@ gmxselect_singularity:
     output_ndx_path: output_ndx.ndx
     ref_output_ndx_path: file:test_reference_dir/gromacs/ref_select.ndx
   properties:
-    selection: '\"Mynewgroup\" group \"Protein-H\" and not same residue as within 0.4 of resname ARG'
+    selection: '\\"Mynewgroup\\" group \\"Protein-H\\" and not same residue as within 0.4 of resname ARG'
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
