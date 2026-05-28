@@ -34,4 +34,3 @@ class TestGmxselectSingularity:
         assert fx.not_empty(self.paths['output_ndx_path'])
         assert fx.equal(self.paths['output_ndx_path'], self.paths['ref_output_ndx_path'])
         assert fx.exe_success(returncode)
-
