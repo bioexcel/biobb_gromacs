@@ -145,12 +145,6 @@ class MdrunPlumed(BiobbObject):
         if self.check_restart():
             return 0
 
-        # Optional output files (if not added mrun will create them using a generic name)
-        if not self.stage_io_dict["out"].get("output_trr_path"):
-            self.stage_io_dict["out"]["output_trr_path"] = fu.create_name(
-                prefix=self.prefix, step=self.step, name='trajectory.trr')
-            self.tmp_files.append(self.stage_io_dict["out"]["output_trr_path"])
-
         self.stage_files()
 
         if self.container_path:
@@ -159,11 +153,14 @@ class MdrunPlumed(BiobbObject):
             working_dir = self.stage_io_dict.get('unique_dir', '')
 
         self.cmd = [self.binary_path, 'mdrun',
-                    '-o', PurePath(self.stage_io_dict["out"]["output_trr_path"]).name,
                     '-s', PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
                     '-c', PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
                     '-e', PurePath(self.stage_io_dict["out"]["output_edr_path"]).name,
                     '-g', PurePath(self.stage_io_dict["out"]["output_log_path"]).name]
+
+        if self.stage_io_dict["out"].get("output_trr_path"):
+            self.cmd.append('-o')
+            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_trr_path"]).name)
 
         if self.stage_io_dict["in"].get("input_plumed_path"):
             self.cmd.append('-plumed')
