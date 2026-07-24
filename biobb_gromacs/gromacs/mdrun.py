@@ -3,13 +3,11 @@
 """Module containing the MDrun class and the command line interface."""
 from typing import Optional
 from pathlib import PurePath
-from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.mdrun_base import MdrunBase
 
 
-class Mdrun(BiobbObject):
+class Mdrun(MdrunBase):
     """
     | biobb_gromacs Mdrun
     | Wrapper of the `GROMACS mdrun <http://manual.gromacs.org/current/onlinehelp/gmx-mdrun.html>`_ module.
@@ -94,36 +92,7 @@ class Mdrun(BiobbObject):
         }
 
         # Properties specific for BB
-        # general mpi properties
-        self.mpi_bin = properties.get('mpi_bin')
-        self.mpi_np = properties.get('mpi_np')
-        self.mpi_flags = properties.get('mpi_flags')
-        # gromacs cpu mpi/openmp properties
-        self.num_threads = str(properties.get('num_threads', ''))
-        self.num_threads_mpi = str(properties.get('num_threads_mpi', ''))
-        self.num_threads_omp = str(properties.get('num_threads_omp', ''))
-        self.num_threads_omp_pme = str(
-            properties.get('num_threads_omp_pme', ''))
-        # gromacs gpus
-        self.use_gpu = properties.get(
-            'use_gpu', False)  # Adds: -nb gpu -pme gpu
-        self.gpu_id = str(properties.get('gpu_id', ''))
-        self.gpu_tasks = str(properties.get('gpu_tasks', ''))
-        # gromacs
-        self.checkpoint_time = properties.get('checkpoint_time')
-        self.noappend = properties.get('noappend', False)
-
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path: str = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if (not self.mpi_bin) and (not self.container_path):
-            self.gmx_version = get_gromacs_version(self.binary_path)
+        self._init_common_properties(properties)
 
         # Check the properties
         self.check_properties(properties)
@@ -139,10 +108,7 @@ class Mdrun(BiobbObject):
 
         self.stage_files()
 
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
+        working_dir = self._get_working_dir()
 
         self.cmd = [self.binary_path, 'mdrun',
                     '-s', PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
@@ -172,59 +138,10 @@ class Mdrun(BiobbObject):
             self.cmd.append('-dhdl')
             self.cmd.append(PurePath(self.stage_io_dict["out"]["output_dhdl_path"]).name)
 
-        # general mpi properties
-        if self.mpi_bin:
-            mpi_cmd = [self.mpi_bin]
-            if self.mpi_np:
-                mpi_cmd.append('-n')
-                mpi_cmd.append(str(self.mpi_np))
-            if self.mpi_flags:
-                mpi_cmd.extend(self.mpi_flags)
-            self.cmd = mpi_cmd + self.cmd
-
+        # Shared mpi / working-directory / runtime flags
+        self._prepend_mpi_runner()
         self.cmd = ["cd", working_dir, ";"] + self.cmd
-
-        # gromacs cpu mpi/openmp properties
-        if self.num_threads:
-            fu.log(
-                f'User added number of gmx threads: {self.num_threads}', self.out_log)
-            self.cmd.append('-nt')
-            self.cmd.append(self.num_threads)
-        if self.num_threads_mpi:
-            fu.log(
-                f'User added number of gmx mpi threads: {self.num_threads_mpi}', self.out_log)
-            self.cmd.append('-ntmpi')
-            self.cmd.append(self.num_threads_mpi)
-        if self.num_threads_omp:
-            fu.log(
-                f'User added number of gmx omp threads: {self.num_threads_omp}', self.out_log)
-            self.cmd.append('-ntomp')
-            self.cmd.append(self.num_threads_omp)
-        if self.num_threads_omp_pme:
-            fu.log(
-                f'User added number of gmx omp_pme threads: {self.num_threads_omp_pme}', self.out_log)
-            self.cmd.append('-ntomp_pme')
-            self.cmd.append(self.num_threads_omp_pme)
-        # GMX gpu properties
-        if self.use_gpu:
-            fu.log('Adding GPU specific settings adds: -nb gpu -pme gpu', self.out_log)
-            self.cmd += ["-nb", "gpu", "-pme", "gpu"]
-        if self.gpu_id:
-            fu.log(
-                f'list of unique GPU device IDs available to use: {self.gpu_id}', self.out_log)
-            self.cmd.append('-gpu_id')
-            self.cmd.append(self.gpu_id)
-        if self.gpu_tasks:
-            fu.log(
-                f'list of GPU device IDs, mapping each PP task on each node to a device: {self.gpu_tasks}', self.out_log)
-            self.cmd.append('-gputasks')
-            self.cmd.append(self.gpu_tasks)
-
-        if self.noappend:
-            self.cmd.append('-noappend')
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
+        self._append_gmx_runtime_flags()
 
         # Run Biobb block
         self.run_biobb()
@@ -237,59 +154,6 @@ class Mdrun(BiobbObject):
 
         self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
-
-    def copy_to_host(self):
-        """
-        Updates the path to the original output files in the sandbox,
-        to catch changes due to noappend restart.
-
-        GROMACS mdrun will change the output file names from md.gro to md.part0001.gro
-        if the noappend flag is used.
-        """
-        import pathlib
-
-        def capture_part_pattern(filename):
-            """
-            Captures the 'part' pattern followed by digits from a string.
-            """
-            import re
-            pattern = r'part\d+'
-
-            match = re.search(pattern, filename)
-            if match:
-                return match.group(0)
-            else:
-                return None
-
-        if self.noappend:
-            # List files in the staging directory
-            staging_path = self.stage_io_dict["unique_dir"]
-            files_in_staging = list(pathlib.Path(staging_path).glob('*'))
-
-            # Find the part000x pattern in the output files
-            for file in files_in_staging:
-                part_pattern = capture_part_pattern(file.name)
-                if part_pattern:
-                    break
-
-            # Update expected output files
-            for file_ref, stage_file_path in self.stage_io_dict["out"].items():
-                if stage_file_path:
-                    # Find the parent and the file name in the sandbox
-                    parent_path = pathlib.Path(stage_file_path).parent
-                    file_stem = pathlib.Path(stage_file_path).stem
-                    file_suffix = pathlib.Path(stage_file_path).suffix
-
-                    # Rename all output files except checkpoint files
-                    if file_suffix != '.cpt':
-                        # Create the new file name with the part pattern
-                        if part_pattern:
-                            new_file_name = f"{file_stem}.{part_pattern}{file_suffix}"
-                            new_file_path = parent_path / new_file_name
-                            # Update the stage_io_dict with the new file path
-                            self.stage_io_dict["out"][file_ref] = str(
-                                new_file_path)
-        return super().copy_to_host()
 
 
 def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
