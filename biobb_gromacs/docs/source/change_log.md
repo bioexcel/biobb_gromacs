@@ -1,19 +1,35 @@
 # Biobb GROMACS changelog
 
-## What's new in version [5.3.0](https://github.com/bioexcel/biobb_amber/releases/tag/v5.3.0)?
+## What's new in version [5.3.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.3.1)?
 
 ### Changes
 
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/ff1fd32) New convert_tpr block: modify or trim an existing .tpr file
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/d2109bd) convert_tpr: added input_ndx_path and output group to trim .tpr files
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/f506e67) New mdrun_multidir block to run multi-directory (multi-replica) simulations
+* [REFACTOR](https://github.com/bioexcel/biobb_gromacs/commit/f506e67) Consolidate the common mdrun properties into a shared MdrunBase class used by mdrun, mdrun_plumed and mdrun_multidir
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/e8ca4f2) mdrun_plumed: output_trr_path is now optional
+
+## What's new in version [5.3.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.3.0)?
+
+### Changes
+
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/023fbba) New unified containers logic: single container_image / container_path configuration replacing the separate docker and singularity paths, with the unit tests updated accordingly
+* [REFACTOR](https://github.com/bioexcel/biobb_gromacs/commit/d446799) ndx2resttop: split the logic into helper methods, use the shared command line helper and update the docs and comments
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/859e5be) ndx2resttop: work with any molecule, not only protein chains (property renamed accordingly)
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/60f8d26) ndx2resttop: keep the last line of the last NDX group
+* [FEATURE](https://github.com/bioexcel/biobb_gromacs/commit/5296b1a) mdrun: output_trr_path is now optional
+* [FIX](https://github.com/bioexcel/biobb_gromacs/commit/43d0ae2) mdrun: fixed bug when no simulation_type is passed
 * [UPDATE] Update to biobb_common 5.3.1
 
-## What's new in version [5.2.1](https://github.com/bioexcel/biobb_amber/releases/tag/v5.2.1)?
+## What's new in version [5.2.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.2.1)?
 
 ### Changes
 
 * [UPDATE] Update to biobb_common 5.2.2
 
 
-## What's new in version [5.2.0](https://github.com/bioexcel/biobb_amber/releases/tag/v5.2.0)?
+## What's new in version [5.2.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.2.0)?
 
 ### Changes
 
