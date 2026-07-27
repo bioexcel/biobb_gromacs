@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 """Module containing the Convert_tpr class and the command line interface."""
-from pathlib import PurePath
+from pathlib import Path, PurePath
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
@@ -12,15 +13,17 @@ class ConvertTpr(BiobbObject):
     """
     | biobb_gromacs ConvertTpr
     | Wrapper of the `GROMACS convert-tpr <https://manual.gromacs.org/current/onlinehelp/gmx-convert-tpr.html>`_ module.
-    | The GROMACS convert-tpr module can edit run input files (.tpr)
+    | The GROMACS convert-tpr module can edit run input files (.tpr): modify the run length (extend/until/nsteps) or trim the tpr file to a subset of atoms defined in an index file (input_ndx_path). Note that GROMACS does not allow both operations in a single call, so when an index file is provided the extend/until/nsteps properties are ignored.
 
     Args:
         input_tpr_path (str): Path to the input portable binary run file TPR. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr>`_. Accepted formats: tpr (edam:format_2333).
         output_tpr_path (str): Path to the output portable binary run file TPR. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr>`_. Accepted formats: tpr (edam:format_2333).
+        input_ndx_path (str) (Optional): Path to the input index NDX file, used to trim the tpr file to a subset of atoms. File type: input. Accepted formats: ndx (edam:format_2033).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **extend** (*int*) - (0) Extend the runtime by this amount (ps).
             * **until** (*int*) - (0) Extend the runtime until this ending time (ps).
             * **nsteps** (*int*) - (0) Change the number of steps remaining to be made.
+            * **output_group** (*str*) - ("System") Index group to write to the output tpr file when trimming to a subset of atoms. Only used when input_ndx_path is provided.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
@@ -43,6 +46,13 @@ class ConvertTpr(BiobbObject):
                    output_tpr_path='/path/to/newCompiledBin.tpr',
                    properties=prop)
 
+            # Trim the tpr file to a subset of atoms defined in an index file
+            prop = { 'output_group': 'Protein'}
+            convert_tpr(input_tpr_path='/path/to/myStructure.tpr',
+                   output_tpr_path='/path/to/trimmedBin.tpr',
+                   input_ndx_path='/path/to/myIndex.ndx',
+                   properties=prop)
+
     Info:
         * wrapped_software:
             * name: GROMACS Convert-tpr
@@ -54,6 +64,7 @@ class ConvertTpr(BiobbObject):
     """
 
     def __init__(self, input_tpr_path: str, output_tpr_path: str,
+                 input_ndx_path: Optional[str] = None,
                  properties: Optional[dict] = None, **kwargs) -> None:
         properties = properties or {}
 
@@ -63,7 +74,7 @@ class ConvertTpr(BiobbObject):
 
         # Input/Output files
         self.io_dict = {
-            "in": {"input_tpr_path": input_tpr_path},
+            "in": {"input_tpr_path": input_tpr_path, "input_ndx_path": input_ndx_path},
             "out": {"output_tpr_path": output_tpr_path}
         }
 
@@ -71,6 +82,7 @@ class ConvertTpr(BiobbObject):
         self.extend = properties.get('extend')
         self.until = properties.get('until')
         self.nsteps = properties.get('nsteps')
+        self.output_group = properties.get('output_group', 'System')
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
@@ -95,6 +107,12 @@ class ConvertTpr(BiobbObject):
         # Setup Biobb
         if self.check_restart():
             return 0
+
+        # When trimming to a subset (an index file is provided), GROMACS
+        # convert-tpr prompts for the output group; answer it via stdin.
+        if self.io_dict["in"].get("input_ndx_path"):
+            self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.output_group}")
+
         self.stage_files()
 
         if self.container_path:
@@ -107,12 +125,31 @@ class ConvertTpr(BiobbObject):
                     '-o', PurePath(self.stage_io_dict["out"]["output_tpr_path"]).name
                     ]
 
-        if self.extend:
-            self.cmd.extend(['-extend', str(self.extend)])
-        if self.until:
-            self.cmd.extend(['-until', str(self.until)])
-        if self.nsteps:
-            self.cmd.extend(['-nsteps', str(self.nsteps)])
+        trimming = bool(self.stage_io_dict["in"].get("input_ndx_path")) and \
+            Path(self.stage_io_dict["in"].get("input_ndx_path")).exists()
+
+        if trimming:
+            # Trim the tpr to the selected index group. GROMACS does not allow
+            # combining index-group extraction with runtime modification
+            # (-extend/-until/-nsteps) in a single convert-tpr call.
+            self.cmd.append('-n')
+            self.cmd.append(PurePath(self.stage_io_dict["in"].get("input_ndx_path")).name)
+            if self.extend or self.until or self.nsteps:
+                fu.log("Warning: extend, until and nsteps are ignored when trimming the tpr "
+                       "file to an index group; GROMACS convert-tpr cannot do both in a single call.",
+                       self.out_log, self.global_log)
+        else:
+            if self.extend:
+                self.cmd.extend(['-extend', str(self.extend)])
+            if self.until:
+                self.cmd.extend(['-until', str(self.until)])
+            if self.nsteps:
+                self.cmd.extend(['-nsteps', str(self.nsteps)])
+
+        # Add stdin input file to answer the output group prompt when trimming
+        if self.io_dict["in"].get("stdin_file_path"):
+            self.cmd.append('<')
+            self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
 
         if self.gmx_lib:
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
@@ -123,13 +160,16 @@ class ConvertTpr(BiobbObject):
         # Copy files to host
         self.copy_to_host()
 
+        if self.io_dict["in"].get("stdin_file_path"):
+            self.tmp_files.append(str(self.io_dict["in"].get("stdin_file_path")))
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
 
 
-def convert_tpr(input_tpr_path: str, output_tpr_path: str, properties: Optional[dict] = None, **kwargs) -> int:
+def convert_tpr(input_tpr_path: str, output_tpr_path: str, input_ndx_path: Optional[str] = None,
+                properties: Optional[dict] = None, **kwargs) -> int:
     """Create :class:`ConvertTpr <gromacs.convert_tpr.ConvertTpr>` class and
     execute the :meth:`launch() <gromacs.convert_tpr.ConvertTpr.launch>` method."""
     return ConvertTpr(**dict(locals())).launch()

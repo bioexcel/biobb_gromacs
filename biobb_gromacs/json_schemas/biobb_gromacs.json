@@ -50,6 +50,14 @@
             "rest": true
         },
         {
+            "block": "ConvertTpr",
+            "tool": "gmx convert-tpr",
+            "desc": "Modifies the run length of a GROMACS portable binary run input file (TPR) or trims it to a subset of atoms defined in an index file.",
+            "exec": "convert_tpr",
+            "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.convert_tpr",
+            "rest": true
+        },
+        {
             "block": "Mdrun",
             "tool": "gmx mdrun",
             "desc": "Performs molecular dynamics simulations from an input GROMACS TPR file.",

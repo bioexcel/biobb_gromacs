@@ -5,6 +5,14 @@ Submodules
 ------------
 
 
+gromacs.convert_tpr module
+---------------------------
+
+.. automodule:: gromacs.convert_tpr
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 gromacs.editconf module
 ---------------------------
 

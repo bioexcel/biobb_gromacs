@@ -1,0 +1,169 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_gromacs/json_schemas/1.0/convert_tpr",
+    "name": "biobb_gromacs ConvertTpr",
+    "title": "Wrapper of the GROMACS convert-tpr module.",
+    "description": "The GROMACS convert-tpr module can edit run input files (.tpr): modify the run length (extend/until/nsteps) or trim the tpr file to a subset of atoms defined in an index file (input_ndx_path). Note that GROMACS does not allow both operations in a single call, so when an index file is provided the extend/until/nsteps properties are ignored.",
+    "type": "object",
+    "info": {
+        "wrapped_software": {
+            "name": "GROMACS Convert-tpr",
+            "version": "2025.2",
+            "license": "LGPL 2.1"
+        },
+        "ontology": {
+            "name": "EDAM",
+            "schema": "http://edamontology.org/EDAM.owl"
+        }
+    },
+    "required": [
+        "input_tpr_path",
+        "output_tpr_path"
+    ],
+    "properties": {
+        "input_tpr_path": {
+            "type": "string",
+            "description": "Path to the input portable binary run file TPR",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr",
+            "enum": [
+                ".*\\.tpr$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.tpr$",
+                    "description": "Path to the input portable binary run file TPR",
+                    "edam": "format_2333"
+                }
+            ]
+        },
+        "output_tpr_path": {
+            "type": "string",
+            "description": "Path to the output portable binary run file TPR",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr",
+            "enum": [
+                ".*\\.tpr$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.tpr$",
+                    "description": "Path to the output portable binary run file TPR",
+                    "edam": "format_2333"
+                }
+            ]
+        },
+        "input_ndx_path": {
+            "type": "string",
+            "description": "Path to the input index NDX file, used to trim the tpr file to a subset of atoms",
+            "filetype": "input",
+            "sample": null,
+            "enum": [
+                ".*\\.ndx$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.ndx$",
+                    "description": "Path to the input index NDX file, used to trim the tpr file to a subset of atoms",
+                    "edam": "format_2033"
+                }
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "extend": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Extend the runtime by this amount (ps)."
+                },
+                "until": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Extend the runtime until this ending time (ps)."
+                },
+                "nsteps": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Change the number of steps remaining to be made."
+                },
+                "output_group": {
+                    "type": "string",
+                    "default": "System",
+                    "wf_prop": false,
+                    "description": "Index group to write to the output tpr file when trimming to a subset of atoms. Only used when input_ndx_path is provided."
+                },
+                "gmx_lib": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path set GROMACS GMXLIB environment variable."
+                },
+                "binary_path": {
+                    "type": "string",
+                    "default": "gmx",
+                    "wf_prop": false,
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": true,
+                    "description": "Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": true,
+                    "description": "Do not execute if output files exist."
+                },
+                "sandbox_path": {
+                    "type": "string",
+                    "default": "./",
+                    "wf_prop": true,
+                    "description": "Parent path to the sandbox directory."
+                },
+                "container_path": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path to the binary executable of your container."
+                },
+                "container_image": {
+                    "type": "string",
+                    "default": "gromacs/gromacs:latest",
+                    "wf_prop": false,
+                    "description": "Container Image identifier."
+                },
+                "container_volume_path": {
+                    "type": "string",
+                    "default": "/data",
+                    "wf_prop": false,
+                    "description": "Path to an internal directory in the container."
+                },
+                "container_working_dir": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path to the internal CWD in the container."
+                },
+                "container_user_id": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "User number id to be mapped inside the container."
+                },
+                "container_shell_path": {
+                    "type": "string",
+                    "default": "/bin/bash",
+                    "wf_prop": false,
+                    "description": "Path to the binary executable of the container shell."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

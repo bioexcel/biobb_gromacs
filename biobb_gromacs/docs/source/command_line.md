@@ -74,6 +74,126 @@ append_ligand --config config_append_ligand.yml --input_top_zip_path ndx2resttop
 append_ligand --config config_append_ligand.json --input_top_zip_path ndx2resttop.zip --input_itp_path pep_ligand.itp --output_top_zip_path ref_appendligand.zip --input_posres_itp_path input.itp
 ```
 
+## Convert_tpr
+Wrapper of the GROMACS convert-tpr module.
+### Get help
+Command:
+```python
+convert_tpr -h
+```
+    usage: convert_tpr [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH -o OUTPUT_TPR_PATH [--input_ndx_path INPUT_NDX_PATH]
+    
+    Wrapper of the GROMACS convert-tpr module.
+    
+    options:
+      -h, --help            show this help message and exit
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
+    
+    required arguments:
+      --input_tpr_path INPUT_TPR_PATH
+                            Path to the input portable binary run file TPR. Accepted formats: tpr.
+      -o OUTPUT_TPR_PATH, --output_tpr_path OUTPUT_TPR_PATH
+                            Path to the output portable binary run file TPR. Accepted formats: tpr.
+    
+    optional arguments:
+      --input_ndx_path INPUT_NDX_PATH
+                            Path to the input index NDX file, used to trim the tpr file to a subset of atoms. Accepted formats: ndx.
+### I / O Arguments
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+* **input_tpr_path** (*string*): Path to the input portable binary run file TPR. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr). Accepted formats: TPR
+* **output_tpr_path** (*string*): Path to the output portable binary run file TPR. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr). Accepted formats: TPR
+* **input_ndx_path** (*string*): Path to the input index NDX file, used to trim the tpr file to a subset of atoms. File type: input. Accepted formats: NDX
+### Config
+Syntax: input_parameter (datatype) - (default_value) Definition
+
+Config parameters for this building block:
+* **extend** (*integer*): (0) Extend the runtime by this amount (ps).
+* **until** (*integer*): (0) Extend the runtime until this ending time (ps).
+* **nsteps** (*integer*): (0) Change the number of steps remaining to be made.
+* **output_group** (*string*): (System) Index group to write to the output tpr file when trimming to a subset of atoms. Only used when input_ndx_path is provided.
+* **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **remove_tmp** (*boolean*): (True) Remove temporal files.
+* **restart** (*boolean*): (False) Do not execute if output files exist.
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
+* **container_path** (*string*): (None) Path to the binary executable of your container.
+* **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
+* **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
+* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
+* **container_user_id** (*string*): (None) User number id to be mapped inside the container.
+* **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
+### YAML
+#### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_convert_tpr.yml)
+```python
+properties:
+  nsteps: 100
+
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_convert_tpr_docker.yml)
+```python
+properties:
+  container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+  container_path: docker
+  container_volume_path: /tmp
+  container_working_dir: /tmp
+  nsteps: 100
+
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_convert_tpr_singularity.yml)
+```python
+properties:
+  container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
+  container_path: singularity
+  container_volume_path: /tmp
+  container_working_dir: /tmp
+  nsteps: 100
+
+```
+#### Command line
+```python
+convert_tpr --config config_convert_tpr.yml --input_tpr_path genion.tpr --output_tpr_path output.tpr
+```
+### JSON
+#### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_convert_tpr.json)
+```python
+{
+  "properties": {
+    "nsteps": 100
+  }
+}
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_convert_tpr_docker.json)
+```python
+{
+  "properties": {
+    "nsteps": 100,
+    "container_path": "docker",
+    "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
+    "container_volume_path": "/tmp",
+    "container_working_dir": "/tmp"
+  }
+}
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_convert_tpr_singularity.json)
+```python
+{
+  "properties": {
+    "nsteps": 100,
+    "container_path": "singularity",
+    "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
+    "container_volume_path": "/tmp",
+    "container_working_dir": "/tmp"
+  }
+}
+```
+#### Command line
+```python
+convert_tpr --config config_convert_tpr.json --input_tpr_path genion.tpr --output_tpr_path output.tpr
+```
+
 ## Editconf
 Wrapper class for the GROMACS editconf module.
 ### Get help

@@ -23,6 +23,7 @@ setuptools.setup(
     python_requires=">=3.10",
     entry_points={
         "console_scripts": [
+            "convert_tpr = biobb_gromacs.gromacs.convert_tpr:main",
             "editconf = biobb_gromacs.gromacs.editconf:main",
             "genion = biobb_gromacs.gromacs.genion:main",
             "genrestr = biobb_gromacs.gromacs.genrestr:main",

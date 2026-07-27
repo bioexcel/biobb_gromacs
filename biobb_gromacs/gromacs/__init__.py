@@ -1,3 +1,4 @@
+from . import convert_tpr
 from . import editconf
 from . import genion
 from . import genrestr
@@ -12,4 +13,4 @@ from . import grompp_mdrun
 from . import trjcat
 
 name = "gromacs"
-__all__ = ["editconf", "genion", "genrestr", "grompp", "make_ndx", "mdrun", "mdrun_plumed", "pdb2gmx", "gmxselect", "solvate", "grompp_mdrun", "trjcat"]
+__all__ = ["convert_tpr", "editconf", "genion", "genrestr", "grompp", "make_ndx", "mdrun", "mdrun_plumed", "pdb2gmx", "gmxselect", "solvate", "grompp_mdrun", "trjcat"]
