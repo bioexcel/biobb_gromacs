@@ -220,7 +220,7 @@
                     "type": "integer",
                     "default": 0,
                     "wf_prop": false,
-                    "description": "Let GROMACS guess. The number of GROMACS MPI threads that are going to be used.",
+                    "description": "Let GROMACS guess. The number of GROMACS MPI threads per rank that are going to be used.",
                     "min": 0,
                     "max": 1000,
                     "step": 1
@@ -229,7 +229,7 @@
                     "type": "integer",
                     "default": 0,
                     "wf_prop": false,
-                    "description": "Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used.",
+                    "description": "Let GROMACS guess. The number of GROMACS OPENMP threads per MPI rank that are going to be used.",
                     "min": 0,
                     "max": 1000,
                     "step": 1
@@ -238,7 +238,7 @@
                     "type": "integer",
                     "default": 0,
                     "wf_prop": false,
-                    "description": "Let GROMACS guess. The number of GROMACS OPENMP_PME threads that are going to be used.",
+                    "description": "Let GROMACS guess. The number of GROMACS OPENMP_PME threads per MPI rank that are going to be used.",
                     "min": 0,
                     "max": 1000,
                     "step": 1

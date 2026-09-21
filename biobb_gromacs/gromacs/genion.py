@@ -4,7 +4,6 @@
 
 import shutil
 from pathlib import Path, PurePath
-from typing import Optional, Union
 
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
@@ -73,12 +72,12 @@ class Genion(BiobbObject):
 
     def __init__(
         self,
-        input_tpr_path: Union[str, Path],
-        output_gro_path: Union[str, Path],
-        input_top_zip_path: Union[str, Path],
-        output_top_zip_path: Union[str, Path],
-        input_ndx_path: Optional[Union[str, Path]] = None,
-        properties: Optional[dict] = None,
+        input_tpr_path: str | Path,
+        output_gro_path: str | Path,
+        input_top_zip_path: str | Path,
+        output_top_zip_path: str | Path,
+        input_ndx_path: str | Path | None = None,
+        properties: dict | None = None,
         **kwargs,
     ) -> None:
         properties = properties or {}
@@ -251,12 +250,12 @@ class Genion(BiobbObject):
 
 
 def genion(
-    input_tpr_path: Union[str, Path],
-    output_gro_path: Union[str, Path],
-    input_top_zip_path: Union[str, Path],
-    output_top_zip_path: Union[str, Path],
-    input_ndx_path: Optional[Union[str, Path]] = None,
-    properties: Optional[dict] = None,
+    input_tpr_path: str | Path,
+    output_gro_path: str | Path,
+    input_top_zip_path: str | Path,
+    output_top_zip_path: str | Path,
+    input_ndx_path: str | Path | None = None,
+    properties: dict | None = None,
     **kwargs,
 ) -> int:
     """Create :class:`Genion <gromacs.genion.Genion>` class and

@@ -1,5 +1,17 @@
 # Biobb GROMACS changelog
 
+## [Unreleased]
+
+## What's new in version [5.3.2](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.3.2)?
+
+### Changes
+
+* Add genion properties for ion names (`pname`, `nname`), ion counts (`np`, `nn`), ion charges (`pq`, `nq`), and minimum ion distance (`rmin`).
+* Document how genion concentration and neutralization interact with explicit ion counts.
+* Update mdrun thread property descriptions and regenerate the corresponding schemas.
+* Restore the missing `mdrun_plumed` console entry point and its command-line help.
+* Synchronize ndx2resttop example configurations with the test configuration.
+
 ## What's new in version [5.3.1](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.3.1)?
 
 ### Changes
