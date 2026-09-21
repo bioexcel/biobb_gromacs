@@ -28,7 +28,14 @@ class Genion(BiobbObject):
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **replaced_group** (*str*) - ("SOL") Group of molecules that will be replaced by the solvent.
             * **neutral** (*bool*) - (False) Neutralize the charge of the system.
-            * **concentration** (*float*) - (0.0) [0~10|0.01] Concentration of the ions in (mol/liter).
+            * **pname** (*str*) - ("NA") Name of the positive ion.
+            * **nname** (*str*) - ("CL") Name of the negative ion.
+            * **np** (*int*) - (0) Number of positive ions to add.
+            * **nn** (*int*) - (0) Number of negative ions to add.
+            * **pq** (*int*) - (1) Charge of the positive ion.
+            * **nq** (*int*) - (-1) Charge of the negative ion.
+            * **rmin** (*float*) - (0.6) Minimum distance between ions and non-solvent in nm.
+            * **concentration** (*float*) - (0.0) [0~10|0.01] Concentration of the ions in (mol/liter). When nonzero, overrides np and nn. Neutralization adds ions on top of the specified counts or concentration.
             * **seed** (*int*) - (1993) Seed for random number generator.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
@@ -97,6 +104,13 @@ class Genion(BiobbObject):
         )  # Not in documentation for clarity
         self.replaced_group = properties.get("replaced_group", "SOL")
         self.neutral = properties.get("neutral", False)
+        self.pname = properties.get("pname", "NA")
+        self.nname = properties.get("nname", "CL")
+        self.np = properties.get("np", 0)
+        self.nn = properties.get("nn", 0)
+        self.pq = properties.get("pq", 1)
+        self.nq = properties.get("nq", -1)
+        self.rmin = properties.get("rmin", 0.6)
         self.concentration = properties.get("concentration", 0.0)
         self.seed = properties.get("seed", 1993)
 
@@ -156,6 +170,20 @@ class Genion(BiobbObject):
             PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
             "-p",
             top_file,
+            "-pname",
+            self.pname,
+            "-nname",
+            self.nname,
+            "-np",
+            str(self.np),
+            "-nn",
+            str(self.nn),
+            "-pq",
+            str(self.pq),
+            "-nq",
+            str(self.nq),
+            "-rmin",
+            str(self.rmin),
         ]
 
         if (

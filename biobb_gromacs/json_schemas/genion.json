@@ -118,11 +118,53 @@
                     "wf_prop": false,
                     "description": "Neutralize the charge of the system."
                 },
+                "pname": {
+                    "type": "string",
+                    "default": "NA",
+                    "wf_prop": false,
+                    "description": "Name of the positive ion."
+                },
+                "nname": {
+                    "type": "string",
+                    "default": "CL",
+                    "wf_prop": false,
+                    "description": "Name of the negative ion."
+                },
+                "np": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Number of positive ions to add."
+                },
+                "nn": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Number of negative ions to add."
+                },
+                "pq": {
+                    "type": "integer",
+                    "default": 1,
+                    "wf_prop": false,
+                    "description": "Charge of the positive ion."
+                },
+                "nq": {
+                    "type": "integer",
+                    "default": -1,
+                    "wf_prop": false,
+                    "description": "Charge of the negative ion."
+                },
+                "rmin": {
+                    "type": "number",
+                    "default": 0.6,
+                    "wf_prop": false,
+                    "description": "Minimum distance between ions and non-solvent in nm."
+                },
                 "concentration": {
                     "type": "number",
                     "default": 0.0,
                     "wf_prop": false,
-                    "description": "Concentration of the ions in (mol/liter).",
+                    "description": "Concentration of the ions in (mol/liter). When nonzero, overrides np and nn. Neutralization adds ions on top of the specified counts or concentration.",
                     "min": 0.0,
                     "max": 10.0,
                     "step": 0.01
