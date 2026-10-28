@@ -105,7 +105,7 @@ Syntax: input_argument (datatype) : Definition
 Config input / output arguments for this building block:
 * **input_tpr_path** (*string*): Path to the input portable binary run file TPR. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr). Accepted formats: TPR
 * **output_tpr_path** (*string*): Path to the output portable binary run file TPR. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr). Accepted formats: TPR
-* **input_ndx_path** (*string*): Path to the input index NDX file, used to trim the tpr file to a subset of atoms. File type: input. Accepted formats: NDX
+* **input_ndx_path** (*string*): Path to the input index NDX file, used to trim the tpr file to a subset of atoms. File type: input. [Sample file](None). Accepted formats: NDX
 ### Config
 Syntax: input_parameter (datatype) - (default_value) Definition
 
@@ -154,7 +154,7 @@ properties:
 ```
 #### Command line
 ```python
-convert_tpr --config config_convert_tpr.yml --input_tpr_path genion.tpr --output_tpr_path output.tpr
+convert_tpr --config config_convert_tpr.yml --input_tpr_path ref_grompp.tpr --output_tpr_path ref_grompp.tpr --input_ndx_path input.ndx
 ```
 ### JSON
 #### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_convert_tpr.json)
@@ -191,7 +191,7 @@ convert_tpr --config config_convert_tpr.yml --input_tpr_path genion.tpr --output
 ```
 #### Command line
 ```python
-convert_tpr --config config_convert_tpr.json --input_tpr_path genion.tpr --output_tpr_path output.tpr
+convert_tpr --config config_convert_tpr.json --input_tpr_path ref_grompp.tpr --output_tpr_path ref_grompp.tpr --input_ndx_path input.ndx
 ```
 
 ## Editconf
@@ -323,14 +323,14 @@ Command:
 genion -h
 ```
     usage: genion [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH [--input_ndx_path INPUT_NDX_PATH]
-
+    
     Wrapper for the GROMACS genion module.
-
+    
     options:
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-
+    
     required arguments:
       --input_tpr_path INPUT_TPR_PATH
                             Path to the input portable run input TPR file. Accepted formats: tpr.
@@ -340,7 +340,7 @@ genion -h
                             Path the input TOP topology in zip format. Accepted formats: zip.
       --output_top_zip_path OUTPUT_TOP_ZIP_PATH
                             Path the output topology TOP and ITP files zipball. Accepted formats: zip.
-
+    
     optional arguments:
       --input_ndx_path INPUT_NDX_PATH
                             Path to the input index NDX file. Accepted formats: ndx.
@@ -352,7 +352,7 @@ Config input / output arguments for this building block:
 * **output_gro_path** (*string*): Path to the input structure GRO file. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_genion.gro). Accepted formats: GRO
 * **input_top_zip_path** (*string*): Path the input TOP topology in zip format. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/genion.zip). Accepted formats: ZIP
 * **output_top_zip_path** (*string*): Path the output topology TOP and ITP files zipball. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_genion.zip). Accepted formats: ZIP
-* **input_ndx_path** (*string*): Path to the input index NDX file. File type: input. Accepted formats: NDX
+* **input_ndx_path** (*string*): Path to the input index NDX file. File type: input. [Sample file](None). Accepted formats: NDX
 ### Config
 Syntax: input_parameter (datatype) - (default_value) Definition
 
@@ -1173,14 +1173,14 @@ Command:
 mdrun -h
 ```
     usage: mdrun [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--output_trr_path OUTPUT_TRR_PATH] [--input_cpt_path INPUT_CPT_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH]
-
+    
     Wrapper for the GROMACS mdrun module.
-
+    
     options:
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-
+    
     required arguments:
       --input_tpr_path INPUT_TPR_PATH
                             Path to the portable binary run input file TPR. Accepted formats: tpr.
@@ -1190,7 +1190,7 @@ mdrun -h
                             Path to the output GROMACS portable energy file EDR. Accepted formats: edr.
       --output_log_path OUTPUT_LOG_PATH
                             Path to the output GROMACS trajectory log file LOG. Accepted formats: log.
-
+    
     optional arguments:
       --output_trr_path OUTPUT_TRR_PATH
                             Path to the GROMACS uncompressed raw trajectory file TRR. Accepted formats: trr.
@@ -1211,10 +1211,10 @@ Config input / output arguments for this building block:
 * **output_edr_path** (*string*): Path to the output GROMACS portable energy file EDR. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.edr). Accepted formats: EDR
 * **output_log_path** (*string*): Path to the output GROMACS trajectory log file LOG. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.log). Accepted formats: LOG
 * **output_trr_path** (*string*): Path to the GROMACS uncompressed raw trajectory file TRR. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.trr). Accepted formats: TRR
-* **input_cpt_path** (*string*): Path to the input GROMACS checkpoint file CPT. File type: input. Accepted formats: CPT
-* **output_xtc_path** (*string*): Path to the GROMACS compressed trajectory file XTC. File type: output. Accepted formats: XTC
-* **output_cpt_path** (*string*): Path to the output GROMACS checkpoint file CPT. File type: output. Accepted formats: CPT
-* **output_dhdl_path** (*string*): Path to the output dhdl.xvg file only used when free energy calculation is turned on. File type: output. Accepted formats: XVG
+* **input_cpt_path** (*string*): Path to the input GROMACS checkpoint file CPT. File type: input. [Sample file](None). Accepted formats: CPT
+* **output_xtc_path** (*string*): Path to the GROMACS compressed trajectory file XTC. File type: output. [Sample file](None). Accepted formats: XTC
+* **output_cpt_path** (*string*): Path to the output GROMACS checkpoint file CPT. File type: output. [Sample file](None). Accepted formats: CPT
+* **output_dhdl_path** (*string*): Path to the output dhdl.xvg file only used when free energy calculation is turned on. File type: output. [Sample file](None). Accepted formats: XVG
 ### Config
 Syntax: input_parameter (datatype) - (default_value) Definition
 
@@ -1325,13 +1325,14 @@ Command:
 mdrun_plumed -h
 ```
     usage: mdrun_plumed [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--output_trr_path OUTPUT_TRR_PATH] [--input_cpt_path INPUT_CPT_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH] [--input_plumed_path INPUT_PLUMED_PATH] [--input_plumed_folder INPUT_PLUMED_FOLDER] [--output_plumed_folder OUTPUT_PLUMED_FOLDER]
-
+    
     Wrapper for the GROMACS mdrun with PLUMED module.
-
+    
     options:
       -h, --help            show this help message and exit
-      -c, --config CONFIG   This file can be a YAML file, JSON file or JSON string
-
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
+    
     required arguments:
       --input_tpr_path INPUT_TPR_PATH
                             Path to the portable binary run input file TPR. Accepted formats: tpr.
@@ -1341,7 +1342,7 @@ mdrun_plumed -h
                             Path to the output GROMACS portable energy file EDR. Accepted formats: edr.
       --output_log_path OUTPUT_LOG_PATH
                             Path to the output GROMACS trajectory log file LOG. Accepted formats: log.
-
+    
     optional arguments:
       --output_trr_path OUTPUT_TRR_PATH
                             Path to the GROMACS uncompressed raw trajectory file TRR. Accepted formats: trr.
@@ -1368,13 +1369,13 @@ Config input / output arguments for this building block:
 * **output_edr_path** (*string*): Path to the output GROMACS portable energy file EDR. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.edr). Accepted formats: EDR
 * **output_log_path** (*string*): Path to the output GROMACS trajectory log file LOG. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.log). Accepted formats: LOG
 * **output_trr_path** (*string*): Path to the GROMACS uncompressed raw trajectory file TRR. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_mdrun.trr). Accepted formats: TRR
-* **input_cpt_path** (*string*): Path to the input GROMACS checkpoint file CPT. File type: input. Accepted formats: CPT
-* **output_xtc_path** (*string*): Path to the GROMACS compressed trajectory file XTC. File type: output. Accepted formats: XTC
-* **output_cpt_path** (*string*): Path to the output GROMACS checkpoint file CPT. File type: output. Accepted formats: CPT
-* **output_dhdl_path** (*string*): Path to the output dhdl.xvg file only used when free energy calculation is turned on. File type: output. Accepted formats: XVG
-* **input_plumed_path** (*string*): Path to the main PLUMED input file. If provided, PLUMED will be used during the simulation. All files used by the main PLUMED input file must exist in the input_plumed_folder and be called with just their name. Make sure to provide a GROMACS version with the PLUMED patch. File type: input. Accepted formats: DAT
-* **input_plumed_folder** (*dir*): Path to the folder with all files needed by the main PLUMED input file, see input_plumed_path. File type: input. Accepted formats: DIRECTORY
-* **output_plumed_folder** (*dir*): Folder where PLUMED generated output files will be saved. File type: output. Accepted formats: DIRECTORY
+* **input_cpt_path** (*string*): Path to the input GROMACS checkpoint file CPT. File type: input. [Sample file](None). Accepted formats: CPT
+* **output_xtc_path** (*string*): Path to the GROMACS compressed trajectory file XTC. File type: output. [Sample file](None). Accepted formats: XTC
+* **output_cpt_path** (*string*): Path to the output GROMACS checkpoint file CPT. File type: output. [Sample file](None). Accepted formats: CPT
+* **output_dhdl_path** (*string*): Path to the output dhdl.xvg file only used when free energy calculation is turned on. File type: output. [Sample file](None). Accepted formats: XVG
+* **input_plumed_path** (*string*): Path to the main PLUMED input file. If provided, PLUMED will be used during the simulation. All files used by the main PLUMED input file must exist in the input_plumed_folder and be called with just their name. Make sure to provide a GROMACS version with the PLUMED patch. File type: input. [Sample file](None). Accepted formats: DAT
+* **input_plumed_folder** (*dir*): Path to the folder with all files needed by the main PLUMED input file, see input_plumed_path. File type: input. [Sample file](None). Accepted formats: DIRECTORY
+* **output_plumed_folder** (*dir*): Folder where PLUMED generated output files will be saved. File type: output. [Sample file](None). Accepted formats: DIRECTORY
 ### Config
 Syntax: input_parameter (datatype) - (default_value) Definition
 
