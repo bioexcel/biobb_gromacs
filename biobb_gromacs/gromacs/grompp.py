@@ -120,10 +120,7 @@ class Grompp(BiobbObject):
         top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
 
         # Create MDP file
-        self.output_mdp_path = create_mdp(output_mdp_path=str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(self.output_mdp_path)),
-                                          input_mdp_path=self.io_dict["in"]["input_mdp_path"],
-                                          preset_dict=mdp_preset(self.simulation_type),
-                                          mdp_properties_dict=self.mdp)
+        self.output_mdp_path = self._create_mdp(str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(self.output_mdp_path)))
 
         if self.container_path:
             working_dir = self.container_volume_path if self.container_volume_path else "/data"
@@ -161,6 +158,18 @@ class Grompp(BiobbObject):
 
         self.check_arguments(output_files_created=True, raise_exception=False)
         return self.return_code
+
+    def write_parameter_files(self, directory: str) -> list[str]:
+        """Write the MDP file to **directory** without executing grompp, used by the
+        provenance of the executions skipped by the restart property."""
+        return [self._create_mdp(str(Path(directory).joinpath(PurePath(self.output_mdp_path).name)))]
+
+    def _create_mdp(self, output_mdp_path: str) -> str:
+        """Create the MDP file from the simulation_type preset, the input_mdp_path file and the mdp property."""
+        return create_mdp(output_mdp_path=output_mdp_path,
+                          input_mdp_path=self.io_dict["in"]["input_mdp_path"],
+                          preset_dict=mdp_preset(self.simulation_type),
+                          mdp_properties_dict=self.mdp)
 
 
 def grompp(input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
