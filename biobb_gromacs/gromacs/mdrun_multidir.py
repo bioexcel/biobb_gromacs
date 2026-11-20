@@ -48,7 +48,7 @@ class MdrunMultidir(MdrunBase):
 
             from biobb_gromacs.gromacs.mdrun_multidir import mdrun_multidir
             prop = { 'num_threads': 0,
-                     'binary_path': 'gmx_bin' }
+                     'binary_path': 'gmx_mpi' }
             mdrun_multidir(input_tpr_path='/path/to/myPortableBinaryRunInputFile.tpr',
                   input_multifolder='/path/to/inputMultidirFolder',
                   output_multifolder='/path/to/outputMultidirFolder',
@@ -89,8 +89,7 @@ class MdrunMultidir(MdrunBase):
         }
 
         # Properties specific for BB
-        self._init_common_properties(properties)
-        self.binary_path: str = properties.get('binary_path', 'gmx_bin')
+        self._init_common_properties(properties, default_binary_path='gmx_mpi')
 
         # Check the properties
         self.check_properties(properties)

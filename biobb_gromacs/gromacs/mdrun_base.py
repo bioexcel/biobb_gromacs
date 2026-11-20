@@ -22,11 +22,12 @@ class MdrunBase(BiobbObject):
     renaming logic.
     """
 
-    def _init_common_properties(self, properties: dict) -> None:
+    def _init_common_properties(self, properties: dict, default_binary_path: str = 'gmx') -> None:
         """Parse the GROMACS runtime properties shared by all mdrun wrappers.
 
         Must be called from the subclass ``__init__`` after
         ``super().__init__(properties)`` (it relies on ``self.container_path``).
+        ``default_binary_path`` is used when the ``binary_path`` property is not set.
         """
         # general mpi properties
         self.mpi_bin = properties.get('mpi_bin')
@@ -47,7 +48,7 @@ class MdrunBase(BiobbObject):
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path: str = properties.get('binary_path', 'gmx')
+        self.binary_path: str = properties.get('binary_path', default_binary_path)
         self.gmx_nobackup = properties.get('gmx_nobackup', True)
         self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
