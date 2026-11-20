@@ -1,0 +1,5 @@
+properties:
+  binary_path: gmx
+  nmol: 10
+  restart: 'False'
+  seed: 1993

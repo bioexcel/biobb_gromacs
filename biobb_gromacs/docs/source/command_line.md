@@ -13,6 +13,8 @@ Command:
 ```python
 append_ligand -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: append_ligand [-h] [-c CONFIG] --input_top_zip_path INPUT_TOP_ZIP_PATH --input_itp_path INPUT_ITP_PATH -o OUTPUT_TOP_ZIP_PATH [--input_posres_itp_path INPUT_POSRES_ITP_PATH]
     
     This command takes a ligand ITP file and inserts it in a topology
@@ -81,6 +83,8 @@ Command:
 ```python
 convert_tpr -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: convert_tpr [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH -o OUTPUT_TPR_PATH [--input_ndx_path INPUT_NDX_PATH]
     
     Wrapper of the GROMACS convert-tpr module.
@@ -201,6 +205,8 @@ Command:
 ```python
 editconf -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: editconf [-h] [-c CONFIG] -i INPUT_GRO_PATH -o OUTPUT_GRO_PATH
     
     Wrapper of the GROMACS gmx editconf module.
@@ -322,6 +328,8 @@ Command:
 ```python
 genion -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: genion [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH [--input_ndx_path INPUT_NDX_PATH]
     
     Wrapper for the GROMACS genion module.
@@ -461,6 +469,8 @@ Command:
 ```python
 genrestr -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: genrestr [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH -o OUTPUT_ITP_PATH [--input_ndx_path INPUT_NDX_PATH]
     
     Wrapper for the GROMACS genrestr module.
@@ -585,6 +595,8 @@ Command:
 ```python
 gmxselect -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: gmxselect [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH -o OUTPUT_NDX_PATH [--input_ndx_path INPUT_NDX_PATH]
     
     Wrapper for the GROMACS select module.
@@ -706,6 +718,8 @@ Command:
 ```python
 grompp -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: grompp [-h] [-c CONFIG] --input_gro_path INPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH -o OUTPUT_TPR_PATH [--input_cpt_path INPUT_CPT_PATH] [--input_ndx_path INPUT_NDX_PATH] [--input_mdp_path INPUT_MDP_PATH]
     
     Wrapper for the GROMACS grompp module.
@@ -849,6 +863,8 @@ Command:
 ```python
 grompp_mdrun -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: grompp_mdrun [-h] [-c CONFIG] --input_gro_path INPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_trr_path OUTPUT_TRR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--input_cpt_path INPUT_CPT_PATH] [--input_ndx_path INPUT_NDX_PATH] [--input_mdp_path INPUT_MDP_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH]
     
     Wrapper for the GROMACS grompp_mdrun module.
@@ -1036,6 +1052,76 @@ grompp_mdrun --config config_grompp_mdrun.yml --input_gro_path grompp.gro --inpu
 grompp_mdrun --config config_grompp_mdrun.json --input_gro_path grompp.gro --input_top_zip_path grompp.zip --output_trr_path ref_mdrun.trr --output_gro_path ref_mdrun.gro --output_edr_path ref_mdrun.edr --output_log_path ref_gmx_mdrun.log --input_cpt_path input.cpt --input_ndx_path input.ndx --input_mdp_path input.mdp --output_xtc_path output.xtc --output_cpt_path output.cpt --output_dhdl_path output.xvg
 ```
 
+## Insert_molecules
+Wrapper of the GROMACS insert-molecules module.
+### Get help
+Command:
+```python
+insert_molecules -h
+```
+    /bin/sh: 1: insert_molecules: not found
+### I / O Arguments
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+* **input_insert_gro_path** (*string*): Path to the GRO file of the molecule to insert. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/insert_molecules.gro). Accepted formats: GRO, PDB
+* **output_gro_path** (*string*): Path to the output GRO file. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_insert_molecules.gro). Accepted formats: GRO, PDB
+* **input_gro_path** (*string*): Path to the GRO file of the existing structure to insert into. If not provided, the molecules are inserted into an empty box defined by the box property. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/solvate.gro). Accepted formats: GRO, PDB
+* **input_positions_dat_path** (*string*): Path to the DAT file with the predefined insertion trial positions (three columns x y z in nm, displacements from the position of the molecule to insert). File type: input. [Sample file](None). Accepted formats: DAT, TXT
+### Config
+Syntax: input_parameter (datatype) - (default_value) Definition
+
+Config parameters for this building block:
+* **nmol** (*integer*): (1) Number of extra molecules to insert. Ignored if input_positions_dat_path is provided: one molecule is inserted per position.
+* **box** (*string*): (None) Box size in nm as three floats ie "5.0 5.0 5.0". Mandatory if input_gro_path is not provided; if both are provided, a new box is placed around the input structure before the insertions.
+* **tries** (*integer*): (10) Number of insertion attempts per molecule (nmol * tries attempts are made before giving up).
+* **seed** (*integer*): (1993) Seed for random number generator (0 means generate a random seed).
+* **radius** (*number*): (0.105) Default van der Waals distance in nm, used for atoms not found in the vdwradii.dat database.
+* **scale** (*number*): (0.57) Scale factor to multiply the van der Waals radii from the vdwradii.dat database.
+* **dr** (*string*): (0 0 0) Allowed displacement in nm in x y z from the positions in the input_positions_dat_path file.
+* **rot** (*string*): (xyz) Rotate the inserted molecules randomly. 
+* **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **remove_tmp** (*boolean*): (True) Remove temporal files.
+* **restart** (*boolean*): (False) Do not execute if output files exist.
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
+* **container_path** (*string*): (None) Path to the binary executable of your container.
+* **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
+* **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
+* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
+* **container_user_id** (*string*): (None) User number id to be mapped inside the container.
+* **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
+### YAML
+#### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_insert_molecules.yml)
+```python
+properties:
+  binary_path: gmx
+  nmol: 10
+  restart: 'False'
+  seed: 1993
+
+```
+#### Command line
+```python
+insert_molecules --config config_insert_molecules.yml --input_insert_gro_path insert_molecules.gro --output_gro_path ref_insert_molecules.gro --input_gro_path solvate.gro --input_positions_dat_path input.dat
+```
+### JSON
+#### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_insert_molecules.json)
+```python
+{
+  "properties": {
+    "nmol": 10,
+    "seed": 1993,
+    "binary_path": "gmx",
+    "restart": "False"
+  }
+}
+```
+#### Command line
+```python
+insert_molecules --config config_insert_molecules.json --input_insert_gro_path insert_molecules.gro --output_gro_path ref_insert_molecules.gro --input_gro_path solvate.gro --input_positions_dat_path input.dat
+```
+
 ## Make_ndx
 Wrapper of the GROMACS make_ndx module.
 ### Get help
@@ -1043,6 +1129,8 @@ Command:
 ```python
 make_ndx -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: make_ndx [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH -o OUTPUT_NDX_PATH [--input_ndx_path INPUT_NDX_PATH]
     
     Wrapper for the GROMACS make_ndx module.
@@ -1172,6 +1260,8 @@ Command:
 ```python
 mdrun -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: mdrun [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--output_trr_path OUTPUT_TRR_PATH] [--input_cpt_path INPUT_CPT_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH]
     
     Wrapper for the GROMACS mdrun module.
@@ -1324,6 +1414,8 @@ Command:
 ```python
 mdrun_plumed -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: mdrun_plumed [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --output_gro_path OUTPUT_GRO_PATH --output_edr_path OUTPUT_EDR_PATH --output_log_path OUTPUT_LOG_PATH [--output_trr_path OUTPUT_TRR_PATH] [--input_cpt_path INPUT_CPT_PATH] [--output_xtc_path OUTPUT_XTC_PATH] [--output_cpt_path OUTPUT_CPT_PATH] [--output_dhdl_path OUTPUT_DHDL_PATH] [--input_plumed_path INPUT_PLUMED_PATH] [--input_plumed_folder INPUT_PLUMED_FOLDER] [--output_plumed_folder OUTPUT_PLUMED_FOLDER]
     
     Wrapper for the GROMACS mdrun with PLUMED module.
@@ -1437,6 +1529,8 @@ Command:
 ```python
 ndx2resttop -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: ndx2resttop [-h] [-c CONFIG] --input_ndx_path INPUT_NDX_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH -o OUTPUT_TOP_ZIP_PATH
     
     Generate a restrained topology from an index NDX file.
@@ -1500,6 +1594,8 @@ Command:
 ```python
 pdb2gmx -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: pdb2gmx [-h] [-c CONFIG] -i INPUT_PDB_PATH --output_gro_path OUTPUT_GRO_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH
     
     Wrapper for the GROMACS pdb2gmx module.
@@ -1624,6 +1720,8 @@ Command:
 ```python
 solvate -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: solvate [-h] [-c CONFIG] --input_solute_gro_path INPUT_SOLUTE_GRO_PATH --output_gro_path OUTPUT_GRO_PATH --input_top_zip_path INPUT_TOP_ZIP_PATH --output_top_zip_path OUTPUT_TOP_ZIP_PATH [--input_solvent_gro_path INPUT_SOLVENT_GRO_PATH]
     
     Wrapper for the GROMACS solvate module.
@@ -1645,7 +1743,7 @@ solvate -h
     
     optional arguments:
       --input_solvent_gro_path INPUT_SOLVENT_GRO_PATH
-                            (spc216.gro) Path to the GRO file containing the structure of the solvent. Accepted formats: gro.
+                            (spc216.gro) Path to the GRO file containing the structure of the solvent. If not provided, the GROMACS solvent box selected with the solvent property is used. Accepted formats: gro.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1654,11 +1752,12 @@ Config input / output arguments for this building block:
 * **output_gro_path** (*string*): Path to the output GRO file. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_solvate.gro). Accepted formats: GRO, PDB
 * **input_top_zip_path** (*string*): Path the input TOP topology in zip format. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/solvate.zip). Accepted formats: ZIP
 * **output_top_zip_path** (*string*): Path the output topology in zip format. File type: output. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_solvate.zip). Accepted formats: ZIP
-* **input_solvent_gro_path** (*string*): (spc216.gro) Path to the GRO file containing the structure of the solvent. File type: input. [Sample file](None). Accepted formats: GRO
+* **input_solvent_gro_path** (*string*): (spc216.gro) Path to the GRO file containing the structure of the solvent. If not provided, the GROMACS solvent box selected with the solvent property is used. File type: input. [Sample file](None). Accepted formats: GRO
 ### Config
 Syntax: input_parameter (datatype) - (default_value) Definition
 
 Config parameters for this building block:
+* **solvent** (*string*): (spc216) GROMACS default solvent box used when input_solvent_gro_path is not provided. 
 * **shell** (*number*): (0.0) Thickness in nanometers of optional water layer around solute.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
@@ -1753,6 +1852,8 @@ Command:
 ```python
 trjcat -h
 ```
+    /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages/Bio/__init__.py:138: BiopythonWarning: You may be importing Biopython from inside the source tree. This is bad practice and might lead to downstream issues. In particular, you might encounter ImportErrors due to missing compiled C extensions. We recommend that you try running your code from outside the source tree. If you are outside the source tree then you have a pyproject.toml file in an unexpected directory: /home/rchaves/miniforge3/envs/biobb_all/lib/python3.12/site-packages
+      warnings.warn(
     usage: trjcat [-h] [-c CONFIG] -i INPUT_TRJ_ZIP_PATH -o OUTPUT_TRJ_PATH
     
     Wrapper for the GROMACS trjcat module.

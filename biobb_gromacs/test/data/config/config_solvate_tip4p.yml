@@ -1,0 +1,4 @@
+properties:
+  binary_path: gmx
+  restart: 'False'
+  solvent: tip4p

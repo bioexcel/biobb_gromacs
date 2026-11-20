@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "nmol": 10,
+    "seed": 1993,
+    "binary_path": "gmx",
+    "restart": "False"
+  }
+}

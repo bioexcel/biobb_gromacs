@@ -101,7 +101,7 @@
         },
         "input_solvent_gro_path": {
             "type": "string",
-            "description": "(spc216.gro) Path to the GRO file containing the structure of the solvent",
+            "description": "(spc216.gro) Path to the GRO file containing the structure of the solvent. If not provided, the GROMACS solvent box selected with the solvent property is used",
             "filetype": "input",
             "sample": null,
             "enum": [
@@ -110,7 +110,7 @@
             "file_formats": [
                 {
                     "extension": ".*\\.gro$",
-                    "description": "(spc216.gro) Path to the GRO file containing the structure of the solvent",
+                    "description": "(spc216.gro) Path to the GRO file containing the structure of the solvent. If not provided, the GROMACS solvent box selected with the solvent property is used",
                     "edam": "format_2033"
                 }
             ]
@@ -118,6 +118,36 @@
         "properties": {
             "type": "object",
             "properties": {
+                "solvent": {
+                    "type": "string",
+                    "default": "spc216",
+                    "wf_prop": false,
+                    "description": "GROMACS default solvent box used when input_solvent_gro_path is not provided. ",
+                    "enum": [
+                        "spc216",
+                        "SPC/E and TIP3P water models",
+                        "tip4p",
+                        "tip5p"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "spc216",
+                            "description": null
+                        },
+                        {
+                            "name": "SPC/E and TIP3P water models",
+                            "description": null
+                        },
+                        {
+                            "name": "tip4p",
+                            "description": "equilibrated 4-point water box for TIP4P water models"
+                        },
+                        {
+                            "name": "tip5p",
+                            "description": "equilibrated 5-point water box for the TIP5P water model"
+                        }
+                    ]
+                },
                 "shell": {
                     "type": "number",
                     "default": 0.0,

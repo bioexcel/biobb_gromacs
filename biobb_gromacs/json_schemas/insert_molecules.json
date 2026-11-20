@@ -1,0 +1,264 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_gromacs/json_schemas/1.0/insert_molecules",
+    "name": "biobb_gromacs InsertMolecules",
+    "title": "Wrapper of the GROMACS insert-molecules module.",
+    "description": "The GROMACS insert-molecules module inserts copies of a molecule into the vacant space of an existing structure or into an empty box, ie to build mixed solvent boxes. The topology is not modified: the inserted molecules must be added to it afterwards.",
+    "type": "object",
+    "info": {
+        "wrapped_software": {
+            "name": "GROMACS insert-molecules",
+            "version": "2025.2",
+            "license": "LGPL 2.1"
+        },
+        "ontology": {
+            "name": "EDAM",
+            "schema": "http://edamontology.org/EDAM.owl"
+        }
+    },
+    "required": [
+        "input_insert_gro_path",
+        "output_gro_path"
+    ],
+    "properties": {
+        "input_insert_gro_path": {
+            "type": "string",
+            "description": "Path to the GRO file of the molecule to insert",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/insert_molecules.gro",
+            "enum": [
+                ".*\\.gro$",
+                ".*\\.pdb$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the GRO file of the molecule to insert",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the GRO file of the molecule to insert",
+                    "edam": "format_1476"
+                }
+            ]
+        },
+        "output_gro_path": {
+            "type": "string",
+            "description": "Path to the output GRO file",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_insert_molecules.gro",
+            "enum": [
+                ".*\\.gro$",
+                ".*\\.pdb$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the output GRO file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the output GRO file",
+                    "edam": "format_1476"
+                }
+            ]
+        },
+        "input_gro_path": {
+            "type": "string",
+            "description": "Path to the GRO file of the existing structure to insert into. If not provided, the molecules are inserted into an empty box defined by the box property",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/solvate.gro",
+            "enum": [
+                ".*\\.gro$",
+                ".*\\.pdb$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the GRO file of the existing structure to insert into. If not provided, the molecules are inserted into an empty box defined by the box property",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the GRO file of the existing structure to insert into. If not provided, the molecules are inserted into an empty box defined by the box property",
+                    "edam": "format_1476"
+                }
+            ]
+        },
+        "input_positions_dat_path": {
+            "type": "string",
+            "description": "Path to the DAT file with the predefined insertion trial positions (three columns x y z in nm, displacements from the position of the molecule to insert)",
+            "filetype": "input",
+            "sample": null,
+            "enum": [
+                ".*\\.dat$",
+                ".*\\.txt$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.dat$",
+                    "description": "Path to the DAT file with the predefined insertion trial positions (three columns x y z in nm, displacements from the position of the molecule to insert)",
+                    "edam": "format_1637"
+                },
+                {
+                    "extension": ".*\\.txt$",
+                    "description": "Path to the DAT file with the predefined insertion trial positions (three columns x y z in nm, displacements from the position of the molecule to insert)",
+                    "edam": "format_2330"
+                }
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "nmol": {
+                    "type": "integer",
+                    "default": 1,
+                    "wf_prop": false,
+                    "description": "Number of extra molecules to insert. Ignored if input_positions_dat_path is provided: one molecule is inserted per position.",
+                    "min": 1,
+                    "max": 100000,
+                    "step": 1
+                },
+                "box": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Box size in nm as three floats ie \"5.0 5.0 5.0\". Mandatory if input_gro_path is not provided; if both are provided, a new box is placed around the input structure before the insertions."
+                },
+                "tries": {
+                    "type": "integer",
+                    "default": 10,
+                    "wf_prop": false,
+                    "description": "Number of insertion attempts per molecule (nmol * tries attempts are made before giving up).",
+                    "min": 1,
+                    "max": 10000,
+                    "step": 1
+                },
+                "seed": {
+                    "type": "integer",
+                    "default": 1993,
+                    "wf_prop": false,
+                    "description": "Seed for random number generator (0 means generate a random seed)."
+                },
+                "radius": {
+                    "type": "number",
+                    "default": 0.105,
+                    "wf_prop": false,
+                    "description": "Default van der Waals distance in nm, used for atoms not found in the vdwradii.dat database.",
+                    "min": 0.0,
+                    "max": 10.0,
+                    "step": 0.001
+                },
+                "scale": {
+                    "type": "number",
+                    "default": 0.57,
+                    "wf_prop": false,
+                    "description": "Scale factor to multiply the van der Waals radii from the vdwradii.dat database.",
+                    "min": 0.0,
+                    "max": 10.0,
+                    "step": 0.01
+                },
+                "dr": {
+                    "type": "string",
+                    "default": "0 0 0",
+                    "wf_prop": false,
+                    "description": "Allowed displacement in nm in x y z from the positions in the input_positions_dat_path file."
+                },
+                "rot": {
+                    "type": "string",
+                    "default": "xyz",
+                    "wf_prop": false,
+                    "description": "Rotate the inserted molecules randomly. ",
+                    "enum": [
+                        "xyz",
+                        "z",
+                        "none"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "xyz",
+                            "description": "random rotation around all axes"
+                        },
+                        {
+                            "name": "z",
+                            "description": "random rotation around the z axis"
+                        },
+                        {
+                            "name": "none",
+                            "description": "no rotation"
+                        }
+                    ]
+                },
+                "gmx_lib": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path set GROMACS GMXLIB environment variable."
+                },
+                "binary_path": {
+                    "type": "string",
+                    "default": "gmx",
+                    "wf_prop": false,
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": true,
+                    "description": "Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": true,
+                    "description": "Do not execute if output files exist."
+                },
+                "sandbox_path": {
+                    "type": "string",
+                    "default": "./",
+                    "wf_prop": true,
+                    "description": "Parent path to the sandbox directory."
+                },
+                "container_path": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path to the binary executable of your container."
+                },
+                "container_image": {
+                    "type": "string",
+                    "default": "gromacs/gromacs:latest",
+                    "wf_prop": false,
+                    "description": "Container Image identifier."
+                },
+                "container_volume_path": {
+                    "type": "string",
+                    "default": "/data",
+                    "wf_prop": false,
+                    "description": "Path to an internal directory in the container."
+                },
+                "container_working_dir": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path to the internal CWD in the container."
+                },
+                "container_user_id": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "User number id to be mapped inside the container."
+                },
+                "container_shell_path": {
+                    "type": "string",
+                    "default": "/bin/bash",
+                    "wf_prop": false,
+                    "description": "Path to the binary executable of the container shell."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}
