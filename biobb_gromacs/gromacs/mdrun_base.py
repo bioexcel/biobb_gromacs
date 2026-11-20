@@ -137,8 +137,20 @@ class MdrunBase(BiobbObject):
         if self.noappend:
             self.cmd.append('-noappend')
 
+        # Child-process environment: work on a copy so the caller's
+        # env_vars_dict (which may be shared with other steps) is not modified.
+        self.env_vars_dict = dict(self.env_vars_dict or {})
         if self.gmx_lib:
             self.env_vars_dict['GMXLIB'] = self.gmx_lib
+        # GROMACS aborts when OMP_NUM_THREADS (inherited, e.g. from Slurm, or set
+        # in env_vars_dict) differs from -ntomp, so pin it to num_threads_omp for
+        # the mdrun process only.
+        if self.num_threads_omp.isdigit() and int(self.num_threads_omp) > 0:
+            user_omp = self.env_vars_dict.get('OMP_NUM_THREADS')
+            if user_omp is not None and str(user_omp) != self.num_threads_omp:
+                fu.log(f'WARNING: OMP_NUM_THREADS={user_omp} in env_vars_dict is replaced by num_threads_omp={self.num_threads_omp}, GROMACS requires both to match', self.out_log, self.global_log)
+            fu.log(f'Setting OMP_NUM_THREADS={self.num_threads_omp} for the mdrun process to match -ntomp', self.out_log)
+            self.env_vars_dict['OMP_NUM_THREADS'] = self.num_threads_omp
 
     def _apply_noappend_renaming(self) -> None:
         """Update expected output paths in the sandbox to catch -noappend renames.

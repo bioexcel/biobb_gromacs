@@ -31,7 +31,7 @@ class Mdrun(MdrunBase):
             * **noappend** (*bool*) - (False) Include the noappend flag to open new output files and add the simulation part number to all output file names
             * **num_threads** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of threads that are going to be used.
             * **num_threads_mpi** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of GROMACS MPI threads per rank that are going to be used.
-            * **num_threads_omp** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of GROMACS OPENMP threads per MPI rank that are going to be used.
+            * **num_threads_omp** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of GROMACS OPENMP threads per MPI rank that are going to be used. If bigger than 0, OMP_NUM_THREADS is also set to this value for the mdrun process only, replacing any value inherited from the environment or set in env_vars_dict.
             * **num_threads_omp_pme** (*int*) - (0) [0~1000|1] Let GROMACS guess. The number of GROMACS OPENMP_PME threads per MPI rank that are going to be used.
             * **use_gpu** (*bool*) - (False) Use settings appropriate for GPU. Adds: -nb gpu -pme gpu
             * **gpu_id** (*str*) - (None) list of unique GPU device IDs available to use.
