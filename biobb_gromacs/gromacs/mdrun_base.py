@@ -2,6 +2,7 @@
 
 """Module containing the MdrunBase class shared by the GROMACS mdrun building blocks."""
 import re
+import shutil
 import pathlib
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
@@ -55,6 +56,34 @@ class MdrunBase(BiobbObject):
             self.binary_path += ' -nocopyright'
         if (not self.mpi_bin) and (not self.container_path):
             self.gmx_version = get_gromacs_version(self.binary_path)
+
+    def stage_files(self):
+        """Stage the files in the sandbox, plus the outputs a checkpoint restart appends to."""
+        super().stage_files()
+        self._stage_outputs_to_append()
+
+    def _stage_outputs_to_append(self) -> None:
+        """Copy the existing output files of the previous simulation part into the sandbox.
+
+        When continuing from a checkpoint (``input_cpt_path``) without ``-noappend``,
+        GROMACS appends to the output files listed in the checkpoint and refuses to
+        start if they are not present in the working directory. As every execution
+        runs in a new sandbox, copy the output files that already exist on the host
+        into it, so mdrun can append to them (GROMACS checks their checksums).
+        """
+        input_cpt_path = self.io_dict.get("in", {}).get("input_cpt_path")
+        if self.noappend or self.disable_sandbox or not input_cpt_path or not pathlib.Path(input_cpt_path).is_file():
+            return
+        unique_dir = pathlib.Path(self.stage_io_dict["unique_dir"])
+        for file_path in self.io_dict.get("out", {}).values():
+            if not file_path or not pathlib.Path(file_path).is_file():
+                continue
+            sandbox_file_path = unique_dir / pathlib.Path(file_path).name
+            # Do not overwrite the staged inputs, ie: input_cpt_path is also the output_cpt_path
+            if sandbox_file_path.exists():
+                continue
+            fu.log(f"Copy to stage to append to it: {file_path} --> {unique_dir.name}", self.out_log)
+            shutil.copy2(file_path, sandbox_file_path)
 
     def _get_working_dir(self) -> str:
         """Return the working directory for the command (container or sandbox)."""
