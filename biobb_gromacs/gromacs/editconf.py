@@ -147,7 +147,7 @@ class Editconf(BiobbObject):
         fu.log("Box type: %s" % self.box_type, self.out_log, self.global_log)
 
         if self.gmx_lib:
-            self.env_vars_dict = self.gmx_lib
+            self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Run Biobb block
         self.run_biobb()
