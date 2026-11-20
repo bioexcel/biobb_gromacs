@@ -34,6 +34,7 @@ setuptools.setup(
             "mdrun_plumed = biobb_gromacs.gromacs.mdrun_plumed:main",
             "grompp_mdrun = biobb_gromacs.gromacs.grompp_mdrun:main",
             "pdb2gmx = biobb_gromacs.gromacs.pdb2gmx:main",
+            "insert_molecules = biobb_gromacs.gromacs.insert_molecules:main",
             "solvate = biobb_gromacs.gromacs.solvate:main",
             "trjcat = biobb_gromacs.gromacs.trjcat:main",
             "ndx2resttop = biobb_gromacs.gromacs_extra.ndx2resttop:main",

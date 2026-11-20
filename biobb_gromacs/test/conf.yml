@@ -381,6 +381,18 @@ grompp_mdrun_singularity:
     container_volume_path: /tmp
     container_working_dir: /tmp
 
+insert_molecules:
+  paths:
+    input_insert_gro_path: file:test_data_dir/gromacs/insert_molecules.gro
+    output_gro_path: output_insert_molecules.gro
+    input_gro_path: file:test_data_dir/gromacs/solvate.gro
+    ref_output_gro_path: file:test_reference_dir/gromacs/ref_insert_molecules.gro
+  properties:
+    nmol: 10
+    seed: 1993
+    binary_path: "gmx"
+    restart: "False"
+
 make_ndx:
   paths:
     #input_structure_path: file:test_data_dir/gromacs/make_ndx.tpr

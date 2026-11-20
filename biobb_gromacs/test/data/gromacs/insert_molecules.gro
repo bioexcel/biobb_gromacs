@@ -1,0 +1,12 @@
+Ethanol (EOH) built with RDKit, molecule to insert for the insert_molecules test
+    9
+    1EOH     C1    1   0.567   0.647   0.600
+    1EOH     C2    2   0.702   0.579   0.599
+    1EOH     O1    3   0.799   0.663   0.662
+    1EOH     H1    4   0.571   0.742   0.546
+    1EOH     H2    5   0.491   0.584   0.554
+    1EOH     H3    6   0.536   0.670   0.703
+    1EOH     H4    7   0.735   0.558   0.497
+    1EOH     H5    8   0.698   0.485   0.654
+    1EOH     H6    9   0.802   0.746   0.611
+   1.31140   1.26110   1.20580

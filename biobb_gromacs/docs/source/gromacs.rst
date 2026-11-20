@@ -53,6 +53,14 @@ gromacs.grompp_mdrun module
     :undoc-members:
     :show-inheritance:
 
+gromacs.insert_molecules module
+-------------------------------
+
+.. automodule:: gromacs.insert_molecules
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 gromacs.make_ndx module
 ------------------------------
 

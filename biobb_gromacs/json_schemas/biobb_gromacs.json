@@ -106,6 +106,14 @@
             "rest": false
         },
         {
+            "block": "InsertMolecules",
+            "tool": "gmx insert-molecules",
+            "desc": "Inserts copies of a molecule into the vacant space of an existing structure or into an empty box.",
+            "exec": "insert_molecules",
+            "docs": "https://biobb-gromacs.readthedocs.io/en/latest/gromacs.html#module-gromacs.insert_molecules",
+            "rest": true
+        },
+        {
             "block": "Trjcat",
             "tool": "gmx trjcat",
             "desc": "Concatenates two or more GROMACS trajectory files.",
