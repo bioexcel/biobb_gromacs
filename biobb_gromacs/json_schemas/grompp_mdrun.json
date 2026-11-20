@@ -318,7 +318,7 @@
                     "type": "integer",
                     "default": 0,
                     "wf_prop": true,
-                    "description": "Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used."
+                    "description": "Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used. If bigger than 0, OMP_NUM_THREADS is also set to this value for the mdrun process only, replacing any value inherited from the environment or set in env_vars_dict."
                 },
                 "num_threads_omp_pme": {
                     "type": "integer",

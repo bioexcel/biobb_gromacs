@@ -7,6 +7,7 @@
 * New `insert_molecules` block: wraps `gmx insert-molecules` to insert copies of a molecule into a structure or an empty box ([#19](https://github.com/bioexcel/biobb_gromacs/issues/19)).
 * solvate: new `solvent` property to choose the GROMACS default solvent box (`spc216`, `tip4p`, `tip5p`) ([#12](https://github.com/bioexcel/biobb_gromacs/issues/12)).
 * mdrun, mdrun_plumed: continuing from a checkpoint (`input_cpt_path`) now appends to the previous output files instead of failing ([#3](https://github.com/bioexcel/biobb_gromacs/issues/3)).
+* mdrun blocks: `num_threads_omp` also sets `OMP_NUM_THREADS` for the mdrun process, so an inherited value no longer makes mdrun abort ([#30](https://github.com/bioexcel/biobb_gromacs/issues/30)).
 
 ## What's new in version [5.3.2](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.3.2)?
 
