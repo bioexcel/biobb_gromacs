@@ -450,6 +450,19 @@ gmxselect_docker:
     container_volume_path: /tmp
     container_working_dir: /tmp
 
+gmxselect_ndx_docker:
+  paths:
+    input_structure_path: file:test_data_dir/gromacs/make_ndx.tpr
+    input_ndx_path: file:test_reference_dir/gromacs/ref_make_ndx.ndx
+    output_ndx_path: output_ndx.ndx
+  properties:
+    # CA_C_N_O only exists in input_ndx_path, so this fails unless -n is passed to the container
+    selection: 'group "CA_C_N_O"'
+    container_path: docker
+    container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
+    container_volume_path: /tmp
+    container_working_dir: /tmp
+
 gmxselect_singularity:
   paths:
     input_structure_path: file:test_data_dir/gromacs/make_ndx.tpr

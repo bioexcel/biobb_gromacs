@@ -125,8 +125,8 @@ class ConvertTpr(BiobbObject):
                     '-o', PurePath(self.stage_io_dict["out"]["output_tpr_path"]).name
                     ]
 
-        trimming = bool(self.stage_io_dict["in"].get("input_ndx_path")) and \
-            Path(self.stage_io_dict["in"].get("input_ndx_path")).exists()
+        # Check the host path: with containers stage_io_dict holds the path inside the container
+        trimming = bool(self.io_dict["in"].get("input_ndx_path")) and Path(self.io_dict["in"]["input_ndx_path"]).exists()
 
         if trimming:
             # Trim the tpr to the selected index group. GROMACS does not allow

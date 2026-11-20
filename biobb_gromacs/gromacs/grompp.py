@@ -137,10 +137,11 @@ class Grompp(BiobbObject):
                     '-po', PurePath(self.create_tmp_file('mdout.mdp')).name,
                     '-maxwarn', self.maxwarn]
 
-        if self.stage_io_dict["in"].get("input_cpt_path") and Path(self.stage_io_dict["in"]["input_cpt_path"]).exists():
+        # Check the host path: with containers stage_io_dict holds the path inside the container
+        if bool(self.io_dict["in"].get("input_cpt_path")) and Path(self.io_dict["in"]["input_cpt_path"]).exists():
             self.cmd.append('-t')
             self.cmd.append(PurePath(self.stage_io_dict["in"]["input_cpt_path"]).name)
-        if self.stage_io_dict["in"].get("input_ndx_path") and Path(self.stage_io_dict["in"]["input_ndx_path"]).exists():
+        if bool(self.io_dict["in"].get("input_ndx_path")) and Path(self.io_dict["in"]["input_ndx_path"]).exists():
             self.cmd.append('-n')
             self.cmd.append(PurePath(self.stage_io_dict["in"]["input_ndx_path"]).name)
 
