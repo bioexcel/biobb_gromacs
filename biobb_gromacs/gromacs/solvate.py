@@ -21,8 +21,9 @@ class Solvate(BiobbObject):
         output_gro_path (str): Path to the output GRO file. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_solvate.gro>`_. Accepted formats: gro (edam:format_2033), pdb (edam:format_1476).
         input_top_zip_path (str): Path the input TOP topology in zip format. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/solvate.zip>`_. Accepted formats: zip (edam:format_3987).
         output_top_zip_path (str): Path the output topology in zip format. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_solvate.zip>`_. Accepted formats: zip (edam:format_3987).
-        input_solvent_gro_path (str) (Optional): (spc216.gro) Path to the GRO file containing the structure of the solvent. File type: input. Accepted formats: gro (edam:format_2033).
+        input_solvent_gro_path (str) (Optional): (spc216.gro) Path to the GRO file containing the structure of the solvent. If not provided, the GROMACS solvent box selected with the solvent property is used. File type: input. Accepted formats: gro (edam:format_2033).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
+            * **solvent** (*str*) - ("spc216") GROMACS default solvent box used when input_solvent_gro_path is not provided. Values: spc216 (equilibrated 3-point water box for SPC, SPC/E and TIP3P water models), tip4p (equilibrated 4-point water box for TIP4P water models), tip5p (equilibrated 5-point water box for the TIP5P water model).
             * **shell** (*float*) - (0.0) [0~100|0.1] Thickness in nanometers of optional water layer around solute.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
@@ -77,8 +78,10 @@ class Solvate(BiobbObject):
 
         # Properties specific for BB
         self.shell = properties.get('shell')
+        self.solvent = properties.get('solvent', 'spc216')
         if not self.io_dict["in"].get('input_solvent_gro_path'):
-            self.io_dict["in"]['input_solvent_gro_path'] = 'spc216.gro'
+            # GROMACS default solvent box, found by gmx in its library (GMXLIB) path
+            self.io_dict["in"]['input_solvent_gro_path'] = str(PurePath(self.solvent).with_suffix('.gro'))
 
         # Properties common in all GROMACS BB
         self.gmx_lib = properties.get('gmx_lib', None)
