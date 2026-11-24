@@ -9,7 +9,6 @@ from typing import Optional
 
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
 
 class AppendLigand(BiobbObject):
@@ -76,17 +75,11 @@ class AppendLigand(BiobbObject):
         # Properties specific for BB
         self.posres_name = properties.get("posres_name", "POSRES_LIGAND")
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
+    def stage_files(self) -> None:
+        """The block does not use the sandbox: there are no files to stage."""
 
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> int:
         """Execute the :class:`AppendLigand <gromacs_extra.append_ligand.AppendLigand>` object."""
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
         # Unzip topology
         top_file = fu.unzip_top(zip_file=str(self.io_dict["in"].get("input_top_zip_path")),
             out_log=self.out_log,

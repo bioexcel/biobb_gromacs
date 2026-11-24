@@ -5,7 +5,6 @@ from typing import Optional
 from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
 
@@ -82,18 +81,8 @@ class Trjcat(BiobbObject):
         if not self.container_path:
             self.gmx_version = get_gromacs_version(self.binary_path)
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> int:
         """Execute the :class:`Trjcat <gromacs.trjcat.Trjcat>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
 
         # Unzip trajectory bundle directly into unique_dir so basenames work after cd
         trj_list: list[str] = fu.unzip_list(self.input_trj_zip_path, self.stage_io_dict.get("unique_dir", ""), self.out_log)

@@ -5,7 +5,6 @@ from typing import Optional
 from pathlib import Path, PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
 
@@ -119,18 +118,8 @@ class Pdb2gmx(BiobbObject):
         # Make sure all have the same length
         self.check_lengths(self.lys, self.arg, self.asp, self.glu, self.gln, self.his)
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+    def prepare(self) -> None:
+        """Create the stdin file with the protonation states, if any."""
         # Create stdin file if needed
         stdin_content = ''
         num_chains = self.find_length(self.lys, self.arg, self.asp, self.glu, self.gln, self.his)
@@ -150,7 +139,9 @@ class Pdb2gmx(BiobbObject):
 
         if stdin_content:
             self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(stdin_content)
-        self.stage_files()
+
+    def run(self) -> int:
+        """Execute the :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` object."""
 
         internal_top_name = fu.create_name(prefix=self.prefix, step=self.step, name=self.internal_top_name)
         internal_itp_name = fu.create_name(prefix=self.prefix, step=self.step, name=self.internal_itp_name)
@@ -188,7 +179,7 @@ class Pdb2gmx(BiobbObject):
         if self.his:
             self.cmd.append("-his")
 
-        if stdin_content:
+        if self.io_dict['in'].get('stdin_file_path'):
             self.cmd.append('<')
             self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
 

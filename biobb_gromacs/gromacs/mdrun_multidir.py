@@ -5,7 +5,6 @@ import os
 import shutil
 from typing import Optional
 from pathlib import PurePath
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.mdrun_base import MdrunBase
 
 
@@ -91,18 +90,8 @@ class MdrunMultidir(MdrunBase):
         # Properties specific for BB
         self._init_common_properties(properties, default_binary_path='gmx_mpi')
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> int:
         """Execute the :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
 
         working_dir = self._get_working_dir()
 

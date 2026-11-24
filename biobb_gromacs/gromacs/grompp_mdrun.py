@@ -5,7 +5,6 @@ from typing import Optional
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.grompp import grompp
 from biobb_gromacs.gromacs.mdrun import mdrun
 
@@ -130,8 +129,10 @@ class GromppMdrun(BiobbObject):
         self.output_cpt_path = output_cpt_path
         self.output_dhdl_path = output_dhdl_path
 
-    @launchlogger
-    def launch(self) -> int:
+    def stage_files(self) -> None:
+        """The files are staged by the Grompp and Mdrun blocks: there are no files to stage."""
+
+    def run(self) -> int:
         """Execute the :class:`GromppMdrun <gromacs.grompp_mdrun.GromppMdrun>` object."""
 
         fu.log('Calling Grompp class', self.out_log, self.global_log)

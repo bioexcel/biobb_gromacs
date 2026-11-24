@@ -5,7 +5,6 @@ from pathlib import Path, PurePath
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
 
@@ -96,24 +95,15 @@ class ConvertTpr(BiobbObject):
         if not self.container_path:
             self.gmx_version = get_gromacs_version(self.binary_path)
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`ConvertTpr <gromacs.convert_tpr.ConvertTpr>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+    def prepare(self) -> None:
+        """Create the stdin file with the output group."""
         # When trimming to a subset (an index file is provided), GROMACS
         # convert-tpr prompts for the output group; answer it via stdin.
         if self.io_dict["in"].get("input_ndx_path"):
             self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.output_group}")
 
-        self.stage_files()
+    def run(self) -> int:
+        """Execute the :class:`ConvertTpr <gromacs.convert_tpr.ConvertTpr>` object."""
 
         if self.container_path:
             working_dir = self.container_volume_path if self.container_volume_path else "/data"

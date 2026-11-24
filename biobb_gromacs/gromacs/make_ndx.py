@@ -5,7 +5,6 @@ from typing import Optional
 from pathlib import Path, PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
 
@@ -81,22 +80,14 @@ class MakeNdx(BiobbObject):
         if not self.container_path:
             self.gmx_version = get_gromacs_version(self.binary_path)
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`MakeNdx <gromacs.make_ndx.MakeNdx>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+    def prepare(self) -> None:
+        """Create the stdin file with the selection."""
         self.selection = str(self.selection)
         self.selection = self.selection.replace("\\n", "\n")
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}\nq\n')
-        self.stage_files()
+
+    def run(self) -> int:
+        """Execute the :class:`MakeNdx <gromacs.make_ndx.MakeNdx>` object."""
 
         if self.container_path:
             working_dir = self.container_volume_path if self.container_volume_path else "/data"

@@ -7,7 +7,6 @@ from typing import Any
 from pathlib import Path
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
 
 class Ndx2resttop(BiobbObject):
@@ -62,10 +61,6 @@ class Ndx2resttop(BiobbObject):
         self.posres_names = properties.get('posres_names')
         self.force_constants = properties.get('force_constants', '500 500 500')
         self.ref_rest_mol_triplet_list = properties.get('ref_rest_mol_triplet_list')
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
 
     # --- Private helpers ---
 
@@ -215,12 +210,11 @@ class Ndx2resttop(BiobbObject):
 
     # --- Main entry point ---
 
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`Ndx2resttop <gromacs_extra.ndx2resttop.Ndx2resttop>` object."""
-        if self.check_restart():
-            return 0
+    def stage_files(self) -> None:
+        """The block does not use the sandbox: there are no files to stage."""
 
+    def run(self) -> int:
+        """Execute the :class:`Ndx2resttop <gromacs_extra.ndx2resttop.Ndx2resttop>` object."""
         top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path", ""), out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
 
         ndx_lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()

@@ -5,7 +5,6 @@ from typing import Optional
 from pathlib import Path, PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.common import get_gromacs_version
 from biobb_gromacs.gromacs.common import create_mdp
 from biobb_gromacs.gromacs.common import mdp_preset
@@ -103,18 +102,8 @@ class Grompp(BiobbObject):
         if not self.container_path:
             self.gmx_version = get_gromacs_version(self.binary_path)
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> int:
         """Execute the :class:`Grompp <gromacs.grompp.Grompp>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
 
         # Unzip topology to topology_out
         top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))

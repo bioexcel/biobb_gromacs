@@ -7,7 +7,6 @@ from pathlib import Path, PurePath
 
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
@@ -125,20 +124,12 @@ class Genion(BiobbObject):
         if not self.container_path:
             self.gmx_version = get_gromacs_version(str(self.binary_path))
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`Genion <gromacs.genion.Genion>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+    def prepare(self) -> None:
+        """Create the stdin file with the replaced group."""
         self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.replaced_group}")
-        self.stage_files()
+
+    def run(self) -> int:
+        """Execute the :class:`Genion <gromacs.genion.Genion>` object."""
 
         # Unzip topology to topology_out
         top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log)
