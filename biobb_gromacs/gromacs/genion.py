@@ -132,7 +132,7 @@ class Genion(BiobbObject):
         """Execute the :class:`Genion <gromacs.genion.Genion>` object."""
 
         # Unzip topology to topology_out
-        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log)
+        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
         top_file = str(Path(top_file).resolve())  # resolve before cd changes context
         top_dir = str(Path(top_file).parent)
 
