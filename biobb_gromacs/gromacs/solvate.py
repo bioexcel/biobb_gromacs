@@ -23,7 +23,7 @@ class Solvate(BiobbObject):
         input_solvent_gro_path (str) (Optional): (spc216.gro) Path to the GRO file containing the structure of the solvent. If not provided, the GROMACS solvent box selected with the solvent property is used. File type: input. Accepted formats: gro (edam:format_2033).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **solvent** (*str*) - ("spc216") GROMACS default solvent box used when input_solvent_gro_path is not provided. Values: spc216 (equilibrated 3-point water box for SPC, SPC/E and TIP3P water models), tip4p (equilibrated 4-point water box for TIP4P water models), tip5p (equilibrated 5-point water box for the TIP5P water model).
-            * **shell** (*float*) - (0.0) [0~100|0.1] Thickness in nanometers of optional water layer around solute.
+            * **shell** (*float*) - (None) [0~100|0.1] Thickness in nanometers of optional water layer around solute.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
@@ -60,33 +60,20 @@ class Solvate(BiobbObject):
 
     def __init__(self, input_solute_gro_path: str, output_gro_path: str, input_top_zip_path: str,
                  output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_solute_gro_path": input_solute_gro_path, "input_solvent_gro_path": input_solvent_gro_path},
-            "out": {"output_gro_path": output_gro_path, "output_top_zip_path": output_top_zip_path}
-        }
 
         # Should not be copied inside container
-        self.input_top_zip_path = input_top_zip_path
+        self.input_top_zip_path = self.io_dict["in"].pop("input_top_zip_path")
 
         # Properties specific for BB
-        self.shell = properties.get('shell')
-        self.solvent = properties.get('solvent', 'spc216')
         if not self.io_dict["in"].get('input_solvent_gro_path'):
             # GROMACS default solvent box, found by gmx in its library (GMXLIB) path
             self.io_dict["in"]['input_solvent_gro_path'] = str(PurePath(self.solvent).with_suffix('.gro'))
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
+        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
+        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
             self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:

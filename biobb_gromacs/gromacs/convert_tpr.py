@@ -19,9 +19,9 @@ class ConvertTpr(BiobbObject):
         output_tpr_path (str): Path to the output portable binary run file TPR. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs/ref_grompp.tpr>`_. Accepted formats: tpr (edam:format_2333).
         input_ndx_path (str) (Optional): Path to the input index NDX file, used to trim the tpr file to a subset of atoms. File type: input. Accepted formats: ndx (edam:format_2033).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
-            * **extend** (*int*) - (0) Extend the runtime by this amount (ps).
-            * **until** (*int*) - (0) Extend the runtime until this ending time (ps).
-            * **nsteps** (*int*) - (0) Change the number of steps remaining to be made.
+            * **extend** (*int*) - (None) Extend the runtime by this amount (ps).
+            * **until** (*int*) - (None) Extend the runtime until this ending time (ps).
+            * **nsteps** (*int*) - (None) Change the number of steps remaining to be made.
             * **output_group** (*str*) - ("System") Index group to write to the output tpr file when trimming to a subset of atoms. Only used when input_ndx_path is provided.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
@@ -65,29 +65,11 @@ class ConvertTpr(BiobbObject):
     def __init__(self, input_tpr_path: str, output_tpr_path: str,
                  input_ndx_path: Optional[str] = None,
                  properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_tpr_path": input_tpr_path, "input_ndx_path": input_ndx_path},
-            "out": {"output_tpr_path": output_tpr_path}
-        }
-
-        # Properties specific for BB
-        self.extend = properties.get('extend')
-        self.until = properties.get('until')
-        self.nsteps = properties.get('nsteps')
-        self.output_group = properties.get('output_group', 'System')
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
+        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
+        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
             self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:

@@ -79,44 +79,19 @@ class Genion(BiobbObject):
         properties: dict | None = None,
         **kwargs,
     ) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_tpr_path": input_tpr_path, "input_ndx_path": input_ndx_path},
-            "out": {
-                "output_gro_path": output_gro_path,
-                "output_top_zip_path": output_top_zip_path,
-            },
-        }
         # Should not be copied inside container
-        self.input_top_zip_path = input_top_zip_path
+        self.input_top_zip_path = self.io_dict["in"].pop("input_top_zip_path")
 
         # Properties specific for BB
-        self.output_top_path = properties.get(
+        self.output_top_path = self.properties.get(
             "output_top_path", "gio.top"
         )  # Not in documentation for clarity
-        self.replaced_group = properties.get("replaced_group", "SOL")
-        self.neutral = properties.get("neutral", False)
-        self.pname = properties.get("pname", "NA")
-        self.nname = properties.get("nname", "CL")
-        self.np = properties.get("np", 0)
-        self.nn = properties.get("nn", 0)
-        self.pq = properties.get("pq", 1)
-        self.nq = properties.get("nq", -1)
-        self.rmin = properties.get("rmin", 0.6)
-        self.concentration = properties.get("concentration", 0.0)
-        self.seed = properties.get("seed", 1993)
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get("gmx_lib", None)
-        self.binary_path = properties.get("binary_path", "gmx")
-        self.gmx_nobackup = properties.get("gmx_nobackup", True)
-        self.gmx_nocopyright = properties.get("gmx_nocopyright", True)
+        self.gmx_nobackup = self.properties.get("gmx_nobackup", True)
+        self.gmx_nocopyright = self.properties.get("gmx_nocopyright", True)
         if self.gmx_nobackup:
             self.binary_path = f"{self.binary_path} -nobackup"
         if self.gmx_nocopyright:

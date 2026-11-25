@@ -51,29 +51,14 @@ class Trjcat(BiobbObject):
     """
 
     def __init__(self, input_trj_zip_path: str, output_trj_path: str, properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict: dict = {
-            "in": {},
-            "out": {"output_trj_path": output_trj_path}
-        }
+        super().__init__(**locals())
 
         # Should not be copied inside container
-        self.input_trj_zip_path = input_trj_zip_path
-
-        # Properties specific for BB
-        self.concatenate: bool = properties.get('concatenate', True)
+        self.input_trj_zip_path = self.io_dict["in"].pop("input_trj_zip_path")
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
+        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
+        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
             self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:

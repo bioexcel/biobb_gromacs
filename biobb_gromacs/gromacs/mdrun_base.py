@@ -26,7 +26,7 @@ class MdrunBase(BiobbObject):
         """Parse the GROMACS runtime properties shared by all mdrun wrappers.
 
         Must be called from the subclass ``__init__`` after
-        ``super().__init__(properties)`` (it relies on ``self.container_path``).
+        ``super().__init__(**locals())`` (it relies on ``self.container_path``).
         ``default_binary_path`` is used when the ``binary_path`` property is not set.
         """
         # general mpi properties

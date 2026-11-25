@@ -66,34 +66,11 @@ class InsertMolecules(BiobbObject):
 
     def __init__(self, input_insert_gro_path: str, output_gro_path: str, input_gro_path: Optional[str] = None,
                  input_positions_dat_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_insert_gro_path": input_insert_gro_path, "input_gro_path": input_gro_path,
-                   "input_positions_dat_path": input_positions_dat_path},
-            "out": {"output_gro_path": output_gro_path}
-        }
-
-        # Properties specific for BB
-        self.nmol = properties.get('nmol', 1)
-        self.box = properties.get('box')
-        self.tries = properties.get('tries', 10)
-        self.seed = properties.get('seed', 1993)
-        self.radius = properties.get('radius', 0.105)
-        self.scale = properties.get('scale', 0.57)
-        self.dr = properties.get('dr', "0 0 0")
-        self.rot = properties.get('rot', "xyz")
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
+        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
+        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
             self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:

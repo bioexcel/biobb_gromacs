@@ -66,35 +66,22 @@ class Grompp(BiobbObject):
     def __init__(self, input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
                  input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
                  properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_gro_path": input_gro_path, "input_cpt_path": input_cpt_path,
-                   "input_ndx_path": input_ndx_path, "input_mdp_path": input_mdp_path},
-            "out": {"output_tpr_path": output_tpr_path}
-        }
         # Should not be copied inside container
-        self.input_top_zip_path = input_top_zip_path
+        self.input_top_zip_path = self.io_dict["in"].pop("input_top_zip_path")
 
         # Properties specific for BB
-        self.output_mdp_path = properties.get('output_mdp_path', 'grompp.mdp')
-        self.output_top_path = properties.get('output_top_path', 'grompp.top')
-        self.simulation_type = properties.get('simulation_type')
-        self.maxwarn = str(properties.get('maxwarn', 0))
+        self.output_mdp_path = self.properties.get('output_mdp_path', 'grompp.mdp')
+        self.output_top_path = self.properties.get('output_top_path', 'grompp.top')
+        self.maxwarn = str(self.maxwarn)
         if self.simulation_type and self.simulation_type != 'index':
-            self.maxwarn = str(properties.get('maxwarn', 10))
-        self.mdp = {k: str(v) for k, v in properties.get('mdp', dict()).items()}
+            self.maxwarn = str(self.properties.get('maxwarn', 10))
+        self.mdp = {k: str(v) for k, v in self.mdp.items()}
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
+        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
+        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
             self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:

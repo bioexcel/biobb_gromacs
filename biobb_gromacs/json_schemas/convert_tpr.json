@@ -74,19 +74,19 @@
             "properties": {
                 "extend": {
                     "type": "integer",
-                    "default": 0,
+                    "default": null,
                     "wf_prop": false,
                     "description": "Extend the runtime by this amount (ps)."
                 },
                 "until": {
                     "type": "integer",
-                    "default": 0,
+                    "default": null,
                     "wf_prop": false,
                     "description": "Extend the runtime until this ending time (ps)."
                 },
                 "nsteps": {
                     "type": "integer",
-                    "default": 0,
+                    "default": null,
                     "wf_prop": false,
                     "description": "Change the number of steps remaining to be made."
                 },

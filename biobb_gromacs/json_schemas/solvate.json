@@ -150,7 +150,7 @@
                 },
                 "shell": {
                     "type": "number",
-                    "default": 0.0,
+                    "default": null,
                     "wf_prop": false,
                     "description": "Thickness in nanometers of optional water layer around solute.",
                     "min": 0.0,

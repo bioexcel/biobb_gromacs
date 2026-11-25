@@ -64,29 +64,11 @@ class Editconf(BiobbObject):
         properties: Optional[dict] = None,
         **kwargs,
     ) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_gro_path": input_gro_path},
-            "out": {"output_gro_path": output_gro_path},
-        }
-
-        # Properties specific for BB
-        self.distance_to_molecule = properties.get("distance_to_molecule", 1.0)
-        self.box_vector_lenghts = properties.get("box_vector_lenghts")
-        self.box_type = properties.get("box_type", "cubic")
-        self.center_molecule = properties.get("center_molecule", True)
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get("gmx_lib", None)
-        self.binary_path: str = properties.get("binary_path", "gmx")
-        self.gmx_nobackup = properties.get("gmx_nobackup", True)
-        self.gmx_nocopyright = properties.get("gmx_nocopyright", True)
+        self.gmx_nobackup = self.properties.get("gmx_nobackup", True)
+        self.gmx_nocopyright = self.properties.get("gmx_nocopyright", True)
         if self.gmx_nobackup:
             self.binary_path += " -nobackup"
         if self.gmx_nocopyright:

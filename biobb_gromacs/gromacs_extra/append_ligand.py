@@ -56,24 +56,7 @@ class AppendLigand(BiobbObject):
         properties: Optional[dict] = None,
         **kwargs,
     ) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {
-                "input_top_zip_path": input_top_zip_path,
-                "input_itp_path": input_itp_path,
-                "input_posres_itp_path": input_posres_itp_path,
-            },
-            "out": {"output_top_zip_path": output_top_zip_path},
-        }
-
-        # Properties specific for BB
-        self.posres_name = properties.get("posres_name", "POSRES_LIGAND")
+        super().__init__(**locals())
 
     def stage_files(self) -> None:
         """The block does not use the sandbox: there are no files to stage."""

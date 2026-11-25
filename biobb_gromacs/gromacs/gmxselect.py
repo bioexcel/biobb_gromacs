@@ -54,27 +54,11 @@ class Gmxselect(BiobbObject):
 
     def __init__(self, input_structure_path: str, output_ndx_path: str, input_ndx_path: Optional[str] = None,
                  properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_structure_path": input_structure_path, "input_ndx_path": input_ndx_path},
-            "out": {"output_ndx_path": output_ndx_path}
-        }
-
-        # Properties specific for BB
-        self.selection = properties.get('selection', "a CA C N O")
-        self.append = properties.get('append', False)
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
+        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
+        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
             self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:

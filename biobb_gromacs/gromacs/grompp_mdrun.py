@@ -89,23 +89,17 @@ class GromppMdrun(BiobbObject):
                  input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None, output_dhdl_path: Optional[str] = None,
                  output_tpr_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
-        # Properties management
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
+        super().__init__(**locals())
 
         grompp_properties_keys = ['mdp', 'maxwarn', 'simulation_type']
         mdrun_properties_keys = ['mpi_bin', 'mpi_np', 'mpi_flags', 'checkpoint_time', 'noappend', 'num_threads', 'num_threads_mpi', 'num_threads_omp', 'num_threads_omp_pme', 'use_gpu', 'gpu_id', 'gpu_tasks', 'dev']
         self.properties_grompp = {}
         self.properties_mdrun = {}
-        if properties:
-            self.global_log = properties.get('global_log', None)
-            self.properties_grompp = properties.copy()
+        if self.properties:
+            self.properties_grompp = self.properties.copy()
             for key in mdrun_properties_keys:
                 self.properties_grompp.pop(key, None)
-            self.properties_mdrun = properties.copy()
+            self.properties_mdrun = self.properties.copy()
             for key in grompp_properties_keys:
                 self.properties_mdrun.pop(key, None)
 

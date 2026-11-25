@@ -75,23 +75,10 @@ class Mdrun(MdrunBase):
                  output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
                  output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_tpr_path": input_tpr_path, "input_cpt_path": input_cpt_path},
-            "out": {"output_trr_path": output_trr_path, "output_gro_path": output_gro_path,
-                    "output_edr_path": output_edr_path, "output_log_path": output_log_path,
-                    "output_xtc_path": output_xtc_path, "output_cpt_path": output_cpt_path,
-                    "output_dhdl_path": output_dhdl_path}
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
-        self._init_common_properties(properties)
+        self._init_common_properties(self.properties)
 
     def run(self) -> None:
         """Execute the :class:`Mdrun <gromacs.mdrun.Mdrun>` object."""

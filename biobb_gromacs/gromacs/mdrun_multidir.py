@@ -70,25 +70,10 @@ class MdrunMultidir(MdrunBase):
                  output_multifolder: str,
                  properties: Optional[dict] = None,
                  **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {
-                "input_tpr_path": input_tpr_path,
-                "input_multifolder": input_multifolder
-            },
-            "out": {
-                "output_multifolder": output_multifolder,
-            }
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
-        self._init_common_properties(properties, default_binary_path='gmx_mpi')
+        self._init_common_properties(self.properties, default_binary_path='gmx_mpi')
 
     def run(self) -> None:
         """Execute the :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` object."""

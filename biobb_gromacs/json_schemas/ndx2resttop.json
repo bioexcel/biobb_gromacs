@@ -74,9 +74,9 @@
             "properties": {
                 "posres_names": {
                     "type": "string",
-                    "default": "CUSTOM_POSRES",
+                    "default": null,
                     "wf_prop": false,
-                    "description": "Space-separated preprocessor macro names, one per triplet (e.g. ``\"CHAIN_A_POSRES CHAIN_B_POSRES\"``). Activated at grompp time via ``-D <name>``. Must match the length of ref_rest_mol_triplet_list."
+                    "description": "Space-separated preprocessor macro names, one per triplet (e.g. ``\"CHAIN_A_POSRES CHAIN_B_POSRES\"``). Activated at grompp time via ``-D <name>``. Must match the length of ref_rest_mol_triplet_list. If not set, CUSTOM_POSRES for every triplet."
                 },
                 "force_constants": {
                     "type": "string",

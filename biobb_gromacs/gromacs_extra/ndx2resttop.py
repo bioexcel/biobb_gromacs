@@ -20,7 +20,7 @@ class Ndx2resttop(BiobbObject):
         input_top_zip_path (str): Path the input TOP topology in zip format. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs_extra/ndx2resttop.zip>`_. Accepted formats: zip (edam:format_3987).
         output_top_zip_path (str): Path the output TOP topology in zip format. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs_extra/ref_ndx2resttop.zip>`_. Accepted formats: zip (edam:format_3987).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
-            * **posres_names** (*str*) - ("CUSTOM_POSRES") Space-separated preprocessor macro names, one per triplet (e.g. ``"CHAIN_A_POSRES CHAIN_B_POSRES"``). Activated at grompp time via ``-D <name>``. Must match the length of ref_rest_mol_triplet_list.
+            * **posres_names** (*str*) - (None) Space-separated preprocessor macro names, one per triplet (e.g. ``"CHAIN_A_POSRES CHAIN_B_POSRES"``). Activated at grompp time via ``-D <name>``. Must match the length of ref_rest_mol_triplet_list. If not set, CUSTOM_POSRES for every triplet.
             * **force_constants** (*str*) - ("500 500 500") Three space-separated force constants Fx Fy Fz in kJ/mol/nm². Written verbatim into each ITP line so the same value is applied to every restrained atom.
             * **ref_rest_mol_triplet_list** (*str*) - (None) Comma-separated triplets ``(reference_group, restrain_group, molecule_name)``, one per molecule to restrain.``reference_group``: NDX group containing *all* atoms of the molecule in global (system-wide) GROMACS numbering. Used only as a coordinate frame to convert global indices to molecule-local 1-based indices. Example: ``r_1-9280``. ``restrain_group``: NDX group with the subset of atoms to actually restrain (must be a strict subset of reference_group). Example: ``P_&_r_1-9280``. ``molecule_name``: the ``[ moleculetype ]`` name in the topology used to locate where to splice the ``#ifdef`` block. Example: ``1TSR``.
 
@@ -45,22 +45,7 @@ class Ndx2resttop(BiobbObject):
 
     def __init__(self, input_ndx_path: str, input_top_zip_path: str, output_top_zip_path: str,
                  properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_ndx_path": input_ndx_path, "input_top_zip_path": input_top_zip_path},
-            "out": {"output_top_zip_path": output_top_zip_path}
-        }
-
-        # Properties specific for BB
-        self.posres_names = properties.get('posres_names')
-        self.force_constants = properties.get('force_constants', '500 500 500')
-        self.ref_rest_mol_triplet_list = properties.get('ref_rest_mol_triplet_list')
+        super().__init__(**locals())
 
     # --- Private helpers ---
 

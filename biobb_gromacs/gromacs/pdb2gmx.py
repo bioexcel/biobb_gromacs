@@ -63,37 +63,15 @@ class Pdb2gmx(BiobbObject):
 
     def __init__(self, input_pdb_path: str, output_gro_path: str, output_top_zip_path: str, properties: Optional[dict] = None,
                  **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_pdb_path": input_pdb_path},
-            "out": {"output_gro_path": output_gro_path, "output_top_zip_path": output_top_zip_path}
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
-        self.internal_top_name = properties.get('internal_top_name', 'p2g.top')  # Excluded from documentation for simplicity
-        self.internal_itp_name = properties.get('internal_itp_name', 'posre.itp')  # Excluded from documentation for simplicity
-        self.water_type = properties.get('water_type', 'spce')
-        self.force_field = properties.get('force_field', 'amber99sb-ildn')
-        self.ignh = properties.get('ignh', False)
-        self.lys = properties.get('lys', None)
-        self.arg = properties.get('arg', None)
-        self.asp = properties.get('asp', None)
-        self.glu = properties.get('glu', None)
-        self.gln = properties.get('gln', None)
-        self.his = properties.get('his', None)
-        self.merge = properties.get('merge', False)
+        self.internal_top_name = self.properties.get('internal_top_name', 'p2g.top')  # Excluded from documentation for simplicity
+        self.internal_itp_name = self.properties.get('internal_itp_name', 'posre.itp')  # Excluded from documentation for simplicity
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path: str = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
+        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
+        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
         if self.gmx_nobackup:
             self.binary_path += ' -nobackup'
         if self.gmx_nocopyright:

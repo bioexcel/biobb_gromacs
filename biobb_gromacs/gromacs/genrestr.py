@@ -64,30 +64,14 @@ class Genrestr(BiobbObject):
         properties: Optional[dict] = None,
         **kwargs,
     ) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {
-                "input_structure_path": input_structure_path,
-                "input_ndx_path": input_ndx_path,
-            },
-            "out": {"output_itp_path": output_itp_path},
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
-        self.force_constants = str(properties.get("force_constants", "500 500 500"))
-        self.restrained_group = properties.get("restrained_group", "system")
+        self.force_constants = str(self.force_constants)
 
         # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get("gmx_lib", None)
-        self.binary_path = properties.get("binary_path", "gmx")
-        self.gmx_nobackup = properties.get("gmx_nobackup", True)
-        self.gmx_nocopyright = properties.get("gmx_nocopyright", True)
+        self.gmx_nobackup = self.properties.get("gmx_nobackup", True)
+        self.gmx_nocopyright = self.properties.get("gmx_nocopyright", True)
         if self.gmx_nobackup:
             self.binary_path = f"{self.binary_path}  -nobackup"
         if self.gmx_nocopyright:
