@@ -34,7 +34,7 @@ class GromppMdrun(BiobbObject):
             * **maxwarn** (*int*) - (10) [0~1000|1] Maximum number of allowed warnings.
             * **mpi_bin** (*str*) - (None) Path to the MPI runner. Usually "mpirun" or "srun".
             * **mpi_np** (*str*) - (None) Number of MPI processes. Usually an integer bigger than 1.
-            * **mpi_hostlist** (*str*) - (None) Path to the MPI hostlist file.
+            * **mpi_flags** (*str*) - (None) Path to the MPI hostlist file.
             * **checkpoint_time** (*int*) - (15) [0~1000|1] Checkpoint writing interval in minutes. Only enabled if an output_cpt_path is provided.
             * **num_threads** (*int*) - (0) [0-1000|1] Let GROMACS guess. The number of threads that are going to be used.
             * **num_threads_mpi** (*int*) - (0) [0-1000|1] Let GROMACS guess. The number of GROMACS MPI threads that are going to be used.
@@ -97,7 +97,7 @@ class GromppMdrun(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         grompp_properties_keys = ['mdp', 'maxwarn', 'simulation_type']
-        mdrun_properties_keys = ['mpi_bin', 'mpi_np', 'mpi_hostlist', 'checkpoint_time', 'num_threads', 'num_threads_mpi', 'num_threads_omp', 'num_threads_omp_pme', 'use_gpu', 'gpu_id', 'gpu_tasks', 'dev']
+        mdrun_properties_keys = ['mpi_bin', 'mpi_np', 'mpi_flags', 'checkpoint_time', 'noappend', 'num_threads', 'num_threads_mpi', 'num_threads_omp', 'num_threads_omp_pme', 'use_gpu', 'gpu_id', 'gpu_tasks', 'dev']
         self.properties_grompp = {}
         self.properties_mdrun = {}
         if properties:

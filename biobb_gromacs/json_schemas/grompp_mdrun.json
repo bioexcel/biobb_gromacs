@@ -287,7 +287,7 @@
                     "wf_prop": false,
                     "description": "Number of MPI processes. Usually an integer bigger than 1."
                 },
-                "mpi_hostlist": {
+                "mpi_flags": {
                     "type": "string",
                     "default": null,
                     "wf_prop": false,

@@ -926,7 +926,7 @@ Config parameters for this building block:
 * **maxwarn** (*integer*): (10) Maximum number of allowed warnings.
 * **mpi_bin** (*string*): (None) Path to the MPI runner. Usually "mpirun" or "srun".
 * **mpi_np** (*string*): (None) Number of MPI processes. Usually an integer bigger than 1.
-* **mpi_hostlist** (*string*): (None) Path to the MPI hostlist file.
+* **mpi_flags** (*string*): (None) Path to the MPI hostlist file.
 * **checkpoint_time** (*integer*): (15) Checkpoint writing interval in minutes. Only enabled if an output_cpt_path is provided.
 * **num_threads** (*integer*): (0) Let GROMACS guess. The number of threads that are going to be used.
 * **num_threads_mpi** (*integer*): (0) Let GROMACS guess. The number of GROMACS MPI threads that are going to be used.
