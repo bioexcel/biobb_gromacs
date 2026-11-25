@@ -114,9 +114,8 @@ class GromppMdrun(BiobbObject):
         self.input_top_zip_path = input_top_zip_path
         self.output_tpr_path = output_tpr_path
         if not self.output_tpr_path:
-            self.output_tpr_path = str(Path(fu.create_unique_dir()).joinpath('internal.tpr'))
-            # Internal tpr file: its folder is removed at the end, never the folder of a tpr given by the user
-            self.tmp_files.append(str(Path(self.output_tpr_path).parent))
+            # Internal tpr file in a temporary folder, removed at the end (never the folder of a tpr given by the user)
+            self.output_tpr_path = str(Path(self.create_tmp_dir()).joinpath('internal.tpr'))
         self.input_cpt_path = input_cpt_path
         self.input_ndx_path = input_ndx_path
         self.input_mdp_path = input_mdp_path
