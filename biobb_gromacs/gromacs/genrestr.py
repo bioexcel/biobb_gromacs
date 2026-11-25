@@ -99,7 +99,7 @@ class Genrestr(BiobbObject):
         """Create the stdin file with the restrained group."""
         self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.restrained_group}")
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Grompp <gromacs.grompp.Grompp>` object."""
 
         if self.container_path:
@@ -137,15 +137,8 @@ class Genrestr(BiobbObject):
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
-
         # Remove temporal files
         self.tmp_files.append(str(self.io_dict["in"].get("stdin_file_path")))
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
 def genrestr(

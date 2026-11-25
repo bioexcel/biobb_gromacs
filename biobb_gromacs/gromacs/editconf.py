@@ -94,7 +94,7 @@ class Editconf(BiobbObject):
         if not self.container_path:
             self.gmx_version = get_gromacs_version(self.binary_path)
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Editconf <gromacs.editconf.Editconf>` object."""
 
         if self.container_path:
@@ -140,15 +140,6 @@ class Editconf(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        # self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
 def editconf(

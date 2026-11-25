@@ -102,7 +102,7 @@ class ConvertTpr(BiobbObject):
         if self.io_dict["in"].get("input_ndx_path"):
             self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.output_group}")
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`ConvertTpr <gromacs.convert_tpr.ConvertTpr>` object."""
 
         if self.container_path:
@@ -147,15 +147,8 @@ class ConvertTpr(BiobbObject):
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
-
         if self.io_dict["in"].get("stdin_file_path"):
             self.tmp_files.append(str(self.io_dict["in"].get("stdin_file_path")))
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
 def convert_tpr(input_tpr_path: str, output_tpr_path: str, input_ndx_path: Optional[str] = None,

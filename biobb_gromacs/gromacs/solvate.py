@@ -94,16 +94,16 @@ class Solvate(BiobbObject):
         if not self.container_path:
             self.gmx_version = get_gromacs_version(self.binary_path)
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Solvate <gromacs.solvate.Solvate>` object."""
 
         # Unzip topology to topology_out
-        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
-        top_dir = str(Path(top_file).parent)
+        self.top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
+        self.top_dir = str(Path(self.top_file).parent)
 
         if self.container_path:
-            shutil.copytree(top_dir, str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(Path(top_dir).name)))
-            top_file = str(Path(Path(top_dir).name).joinpath(Path(top_file).name))
+            shutil.copytree(self.top_dir, str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(Path(self.top_dir).name)))
+            self.top_file = str(Path(Path(self.top_dir).name).joinpath(Path(self.top_file).name))
 
         if self.container_path:
             working_dir = self.container_volume_path if self.container_volume_path else "/data"
@@ -115,7 +115,7 @@ class Solvate(BiobbObject):
                     '-cp', PurePath(self.stage_io_dict["in"]["input_solute_gro_path"]).name,
                     '-cs', PurePath(self.stage_io_dict["in"]["input_solvent_gro_path"]).name,
                     '-o', PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
-                    '-p', top_file]
+                    '-p', self.top_file]
 
         if self.shell:
             self.cmd.append("-shell")
@@ -127,23 +127,16 @@ class Solvate(BiobbObject):
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
-
+    def process_outputs(self) -> None:
+        """Zip the topology files of the sandbox into the output topology zip."""
         if self.container_path:
-            top_file = str(Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(
-                Path(top_dir).name, Path(top_file).name))
+            self.top_file = str(Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(
+                Path(self.top_dir).name, Path(self.top_file).name))
 
         # zip topology
         fu.log('Compressing topology to: %s' % self.stage_io_dict["out"]["output_top_zip_path"], self.out_log,
                self.global_log)
-        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
+        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=self.top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
 
 def solvate(input_solute_gro_path: str, output_gro_path: str, input_top_zip_path: str,

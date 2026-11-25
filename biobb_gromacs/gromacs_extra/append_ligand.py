@@ -78,7 +78,7 @@ class AppendLigand(BiobbObject):
     def stage_files(self) -> None:
         """The block does not use the sandbox: there are no files to stage."""
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`AppendLigand <gromacs_extra.append_ligand.AppendLigand>` object."""
         # Unzip topology
         top_file = fu.unzip_top(zip_file=str(self.io_dict["in"].get("input_top_zip_path")),
@@ -86,6 +86,7 @@ class AppendLigand(BiobbObject):
             unique_dir=self.stage_io_dict.get("unique_dir", "")
         )
         top_dir = str(Path(top_file).parent)
+        self.tmp_files.append(top_dir)
         itp_name = str(Path(str(self.io_dict["in"].get("input_itp_path"))).name)
 
         with open(top_file) as top_f:
@@ -104,7 +105,8 @@ class AppendLigand(BiobbObject):
                 self.out_log,
                 self.global_log,
             )
-            return 1
+            self.return_code = 1
+            return
 
         ligand_itp_path = self.io_dict["in"].get("input_itp_path")
 
@@ -245,13 +247,6 @@ class AppendLigand(BiobbObject):
             out_log=self.out_log,
             remove_original_files=self.remove_tmp
         )
-
-        # Remove temporal files
-        self.tmp_files.append(top_dir)
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return 0
 
 
 def append_ligand(

@@ -137,7 +137,7 @@ class GromppMdrun(BiobbObject):
     def stage_files(self) -> None:
         """The files are staged by the Grompp and Mdrun blocks: there are no files to stage."""
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`GromppMdrun <gromacs.grompp_mdrun.GromppMdrun>` object."""
 
         fu.log('Calling Grompp class', self.out_log, self.global_log)
@@ -149,20 +149,14 @@ class GromppMdrun(BiobbObject):
 
         if not grompp_return_code:
             fu.log('Grompp return code is correct. Calling MDRun class', self.out_log, self.global_log)
-            mdrun_return_code = mdrun(input_tpr_path=self.output_tpr_path, output_trr_path=self.output_trr_path,  # type: ignore
-                                      output_gro_path=self.output_gro_path, output_edr_path=self.output_edr_path,
-                                      output_log_path=self.output_log_path, output_xtc_path=self.output_xtc_path,
-                                      output_cpt_path=self.output_cpt_path, output_dhdl_path=self.output_dhdl_path,
-                                      properties=self.properties_mdrun)
-            fu.log(f'MDRun return code: {mdrun_return_code}', self.out_log, self.global_log)
+            self.return_code = mdrun(input_tpr_path=self.output_tpr_path, output_trr_path=self.output_trr_path,  # type: ignore
+                                     output_gro_path=self.output_gro_path, output_edr_path=self.output_edr_path,
+                                     output_log_path=self.output_log_path, output_xtc_path=self.output_xtc_path,
+                                     output_cpt_path=self.output_cpt_path, output_dhdl_path=self.output_dhdl_path,
+                                     properties=self.properties_mdrun)
+            fu.log(f'MDRun return code: {self.return_code}', self.out_log, self.global_log)
         else:
-            return 1
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return mdrun_return_code
+            self.return_code = 1
 
 
 def grompp_mdrun(input_gro_path: str, input_top_zip_path: str, output_trr_path: str,

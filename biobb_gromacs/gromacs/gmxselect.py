@@ -82,7 +82,7 @@ class Gmxselect(BiobbObject):
         if not self.container_path:
             self.gmx_version = get_gromacs_version(self.binary_path)
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Gmxselect <gromacs.gmxselect.Gmxselect>` object."""
 
         if self.container_path:
@@ -114,9 +114,11 @@ class Gmxselect(BiobbObject):
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
+        # Remove temporal files
+        self.tmp_files.append(str(selection_file_path))
 
+    def process_outputs(self) -> None:
+        """With the append property, append the input index file to the output index file."""
         if self.io_dict["in"].get("input_ndx_path"):
             if self.append:
                 fu.log(f"Appending {self.io_dict['in'].get('input_ndx_path')} to {self.io_dict['out']['output_ndx_path']}", self.out_log, self.global_log)
@@ -125,13 +127,6 @@ class Gmxselect(BiobbObject):
                     with open(self.io_dict["in"].get("input_ndx_path", '')) as in_ndx_file:
                         for line in in_ndx_file:
                             out_ndx_file.write(line)
-
-        # Remove temporal files
-        self.tmp_files.append(str(selection_file_path))
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
 def gmxselect(input_structure_path: str, output_ndx_path: str,

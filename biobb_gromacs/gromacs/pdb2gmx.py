@@ -140,7 +140,7 @@ class Pdb2gmx(BiobbObject):
         if stdin_content:
             self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(stdin_content)
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` object."""
 
         internal_top_name = fu.create_name(prefix=self.prefix, step=self.step, name=self.internal_top_name)
@@ -188,16 +188,8 @@ class Pdb2gmx(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        internal_top_name = str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(internal_top_name))
-
-        # zip topology
-        fu.log('Compressing topology to: %s' % self.io_dict["out"]["output_top_zip_path"], self.out_log,
-               self.global_log)
-        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=internal_top_name, out_log=self.out_log, remove_original_files=self.remove_tmp)
+        # Topology written by pdb2gmx in the sandbox, zipped by process_outputs()
+        self.top_file = str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(internal_top_name))
 
         # Remove temporal files
         self.tmp_files.extend([
@@ -205,10 +197,12 @@ class Pdb2gmx(BiobbObject):
             self.internal_itp_name,
             self.io_dict['in'].get("stdin_file_path", "")
         ])
-        self.remove_tmp_files()
 
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
+    def process_outputs(self) -> None:
+        """Zip the topology files of the sandbox into the output topology zip."""
+        fu.log('Compressing topology to: %s' % self.io_dict["out"]["output_top_zip_path"], self.out_log,
+               self.global_log)
+        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=self.top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
     def check_lengths(self, *lists):
         """

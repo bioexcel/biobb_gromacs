@@ -128,22 +128,22 @@ class Genion(BiobbObject):
         """Create the stdin file with the replaced group."""
         self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.replaced_group}")
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Genion <gromacs.genion.Genion>` object."""
 
         # Unzip topology to topology_out
-        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
-        top_file = str(Path(top_file).resolve())  # resolve before cd changes context
-        top_dir = str(Path(top_file).parent)
+        self.top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
+        self.top_file = str(Path(self.top_file).resolve())  # resolve before cd changes context
+        self.top_dir = str(Path(self.top_file).parent)
 
         if self.container_path:
             shutil.copytree(
-                top_dir,
+                self.top_dir,
                 Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(
-                    Path(top_dir).name
+                    Path(self.top_dir).name
                 ),
             )
-            top_file = str(Path(Path(top_dir).name).joinpath(Path(top_file).name))
+            self.top_file = str(Path(Path(self.top_dir).name).joinpath(Path(self.top_file).name))
 
         if self.container_path:
             working_dir = self.container_volume_path if self.container_volume_path else "/data"
@@ -159,7 +159,7 @@ class Genion(BiobbObject):
             "-o",
             PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
             "-p",
-            top_file,
+            self.top_file,
             "-pname",
             self.pname,
             "-nname",
@@ -207,13 +207,15 @@ class Genion(BiobbObject):
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
+        # Remove temporal files
+        self.tmp_files.extend([self.top_dir, str(self.io_dict["in"].get("stdin_file_path"))])
 
+    def process_outputs(self) -> None:
+        """Zip the topology files of the sandbox into the output topology zip."""
         if self.container_path:
-            top_file = str(
+            self.top_file = str(
                 Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(
-                    Path(top_dir).name, Path(top_file).name
+                    Path(self.top_dir).name, Path(self.top_file).name
                 )
             )
 
@@ -226,17 +228,10 @@ class Genion(BiobbObject):
         )
         fu.zip_top(
             zip_file=self.io_dict["out"]["output_top_zip_path"],
-            top_file=top_file,
+            top_file=self.top_file,
             out_log=self.out_log,
             remove_original_files=self.remove_tmp
         )
-
-        # Remove temporal files
-        self.tmp_files.extend([top_dir, str(self.io_dict["in"].get("stdin_file_path"))])
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=True)
-        return self.return_code
 
 
 def genion(

@@ -106,7 +106,7 @@ class InsertMolecules(BiobbObject):
         if not self.io_dict["in"].get("input_gro_path") and not self.box:
             raise ValueError("Either input_gro_path or the box property must be provided to insert the molecules into.")
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`InsertMolecules <gromacs.insert_molecules.InsertMolecules>` object."""
 
         if self.container_path:
@@ -151,15 +151,6 @@ class InsertMolecules(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
 def insert_molecules(input_insert_gro_path: str, output_gro_path: str, input_gro_path: Optional[str] = None,

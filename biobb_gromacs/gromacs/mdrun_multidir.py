@@ -90,7 +90,7 @@ class MdrunMultidir(MdrunBase):
         # Properties specific for BB
         self._init_common_properties(properties, default_binary_path='gmx_mpi')
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` object."""
 
         working_dir = self._get_working_dir()
@@ -123,14 +123,6 @@ class MdrunMultidir(MdrunBase):
         output_multifolder = self.stage_io_dict["out"]["output_multifolder"]
         if os.path.abspath(input_multifolder) != os.path.abspath(output_multifolder):
             shutil.copytree(input_multifolder, output_multifolder)
-        # Copy files to host
-        self.copy_to_host()
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
 def mdrun_multidir(input_tpr_path: str, input_multifolder: str, output_multifolder: str,

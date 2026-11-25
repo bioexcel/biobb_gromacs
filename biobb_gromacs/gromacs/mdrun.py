@@ -93,7 +93,7 @@ class Mdrun(MdrunBase):
         # Properties specific for BB
         self._init_common_properties(properties)
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Mdrun <gromacs.mdrun.Mdrun>` object."""
 
         working_dir = self._get_working_dir()
@@ -133,15 +133,6 @@ class Mdrun(MdrunBase):
 
         # Run Biobb block
         self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
 def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
