@@ -33,11 +33,13 @@ def get_gromacs_version(gmx: str = "gmx", minimum_version: int = 512) -> int:
                     break
         if not version_str:
             warnings.warn("GROMACS version not found. Your GROMACS installation Biobb compatibility has not been tested.")
+            fu.rm(unique_dir)
             return 0
         version = version_str.group(1).replace(".", "").replace("VERSION", "").strip()
         version = "".join([c for c in version if c.isdigit()])
     except Exception:
         warnings.warn("GROMACS version not found. Your GROMACS installation Biobb compatibility has not been tested.")
+        fu.rm(unique_dir)
         return 0
     if version.startswith("2"):
         while len(version) < 5:
