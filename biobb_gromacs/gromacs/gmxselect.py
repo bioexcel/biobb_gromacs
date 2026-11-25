@@ -117,12 +117,11 @@ class Gmxselect(BiobbObject):
         # Remove temporal files
         self.tmp_files.append(str(selection_file_path))
 
-    def process_outputs(self) -> None:
-        """With the append property, append the input index file to the output index file."""
+        # With the append property, append the input index file to the output index file.
         if self.io_dict["in"].get("input_ndx_path"):
             if self.append:
                 fu.log(f"Appending {self.io_dict['in'].get('input_ndx_path')} to {self.io_dict['out']['output_ndx_path']}", self.out_log, self.global_log)
-                with open(self.io_dict["out"]["output_ndx_path"], 'a') as out_ndx_file:
+                with open(self.sandbox_file("output_ndx_path"), 'a') as out_ndx_file:
                     out_ndx_file.write('\n')
                     with open(self.io_dict["in"].get("input_ndx_path", '')) as in_ndx_file:
                         for line in in_ndx_file:

@@ -188,8 +188,7 @@ class Pdb2gmx(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-        # Topology written by pdb2gmx in the sandbox, zipped by process_outputs()
-        self.top_file = str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(internal_top_name))
+        top_file = str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(internal_top_name))
 
         # Remove temporal files
         self.tmp_files.extend([
@@ -198,11 +197,10 @@ class Pdb2gmx(BiobbObject):
             self.io_dict['in'].get("stdin_file_path", "")
         ])
 
-    def process_outputs(self) -> None:
-        """Zip the topology files of the sandbox into the output topology zip."""
+        # Zip the topology files of the sandbox into the output topology zip.
         fu.log('Compressing topology to: %s' % self.io_dict["out"]["output_top_zip_path"], self.out_log,
                self.global_log)
-        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=self.top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
+        fu.zip_top(zip_file=self.sandbox_file("output_top_zip_path"), top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
     def check_lengths(self, *lists):
         """
