@@ -131,6 +131,9 @@ class GromppMdrun(BiobbObject):
         self.output_cpt_path = output_cpt_path
         self.output_dhdl_path = output_dhdl_path
 
+    def check_properties(self, check_var_typing: bool = False) -> None:
+        """The properties are checked by the Grompp and Mdrun blocks."""
+
     def stage_files(self) -> None:
         """The files are staged by the Grompp and Mdrun blocks: there are no files to stage."""
 
