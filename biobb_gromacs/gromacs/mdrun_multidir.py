@@ -4,7 +4,6 @@
 import os
 import shutil
 from typing import Optional
-from pathlib import PurePath
 from biobb_gromacs.gromacs.mdrun_base import MdrunBase
 from biobb_common.generic.biobb_object import launcher
 
@@ -39,7 +38,6 @@ class MdrunMultidir(MdrunBase):
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - (None) Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -79,24 +77,21 @@ class MdrunMultidir(MdrunBase):
     def run(self) -> None:
         """Execute the :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` object."""
 
-        working_dir = self._get_working_dir()
-
-        multifolder_path = self.stage_io_dict["in"]["input_multifolder"]
+        multifolder_path = self.sandbox_file("input_multifolder")
         subdirs = sorted(
             entry for entry in os.listdir(multifolder_path)
             if os.path.isdir(os.path.join(multifolder_path, entry))
         )
+        # mdrun runs in each folder of -multidir: the other file names are relative to them
+        multifolder = self.stage_io_dict["in"]["input_multifolder"]
         self.cmd = [
             self.binary_path, 'mdrun',
-            '-s', PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
-            '-multidir', ' '.join(subdirs),
+            '-s', self.stage_io_dict["in"]["input_tpr_path"],
+            '-multidir', ' '.join(f"{multifolder}/{subdir}" for subdir in subdirs),
         ]
 
-        # Shared mpi / working-directory / runtime flags. multidir also needs to
-        # cd into the multifolder so the -multidir subdir names resolve.
+        # Shared mpi / runtime flags
         self._prepend_mpi_runner()
-        self.cmd = ["cd", working_dir, ";", 'cd',
-                    PurePath(self.stage_io_dict["in"]["input_multifolder"]).name, ";"] + self.cmd
         self._append_gmx_runtime_flags()
 
         # Run Biobb block
@@ -105,8 +100,8 @@ class MdrunMultidir(MdrunBase):
         # Move files to output folder. When the input and output multifolders
         # share a basename they stage to the same sandbox path, so the move is
         # a no-op and must be skipped to avoid "move into itself" errors.
-        input_multifolder = self.stage_io_dict["in"]["input_multifolder"]
-        output_multifolder = self.stage_io_dict["out"]["output_multifolder"]
+        input_multifolder = self.sandbox_file("input_multifolder")
+        output_multifolder = self.sandbox_file("output_multifolder")
         if os.path.abspath(input_multifolder) != os.path.abspath(output_multifolder):
             shutil.copytree(input_multifolder, output_multifolder)
 

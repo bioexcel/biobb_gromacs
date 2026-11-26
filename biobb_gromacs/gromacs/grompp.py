@@ -35,7 +35,6 @@ class Grompp(BiobbObject):
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -98,28 +97,22 @@ class Grompp(BiobbObject):
         # Create MDP file
         self.output_mdp_path = self._create_mdp(str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(self.output_mdp_path)))
 
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
-
-        self.cmd = ["cd", working_dir, ";",
-                    self.binary_path, 'grompp',
-                    '-f', PurePath(self.output_mdp_path).name,
-                    '-c', PurePath(self.stage_io_dict["in"]["input_gro_path"]).name,
-                    '-r', PurePath(self.stage_io_dict["in"]["input_gro_path"]).name,
-                    '-p', PurePath(top_file).name,
-                    '-o', PurePath(self.stage_io_dict["out"]["output_tpr_path"]).name,
-                    '-po', PurePath(self.create_tmp_file('mdout.mdp')).name,
+        self.cmd = [self.binary_path, 'grompp',
+                    '-f', self.staged_path(self.output_mdp_path),
+                    '-c', self.stage_io_dict["in"]["input_gro_path"],
+                    '-r', self.stage_io_dict["in"]["input_gro_path"],
+                    '-p', self.staged_path(top_file),
+                    '-o', self.stage_io_dict["out"]["output_tpr_path"],
+                    '-po', self.staged_path(self.create_tmp_file('mdout.mdp')),
                     '-maxwarn', self.maxwarn]
 
         # Check the host path: with containers stage_io_dict holds the path inside the container
         if bool(self.io_dict["in"].get("input_cpt_path")) and Path(self.io_dict["in"]["input_cpt_path"]).exists():
             self.cmd.append('-t')
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_cpt_path"]).name)
+            self.cmd.append(self.stage_io_dict["in"]["input_cpt_path"])
         if bool(self.io_dict["in"].get("input_ndx_path")) and Path(self.io_dict["in"]["input_ndx_path"]).exists():
             self.cmd.append('-n')
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_ndx_path"]).name)
+            self.cmd.append(self.stage_io_dict["in"]["input_ndx_path"])
 
         if self.gmx_lib:
             self.env_vars_dict['GMXLIB'] = Path(self.gmx_lib).resolve()

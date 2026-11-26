@@ -126,7 +126,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -142,7 +141,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   nsteps: 100
 
 ```
@@ -152,7 +150,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   nsteps: 100
 
 ```
@@ -176,8 +173,7 @@ convert_tpr --config config_convert_tpr.yml --input_tpr_path ref_grompp.tpr --ou
     "nsteps": 100,
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -188,8 +184,7 @@ convert_tpr --config config_convert_tpr.yml --input_tpr_path ref_grompp.tpr --ou
     "nsteps": 100,
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -243,7 +238,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (None) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -261,7 +255,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   distance_to_molecule: 1.0
 
 ```
@@ -272,7 +265,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   distance_to_molecule: 1.0
 
 ```
@@ -298,8 +290,7 @@ editconf --config config_editconf.yml --input_gro_path editconf.gro --output_gro
     "box_type": "cubic",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -311,8 +302,7 @@ editconf --config config_editconf.yml --input_gro_path editconf.gro --output_gro
     "box_type": "cubic",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -384,7 +374,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -402,7 +391,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   replaced_group: SOL
 
 ```
@@ -413,7 +401,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   replaced_group: SOL
 
 ```
@@ -439,8 +426,7 @@ genion --config config_genion.yml --input_tpr_path genion.tpr --output_gro_path 
     "replaced_group": "SOL",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -452,8 +438,7 @@ genion --config config_genion.yml --input_tpr_path genion.tpr --output_gro_path 
     "replaced_group": "SOL",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -510,7 +495,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -527,7 +511,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   force_constants: 500 500 500
   restrained_group: system
 
@@ -538,7 +521,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   force_constants: 500 500 500
   restrained_group: system
 
@@ -565,8 +547,7 @@ genrestr --config config_genrestr.yml --input_structure_path genrestr.gro --outp
     "force_constants": "500 500 500",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -578,8 +559,7 @@ genrestr --config config_genrestr.yml --input_structure_path genrestr.gro --outp
     "force_constants": "500 500 500",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -636,7 +616,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -653,7 +632,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   selection: '"Mynewgroup" group "Protein-H" and not same residue as within 0.4 of
     resname ARG'
 
@@ -664,7 +642,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   selection: '"Mynewgroup" group "Protein-H" and not same residue as within 0.4 of
     resname ARG'
 
@@ -689,8 +666,7 @@ gmxselect --config config_gmxselect.yml --input_structure_path make_ndx.tpr --ou
     "selection": "\"Mynewgroup\" group \"Protein-H\" and not same residue as within 0.4 of resname ARG",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -701,8 +677,7 @@ gmxselect --config config_gmxselect.yml --input_structure_path make_ndx.tpr --ou
     "selection": "\"Mynewgroup\" group \"Protein-H\" and not same residue as within 0.4 of resname ARG",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -769,7 +744,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -787,7 +761,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   maxwarn: 1
   mdp:
     ld-seed: '1'
@@ -799,7 +772,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   maxwarn: 1
   mdp:
     ld-seed: '1'
@@ -831,8 +803,7 @@ grompp --config config_grompp.yml --input_gro_path grompp.gro --input_top_zip_pa
     },
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -846,8 +817,7 @@ grompp --config config_grompp.yml --input_gro_path grompp.gro --input_top_zip_pa
     },
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -943,7 +913,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -966,7 +935,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   maxwarn: 1
   mdp:
     dt: 0.0001
@@ -982,7 +950,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   mdp:
     dt: 0.0001
     ld-seed: '1'
@@ -1024,8 +991,7 @@ grompp_mdrun --config config_grompp_mdrun.yml --input_gro_path grompp.gro --inpu
     "binary_path": "gmx",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1042,8 +1008,7 @@ grompp_mdrun --config config_grompp_mdrun.yml --input_gro_path grompp.gro --inpu
     "binary_path": "gmx",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1088,7 +1053,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -1169,7 +1133,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -1189,7 +1152,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp21.4
   selection: 'a C*
 
     0 & ! 13
@@ -1203,7 +1165,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   selection: 'a C*
 
     0 & ! 13
@@ -1231,8 +1192,7 @@ make_ndx --config config_make_ndx.yml --input_structure_path make_ndx.tpr --outp
     "selection": "a C*\n0 & ! 13\nname 14 FREEZE",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp21.4"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1243,8 +1203,7 @@ make_ndx --config config_make_ndx.yml --input_structure_path make_ndx.tpr --outp
     "selection": "a C*\n0 & ! 13\nname 14 FREEZE",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1329,7 +1288,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (None) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -1347,7 +1305,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   num_threads: 0
 
 ```
@@ -1358,7 +1315,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   num_threads: 0
 
 ```
@@ -1384,8 +1340,7 @@ mdrun --config config_mdrun.yml --input_tpr_path mdrun.tpr --output_gro_path ref
     "binary_path": "gmx",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1397,8 +1352,7 @@ mdrun --config config_mdrun.yml --input_tpr_path mdrun.tpr --output_gro_path ref
     "binary_path": "gmx",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1492,7 +1446,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (None) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -1641,7 +1594,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -1657,7 +1609,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   his: 0 0 1 1 0 0 0
 
 ```
@@ -1667,7 +1618,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   his: 0 0 1 1 0 0 0
 
 ```
@@ -1691,8 +1641,7 @@ pdb2gmx --config config_pdb2gmx.yml --input_pdb_path egfr.pdb --output_gro_path 
     "his": "0 0 1 1 0 0 0",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1703,8 +1652,7 @@ pdb2gmx --config config_pdb2gmx.yml --input_pdb_path egfr.pdb --output_gro_path 
     "his": "0 0 1 1 0 0 0",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1767,7 +1715,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (gromacs/gromacs:latest) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -1785,7 +1732,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   restart: 'False'
 
 ```
@@ -1796,7 +1742,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   restart: 'False'
 
 ```
@@ -1822,8 +1767,7 @@ solvate --config config_solvate.yml --input_solute_gro_path solvate.gro --output
     "restart": "False",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1835,8 +1779,7 @@ solvate --config config_solvate.yml --input_solute_gro_path solvate.gro --output
     "restart": "False",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1887,7 +1830,6 @@ Config parameters for this building block:
 * **container_path** (*string*): (None) Path to the binary executable of your container.
 * **container_image** (*string*): (None) Container Image identifier.
 * **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
-* **container_working_dir** (*string*): (None) Path to the internal CWD in the container.
 * **container_user_id** (*string*): (None) User number id to be mapped inside the container.
 * **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
 ### YAML
@@ -1905,7 +1847,6 @@ properties:
   container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: docker
   container_volume_path: /tmp
-  container_working_dir: /tmp
   restart: 'False'
 
 ```
@@ -1916,7 +1857,6 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   restart: 'False'
 
 ```
@@ -1942,8 +1882,7 @@ trjcat --config config_trjcat.yml --input_trj_zip_path trjcat.zip --output_trj_p
     "restart": "False",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```
@@ -1955,8 +1894,7 @@ trjcat --config config_trjcat.yml --input_trj_zip_path trjcat.zip --output_trj_p
     "restart": "False",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
 ```

@@ -205,12 +205,6 @@
                     "wf_prop": false,
                     "description": "Path to an internal directory in the container."
                 },
-                "container_working_dir": {
-                    "type": "string",
-                    "default": null,
-                    "wf_prop": false,
-                    "description": "Path to the internal CWD in the container."
-                },
                 "container_user_id": {
                     "type": "string",
                     "default": null,

@@ -86,12 +86,6 @@ class MdrunBase(BiobbObject):
             fu.log(f"Copy to stage to append to it: {file_path} --> {unique_dir.name}", self.out_log)
             shutil.copy2(file_path, sandbox_file_path)
 
-    def _get_working_dir(self) -> str:
-        """Return the working directory for the command (container or sandbox)."""
-        if self.container_path:
-            return self.container_volume_path if self.container_volume_path else "/data"
-        return self.stage_io_dict.get('unique_dir', '')
-
     def _prepend_mpi_runner(self) -> None:
         """Prepend the MPI runner (e.g. mpirun/srun) to ``self.cmd`` if configured."""
         if self.mpi_bin:

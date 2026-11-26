@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
 """Module containing the Editconf class and the command line interface."""
-import shutil
 from typing import Optional
-from pathlib import Path, PurePath
+from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -32,7 +31,6 @@ class Solvate(BiobbObject):
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -84,25 +82,14 @@ class Solvate(BiobbObject):
     def run(self) -> None:
         """Execute the :class:`Solvate <gromacs.solvate.Solvate>` object."""
 
-        # Unzip topology to topology_out
+        # Unzip the topology in the sandbox
         top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
-        top_dir = str(Path(top_file).parent)
 
-        if self.container_path:
-            shutil.copytree(top_dir, str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(Path(top_dir).name)))
-            top_file = str(Path(Path(top_dir).name).joinpath(Path(top_file).name))
-
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
-
-        self.cmd = ["cd", working_dir, ";",
-                    self.binary_path, 'solvate',
-                    '-cp', PurePath(self.stage_io_dict["in"]["input_solute_gro_path"]).name,
-                    '-cs', PurePath(self.stage_io_dict["in"]["input_solvent_gro_path"]).name,
-                    '-o', PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
-                    '-p', top_file]
+        self.cmd = [self.binary_path, 'solvate',
+                    '-cp', self.stage_io_dict["in"]["input_solute_gro_path"],
+                    '-cs', self.stage_io_dict["in"]["input_solvent_gro_path"],
+                    '-o', self.stage_io_dict["out"]["output_gro_path"],
+                    '-p', self.staged_path(top_file)]
 
         if self.shell:
             self.cmd.append("-shell")
@@ -113,11 +100,6 @@ class Solvate(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-
-        # Zip the topology files of the sandbox into the output topology zip.
-        if self.container_path:
-            top_file = str(Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(
-                Path(top_dir).name, Path(top_file).name))
 
         # zip topology
         fu.log('Compressing topology to: %s' % self.stage_io_dict["out"]["output_top_zip_path"], self.out_log,

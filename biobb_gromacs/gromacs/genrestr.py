@@ -2,7 +2,7 @@
 
 """Module containing the Genrestr class and the command line interface."""
 
-from pathlib import Path, PurePath
+from pathlib import Path
 from typing import Optional, Union
 
 from biobb_common.generic.biobb_object import BiobbObject, launcher
@@ -32,7 +32,6 @@ class Genrestr(BiobbObject):
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -86,19 +85,13 @@ class Genrestr(BiobbObject):
     def run(self) -> None:
         """Execute the :class:`Grompp <gromacs.grompp.Grompp>` object."""
 
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
-
         self.cmd = [
-            "cd", working_dir, ";",
             str(self.binary_path),
             "genrestr",
             "-f",
-            PurePath(self.stage_io_dict["in"]["input_structure_path"]).name,
+            self.stage_io_dict["in"]["input_structure_path"],
             "-o",
-            PurePath(self.stage_io_dict["out"]["output_itp_path"]).name,
+            self.stage_io_dict["out"]["output_itp_path"],
         ]
 
         if not isinstance(self.force_constants, str):
@@ -109,11 +102,11 @@ class Genrestr(BiobbObject):
 
         if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append("-n")
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_ndx_path"]).name)
+            self.cmd.append(self.stage_io_dict["in"]["input_ndx_path"])
 
         # Add stdin input file
         self.cmd.append("<")
-        self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         if self.gmx_lib:
             self.env_vars_dict["GMXLIB"] = self.gmx_lib

@@ -3,7 +3,6 @@
     "selection": "a C*\n0 & ! 13\nname 14 FREEZE",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp21.4"
+    "container_volume_path": "/tmp"
   }
 }

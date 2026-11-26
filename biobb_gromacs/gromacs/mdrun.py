@@ -2,7 +2,6 @@
 
 """Module containing the MDrun class and the command line interface."""
 from typing import Optional
-from pathlib import PurePath
 from biobb_gromacs.gromacs.mdrun_base import MdrunBase
 from biobb_common.generic.biobb_object import launcher
 
@@ -44,7 +43,6 @@ class Mdrun(MdrunBase):
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - (None) Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -84,39 +82,34 @@ class Mdrun(MdrunBase):
     def run(self) -> None:
         """Execute the :class:`Mdrun <gromacs.mdrun.Mdrun>` object."""
 
-        working_dir = self._get_working_dir()
-
         self.cmd = [self.binary_path, 'mdrun',
-                    '-s', PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
-                    '-c', PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
-                    '-e', PurePath(self.stage_io_dict["out"]["output_edr_path"]).name,
-                    '-g', PurePath(self.stage_io_dict["out"]["output_log_path"]).name]
+                    '-s', self.stage_io_dict["in"]["input_tpr_path"],
+                    '-c', self.stage_io_dict["out"]["output_gro_path"],
+                    '-e', self.stage_io_dict["out"]["output_edr_path"],
+                    '-g', self.stage_io_dict["out"]["output_log_path"]]
 
         if self.stage_io_dict["out"].get("output_trr_path"):
             self.cmd.append('-o')
-            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_trr_path"]).name)
+            self.cmd.append(self.stage_io_dict["out"]["output_trr_path"])
 
         if self.stage_io_dict["in"].get("input_cpt_path"):
             self.cmd.append('-cpi')
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_cpt_path"]).name)
+            self.cmd.append(self.stage_io_dict["in"]["input_cpt_path"])
         if self.stage_io_dict["out"].get("output_xtc_path"):
             self.cmd.append('-x')
-            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_xtc_path"]).name)
-        else:
-            self.tmp_files.append('traj_comp.xtc')
+            self.cmd.append(self.stage_io_dict["out"]["output_xtc_path"])
         if self.stage_io_dict["out"].get("output_cpt_path"):
             self.cmd.append('-cpo')
-            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_cpt_path"]).name)
+            self.cmd.append(self.stage_io_dict["out"]["output_cpt_path"])
             if self.checkpoint_time:
                 self.cmd.append('-cpt')
                 self.cmd.append(str(self.checkpoint_time))
         if self.stage_io_dict["out"].get("output_dhdl_path"):
             self.cmd.append('-dhdl')
-            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_dhdl_path"]).name)
+            self.cmd.append(self.stage_io_dict["out"]["output_dhdl_path"])
 
-        # Shared mpi / working-directory / runtime flags
+        # Shared mpi / runtime flags
         self._prepend_mpi_runner()
-        self.cmd = ["cd", working_dir, ";"] + self.cmd
         self._append_gmx_runtime_flags()
 
         # Run Biobb block

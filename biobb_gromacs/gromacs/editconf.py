@@ -2,7 +2,6 @@
 
 """Module containing the Editconf class and the command line interface."""
 
-from pathlib import PurePath
 from typing import Optional
 
 from biobb_common.generic.biobb_object import BiobbObject, launcher
@@ -33,7 +32,6 @@ class Editconf(BiobbObject):
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - (None) Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -79,20 +77,14 @@ class Editconf(BiobbObject):
     def run(self) -> None:
         """Execute the :class:`Editconf <gromacs.editconf.Editconf>` object."""
 
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
-
         # Create command line
         self.cmd = [
-            "cd", working_dir, ";",
             self.binary_path,
             "editconf",
             "-f",
-            PurePath(self.stage_io_dict["in"]["input_gro_path"]).name,
+            self.stage_io_dict["in"]["input_gro_path"],
             "-o",
-            PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
+            self.stage_io_dict["out"]["output_gro_path"],
             "-bt",
             self.box_type,
         ]

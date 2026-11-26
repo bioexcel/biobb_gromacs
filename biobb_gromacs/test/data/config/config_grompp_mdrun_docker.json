@@ -10,7 +10,6 @@
     "binary_path": "gmx",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0",
-    "container_volume_path": "/tmp",
-    "container_working_dir": "/tmp"
+    "container_volume_path": "/tmp"
   }
 }
