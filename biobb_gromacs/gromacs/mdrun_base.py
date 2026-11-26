@@ -4,6 +4,7 @@
 import re
 import shutil
 import pathlib
+from typing import ClassVar
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import GromacsBlock
 
@@ -14,12 +15,35 @@ class MdrunBase(GromacsBlock):
     :class:`MdrunPlumed <gromacs.mdrun_plumed.MdrunPlumed>` and
     :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>`).
 
-    Concrete subclasses declare their own ``self.io_dict`` and assemble the
-    building-block-specific part of ``self.cmd`` in ``launch()``. This base
-    class centralises the common GROMACS runtime properties, the MPI runner
-    prefix, the CPU/GPU/thread command-line flags and the ``-noappend`` output
-    renaming logic.
+    :meth:`run` executes mdrun with the flags of the staged files (:meth:`mdrun_arguments`),
+    the CPU/GPU/thread flags and the MPI runner prefix. This base class also stages the outputs
+    that a checkpoint restart appends to and follows the ``-noappend`` output renaming.
     """
+
+    # mdrun flag of each file argument
+    mdrun_flags: ClassVar[dict[str, str]] = {
+        "input_tpr_path": "-s", "output_gro_path": "-c", "output_edr_path": "-e", "output_log_path": "-g",
+        "output_trr_path": "-o", "input_cpt_path": "-cpi", "output_xtc_path": "-x", "output_cpt_path": "-cpo",
+        "output_dhdl_path": "-dhdl"}
+
+    def run(self) -> None:
+        """Execute mdrun with the arguments of the block (:meth:`mdrun_arguments`), the
+        CPU/GPU/thread flags and the MPI runner."""
+        self.cmd = [self.binary_path, 'mdrun'] + self.mdrun_arguments()
+        self._append_gmx_runtime_flags()
+        self._prepend_mpi_runner()
+        self.run_biobb()
+
+    def mdrun_arguments(self) -> list[str]:
+        """Go from the staged files to their mdrun flags (``mdrun_flags``), with ``-cpt`` for the output checkpoint."""
+        arguments = []
+        for file_ref, flag in self.mdrun_flags.items():
+            file_path = self.stage_io_dict["in"].get(file_ref) or self.stage_io_dict["out"].get(file_ref)
+            if file_path:
+                arguments += [flag, str(file_path)]
+        if self.stage_io_dict["out"].get("output_cpt_path") and self.checkpoint_time:
+            arguments += ['-cpt', str(self.checkpoint_time)]
+        return arguments
 
     def stage_files(self):
         """Stage the files in the sandbox, plus the outputs a checkpoint restart appends to."""

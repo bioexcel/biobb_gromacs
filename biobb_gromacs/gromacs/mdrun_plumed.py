@@ -78,6 +78,9 @@ class MdrunPlumed(MdrunBase):
             * schema: http://edamontology.org/EDAM.owl
     """
 
+    # The mdrun flags of MdrunBase and the PLUMED input
+    mdrun_flags = MdrunBase.mdrun_flags | {"input_plumed_path": "-plumed"}
+
     def __init__(self, input_tpr_path: str, output_gro_path: str, output_edr_path: str,
                  output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
@@ -85,46 +88,6 @@ class MdrunPlumed(MdrunBase):
                  input_plumed_folder: Optional[str] = None, output_plumed_folder: Optional[str] = None,
                  properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
-
-    def run(self) -> None:
-        """Execute the :class:`MdrunPlumed <gromacs.mdrun_plumed.MdrunPlumed>` object."""
-
-        self.cmd = [self.binary_path, 'mdrun',
-                    '-s', self.stage_io_dict["in"]["input_tpr_path"],
-                    '-c', self.stage_io_dict["out"]["output_gro_path"],
-                    '-e', self.stage_io_dict["out"]["output_edr_path"],
-                    '-g', self.stage_io_dict["out"]["output_log_path"]]
-
-        if self.stage_io_dict["out"].get("output_trr_path"):
-            self.cmd.append('-o')
-            self.cmd.append(self.stage_io_dict["out"]["output_trr_path"])
-
-        if self.stage_io_dict["in"].get("input_plumed_path"):
-            self.cmd.append('-plumed')
-            self.cmd.append(self.stage_io_dict["in"]["input_plumed_path"])
-
-        if self.stage_io_dict["in"].get("input_cpt_path"):
-            self.cmd.append('-cpi')
-            self.cmd.append(self.stage_io_dict["in"]["input_cpt_path"])
-        if self.stage_io_dict["out"].get("output_xtc_path"):
-            self.cmd.append('-x')
-            self.cmd.append(self.stage_io_dict["out"]["output_xtc_path"])
-        if self.stage_io_dict["out"].get("output_cpt_path"):
-            self.cmd.append('-cpo')
-            self.cmd.append(self.stage_io_dict["out"]["output_cpt_path"])
-            if self.checkpoint_time:
-                self.cmd.append('-cpt')
-                self.cmd.append(str(self.checkpoint_time))
-        if self.stage_io_dict["out"].get("output_dhdl_path"):
-            self.cmd.append('-dhdl')
-            self.cmd.append(self.stage_io_dict["out"]["output_dhdl_path"])
-
-        # Shared mpi / runtime flags
-        self._prepend_mpi_runner()
-        self._append_gmx_runtime_flags()
-
-        # Run Biobb block
-        self.run_biobb()
 
     def stage_files(self):
         """Stage the files in the sandbox, plus the contents of the PLUMED folder in its root, where

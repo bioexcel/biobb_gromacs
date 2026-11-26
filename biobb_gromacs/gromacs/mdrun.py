@@ -78,42 +78,6 @@ class Mdrun(MdrunBase):
                  output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
-    def run(self) -> None:
-        """Execute the :class:`Mdrun <gromacs.mdrun.Mdrun>` object."""
-
-        self.cmd = [self.binary_path, 'mdrun',
-                    '-s', self.stage_io_dict["in"]["input_tpr_path"],
-                    '-c', self.stage_io_dict["out"]["output_gro_path"],
-                    '-e', self.stage_io_dict["out"]["output_edr_path"],
-                    '-g', self.stage_io_dict["out"]["output_log_path"]]
-
-        if self.stage_io_dict["out"].get("output_trr_path"):
-            self.cmd.append('-o')
-            self.cmd.append(self.stage_io_dict["out"]["output_trr_path"])
-
-        if self.stage_io_dict["in"].get("input_cpt_path"):
-            self.cmd.append('-cpi')
-            self.cmd.append(self.stage_io_dict["in"]["input_cpt_path"])
-        if self.stage_io_dict["out"].get("output_xtc_path"):
-            self.cmd.append('-x')
-            self.cmd.append(self.stage_io_dict["out"]["output_xtc_path"])
-        if self.stage_io_dict["out"].get("output_cpt_path"):
-            self.cmd.append('-cpo')
-            self.cmd.append(self.stage_io_dict["out"]["output_cpt_path"])
-            if self.checkpoint_time:
-                self.cmd.append('-cpt')
-                self.cmd.append(str(self.checkpoint_time))
-        if self.stage_io_dict["out"].get("output_dhdl_path"):
-            self.cmd.append('-dhdl')
-            self.cmd.append(self.stage_io_dict["out"]["output_dhdl_path"])
-
-        # Shared mpi / runtime flags
-        self._prepend_mpi_runner()
-        self._append_gmx_runtime_flags()
-
-        # Run Biobb block
-        self.run_biobb()
-
 
 mdrun = launcher(Mdrun)
 

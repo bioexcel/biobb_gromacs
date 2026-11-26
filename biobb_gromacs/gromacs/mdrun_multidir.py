@@ -73,9 +73,8 @@ class MdrunMultidir(MdrunBase):
                  **kwargs) -> None:
         super().__init__(**locals())
 
-    def run(self) -> None:
-        """Execute the :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` object."""
-
+    def mdrun_arguments(self) -> list[str]:
+        """Go from the staged files to -s and -multidir with the subfolders of input_multifolder."""
         multifolder_path = self.sandbox_file("input_multifolder")
         subdirs = sorted(
             entry for entry in os.listdir(multifolder_path)
@@ -83,18 +82,11 @@ class MdrunMultidir(MdrunBase):
         )
         # mdrun runs in each folder of -multidir: the other file names are relative to them
         multifolder = self.stage_io_dict["in"]["input_multifolder"]
-        self.cmd = [
-            self.binary_path, 'mdrun',
-            '-s', self.stage_io_dict["in"]["input_tpr_path"],
-            '-multidir', ' '.join(f"{multifolder}/{subdir}" for subdir in subdirs),
-        ]
+        return super().mdrun_arguments() + ['-multidir', ' '.join(f"{multifolder}/{subdir}" for subdir in subdirs)]
 
-        # Shared mpi / runtime flags
-        self._prepend_mpi_runner()
-        self._append_gmx_runtime_flags()
-
-        # Run Biobb block
-        self.run_biobb()
+    def run(self) -> None:
+        """Execute the :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` object."""
+        super().run()
 
         # Move files to output folder. When the input and output multifolders
         # share a basename they stage to the same sandbox path, so the move is
