@@ -7,7 +7,7 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 
 
@@ -232,22 +232,8 @@ class AppendLigand(BiobbObject):
         )
 
 
-def append_ligand(
-    input_top_zip_path: str,
-    input_itp_path: str,
-    output_top_zip_path: str,
-    input_posres_itp_path: Optional[str] = None,
-    properties: Optional[dict] = None,
-    **kwargs,
-) -> int:
-    """Create :class:`AppendLigand <gromacs_extra.append_ligand.AppendLigand>` class and
-    execute the :meth:`launch() <gromacs_extra.append_ligand.AppendLigand.launch>` method."""
-    return AppendLigand(**dict(locals())).launch()
-
-
-append_ligand.__doc__ = AppendLigand.__doc__
-main = AppendLigand.get_main(append_ligand, "This command takes a ligand ITP file and inserts it in a topology")
+append_ligand = launcher(AppendLigand)
 
 
 if __name__ == "__main__":
-    main()
+    AppendLigand.main()

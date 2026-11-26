@@ -7,6 +7,7 @@ from pathlib import PurePath
 from typing import Optional
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.mdrun_base import MdrunBase
+from biobb_common.generic.biobb_object import launcher
 
 
 class MdrunPlumed(MdrunBase):
@@ -184,20 +185,8 @@ class MdrunPlumed(MdrunBase):
                     shutil.copy2(src, dst)
 
 
-def mdrun_plumed(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
-                 output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
-                 output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
-                 output_dhdl_path: Optional[str] = None, input_plumed_path: Optional[str] = None,
-                 input_plumed_folder: Optional[str] = None, output_plumed_folder: Optional[str] = None,
-                 properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`MdrunPlumed <gromacs.mdrun_plumed.MdrunPlumed>` class and
-    execute the :meth:`launch() <gromacs.mdrun_plumed.MdrunPlumed.launch>` method."""
-    return MdrunPlumed(**dict(locals())).launch()
-
-
-mdrun_plumed.__doc__ = MdrunPlumed.__doc__
-main = MdrunPlumed.get_main(mdrun_plumed, "Wrapper for the GROMACS mdrun with PLUMED module.")
+mdrun_plumed = launcher(MdrunPlumed)
 
 
 if __name__ == '__main__':
-    main()
+    MdrunPlumed.main()

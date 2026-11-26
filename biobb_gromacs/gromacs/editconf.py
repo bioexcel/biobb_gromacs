@@ -5,7 +5,7 @@
 from pathlib import PurePath
 from typing import Optional
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -124,20 +124,8 @@ class Editconf(BiobbObject):
         self.run_biobb()
 
 
-def editconf(
-    input_gro_path: str,
-    output_gro_path: str,
-    properties: Optional[dict] = None,
-    **kwargs,
-) -> int:
-    """Create :class:`Editconf <gromacs.editconf.Editconf>` class and
-    execute the :meth:`launch() <gromacs.editconf.Editconf.launch>` method."""
-    return Editconf(**dict(locals())).launch()
-
-
-editconf.__doc__ = Editconf.__doc__
-main = Editconf.get_main(editconf, "Wrapper of the GROMACS gmx editconf module.")
+editconf = launcher(Editconf)
 
 
 if __name__ == "__main__":
-    main()
+    Editconf.main()

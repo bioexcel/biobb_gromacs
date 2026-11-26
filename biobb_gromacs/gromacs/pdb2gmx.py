@@ -3,7 +3,7 @@
 """Module containing the Pdb2gmx class and the command line interface."""
 from typing import Optional
 from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
@@ -210,16 +210,8 @@ class Pdb2gmx(BiobbObject):
             return 0
 
 
-def pdb2gmx(input_pdb_path: str, output_gro_path: str, output_top_zip_path: str,
-            properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` class and
-    execute the :meth:`launch() <gromacs.pdb2gmx.Pdb2gmx.launch>` method."""
-    return Pdb2gmx(**dict(locals())).launch()
-
-
-pdb2gmx.__doc__ = Pdb2gmx.__doc__
-main = Pdb2gmx.get_main(pdb2gmx, "Wrapper for the GROMACS pdb2gmx module.")
+pdb2gmx = launcher(Pdb2gmx)
 
 
 if __name__ == '__main__':
-    main()
+    Pdb2gmx.main()

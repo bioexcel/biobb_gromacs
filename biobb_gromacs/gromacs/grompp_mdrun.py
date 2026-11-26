@@ -3,7 +3,7 @@
 """Module containing the GromppMDrun class and the command line interface."""
 from typing import Optional
 from pathlib import Path
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.grompp import grompp
 from biobb_gromacs.gromacs.mdrun import mdrun
@@ -152,17 +152,8 @@ class GromppMdrun(BiobbObject):
             self.return_code = 1
 
 
-def grompp_mdrun(input_gro_path: str, input_top_zip_path: str, output_trr_path: str,
-                 output_gro_path: str, output_edr_path: str, output_log_path: str,
-                 input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
-                 output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None, output_dhdl_path: Optional[str] = None,
-                 output_tpr_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    return GromppMdrun(**dict(locals())).launch()
-
-
-grompp_mdrun.__doc__ = GromppMdrun.__doc__
-main = GromppMdrun.get_main(grompp_mdrun, "Wrapper for the GROMACS grompp_mdrun module.")
+grompp_mdrun = launcher(GromppMdrun)
 
 
 if __name__ == '__main__':
-    main()
+    GromppMdrun.main()

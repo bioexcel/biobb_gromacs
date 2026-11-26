@@ -3,7 +3,7 @@
 """Module containing the MakeNdx class and the command line interface."""
 from typing import Optional
 from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
@@ -104,16 +104,8 @@ class MakeNdx(BiobbObject):
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ''))
 
 
-def make_ndx(input_structure_path: str, output_ndx_path: str,
-             input_ndx_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`MakeNdx <gromacs.make_ndx.MakeNdx>` class and
-    execute the :meth:`launch() <gromacs.make_ndx.MakeNdx.launch>` method."""
-    return MakeNdx(**dict(locals())).launch()
-
-
-make_ndx.__doc__ = MakeNdx.__doc__
-main = MakeNdx.get_main(make_ndx, "Wrapper for the GROMACS make_ndx module.")
+make_ndx = launcher(MakeNdx)
 
 
 if __name__ == '__main__':
-    main()
+    MakeNdx.main()

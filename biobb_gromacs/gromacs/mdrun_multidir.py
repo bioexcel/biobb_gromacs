@@ -6,6 +6,7 @@ import shutil
 from typing import Optional
 from pathlib import PurePath
 from biobb_gromacs.gromacs.mdrun_base import MdrunBase
+from biobb_common.generic.biobb_object import launcher
 
 
 class MdrunMultidir(MdrunBase):
@@ -110,16 +111,8 @@ class MdrunMultidir(MdrunBase):
             shutil.copytree(input_multifolder, output_multifolder)
 
 
-def mdrun_multidir(input_tpr_path: str, input_multifolder: str, output_multifolder: str,
-                   properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` class and
-    execute the :meth:`launch() <gromacs.mdrun_multidir.MdrunMultidir.launch>` method."""
-    return MdrunMultidir(**dict(locals())).launch()
-
-
-mdrun_multidir.__doc__ = MdrunMultidir.__doc__
-main = MdrunMultidir.get_main(mdrun_multidir, "Wrapper for the GROMACS mdrun module with multidir support.")
+mdrun_multidir = launcher(MdrunMultidir)
 
 
 if __name__ == '__main__':
-    main()
+    MdrunMultidir.main()

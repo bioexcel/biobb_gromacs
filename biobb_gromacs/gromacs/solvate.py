@@ -4,7 +4,7 @@
 import shutil
 from typing import Optional
 from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
@@ -125,16 +125,8 @@ class Solvate(BiobbObject):
         fu.zip_top(zip_file=self.sandbox_file("output_top_zip_path"), top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
 
-def solvate(input_solute_gro_path: str, output_gro_path: str, input_top_zip_path: str,
-            output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Solvate <gromacs.solvate.Solvate>` class and
-    execute the :meth:`launch() <gromacs.solvate.Solvate.launch>` method."""
-    return Solvate(**dict(locals())).launch()
-
-
-solvate.__doc__ = Solvate.__doc__
-main = Solvate.get_main(solvate, "Wrapper for the GROMACS solvate module.")
+solvate = launcher(Solvate)
 
 
 if __name__ == '__main__':
-    main()
+    Solvate.main()

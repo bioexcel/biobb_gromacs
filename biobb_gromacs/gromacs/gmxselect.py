@@ -3,7 +3,7 @@
 """Module containing the Select class and the command line interface."""
 from typing import Optional
 from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
@@ -112,17 +112,8 @@ class Gmxselect(BiobbObject):
                             out_ndx_file.write(line)
 
 
-def gmxselect(input_structure_path: str, output_ndx_path: str,
-              input_ndx_path: Optional[str] = None, properties: Optional[dict] = None,
-              **kwargs) -> int:
-    """Create :class:`Gmxselect <gromacs.gmxselect.Gmxselect>` class and
-    execute the :meth:`launch() <gromacs.gmxselect.Gmxselect.launch>` method."""
-    return Gmxselect(**dict(locals())).launch()
-
-
-gmxselect.__doc__ = Gmxselect.__doc__
-main = Gmxselect.get_main(gmxselect, "Wrapper for the GROMACS select module.")
+gmxselect = launcher(Gmxselect)
 
 
 if __name__ == '__main__':
-    main()
+    Gmxselect.main()

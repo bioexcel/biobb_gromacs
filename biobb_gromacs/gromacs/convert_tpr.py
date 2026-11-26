@@ -3,7 +3,7 @@
 """Module containing the Convert_tpr class and the command line interface."""
 from pathlib import Path, PurePath
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
@@ -133,17 +133,8 @@ class ConvertTpr(BiobbObject):
             self.tmp_files.append(str(self.io_dict["in"].get("stdin_file_path")))
 
 
-def convert_tpr(input_tpr_path: str, output_tpr_path: str, input_ndx_path: Optional[str] = None,
-                properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`ConvertTpr <gromacs.convert_tpr.ConvertTpr>` class and
-    execute the :meth:`launch() <gromacs.convert_tpr.ConvertTpr.launch>` method."""
-    return ConvertTpr(**dict(locals())).launch()
-
-
-convert_tpr.__doc__ = ConvertTpr.__doc__
-main = ConvertTpr.get_main(
-    convert_tpr, "Wrapper of the GROMACS convert-tpr module.")
+convert_tpr = launcher(ConvertTpr)
 
 
 if __name__ == '__main__':
-    main()
+    ConvertTpr.main()

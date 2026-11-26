@@ -5,7 +5,7 @@
 import shutil
 from pathlib import Path, PurePath
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -208,23 +208,8 @@ class Genion(BiobbObject):
         )
 
 
-def genion(
-    input_tpr_path: str | Path,
-    output_gro_path: str | Path,
-    input_top_zip_path: str | Path,
-    output_top_zip_path: str | Path,
-    input_ndx_path: str | Path | None = None,
-    properties: dict | None = None,
-    **kwargs,
-) -> int:
-    """Create :class:`Genion <gromacs.genion.Genion>` class and
-    execute the :meth:`launch() <gromacs.genion.Genion.launch>` method."""
-    return Genion(**dict(locals())).launch()
-
-
-genion.__doc__ = Genion.__doc__
-main = Genion.get_main(genion, "Wrapper for the GROMACS genion module.")
+genion = launcher(Genion)
 
 
 if __name__ == "__main__":
-    main()
+    Genion.main()

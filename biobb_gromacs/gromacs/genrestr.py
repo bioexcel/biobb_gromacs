@@ -5,7 +5,7 @@
 from pathlib import Path, PurePath
 from typing import Optional, Union
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -125,21 +125,8 @@ class Genrestr(BiobbObject):
         self.tmp_files.append(str(self.io_dict["in"].get("stdin_file_path")))
 
 
-def genrestr(
-    input_structure_path: Union[str, Path],
-    output_itp_path: Union[str, Path],
-    input_ndx_path: Optional[Union[str, Path]] = None,
-    properties: Optional[dict] = None,
-    **kwargs,
-) -> int:
-    """Create :class:`Genrestr <gromacs.genrestr.Genrestr>` class and
-    execute the :meth:`launch() <gromacs.genrestr.Genrestr.launch>` method."""
-    return Genrestr(**dict(locals())).launch()
-
-
-genrestr.__doc__ = Genrestr.__doc__
-main = Genrestr.get_main(genrestr, "Wrapper for the GROMACS genrestr module.")
+genrestr = launcher(Genrestr)
 
 
 if __name__ == "__main__":
-    main()
+    Genrestr.main()

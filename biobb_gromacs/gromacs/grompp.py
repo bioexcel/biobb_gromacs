@@ -3,7 +3,7 @@
 """Module containing the Grompp class and the command line interface."""
 from typing import Optional
 from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import get_gromacs_version
 from biobb_gromacs.gromacs.common import create_mdp
@@ -140,17 +140,8 @@ class Grompp(BiobbObject):
                           mdp_properties_dict=self.mdp)
 
 
-def grompp(input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
-           input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
-           properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Grompp <gromacs.grompp.Grompp>` class and
-    execute the :meth:`launch() <gromacs.grompp.Grompp.launch>` method."""
-    return Grompp(**dict(locals())).launch()
-
-
-grompp.__doc__ = Grompp.__doc__
-main = Grompp.get_main(grompp, "Wrapper for the GROMACS grompp module.")
+grompp = launcher(Grompp)
 
 
 if __name__ == '__main__':
-    main()
+    Grompp.main()

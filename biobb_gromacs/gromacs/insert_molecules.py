@@ -5,7 +5,7 @@
 from pathlib import PurePath
 from typing import Optional
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 
 from biobb_gromacs.gromacs.common import get_gromacs_version
@@ -130,16 +130,8 @@ class InsertMolecules(BiobbObject):
         self.run_biobb()
 
 
-def insert_molecules(input_insert_gro_path: str, output_gro_path: str, input_gro_path: Optional[str] = None,
-                     input_positions_dat_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`InsertMolecules <gromacs.insert_molecules.InsertMolecules>` class and
-    execute the :meth:`launch() <gromacs.insert_molecules.InsertMolecules.launch>` method."""
-    return InsertMolecules(**dict(locals())).launch()
-
-
-insert_molecules.__doc__ = InsertMolecules.__doc__
-main = InsertMolecules.get_main(insert_molecules, "Wrapper of the GROMACS gmx insert-molecules module.")
+insert_molecules = launcher(InsertMolecules)
 
 
 if __name__ == '__main__':
-    main()
+    InsertMolecules.main()

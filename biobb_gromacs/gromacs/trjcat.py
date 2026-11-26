@@ -3,7 +3,7 @@
 """Module containing the Trjcat class and the command line interface."""
 from typing import Optional
 from pathlib import PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import get_gromacs_version
 
@@ -95,15 +95,8 @@ class Trjcat(BiobbObject):
         self.run_biobb()
 
 
-def trjcat(input_trj_zip_path: str, output_trj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Trjcat <gromacs.trjcat.Trjcat>` class and
-    execute the :meth:`launch() <gromacs.trjcat.Trjcat.launch>` method."""
-    return Trjcat(**dict(locals())).launch()
-
-
-trjcat.__doc__ = Trjcat.__doc__
-main = Trjcat.get_main(trjcat, "Wrapper for the GROMACS trjcat module.")
+trjcat = launcher(Trjcat)
 
 
 if __name__ == '__main__':
-    main()
+    Trjcat.main()

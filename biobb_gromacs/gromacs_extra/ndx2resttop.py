@@ -5,7 +5,7 @@ import fnmatch
 from typing import Optional
 from typing import Any
 from pathlib import Path
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 
 
@@ -281,16 +281,8 @@ class Ndx2resttop(BiobbObject):
                    top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
 
-def ndx2resttop(input_ndx_path: str, input_top_zip_path: str, output_top_zip_path: str,
-                properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Ndx2resttop <gromacs_extra.ndx2resttop.Ndx2resttop>` class and
-    execute the :meth:`launch() <gromacs_extra.ndx2resttop.Ndx2resttop.launch>` method."""
-    return Ndx2resttop(**dict(locals())).launch()
-
-
-ndx2resttop.__doc__ = Ndx2resttop.__doc__
-main = Ndx2resttop.get_main(ndx2resttop, "Generate a restrained topology from an index NDX file.")
+ndx2resttop = launcher(Ndx2resttop)
 
 
 if __name__ == '__main__':
-    main()
+    Ndx2resttop.main()

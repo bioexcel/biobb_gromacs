@@ -4,6 +4,7 @@
 from typing import Optional
 from pathlib import PurePath
 from biobb_gromacs.gromacs.mdrun_base import MdrunBase
+from biobb_common.generic.biobb_object import launcher
 
 
 class Mdrun(MdrunBase):
@@ -122,18 +123,8 @@ class Mdrun(MdrunBase):
         self.run_biobb()
 
 
-def mdrun(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
-          output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
-          output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
-          output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Mdrun <gromacs.mdrun.Mdrun>` class and
-    execute the :meth:`launch() <gromacs.mdrun.Mdrun.launch>` method."""
-    return Mdrun(**dict(locals())).launch()
-
-
-mdrun.__doc__ = Mdrun.__doc__
-main = Mdrun.get_main(mdrun, "Wrapper for the GROMACS mdrun module.")
+mdrun = launcher(Mdrun)
 
 
 if __name__ == '__main__':
-    main()
+    Mdrun.main()
