@@ -37,6 +37,8 @@ class Mdrun(MdrunBase):
             * **gpu_tasks** (*str*) - (None) list of GPU device IDs, mapping each PP task on each node to a device.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
@@ -75,9 +77,6 @@ class Mdrun(MdrunBase):
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
                  output_dhdl_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
-
-        # Properties specific for BB
-        self._init_common_properties(self.properties)
 
     def run(self) -> None:
         """Execute the :class:`Mdrun <gromacs.mdrun.Mdrun>` object."""

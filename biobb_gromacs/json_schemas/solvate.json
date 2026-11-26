@@ -169,6 +169,18 @@
                     "wf_prop": false,
                     "description": "Path to the GROMACS executable binary."
                 },
+                "gmx_nobackup": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": false,
+                    "description": "Add the -nobackup flag: GROMACS overwrites the existing files without backing them up."
+                },
+                "gmx_nocopyright": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": false,
+                    "description": "Add the -nocopyright flag: GROMACS does not print its copyright and citation header."
+                },
                 "remove_tmp": {
                     "type": "boolean",
                     "default": true,

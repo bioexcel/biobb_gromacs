@@ -3,12 +3,12 @@
 """Module containing the Convert_tpr class and the command line interface."""
 from pathlib import Path
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject, launcher
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class ConvertTpr(BiobbObject):
+class ConvertTpr(GromacsBlock):
     """
     | biobb_gromacs ConvertTpr
     | Wrapper of the `GROMACS convert-tpr <https://manual.gromacs.org/current/onlinehelp/gmx-convert-tpr.html>`_ module.
@@ -25,6 +25,8 @@ class ConvertTpr(BiobbObject):
             * **output_group** (*str*) - ("System") Index group to write to the output tpr file when trimming to a subset of atoms. Only used when input_ndx_path is provided.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
@@ -66,16 +68,6 @@ class ConvertTpr(BiobbObject):
                  properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
-        # Properties common in all GROMACS BB
-        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
-
     def prepare(self) -> None:
         """Create the stdin file with the output group."""
         # When trimming to a subset (an index file is provided), GROMACS
@@ -116,9 +108,6 @@ class ConvertTpr(BiobbObject):
         if self.io_dict["in"].get("stdin_file_path"):
             self.cmd.append('<')
             self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Run Biobb block
         self.run_biobb()

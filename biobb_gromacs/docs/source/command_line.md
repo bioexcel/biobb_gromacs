@@ -120,6 +120,8 @@ Config parameters for this building block:
 * **output_group** (*string*): (System) Index group to write to the output tpr file when trimming to a subset of atoms. Only used when input_ndx_path is provided.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -232,6 +234,8 @@ Config parameters for this building block:
 * **center_molecule** (*boolean*): (True) Center molecule in the box.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -368,6 +372,8 @@ Config parameters for this building block:
 * **seed** (*integer*): (1993) Seed for random number generator.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -489,6 +495,8 @@ Config parameters for this building block:
 * **force_constants** (*string*): (500 500 500) Array of three floats defining the force constants
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -609,6 +617,8 @@ Config parameters for this building block:
 * **selection** (*string*): (a CA C N O) Heavy atoms. Atom selection string.
 * **append** (*boolean*): (False) Append the content of the input_ndx_path to the output_ndx_path.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
@@ -738,6 +748,8 @@ Config parameters for this building block:
 * **maxwarn** (*integer*): (0) Maximum number of allowed warnings. If simulation_type is index default is 10.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -907,6 +919,8 @@ Config parameters for this building block:
 * **gpu_tasks** (*string*): (None) list of GPU device IDs, mapping each PP task on each node to a device.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -1047,6 +1061,8 @@ Config parameters for this building block:
 * **rot** (*string*): (xyz) Rotate the inserted molecules randomly. 
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -1127,6 +1143,8 @@ Config parameters for this building block:
 * **selection** (*string*): (a CA C N O) Heavy atoms. Atom selection string.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -1282,6 +1300,8 @@ Config parameters for this building block:
 * **gpu_tasks** (*string*): (None) list of GPU device IDs, mapping each PP task on each node to a device.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -1440,6 +1460,8 @@ Config parameters for this building block:
 * **gpu_tasks** (*string*): (None) list of GPU device IDs, mapping each PP task on each node to a device.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -1588,6 +1610,8 @@ Config parameters for this building block:
 * **merge** (*boolean*): (False) Merge all chains into a single molecule.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -1709,6 +1733,8 @@ Config parameters for this building block:
 * **shell** (*number*): (0.0) Thickness in nanometers of optional water layer around solute.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
@@ -1824,6 +1850,8 @@ Config parameters for this building block:
 * **concatenate** (*boolean*): (True) Only concatenate the files without removal of frames with identical timestamps.
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
 * **remove_tmp** (*boolean*): (True) Remove temporal files.
 * **restart** (*boolean*): (False) Do not execute if output files exist.
 * **sandbox_path** (*string*): (./) Parent path to the sandbox directory.

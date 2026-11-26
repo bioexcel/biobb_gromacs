@@ -8,6 +8,9 @@
 * solvate: new `solvent` property to choose the GROMACS default solvent box (`spc216`, `tip4p`, `tip5p`) ([#12](https://github.com/bioexcel/biobb_gromacs/issues/12)).
 * mdrun, mdrun_plumed: continuing from a checkpoint (`input_cpt_path`) now appends to the previous output files instead of failing ([#3](https://github.com/bioexcel/biobb_gromacs/issues/3)).
 * mdrun blocks: `num_threads_omp` also sets `OMP_NUM_THREADS` for the mdrun process, so an inherited value no longer makes mdrun abort ([#30](https://github.com/bioexcel/biobb_gromacs/issues/30)).
+* GROMACS blocks: the `gmx_nobackup` and `gmx_nocopyright` properties are now documented (both `True` by default: `-nobackup` and `-nocopyright` are added to the `gmx` command).
+* GROMACS blocks: creating a block no longer runs `gmx -version`, which also created a temporary folder in the working directory.
+* GROMACS blocks: `gmx_lib` no longer adds `GMXLIB` to the `env_vars_dict` given in the properties, which other steps of a workflow can share. A relative `gmx_lib` path now works in every block: it is relative to the working directory.
 
 ## What's new in version [5.3.2](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.3.2)?
 

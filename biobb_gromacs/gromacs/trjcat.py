@@ -2,12 +2,12 @@
 
 """Module containing the Trjcat class and the command line interface."""
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject, launcher
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Trjcat(BiobbObject):
+class Trjcat(GromacsBlock):
     """
     | biobb_gromacs Trjcat
     | Wrapper class for the `GROMACS trjcat <http://manual.gromacs.org/current/onlinehelp/gmx-trjcat.html>`_ module.
@@ -20,6 +20,8 @@ class Trjcat(BiobbObject):
             * **concatenate** (*bool*) - (True) Only concatenate the files without removal of frames with identical timestamps.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
@@ -54,16 +56,6 @@ class Trjcat(BiobbObject):
         # Should not be copied inside container
         self.input_trj_zip_path = self.io_dict["in"].pop("input_trj_zip_path")
 
-        # Properties common in all GROMACS BB
-        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
-
     def run(self) -> None:
         """Execute the :class:`Trjcat <gromacs.trjcat.Trjcat>` object."""
 
@@ -79,9 +71,6 @@ class Trjcat(BiobbObject):
         if self.concatenate:
             self.cmd.append('-cat')
             fu.log('Only concatenate the files without removal of frames with identical timestamps.', self.out_log, self.global_log)
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Run Biobb block
         self.run_biobb()

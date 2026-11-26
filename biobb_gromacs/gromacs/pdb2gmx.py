@@ -3,12 +3,12 @@
 """Module containing the Pdb2gmx class and the command line interface."""
 from typing import Optional
 from pathlib import Path
-from biobb_common.generic.biobb_object import BiobbObject, launcher
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Pdb2gmx(BiobbObject):
+class Pdb2gmx(GromacsBlock):
     """
     | biobb_gromacs Pdb2gmx
     | Wrapper class for the `GROMACS pdb2gmx <http://manual.gromacs.org/current/onlinehelp/gmx-pdb2gmx.html>`_ module.
@@ -31,6 +31,8 @@ class Pdb2gmx(BiobbObject):
             * **merge** (*bool*) - (False) Merge all chains into a single molecule.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
@@ -67,16 +69,6 @@ class Pdb2gmx(BiobbObject):
         # Properties specific for BB
         self.internal_top_name = self.properties.get('internal_top_name', 'p2g.top')  # Excluded from documentation for simplicity
         self.internal_itp_name = self.properties.get('internal_itp_name', 'posre.itp')  # Excluded from documentation for simplicity
-
-        # Properties common in all GROMACS BB
-        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
 
         # Support string for single chain
         if isinstance(self.lys, str):
@@ -153,9 +145,6 @@ class Pdb2gmx(BiobbObject):
         if self.io_dict['in'].get('stdin_file_path'):
             self.cmd.append('<')
             self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Run Biobb block
         self.run_biobb()

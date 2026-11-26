@@ -4,13 +4,13 @@
 
 from typing import Optional
 
-from biobb_common.generic.biobb_object import BiobbObject, launcher
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
 
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class InsertMolecules(BiobbObject):
+class InsertMolecules(GromacsBlock):
     """
     | biobb_gromacs InsertMolecules
     | Wrapper of the `GROMACS insert-molecules <http://manual.gromacs.org/current/onlinehelp/gmx-insert-molecules.html>`_ module.
@@ -32,6 +32,8 @@ class InsertMolecules(BiobbObject):
             * **rot** (*str*) - ("xyz") Rotate the inserted molecules randomly. Values: xyz (random rotation around all axes), z (random rotation around the z axis), none (no rotation).
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
@@ -65,16 +67,6 @@ class InsertMolecules(BiobbObject):
     def __init__(self, input_insert_gro_path: str, output_gro_path: str, input_gro_path: Optional[str] = None,
                  input_positions_dat_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
-
-        # Properties common in all GROMACS BB
-        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
 
     def prepare(self) -> None:
         """Checks all the input/output paths and parameters"""
@@ -114,9 +106,6 @@ class InsertMolecules(BiobbObject):
             fu.log("Inserting one molecule per position of the positions file", self.out_log, self.global_log)
         else:
             fu.log(f"Inserting {self.nmol} molecules with seed {self.seed}", self.out_log, self.global_log)
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Run Biobb block
         self.run_biobb()

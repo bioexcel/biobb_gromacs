@@ -3,12 +3,12 @@
 """Module containing the Select class and the command line interface."""
 from typing import Optional
 from pathlib import Path
-from biobb_common.generic.biobb_object import BiobbObject, launcher
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Gmxselect(BiobbObject):
+class Gmxselect(GromacsBlock):
     """
     | biobb_gromacs Gmxselect
     | Wrapper of the `GROMACS select <http://manual.gromacs.org/current/onlinehelp/gmx-select.html>`_ module.
@@ -22,6 +22,8 @@ class Gmxselect(BiobbObject):
             * **selection** (*str*) - ("a CA C N O") Heavy atoms. Atom selection string.
             * **append** (*bool*) - (False) Append the content of the input_ndx_path to the output_ndx_path.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -55,16 +57,6 @@ class Gmxselect(BiobbObject):
                  properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
-        # Properties common in all GROMACS BB
-        self.gmx_nobackup = self.properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = self.properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
-
     def run(self) -> None:
         """Execute the :class:`Gmxselect <gromacs.gmxselect.Gmxselect>` object."""
 
@@ -84,9 +76,6 @@ class Gmxselect(BiobbObject):
 
         self.cmd.append('-sf')
         self.cmd.append(self.staged_path(selection_file_path))
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
 
         # Run Biobb block
         self.run_biobb()

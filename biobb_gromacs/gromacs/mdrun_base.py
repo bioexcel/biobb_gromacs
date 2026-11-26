@@ -4,12 +4,11 @@
 import re
 import shutil
 import pathlib
-from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class MdrunBase(BiobbObject):
+class MdrunBase(GromacsBlock):
     """Shared behaviour for the GROMACS ``mdrun`` building blocks
     (:class:`Mdrun <gromacs.mdrun.Mdrun>`,
     :class:`MdrunPlumed <gromacs.mdrun_plumed.MdrunPlumed>` and
@@ -21,42 +20,6 @@ class MdrunBase(BiobbObject):
     prefix, the CPU/GPU/thread command-line flags and the ``-noappend`` output
     renaming logic.
     """
-
-    def _init_common_properties(self, properties: dict, default_binary_path: str = 'gmx') -> None:
-        """Parse the GROMACS runtime properties shared by all mdrun wrappers.
-
-        Must be called from the subclass ``__init__`` after
-        ``super().__init__(**locals())`` (it relies on ``self.container_path``).
-        ``default_binary_path`` is used when the ``binary_path`` property is not set.
-        """
-        # general mpi properties
-        self.mpi_bin = properties.get('mpi_bin')
-        self.mpi_np = properties.get('mpi_np')
-        self.mpi_flags = properties.get('mpi_flags')
-        # gromacs cpu mpi/openmp properties
-        self.num_threads = str(properties.get('num_threads', ''))
-        self.num_threads_mpi = str(properties.get('num_threads_mpi', ''))
-        self.num_threads_omp = str(properties.get('num_threads_omp', ''))
-        self.num_threads_omp_pme = str(properties.get('num_threads_omp_pme', ''))
-        # gromacs gpus
-        self.use_gpu = properties.get('use_gpu', False)  # Adds: -nb gpu -pme gpu
-        self.gpu_id = str(properties.get('gpu_id', ''))
-        self.gpu_tasks = str(properties.get('gpu_tasks', ''))
-        # gromacs
-        self.checkpoint_time = properties.get('checkpoint_time')
-        self.noappend = properties.get('noappend', False)
-
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path: str = properties.get('binary_path', default_binary_path)
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if (not self.mpi_bin) and (not self.container_path):
-            self.gmx_version = get_gromacs_version(self.binary_path)
 
     def stage_files(self):
         """Stage the files in the sandbox, plus the outputs a checkpoint restart appends to."""
@@ -98,54 +61,51 @@ class MdrunBase(BiobbObject):
             self.cmd = mpi_cmd + self.cmd
 
     def _append_gmx_runtime_flags(self) -> None:
-        """Append the shared CPU/GPU/thread flags to ``self.cmd`` and set GMXLIB."""
-        # gromacs cpu mpi/openmp properties
+        """Append the shared CPU/GPU/thread flags to ``self.cmd`` and set OMP_NUM_THREADS."""
+        # gromacs cpu mpi/openmp properties: 0 lets GROMACS guess
         if self.num_threads:
             fu.log(f'User added number of gmx threads: {self.num_threads}', self.out_log)
             self.cmd.append('-nt')
-            self.cmd.append(self.num_threads)
+            self.cmd.append(str(self.num_threads))
         if self.num_threads_mpi:
             fu.log(f'User added number of gmx mpi threads: {self.num_threads_mpi}', self.out_log)
             self.cmd.append('-ntmpi')
-            self.cmd.append(self.num_threads_mpi)
+            self.cmd.append(str(self.num_threads_mpi))
         if self.num_threads_omp:
             fu.log(f'User added number of gmx omp threads: {self.num_threads_omp}', self.out_log)
             self.cmd.append('-ntomp')
-            self.cmd.append(self.num_threads_omp)
+            self.cmd.append(str(self.num_threads_omp))
         if self.num_threads_omp_pme:
             fu.log(f'User added number of gmx omp_pme threads: {self.num_threads_omp_pme}', self.out_log)
             self.cmd.append('-ntomp_pme')
-            self.cmd.append(self.num_threads_omp_pme)
+            self.cmd.append(str(self.num_threads_omp_pme))
         # GMX gpu properties
         if self.use_gpu:
             fu.log('Adding GPU specific settings adds: -nb gpu -pme gpu', self.out_log)
             self.cmd += ["-nb", "gpu", "-pme", "gpu"]
-        if self.gpu_id:
+        # Device ids: 0 (ie: from YAML) is a valid one
+        if self.gpu_id is not None and str(self.gpu_id):
             fu.log(f'list of unique GPU device IDs available to use: {self.gpu_id}', self.out_log)
             self.cmd.append('-gpu_id')
-            self.cmd.append(self.gpu_id)
-        if self.gpu_tasks:
+            self.cmd.append(str(self.gpu_id))
+        if self.gpu_tasks is not None and str(self.gpu_tasks):
             fu.log(f'list of GPU device IDs, mapping each PP task on each node to a device: {self.gpu_tasks}', self.out_log)
             self.cmd.append('-gputasks')
-            self.cmd.append(self.gpu_tasks)
+            self.cmd.append(str(self.gpu_tasks))
 
         if self.noappend:
             self.cmd.append('-noappend')
 
-        # Child-process environment: work on a copy so the caller's
-        # env_vars_dict (which may be shared with other steps) is not modified.
-        self.env_vars_dict = dict(self.env_vars_dict or {})
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
         # GROMACS aborts when OMP_NUM_THREADS (inherited, e.g. from Slurm, or set
         # in env_vars_dict) differs from -ntomp, so pin it to num_threads_omp for
-        # the mdrun process only.
-        if self.num_threads_omp.isdigit() and int(self.num_threads_omp) > 0:
+        # the mdrun process only (env_vars_dict is a copy, see GromacsBlock).
+        num_threads_omp = str(self.num_threads_omp)
+        if num_threads_omp.isdigit() and int(num_threads_omp) > 0:
             user_omp = self.env_vars_dict.get('OMP_NUM_THREADS')
-            if user_omp is not None and str(user_omp) != self.num_threads_omp:
-                fu.log(f'WARNING: OMP_NUM_THREADS={user_omp} in env_vars_dict is replaced by num_threads_omp={self.num_threads_omp}, GROMACS requires both to match', self.out_log, self.global_log)
-            fu.log(f'Setting OMP_NUM_THREADS={self.num_threads_omp} for the mdrun process to match -ntomp', self.out_log)
-            self.env_vars_dict['OMP_NUM_THREADS'] = self.num_threads_omp
+            if user_omp is not None and str(user_omp) != num_threads_omp:
+                fu.log(f'WARNING: OMP_NUM_THREADS={user_omp} in env_vars_dict is replaced by num_threads_omp={num_threads_omp}, GROMACS requires both to match', self.out_log, self.global_log)
+            fu.log(f'Setting OMP_NUM_THREADS={num_threads_omp} for the mdrun process to match -ntomp', self.out_log)
+            self.env_vars_dict['OMP_NUM_THREADS'] = num_threads_omp
 
     def _apply_noappend_renaming(self) -> None:
         """Update expected output paths in the sandbox to catch -noappend renames.

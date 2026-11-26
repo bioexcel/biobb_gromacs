@@ -5,13 +5,13 @@
 from pathlib import Path
 from typing import Optional, Union
 
-from biobb_common.generic.biobb_object import BiobbObject, launcher
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
 
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Genrestr(BiobbObject):
+class Genrestr(GromacsBlock):
     """
     | biobb_gromacs Genrestr
     | Wrapper of the `GROMACS genrestr <http://manual.gromacs.org/current/onlinehelp/gmx-genrestr.html>`_ module.
@@ -26,6 +26,8 @@ class Genrestr(BiobbObject):
             * **force_constants** (*str*) - ("500 500 500") Array of three floats defining the force constants
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
@@ -68,16 +70,6 @@ class Genrestr(BiobbObject):
         # Properties specific for BB
         self.force_constants = str(self.force_constants)
 
-        # Properties common in all GROMACS BB
-        self.gmx_nobackup = self.properties.get("gmx_nobackup", True)
-        self.gmx_nocopyright = self.properties.get("gmx_nocopyright", True)
-        if self.gmx_nobackup:
-            self.binary_path = f"{self.binary_path}  -nobackup"
-        if self.gmx_nocopyright:
-            self.binary_path = f"{self.binary_path} -nocopyright"
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(str(self.binary_path))
-
     def prepare(self) -> None:
         """Create the stdin file with the restrained group."""
         self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.restrained_group}")
@@ -107,9 +99,6 @@ class Genrestr(BiobbObject):
         # Add stdin input file
         self.cmd.append("<")
         self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
-
-        if self.gmx_lib:
-            self.env_vars_dict["GMXLIB"] = self.gmx_lib
 
         # Run Biobb block
         self.run_biobb()
