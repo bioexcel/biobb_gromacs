@@ -2,7 +2,6 @@
 
 """Module containing the MakeNdx class and the command line interface."""
 from typing import Optional
-from pathlib import Path
 from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
 from biobb_gromacs.gromacs.common import GromacsBlock
@@ -70,8 +69,7 @@ class MakeNdx(GromacsBlock):
                     '-f', self.stage_io_dict["in"]["input_structure_path"],
                     '-o', self.stage_io_dict["out"]["output_ndx_path"]]
 
-        # Check the host path: with containers stage_io_dict holds the path inside the container
-        if bool(self.io_dict["in"].get("input_ndx_path")) and Path(self.io_dict["in"]["input_ndx_path"]).exists():
+        if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append('-n')
             self.cmd.append(self.stage_io_dict["in"].get("input_ndx_path"))
 

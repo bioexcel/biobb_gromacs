@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 """Module containing the Convert_tpr class and the command line interface."""
-from pathlib import Path
 from typing import Optional
 from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
@@ -83,8 +82,7 @@ class ConvertTpr(GromacsBlock):
                     '-o', self.stage_io_dict["out"]["output_tpr_path"]
                     ]
 
-        # Check the host path: with containers stage_io_dict holds the path inside the container
-        trimming = bool(self.io_dict["in"].get("input_ndx_path")) and Path(self.io_dict["in"]["input_ndx_path"]).exists()
+        trimming = bool(self.stage_io_dict["in"].get("input_ndx_path"))
 
         if trimming:
             # Trim the tpr to the selected index group. GROMACS does not allow
