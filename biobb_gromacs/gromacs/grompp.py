@@ -26,7 +26,7 @@ class Grompp(GromacsBlock):
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **mdp** (*dict*) - ({}) MDP options specification.
             * **simulation_type** (*str*) - (None) Default options for the mdp file. Each one creates a different mdp file. Values: `minimization <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Energy minimization using steepest descent algorithm is used), `nvt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/nvt.mdp>`_ (substance N Volume V and Temperature T are conserved), `npt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/npt.mdp>`_ (substance N pressure P and Temperature T are conserved), `free <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/free.mdp>`_ (No design constraints applied; Free MD), `ions <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Synonym of minimization), index (Creates an empty mdp file).
-            * **maxwarn** (*int*) - (0) [0~1000|1] Maximum number of allowed warnings. If simulation_type is index default is 10.
+            * **maxwarn** (*int*) - (0) [0~1000|1] Maximum number of allowed warnings. The default is 10 when simulation_type is a preset (not index).
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.

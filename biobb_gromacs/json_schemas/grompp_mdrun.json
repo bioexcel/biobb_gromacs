@@ -228,7 +228,7 @@
                 },
                 "simulation_type": {
                     "type": "string",
-                    "default": "minimization",
+                    "default": null,
                     "wf_prop": false,
                     "description": "Default options for the mdp file. Each creates a different mdp file. ",
                     "enum": [
@@ -268,9 +268,9 @@
                 },
                 "maxwarn": {
                     "type": "integer",
-                    "default": 10,
+                    "default": 0,
                     "wf_prop": false,
-                    "description": "Maximum number of allowed warnings.",
+                    "description": "Maximum number of allowed warnings. The default is 10 when simulation_type is a preset (not index).",
                     "min": 0,
                     "max": 1000,
                     "step": 1

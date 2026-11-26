@@ -745,7 +745,7 @@ Syntax: input_parameter (datatype) - (default_value) Definition
 Config parameters for this building block:
 * **mdp** (*object*): ({}) MDP options specification.
 * **simulation_type** (*string*): (None) Default options for the mdp file. Each one creates a different mdp file. 
-* **maxwarn** (*integer*): (0) Maximum number of allowed warnings. If simulation_type is index default is 10.
+* **maxwarn** (*integer*): (0) Maximum number of allowed warnings. The default is 10 when simulation_type is a preset (not index).
 * **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
 * **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
@@ -904,8 +904,8 @@ Syntax: input_parameter (datatype) - (default_value) Definition
 
 Config parameters for this building block:
 * **mdp** (*object*): ({}) MDP options specification.
-* **simulation_type** (*string*): (minimization) Default options for the mdp file. Each creates a different mdp file. 
-* **maxwarn** (*integer*): (10) Maximum number of allowed warnings.
+* **simulation_type** (*string*): (None) Default options for the mdp file. Each creates a different mdp file. 
+* **maxwarn** (*integer*): (0) Maximum number of allowed warnings. The default is 10 when simulation_type is a preset (not index).
 * **mpi_bin** (*string*): (None) Path to the MPI runner. Usually "mpirun" or "srun".
 * **mpi_np** (*string*): (None) Number of MPI processes. Usually an integer bigger than 1.
 * **mpi_flags** (*string*): (None) Path to the MPI hostlist file.
