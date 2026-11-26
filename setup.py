@@ -32,6 +32,7 @@ setuptools.setup(
             "gmxselect = biobb_gromacs.gromacs.gmxselect:Gmxselect.main",
             "mdrun = biobb_gromacs.gromacs.mdrun:Mdrun.main",
             "mdrun_plumed = biobb_gromacs.gromacs.mdrun_plumed:MdrunPlumed.main",
+            "mdrun_multidir = biobb_gromacs.gromacs.mdrun_multidir:MdrunMultidir.main",
             "grompp_mdrun = biobb_gromacs.gromacs.grompp_mdrun:GromppMdrun.main",
             "pdb2gmx = biobb_gromacs.gromacs.pdb2gmx:Pdb2gmx.main",
             "insert_molecules = biobb_gromacs.gromacs.insert_molecules:InsertMolecules.main",

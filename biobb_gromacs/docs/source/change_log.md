@@ -11,6 +11,7 @@
 * GROMACS blocks: the `gmx_nobackup` and `gmx_nocopyright` properties are now documented (both `True` by default: `-nobackup` and `-nocopyright` are added to the `gmx` command).
 * GROMACS blocks: creating a block no longer runs `gmx -version`, which also created a temporary folder in the working directory.
 * GROMACS blocks: `gmx_lib` no longer adds `GMXLIB` to the `env_vars_dict` given in the properties, which other steps of a workflow can share. A relative `gmx_lib` path now works in every block: it is relative to the working directory.
+* `mdrun_multidir` is now a registered block: `mdrun_multidir` command line, JSON schema and documentation (before, it could only be imported from Python).
 
 ## What's new in version [5.3.2](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.3.2)?
 

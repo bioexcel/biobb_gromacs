@@ -93,6 +93,14 @@ gromacs.mdrun_plumed module
     :undoc-members:
     :show-inheritance:
 
+gromacs.mdrun_multidir module
+------------------------------
+
+.. automodule:: gromacs.mdrun_multidir
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 gromacs.pdb2gmx module
 ---------------------------
 

@@ -1,0 +1,234 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_gromacs/json_schemas/1.0/mdrun_multidir",
+    "name": "biobb_gromacs MdrunMultidir",
+    "title": "Wrapper of the GROMACS mdrun module for multidir setups.",
+    "description": "MDRun is the main computational chemistry engine within GROMACS. It performs Molecular Dynamics simulations, but it can also perform Stochastic Dynamics, Energy Minimization, test particle insertion or (re)calculation of energies.",
+    "type": "object",
+    "info": {
+        "wrapped_software": {
+            "name": "GROMACS MdrunMultidir",
+            "version": "2025.2",
+            "license": "LGPL 2.1",
+            "multinode": "mpi"
+        },
+        "ontology": {
+            "name": "EDAM",
+            "schema": "http://edamontology.org/EDAM.owl"
+        }
+    },
+    "required": [
+        "input_tpr_path",
+        "input_multifolder",
+        "output_multifolder"
+    ],
+    "properties": {
+        "input_tpr_path": {
+            "type": "string",
+            "description": "Path to the portable binary run input file TPR in each of the subdirectories",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/mdrun.tpr",
+            "enum": [
+                ".*\\.tpr$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.tpr$",
+                    "description": "Path to the portable binary run input file TPR in each of the subdirectories",
+                    "edam": "format_2333"
+                }
+            ]
+        },
+        "input_multifolder": {
+            "type": "dir",
+            "description": "Path to the folder with all subdirectories for the multidir setup",
+            "filetype": "input",
+            "sample": null,
+            "enum": [
+                ".*\\.directory$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.directory$",
+                    "description": "Path to the folder with all subdirectories for the multidir setup",
+                    "edam": "format_1915"
+                }
+            ]
+        },
+        "output_multifolder": {
+            "type": "dir",
+            "description": "Folder where the generated output files will be saved",
+            "filetype": "output",
+            "sample": null,
+            "enum": [
+                ".*\\.directory$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.directory$",
+                    "description": "Folder where the generated output files will be saved",
+                    "edam": "format_1915"
+                }
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "mpi_bin": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path to the MPI runner. Usually \"mpirun\" or \"srun\"."
+                },
+                "mpi_np": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Number of MPI processes. Usually an integer bigger than 1.",
+                    "min": 0,
+                    "max": 1000,
+                    "step": 1
+                },
+                "mpi_flags": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path to the MPI hostlist file."
+                },
+                "noappend": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": false,
+                    "description": "Include the noappend flag to open new output files and add the simulation part number to all output file names"
+                },
+                "num_threads": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Let GROMACS guess. The number of threads that are going to be used.",
+                    "min": 0,
+                    "max": 1000,
+                    "step": 1
+                },
+                "num_threads_mpi": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Let GROMACS guess. The number of GROMACS MPI threads that are going to be used.",
+                    "min": 0,
+                    "max": 1000,
+                    "step": 1
+                },
+                "num_threads_omp": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used. If bigger than 0, OMP_NUM_THREADS is also set to this value for the mdrun process only, replacing any value inherited from the environment or set in env_vars_dict.",
+                    "min": 0,
+                    "max": 1000,
+                    "step": 1
+                },
+                "num_threads_omp_pme": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Let GROMACS guess. The number of GROMACS OPENMP_PME threads that are going to be used.",
+                    "min": 0,
+                    "max": 1000,
+                    "step": 1
+                },
+                "use_gpu": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": false,
+                    "description": "Use settings appropriate for GPU. Adds: -nb gpu -pme gpu"
+                },
+                "gpu_id": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "list of unique GPU device IDs available to use."
+                },
+                "gpu_tasks": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "list of GPU device IDs, mapping each PP task on each node to a device."
+                },
+                "gmx_lib": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path set GROMACS GMXLIB environment variable."
+                },
+                "binary_path": {
+                    "type": "string",
+                    "default": "gmx_mpi",
+                    "wf_prop": false,
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "gmx_nobackup": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": false,
+                    "description": "Add the -nobackup flag: GROMACS overwrites the existing files without backing them up."
+                },
+                "gmx_nocopyright": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": false,
+                    "description": "Add the -nocopyright flag: GROMACS does not print its copyright and citation header."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": true,
+                    "description": "Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": true,
+                    "description": "Do not execute if output files exist."
+                },
+                "sandbox_path": {
+                    "type": "string",
+                    "default": "./",
+                    "wf_prop": true,
+                    "description": "Parent path to the sandbox directory."
+                },
+                "container_path": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Path to the binary executable of your container."
+                },
+                "container_image": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container Image identifier."
+                },
+                "container_volume_path": {
+                    "type": "string",
+                    "default": "/data",
+                    "wf_prop": false,
+                    "description": "Path to an internal directory in the container."
+                },
+                "container_user_id": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "User number id to be mapped inside the container."
+                },
+                "container_shell_path": {
+                    "type": "string",
+                    "default": "/bin/bash",
+                    "wf_prop": false,
+                    "description": "Path to the binary executable of the container shell."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

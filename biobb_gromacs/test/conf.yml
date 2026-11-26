@@ -304,6 +304,17 @@ mdrun_plumed:
 #     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
 #     container_volume_path: /tmp
 
+# No test, only the config files of the docs: -multidir needs an MPI build of GROMACS (gmx_mpi)
+mdrun_multidir:
+  paths:
+    input_tpr_path: md.tpr
+    input_multifolder: replicas
+    output_multifolder: replicas_out
+  properties:
+    binary_path: "gmx_mpi"
+    mpi_bin: "mpirun"
+    mpi_np: 2
+
 grompp_mdrun:
   paths:
     input_gro_path: file:test_data_dir/gromacs/grompp.gro

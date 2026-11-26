@@ -1,0 +1,4 @@
+properties:
+  binary_path: gmx_mpi
+  mpi_bin: mpirun
+  mpi_np: 2

@@ -1381,6 +1381,93 @@ mdrun --config config_mdrun.yml --input_tpr_path mdrun.tpr --output_gro_path ref
 mdrun --config config_mdrun.json --input_tpr_path mdrun.tpr --output_gro_path ref_mdrun.gro --output_edr_path ref_mdrun.edr --output_log_path ref_mdrun.log --output_trr_path ref_mdrun.trr --input_cpt_path input.cpt --output_xtc_path output.xtc --output_cpt_path output.cpt --output_dhdl_path output.xvg
 ```
 
+## Mdrun_multidir
+Wrapper of the GROMACS mdrun module for multidir setups.
+### Get help
+Command:
+```python
+mdrun_multidir -h
+```
+    usage: mdrun_multidir [-h] [-c CONFIG] --input_tpr_path INPUT_TPR_PATH --input_multifolder INPUT_MULTIFOLDER -o OUTPUT_MULTIFOLDER
+    
+    Wrapper of the GROMACS mdrun module for multidir setups.
+    MDRun is the main computational chemistry engine within GROMACS. It performs Molecular Dynamics simulations, but it can also perform Stochastic Dynamics, Energy Minimization, test particle insertion or (re)calculation of energies.
+    
+    options:
+      -h, --help            show this help message and exit
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
+    
+    required arguments:
+      --input_tpr_path INPUT_TPR_PATH
+                            Path to the portable binary run input file TPR in each of the subdirectories. Accepted formats: tpr.
+      --input_multifolder INPUT_MULTIFOLDER
+                            Path to the folder with all subdirectories for the multidir setup. Accepted formats: directory.
+      -o OUTPUT_MULTIFOLDER, --output_multifolder OUTPUT_MULTIFOLDER
+                            Folder where the generated output files will be saved. Accepted formats: directory.
+### I / O Arguments
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+* **input_tpr_path** (*string*): Path to the portable binary run input file TPR in each of the subdirectories. File type: input. [Sample file](https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs/mdrun.tpr). Accepted formats: TPR
+* **input_multifolder** (*dir*): Path to the folder with all subdirectories for the multidir setup. File type: input. [Sample file](None). Accepted formats: DIRECTORY
+* **output_multifolder** (*dir*): Folder where the generated output files will be saved. File type: output. [Sample file](None). Accepted formats: DIRECTORY
+### Config
+Syntax: input_parameter (datatype) - (default_value) Definition
+
+Config parameters for this building block:
+* **mpi_bin** (*string*): (None) Path to the MPI runner. Usually "mpirun" or "srun".
+* **mpi_np** (*integer*): (0) Number of MPI processes. Usually an integer bigger than 1.
+* **mpi_flags** (*string*): (None) Path to the MPI hostlist file.
+* **noappend** (*boolean*): (False) Include the noappend flag to open new output files and add the simulation part number to all output file names
+* **num_threads** (*integer*): (0) Let GROMACS guess. The number of threads that are going to be used.
+* **num_threads_mpi** (*integer*): (0) Let GROMACS guess. The number of GROMACS MPI threads that are going to be used.
+* **num_threads_omp** (*integer*): (0) Let GROMACS guess. The number of GROMACS OPENMP threads that are going to be used. If bigger than 0, OMP_NUM_THREADS is also set to this value for the mdrun process only, replacing any value inherited from the environment or set in env_vars_dict.
+* **num_threads_omp_pme** (*integer*): (0) Let GROMACS guess. The number of GROMACS OPENMP_PME threads that are going to be used.
+* **use_gpu** (*boolean*): (False) Use settings appropriate for GPU. Adds: -nb gpu -pme gpu
+* **gpu_id** (*string*): (None) list of unique GPU device IDs available to use.
+* **gpu_tasks** (*string*): (None) list of GPU device IDs, mapping each PP task on each node to a device.
+* **gmx_lib** (*string*): (None) Path set GROMACS GMXLIB environment variable.
+* **binary_path** (*string*): (gmx_mpi) Path to the GROMACS executable binary.
+* **gmx_nobackup** (*boolean*): (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+* **gmx_nocopyright** (*boolean*): (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
+* **remove_tmp** (*boolean*): (True) Remove temporal files.
+* **restart** (*boolean*): (False) Do not execute if output files exist.
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
+* **container_path** (*string*): (None) Path to the binary executable of your container.
+* **container_image** (*string*): (None) Container Image identifier.
+* **container_volume_path** (*string*): (/data) Path to an internal directory in the container.
+* **container_user_id** (*string*): (None) User number id to be mapped inside the container.
+* **container_shell_path** (*string*): (/bin/bash) Path to the binary executable of the container shell.
+### YAML
+#### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_mdrun_multidir.yml)
+```python
+properties:
+  binary_path: gmx_mpi
+  mpi_bin: mpirun
+  mpi_np: 2
+
+```
+#### Command line
+```python
+mdrun_multidir --config config_mdrun_multidir.yml --input_tpr_path mdrun.tpr --input_multifolder input.directory --output_multifolder output.directory
+```
+### JSON
+#### [Common config file](https://github.com/bioexcel/biobb_gromacs/blob/master/biobb_gromacs/test/data/config/config_mdrun_multidir.json)
+```python
+{
+  "properties": {
+    "binary_path": "gmx_mpi",
+    "mpi_bin": "mpirun",
+    "mpi_np": 2
+  }
+}
+```
+#### Command line
+```python
+mdrun_multidir --config config_mdrun_multidir.json --input_tpr_path mdrun.tpr --input_multifolder input.directory --output_multifolder output.directory
+```
+
 ## Mdrun_plumed
 Wrapper of the GROMACS mdrun module.
 ### Get help
