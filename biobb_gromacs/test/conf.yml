@@ -21,7 +21,6 @@ convert_tpr_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 convert_tpr_singularity:
   paths:
@@ -33,7 +32,6 @@ convert_tpr_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 pdb2gmx:
   paths:
@@ -57,7 +55,6 @@ pdb2gmx_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 pdb2gmx_singularity:
   paths:
@@ -71,7 +68,6 @@ pdb2gmx_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 editconf:
   paths:
@@ -93,7 +89,6 @@ editconf_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 editconf_singularity:
   paths:
@@ -106,7 +101,6 @@ editconf_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 genion:
   paths:
@@ -134,7 +128,6 @@ genion_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 genion_singularity:
   paths:
@@ -150,7 +143,6 @@ genion_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 genrestr:
   paths:
@@ -175,7 +167,6 @@ genrestr_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 genrestr_singularity:
   paths:
@@ -189,7 +180,6 @@ genrestr_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 grompp:
   paths:
@@ -215,7 +205,6 @@ grompp_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 grompp_singularity:
   paths:
@@ -230,7 +219,6 @@ grompp_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 mdrun:
   paths:
@@ -258,7 +246,6 @@ mdrun_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 mdrun_singularity:
   paths:
@@ -274,7 +261,6 @@ mdrun_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 mdrun_plumed:
   paths:
@@ -302,7 +288,6 @@ mdrun_plumed:
 #     container_path: docker
 #     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
 #     container_volume_path: /tmp
-#     container_working_dir: /tmp
 
 # mdrun_plumed_singularity:
 #   paths:
@@ -318,7 +303,17 @@ mdrun_plumed:
 #     container_path: singularity
 #     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
 #     container_volume_path: /tmp
-#     container_working_dir: /tmp
+
+# No test, only the config files of the docs: -multidir needs an MPI build of GROMACS (gmx_mpi)
+mdrun_multidir:
+  paths:
+    input_tpr_path: md.tpr
+    input_multifolder: replicas
+    output_multifolder: replicas_out
+  properties:
+    binary_path: "gmx_mpi"
+    mpi_bin: "mpirun"
+    mpi_np: 2
 
 grompp_mdrun:
   paths:
@@ -358,7 +353,6 @@ grompp_mdrun_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 grompp_mdrun_singularity:
   paths:
@@ -379,7 +373,6 @@ grompp_mdrun_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 insert_molecules:
   paths:
@@ -414,7 +407,6 @@ make_ndx_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp21.4
     container_volume_path: /tmp
 
 make_ndx_singularity:
@@ -427,7 +419,6 @@ make_ndx_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 gmxselect:
   paths:
@@ -448,7 +439,6 @@ gmxselect_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 gmxselect_ndx_docker:
   paths:
@@ -461,7 +451,6 @@ gmxselect_ndx_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 gmxselect_singularity:
   paths:
@@ -473,7 +462,6 @@ gmxselect_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 solvate:
   paths:
@@ -512,7 +500,6 @@ solvate_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 solvate_singularity:
   paths:
@@ -528,7 +515,6 @@ solvate_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 trjcat:
   paths:
@@ -550,7 +536,6 @@ trjcat_docker:
     container_path: docker
     container_image: quay.io/biocontainers/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 trjcat_singularity:
   paths:
@@ -563,7 +548,6 @@ trjcat_singularity:
     container_path: singularity
     container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
     container_volume_path: /tmp
-    container_working_dir: /tmp
 
 ndx2resttop:
   paths:

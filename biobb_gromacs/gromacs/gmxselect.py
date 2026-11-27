@@ -2,14 +2,13 @@
 
 """Module containing the Select class and the command line interface."""
 from typing import Optional
-from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from pathlib import Path
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Gmxselect(BiobbObject):
+class Gmxselect(GromacsBlock):
     """
     | biobb_gromacs Gmxselect
     | Wrapper of the `GROMACS select <http://manual.gromacs.org/current/onlinehelp/gmx-select.html>`_ module.
@@ -23,6 +22,8 @@ class Gmxselect(BiobbObject):
             * **selection** (*str*) - ("a CA C N O") Heavy atoms. Atom selection string.
             * **append** (*bool*) - (False) Append the content of the input_ndx_path to the output_ndx_path.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -30,7 +31,6 @@ class Gmxselect(BiobbObject):
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -55,107 +55,50 @@ class Gmxselect(BiobbObject):
 
     def __init__(self, input_structure_path: str, output_ndx_path: str, input_ndx_path: Optional[str] = None,
                  properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_structure_path": input_structure_path, "input_ndx_path": input_ndx_path},
-            "out": {"output_ndx_path": output_ndx_path}
-        }
-
-        # Properties specific for BB
-        self.selection = properties.get('selection', "a CA C N O")
-        self.append = properties.get('append', False)
-
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Gmxselect <gromacs.gmxselect.Gmxselect>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
-
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
 
         selection_file_path = Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath("gmxselect_selection.dat")
         with open(selection_file_path, "w") as selection_file:
             selection_file.write(f"{self.selection}\n")
 
-        self.cmd = ["cd", working_dir, ";",
-                    self.binary_path, 'select',
-                    '-s', PurePath(self.stage_io_dict["in"]["input_structure_path"]).name,
-                    '-on', PurePath(self.stage_io_dict["out"]["output_ndx_path"]).name
+        self.cmd = [self.binary_path, 'select',
+                    '-s', self.stage_io_dict["in"]["input_structure_path"],
+                    '-on', self.stage_io_dict["out"]["output_ndx_path"]
                     ]
 
-        # Check the host path: with containers stage_io_dict holds the path inside the container
-        if bool(self.io_dict["in"].get("input_ndx_path")) and Path(self.io_dict["in"]["input_ndx_path"]).exists():
+        if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append('-n')
-            self.cmd.append(PurePath(self.stage_io_dict["in"].get("input_ndx_path")).name)
+            self.cmd.append(self.stage_io_dict["in"].get("input_ndx_path"))
 
         self.cmd.append('-sf')
-        self.cmd.append(PurePath(selection_file_path).name)
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
+        self.cmd.append(self.staged_path(selection_file_path))
 
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
+        # Remove temporal files
+        self.tmp_files.append(str(selection_file_path))
 
+        # With the append property, append the input index file to the output index file.
         if self.io_dict["in"].get("input_ndx_path"):
             if self.append:
                 fu.log(f"Appending {self.io_dict['in'].get('input_ndx_path')} to {self.io_dict['out']['output_ndx_path']}", self.out_log, self.global_log)
-                with open(self.io_dict["out"]["output_ndx_path"], 'a') as out_ndx_file:
-                    out_ndx_file.write('\n')
+                # The output is replaced, not appended to: Docker can have written it as root
+                output_ndx = Path(self.sandbox_file("output_ndx_path"))
+                content = output_ndx.read_text()
+                output_ndx.unlink()
+                with open(output_ndx, 'w') as out_ndx_file:
+                    out_ndx_file.write(content + '\n')
                     with open(self.io_dict["in"].get("input_ndx_path", '')) as in_ndx_file:
                         for line in in_ndx_file:
                             out_ndx_file.write(line)
 
-        # Remove temporal files
-        self.tmp_files.append(str(selection_file_path))
-        self.remove_tmp_files()
 
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
-
-
-def gmxselect(input_structure_path: str, output_ndx_path: str,
-              input_ndx_path: Optional[str] = None, properties: Optional[dict] = None,
-              **kwargs) -> int:
-    """Create :class:`Gmxselect <gromacs.gmxselect.Gmxselect>` class and
-    execute the :meth:`launch() <gromacs.gmxselect.Gmxselect.launch>` method."""
-    return Gmxselect(**dict(locals())).launch()
-
-
-gmxselect.__doc__ = Gmxselect.__doc__
-main = Gmxselect.get_main(gmxselect, "Wrapper for the GROMACS select module.")
+gmxselect = launcher(Gmxselect)
 
 
 if __name__ == '__main__':
-    main()
+    Gmxselect.main()

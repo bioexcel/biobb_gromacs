@@ -5,9 +5,8 @@ import fnmatch
 from typing import Optional
 from typing import Any
 from pathlib import Path
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
 
 class Ndx2resttop(BiobbObject):
@@ -21,7 +20,7 @@ class Ndx2resttop(BiobbObject):
         input_top_zip_path (str): Path the input TOP topology in zip format. File type: input. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/data/gromacs_extra/ndx2resttop.zip>`_. Accepted formats: zip (edam:format_3987).
         output_top_zip_path (str): Path the output TOP topology in zip format. File type: output. `Sample file <https://github.com/bioexcel/biobb_gromacs/raw/master/biobb_gromacs/test/reference/gromacs_extra/ref_ndx2resttop.zip>`_. Accepted formats: zip (edam:format_3987).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
-            * **posres_names** (*str*) - ("CUSTOM_POSRES") Space-separated preprocessor macro names, one per triplet (e.g. ``"CHAIN_A_POSRES CHAIN_B_POSRES"``). Activated at grompp time via ``-D <name>``. Must match the length of ref_rest_mol_triplet_list.
+            * **posres_names** (*str*) - (None) Space-separated preprocessor macro names, one per triplet (e.g. ``"CHAIN_A_POSRES CHAIN_B_POSRES"``). Activated at grompp time via ``-D <name>``. Must match the length of ref_rest_mol_triplet_list. If not set, CUSTOM_POSRES for every triplet.
             * **force_constants** (*str*) - ("500 500 500") Three space-separated force constants Fx Fy Fz in kJ/mol/nm². Written verbatim into each ITP line so the same value is applied to every restrained atom.
             * **ref_rest_mol_triplet_list** (*str*) - (None) Comma-separated triplets ``(reference_group, restrain_group, molecule_name)``, one per molecule to restrain.``reference_group``: NDX group containing *all* atoms of the molecule in global (system-wide) GROMACS numbering. Used only as a coordinate frame to convert global indices to molecule-local 1-based indices. Example: ``r_1-9280``. ``restrain_group``: NDX group with the subset of atoms to actually restrain (must be a strict subset of reference_group). Example: ``P_&_r_1-9280``. ``molecule_name``: the ``[ moleculetype ]`` name in the topology used to locate where to splice the ``#ifdef`` block. Example: ``1TSR``.
 
@@ -46,26 +45,7 @@ class Ndx2resttop(BiobbObject):
 
     def __init__(self, input_ndx_path: str, input_top_zip_path: str, output_top_zip_path: str,
                  properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_ndx_path": input_ndx_path, "input_top_zip_path": input_top_zip_path},
-            "out": {"output_top_zip_path": output_top_zip_path}
-        }
-
-        # Properties specific for BB
-        self.posres_names = properties.get('posres_names')
-        self.force_constants = properties.get('force_constants', '500 500 500')
-        self.ref_rest_mol_triplet_list = properties.get('ref_rest_mol_triplet_list')
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
+        super().__init__(**locals())
 
     # --- Private helpers ---
 
@@ -215,12 +195,11 @@ class Ndx2resttop(BiobbObject):
 
     # --- Main entry point ---
 
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`Ndx2resttop <gromacs_extra.ndx2resttop.Ndx2resttop>` object."""
-        if self.check_restart():
-            return 0
+    def stage_files(self) -> None:
+        """The block does not use the sandbox: there are no files to stage."""
 
+    def run(self) -> None:
+        """Execute the :class:`Ndx2resttop <gromacs_extra.ndx2resttop.Ndx2resttop>` object."""
         top_file = fu.unzip_top(zip_file=self.io_dict['in'].get("input_top_zip_path", ""), out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
 
         ndx_lines = open(self.io_dict['in'].get("input_ndx_path", "")).read().splitlines()
@@ -300,21 +279,10 @@ class Ndx2resttop(BiobbObject):
 
         fu.zip_top(zip_file=self.io_dict['out'].get("output_top_zip_path", ""),
                    top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return 0
 
 
-def ndx2resttop(input_ndx_path: str, input_top_zip_path: str, output_top_zip_path: str,
-                properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Ndx2resttop <gromacs_extra.ndx2resttop.Ndx2resttop>` class and
-    execute the :meth:`launch() <gromacs_extra.ndx2resttop.Ndx2resttop.launch>` method."""
-    return Ndx2resttop(**dict(locals())).launch()
-
-
-ndx2resttop.__doc__ = Ndx2resttop.__doc__
-main = Ndx2resttop.get_main(ndx2resttop, "Generate a restrained topology from an index NDX file.")
+ndx2resttop = launcher(Ndx2resttop)
 
 
 if __name__ == '__main__':
-    main()
+    Ndx2resttop.main()

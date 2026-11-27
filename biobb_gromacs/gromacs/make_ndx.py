@@ -2,14 +2,12 @@
 
 """Module containing the MakeNdx class and the command line interface."""
 from typing import Optional
-from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class MakeNdx(BiobbObject):
+class MakeNdx(GromacsBlock):
     """
     | biobb_gromacs MakeNdx
     | Wrapper of the `GROMACS make_ndx <http://manual.gromacs.org/current/onlinehelp/gmx-make_ndx.html>`_ module.
@@ -23,13 +21,14 @@ class MakeNdx(BiobbObject):
             * **selection** (*str*) - ("a CA C N O") Heavy atoms. Atom selection string.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -54,97 +53,39 @@ class MakeNdx(BiobbObject):
 
     def __init__(self, input_structure_path: str, output_ndx_path: str, input_ndx_path: Optional[str] = None,
                  properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_structure_path": input_structure_path, "input_ndx_path": input_ndx_path},
-            "out": {"output_ndx_path": output_ndx_path}
-        }
-
-        # Properties specific for BB
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.selection = properties.get('selection', "a CA C N O")
-
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`MakeNdx <gromacs.make_ndx.MakeNdx>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+    def prepare(self) -> None:
+        """Create the stdin file with the selection."""
         self.selection = str(self.selection)
         self.selection = self.selection.replace("\\n", "\n")
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}\nq\n')
-        self.stage_files()
 
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
+    def run(self) -> None:
+        """Execute the :class:`MakeNdx <gromacs.make_ndx.MakeNdx>` object."""
 
         # Create command line
-        self.cmd = ["cd", working_dir, ";",
-                    self.binary_path, 'make_ndx',
-                    '-f', PurePath(self.stage_io_dict["in"]["input_structure_path"]).name,
-                    '-o', PurePath(self.stage_io_dict["out"]["output_ndx_path"]).name]
+        self.cmd = [self.binary_path, 'make_ndx',
+                    '-f', self.stage_io_dict["in"]["input_structure_path"],
+                    '-o', self.stage_io_dict["out"]["output_ndx_path"]]
 
-        # Check the host path: with containers stage_io_dict holds the path inside the container
-        if bool(self.io_dict["in"].get("input_ndx_path")) and Path(self.io_dict["in"]["input_ndx_path"]).exists():
+        if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append('-n')
-            self.cmd.append(PurePath(self.stage_io_dict["in"].get("input_ndx_path")).name)
+            self.cmd.append(self.stage_io_dict["in"].get("input_ndx_path"))
 
         # Add stdin input file
         self.cmd.append('<')
-        self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         # create_cmd_line and execute_command
         self.run_biobb()
 
-        # Retrieve results
-        self.copy_to_host()
-
         # Remove temporal files
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ''))
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
-def make_ndx(input_structure_path: str, output_ndx_path: str,
-             input_ndx_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`MakeNdx <gromacs.make_ndx.MakeNdx>` class and
-    execute the :meth:`launch() <gromacs.make_ndx.MakeNdx.launch>` method."""
-    return MakeNdx(**dict(locals())).launch()
-
-
-make_ndx.__doc__ = MakeNdx.__doc__
-main = MakeNdx.get_main(make_ndx, "Wrapper for the GROMACS make_ndx module.")
+make_ndx = launcher(MakeNdx)
 
 
 if __name__ == '__main__':
-    main()
+    MakeNdx.main()

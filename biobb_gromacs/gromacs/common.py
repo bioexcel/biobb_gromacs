@@ -1,62 +1,27 @@
 """ Common functions for package biobb_gromacs.gromacs """
+import os
 import re
-import warnings
 from pathlib import Path
-from biobb_common.tools import file_utils as fu
+from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.command_wrapper import cmd_wrapper
 from typing import Mapping, Optional
 
 
-def get_gromacs_version(gmx: str = "gmx", minimum_version: int = 512) -> int:
-    """ Gets the GROMACS installed version and returns it as an int(3) for
-    versions older than 5.1.5 and an int(5) for 20XX versions filling the gaps
-    with '0' digits.
+class GromacsBlock(BiobbObject):
+    """Parent of the GROMACS blocks: goes from the gmx_nobackup, gmx_nocopyright and gmx_lib
+    properties to the flags of binary_path and the GMXLIB environment variable of the command."""
 
-    Args:
-        gmx (str): ('gmx') Path to the GROMACS binary.
-        minimum_version (int): (512) Minimum GROMACS version required.
-
-    Returns:
-        int: GROMACS version.
-    """
-    unique_dir = fu.create_unique_dir()
-    out_log, err_log = fu.get_logs(path=unique_dir, can_write_console=False)
-    cmd = [gmx, "-version"]
-    try:
-        cmd_wrapper.CmdWrapper(cmd=cmd, out_log=out_log, err_log=err_log).launch()
-        pattern = re.compile(r"GROMACS version:\s+(.+)")
-        version_str: Optional[re.Match[str]] = None
-        with open(Path(unique_dir).joinpath('log.out')) as log_file:
-            for line in log_file:
-                version_str = pattern.match(line.strip())
-                if version_str:
-                    break
-        if not version_str:
-            warnings.warn("GROMACS version not found. Your GROMACS installation Biobb compatibility has not been tested.")
-            return 0
-        version = version_str.group(1).replace(".", "").replace("VERSION", "").strip()
-        version = "".join([c for c in version if c.isdigit()])
-    except Exception:
-        warnings.warn("GROMACS version not found. Your GROMACS installation Biobb compatibility has not been tested.")
-        return 0
-    if version.startswith("2"):
-        while len(version) < 5:
-            version += '0'
-    else:
-        while len(version) < 3:
-            version += '0'
-
-    fu.rm(unique_dir)
-    if int(version) < minimum_version:
-        warnings.warn(f"GROMACS version should be {minimum_version} or newer {version} detected")
-    return int(version)
-
-
-# class GromacsVersionError(Exception):
-#     """ Exception Raised when the installed version of GROMACS is not
-#         compatible with the current function.
-#     """
-#     # pass
+    def __init__(self, /, properties: Optional[dict] = None, **kwargs) -> None:
+        super().__init__(properties, **kwargs)
+        if self.gmx_nobackup:
+            self.binary_path += ' -nobackup'
+        if self.gmx_nocopyright:
+            self.binary_path += ' -nocopyright'
+        # A copy: the env_vars_dict of the properties can be shared with other blocks
+        self.env_vars_dict = dict(self.env_vars_dict or {})
+        if self.gmx_lib:
+            # The command runs in the sandbox: a local gmx_lib relative to the current directory is made absolute
+            self.env_vars_dict['GMXLIB'] = self.gmx_lib if self.container_path else os.path.abspath(self.gmx_lib)
 
 
 def gmx_check(file_a: str, file_b: str, gmx: str = 'gmx') -> bool:

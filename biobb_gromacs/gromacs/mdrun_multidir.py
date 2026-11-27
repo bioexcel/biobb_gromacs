@@ -4,9 +4,8 @@
 import os
 import shutil
 from typing import Optional
-from pathlib import PurePath
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.mdrun_base import MdrunBase
+from biobb_common.generic.biobb_object import launcher
 
 
 class MdrunMultidir(MdrunBase):
@@ -33,13 +32,14 @@ class MdrunMultidir(MdrunBase):
             * **gpu_tasks** (*str*) - (None) list of GPU device IDs, mapping each PP task on each node to a device.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx_mpi") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - (None) Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -71,89 +71,34 @@ class MdrunMultidir(MdrunBase):
                  output_multifolder: str,
                  properties: Optional[dict] = None,
                  **kwargs) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {
-                "input_tpr_path": input_tpr_path,
-                "input_multifolder": input_multifolder
-            },
-            "out": {
-                "output_multifolder": output_multifolder,
-            }
-        }
-
-        # Properties specific for BB
-        self._init_common_properties(properties, default_binary_path='gmx_mpi')
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
-
-        working_dir = self._get_working_dir()
-
-        multifolder_path = self.stage_io_dict["in"]["input_multifolder"]
+    def mdrun_arguments(self) -> list[str]:
+        """Go from the staged files to -s and -multidir with the subfolders of input_multifolder."""
+        multifolder_path = self.sandbox_file("input_multifolder")
         subdirs = sorted(
             entry for entry in os.listdir(multifolder_path)
             if os.path.isdir(os.path.join(multifolder_path, entry))
         )
-        self.cmd = [
-            self.binary_path, 'mdrun',
-            '-s', PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
-            '-multidir', ' '.join(subdirs),
-        ]
+        # mdrun runs in each folder of -multidir: the other file names are relative to them
+        multifolder = self.stage_io_dict["in"]["input_multifolder"]
+        return super().mdrun_arguments() + ['-multidir', ' '.join(f"{multifolder}/{subdir}" for subdir in subdirs)]
 
-        # Shared mpi / working-directory / runtime flags. multidir also needs to
-        # cd into the multifolder so the -multidir subdir names resolve.
-        self._prepend_mpi_runner()
-        self.cmd = ["cd", working_dir, ";", 'cd',
-                    PurePath(self.stage_io_dict["in"]["input_multifolder"]).name, ";"] + self.cmd
-        self._append_gmx_runtime_flags()
-
-        # Run Biobb block
-        self.run_biobb()
+    def run(self) -> None:
+        """Execute the :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` object."""
+        super().run()
 
         # Move files to output folder. When the input and output multifolders
         # share a basename they stage to the same sandbox path, so the move is
         # a no-op and must be skipped to avoid "move into itself" errors.
-        input_multifolder = self.stage_io_dict["in"]["input_multifolder"]
-        output_multifolder = self.stage_io_dict["out"]["output_multifolder"]
+        input_multifolder = self.sandbox_file("input_multifolder")
+        output_multifolder = self.sandbox_file("output_multifolder")
         if os.path.abspath(input_multifolder) != os.path.abspath(output_multifolder):
             shutil.copytree(input_multifolder, output_multifolder)
-        # Copy files to host
-        self.copy_to_host()
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
-def mdrun_multidir(input_tpr_path: str, input_multifolder: str, output_multifolder: str,
-                   properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`MdrunMultidir <gromacs.mdrun_multidir.MdrunMultidir>` class and
-    execute the :meth:`launch() <gromacs.mdrun_multidir.MdrunMultidir.launch>` method."""
-    return MdrunMultidir(**dict(locals())).launch()
-
-
-mdrun_multidir.__doc__ = MdrunMultidir.__doc__
-main = MdrunMultidir.get_main(mdrun_multidir, "Wrapper for the GROMACS mdrun module with multidir support.")
+mdrun_multidir = launcher(MdrunMultidir)
 
 
 if __name__ == '__main__':
-    main()
+    MdrunMultidir.main()

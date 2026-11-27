@@ -2,14 +2,13 @@
 
 """Module containing the Pdb2gmx class and the command line interface."""
 from typing import Optional
-from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from pathlib import Path
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Pdb2gmx(BiobbObject):
+class Pdb2gmx(GromacsBlock):
     """
     | biobb_gromacs Pdb2gmx
     | Wrapper class for the `GROMACS pdb2gmx <http://manual.gromacs.org/current/onlinehelp/gmx-pdb2gmx.html>`_ module.
@@ -32,13 +31,14 @@ class Pdb2gmx(BiobbObject):
             * **merge** (*bool*) - (False) Merge all chains into a single molecule.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -64,43 +64,11 @@ class Pdb2gmx(BiobbObject):
 
     def __init__(self, input_pdb_path: str, output_gro_path: str, output_top_zip_path: str, properties: Optional[dict] = None,
                  **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_pdb_path": input_pdb_path},
-            "out": {"output_gro_path": output_gro_path, "output_top_zip_path": output_top_zip_path}
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
-        self.internal_top_name = properties.get('internal_top_name', 'p2g.top')  # Excluded from documentation for simplicity
-        self.internal_itp_name = properties.get('internal_itp_name', 'posre.itp')  # Excluded from documentation for simplicity
-        self.water_type = properties.get('water_type', 'spce')
-        self.force_field = properties.get('force_field', 'amber99sb-ildn')
-        self.ignh = properties.get('ignh', False)
-        self.lys = properties.get('lys', None)
-        self.arg = properties.get('arg', None)
-        self.asp = properties.get('asp', None)
-        self.glu = properties.get('glu', None)
-        self.gln = properties.get('gln', None)
-        self.his = properties.get('his', None)
-        self.merge = properties.get('merge', False)
-
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path: str = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
+        self.internal_top_name = self.properties.get('internal_top_name', 'p2g.top')  # Excluded from documentation for simplicity
+        self.internal_itp_name = self.properties.get('internal_itp_name', 'posre.itp')  # Excluded from documentation for simplicity
 
         # Support string for single chain
         if isinstance(self.lys, str):
@@ -119,18 +87,8 @@ class Pdb2gmx(BiobbObject):
         # Make sure all have the same length
         self.check_lengths(self.lys, self.arg, self.asp, self.glu, self.gln, self.his)
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+    def prepare(self) -> None:
+        """Create the stdin file with the protonation states, if any."""
         # Create stdin file if needed
         stdin_content = ''
         num_chains = self.find_length(self.lys, self.arg, self.asp, self.glu, self.gln, self.his)
@@ -150,21 +108,17 @@ class Pdb2gmx(BiobbObject):
 
         if stdin_content:
             self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(stdin_content)
-        self.stage_files()
+
+    def run(self) -> None:
+        """Execute the :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` object."""
 
         internal_top_name = fu.create_name(prefix=self.prefix, step=self.step, name=self.internal_top_name)
         internal_itp_name = fu.create_name(prefix=self.prefix, step=self.step, name=self.internal_itp_name)
 
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
-
         # Create command line
-        self.cmd = ["cd", working_dir, ";",
-                    self.binary_path, "pdb2gmx",
-                    "-f", PurePath(self.stage_io_dict["in"]["input_pdb_path"]).name,
-                    "-o", PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
+        self.cmd = [self.binary_path, "pdb2gmx",
+                    "-f", self.stage_io_dict["in"]["input_pdb_path"],
+                    "-o", self.stage_io_dict["out"]["output_gro_path"],
                     "-p", internal_top_name,
                     "-water", self.water_type,
                     "-ff", self.force_field,
@@ -188,36 +142,21 @@ class Pdb2gmx(BiobbObject):
         if self.his:
             self.cmd.append("-his")
 
-        if stdin_content:
+        if self.io_dict['in'].get('stdin_file_path'):
             self.cmd.append('<')
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
+            self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         # Run Biobb block
         self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        internal_top_name = str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(internal_top_name))
-
-        # zip topology
-        fu.log('Compressing topology to: %s' % self.io_dict["out"]["output_top_zip_path"], self.out_log,
-               self.global_log)
-        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=internal_top_name, out_log=self.out_log, remove_original_files=self.remove_tmp)
+        top_file = str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(internal_top_name))
 
         # Remove temporal files
-        self.tmp_files.extend([
-            self.internal_top_name,
-            self.internal_itp_name,
-            self.io_dict['in'].get("stdin_file_path", "")
-        ])
-        self.remove_tmp_files()
+        self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
+        # Zip the topology files of the sandbox into the output topology zip.
+        fu.log('Compressing topology to: %s' % self.io_dict["out"]["output_top_zip_path"], self.out_log,
+               self.global_log)
+        fu.zip_top(zip_file=self.sandbox_file("output_top_zip_path"), top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
     def check_lengths(self, *lists):
         """
@@ -249,16 +188,8 @@ class Pdb2gmx(BiobbObject):
             return 0
 
 
-def pdb2gmx(input_pdb_path: str, output_gro_path: str, output_top_zip_path: str,
-            properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Pdb2gmx <gromacs.pdb2gmx.Pdb2gmx>` class and
-    execute the :meth:`launch() <gromacs.pdb2gmx.Pdb2gmx.launch>` method."""
-    return Pdb2gmx(**dict(locals())).launch()
-
-
-pdb2gmx.__doc__ = Pdb2gmx.__doc__
-main = Pdb2gmx.get_main(pdb2gmx, "Wrapper for the GROMACS pdb2gmx module.")
+pdb2gmx = launcher(Pdb2gmx)
 
 
 if __name__ == '__main__':
-    main()
+    Pdb2gmx.main()

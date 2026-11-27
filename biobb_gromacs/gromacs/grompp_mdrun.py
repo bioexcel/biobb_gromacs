@@ -3,9 +3,8 @@
 """Module containing the GromppMDrun class and the command line interface."""
 from typing import Optional
 from pathlib import Path
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.grompp import grompp
 from biobb_gromacs.gromacs.mdrun import mdrun
 
@@ -31,11 +30,11 @@ class GromppMdrun(BiobbObject):
         output_dhdl_path (str) (Optional): Path to the output dhdl.xvg file only used when free energy calculation is turned on. File type: output. Accepted formats: xvg (edam:format_2033).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **mdp** (*dict*) - ({}) MDP options specification.
-            * **simulation_type** (*str*) - ("minimization") Default options for the mdp file. Each creates a different mdp file. Values: `minimization <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Energy minimization using steepest descent algorithm is used), `nvt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/nvt.mdp>`_ (substance N Volume V and Temperature T are conserved), `npt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/npt.mdp>`_ (substance N pressure P and Temperature T are conserved), `free <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/free.mdp>`_ (No design constraints applied; Free MD), `ions <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Synonym of minimization), index (Creates an empty mdp file).
-            * **maxwarn** (*int*) - (10) [0~1000|1] Maximum number of allowed warnings.
+            * **simulation_type** (*str*) - (None) Default options for the mdp file. Each creates a different mdp file. Values: `minimization <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Energy minimization using steepest descent algorithm is used), `nvt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/nvt.mdp>`_ (substance N Volume V and Temperature T are conserved), `npt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/npt.mdp>`_ (substance N pressure P and Temperature T are conserved), `free <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/free.mdp>`_ (No design constraints applied; Free MD), `ions <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Synonym of minimization), index (Creates an empty mdp file).
+            * **maxwarn** (*int*) - (0) [0~1000|1] Maximum number of allowed warnings. The default is 10 when simulation_type is a preset (not index).
             * **mpi_bin** (*str*) - (None) Path to the MPI runner. Usually "mpirun" or "srun".
             * **mpi_np** (*str*) - (None) Number of MPI processes. Usually an integer bigger than 1.
-            * **mpi_hostlist** (*str*) - (None) Path to the MPI hostlist file.
+            * **mpi_flags** (*str*) - (None) Path to the MPI hostlist file.
             * **checkpoint_time** (*int*) - (15) [0~1000|1] Checkpoint writing interval in minutes. Only enabled if an output_cpt_path is provided.
             * **num_threads** (*int*) - (0) [0-1000|1] Let GROMACS guess. The number of threads that are going to be used.
             * **num_threads_mpi** (*int*) - (0) [0-1000|1] Let GROMACS guess. The number of GROMACS MPI threads that are going to be used.
@@ -46,13 +45,14 @@ class GromppMdrun(BiobbObject):
             * **gpu_tasks** (*str*) - (None) list of GPU device IDs, mapping each PP task on each node to a device.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -90,23 +90,17 @@ class GromppMdrun(BiobbObject):
                  input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None, output_dhdl_path: Optional[str] = None,
                  output_tpr_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
-        # Properties management
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
+        super().__init__(**locals())
 
         grompp_properties_keys = ['mdp', 'maxwarn', 'simulation_type']
-        mdrun_properties_keys = ['mpi_bin', 'mpi_np', 'mpi_hostlist', 'checkpoint_time', 'num_threads', 'num_threads_mpi', 'num_threads_omp', 'num_threads_omp_pme', 'use_gpu', 'gpu_id', 'gpu_tasks', 'dev']
+        mdrun_properties_keys = ['mpi_bin', 'mpi_np', 'mpi_flags', 'checkpoint_time', 'noappend', 'num_threads', 'num_threads_mpi', 'num_threads_omp', 'num_threads_omp_pme', 'use_gpu', 'gpu_id', 'gpu_tasks', 'dev']
         self.properties_grompp = {}
         self.properties_mdrun = {}
-        if properties:
-            self.global_log = properties.get('global_log', None)
-            self.properties_grompp = properties.copy()
+        if self.properties:
+            self.properties_grompp = self.properties.copy()
             for key in mdrun_properties_keys:
                 self.properties_grompp.pop(key, None)
-            self.properties_mdrun = properties.copy()
+            self.properties_mdrun = self.properties.copy()
             for key in grompp_properties_keys:
                 self.properties_mdrun.pop(key, None)
 
@@ -115,7 +109,8 @@ class GromppMdrun(BiobbObject):
         self.input_top_zip_path = input_top_zip_path
         self.output_tpr_path = output_tpr_path
         if not self.output_tpr_path:
-            self.output_tpr_path = str(Path(fu.create_unique_dir()).joinpath('internal.tpr'))
+            # Internal tpr file in a temporary folder, removed at the end (never the folder of a tpr given by the user)
+            self.output_tpr_path = str(Path(self.create_tmp_dir()).joinpath('internal.tpr'))
         self.input_cpt_path = input_cpt_path
         self.input_ndx_path = input_ndx_path
         self.input_mdp_path = input_mdp_path
@@ -130,8 +125,13 @@ class GromppMdrun(BiobbObject):
         self.output_cpt_path = output_cpt_path
         self.output_dhdl_path = output_dhdl_path
 
-    @launchlogger
-    def launch(self) -> int:
+    def check_properties(self, check_var_typing: bool = False) -> None:
+        """The properties are checked by the Grompp and Mdrun blocks."""
+
+    def stage_files(self) -> None:
+        """The files are staged by the Grompp and Mdrun blocks: there are no files to stage."""
+
+    def run(self) -> None:
         """Execute the :class:`GromppMdrun <gromacs.grompp_mdrun.GromppMdrun>` object."""
 
         fu.log('Calling Grompp class', self.out_log, self.global_log)
@@ -143,34 +143,18 @@ class GromppMdrun(BiobbObject):
 
         if not grompp_return_code:
             fu.log('Grompp return code is correct. Calling MDRun class', self.out_log, self.global_log)
-            mdrun_return_code = mdrun(input_tpr_path=self.output_tpr_path, output_trr_path=self.output_trr_path,  # type: ignore
-                                      output_gro_path=self.output_gro_path, output_edr_path=self.output_edr_path,
-                                      output_log_path=self.output_log_path, output_xtc_path=self.output_xtc_path,
-                                      output_cpt_path=self.output_cpt_path, output_dhdl_path=self.output_dhdl_path,
-                                      properties=self.properties_mdrun)
-            fu.log(f'MDRun return code: {mdrun_return_code}', self.out_log, self.global_log)
+            self.return_code = mdrun(input_tpr_path=self.output_tpr_path, output_trr_path=self.output_trr_path,  # type: ignore
+                                     output_gro_path=self.output_gro_path, output_edr_path=self.output_edr_path,
+                                     output_log_path=self.output_log_path, output_xtc_path=self.output_xtc_path,
+                                     output_cpt_path=self.output_cpt_path, output_dhdl_path=self.output_dhdl_path,
+                                     properties=self.properties_mdrun)
+            fu.log(f'MDRun return code: {self.return_code}', self.out_log, self.global_log)
         else:
-            return 1
-
-        # Remove temporal files
-        self.tmp_files.append(Path(str(self.output_tpr_path)).parent)
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return mdrun_return_code
+            self.return_code = 1
 
 
-def grompp_mdrun(input_gro_path: str, input_top_zip_path: str, output_trr_path: str,
-                 output_gro_path: str, output_edr_path: str, output_log_path: str,
-                 input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
-                 output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None, output_dhdl_path: Optional[str] = None,
-                 output_tpr_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    return GromppMdrun(**dict(locals())).launch()
-
-
-grompp_mdrun.__doc__ = GromppMdrun.__doc__
-main = GromppMdrun.get_main(grompp_mdrun, "Wrapper for the GROMACS grompp_mdrun module.")
+grompp_mdrun = launcher(GromppMdrun)
 
 
 if __name__ == '__main__':
-    main()
+    GromppMdrun.main()

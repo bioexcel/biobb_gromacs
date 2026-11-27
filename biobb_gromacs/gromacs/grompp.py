@@ -3,15 +3,14 @@
 """Module containing the Grompp class and the command line interface."""
 from typing import Optional
 from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 from biobb_gromacs.gromacs.common import create_mdp
 from biobb_gromacs.gromacs.common import mdp_preset
 
 
-class Grompp(BiobbObject):
+class Grompp(GromacsBlock):
     """
     | biobb_gromacs Grompp
     | Wrapper of the `GROMACS grompp <http://manual.gromacs.org/current/onlinehelp/gmx-grompp.html>`_ module.
@@ -27,16 +26,17 @@ class Grompp(BiobbObject):
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **mdp** (*dict*) - ({}) MDP options specification.
             * **simulation_type** (*str*) - (None) Default options for the mdp file. Each one creates a different mdp file. Values: `minimization <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Energy minimization using steepest descent algorithm is used), `nvt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/nvt.mdp>`_ (substance N Volume V and Temperature T are conserved), `npt <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/npt.mdp>`_ (substance N pressure P and Temperature T are conserved), `free <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/free.mdp>`_ (No design constraints applied; Free MD), `ions <https://biobb-gromacs.readthedocs.io/en/latest/_static/mdp/minimization.mdp>`_ (Synonym of minimization), index (Creates an empty mdp file).
-            * **maxwarn** (*int*) - (0) [0~1000|1] Maximum number of allowed warnings. If simulation_type is index default is 10.
+            * **maxwarn** (*int*) - (0) [0~1000|1] Maximum number of allowed warnings. The default is 10 when simulation_type is a preset (not index).
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -67,54 +67,21 @@ class Grompp(BiobbObject):
     def __init__(self, input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
                  input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
                  properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_gro_path": input_gro_path, "input_cpt_path": input_cpt_path,
-                   "input_ndx_path": input_ndx_path, "input_mdp_path": input_mdp_path},
-            "out": {"output_tpr_path": output_tpr_path}
-        }
         # Should not be copied inside container
-        self.input_top_zip_path = input_top_zip_path
+        self.input_top_zip_path = self.io_dict["in"].pop("input_top_zip_path")
 
         # Properties specific for BB
-        self.output_mdp_path = properties.get('output_mdp_path', 'grompp.mdp')
-        self.output_top_path = properties.get('output_top_path', 'grompp.top')
-        self.simulation_type = properties.get('simulation_type')
-        self.maxwarn = str(properties.get('maxwarn', 0))
+        self.output_mdp_path = self.properties.get('output_mdp_path', 'grompp.mdp')
+        self.output_top_path = self.properties.get('output_top_path', 'grompp.top')
+        self.maxwarn = str(self.maxwarn)
         if self.simulation_type and self.simulation_type != 'index':
-            self.maxwarn = str(properties.get('maxwarn', 10))
-        self.mdp = {k: str(v) for k, v in properties.get('mdp', dict()).items()}
+            self.maxwarn = str(self.properties.get('maxwarn', 10))
+        self.mdp = {k: str(v) for k, v in self.mdp.items()}
 
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Grompp <gromacs.grompp.Grompp>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
 
         # Unzip topology to topology_out
         top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
@@ -122,43 +89,24 @@ class Grompp(BiobbObject):
         # Create MDP file
         self.output_mdp_path = self._create_mdp(str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(self.output_mdp_path)))
 
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
-
-        self.cmd = ["cd", working_dir, ";",
-                    self.binary_path, 'grompp',
-                    '-f', PurePath(self.output_mdp_path).name,
-                    '-c', PurePath(self.stage_io_dict["in"]["input_gro_path"]).name,
-                    '-r', PurePath(self.stage_io_dict["in"]["input_gro_path"]).name,
-                    '-p', PurePath(top_file).name,
-                    '-o', PurePath(self.stage_io_dict["out"]["output_tpr_path"]).name,
-                    '-po', PurePath(self.create_tmp_file('mdout.mdp')).name,
+        self.cmd = [self.binary_path, 'grompp',
+                    '-f', self.staged_path(self.output_mdp_path),
+                    '-c', self.stage_io_dict["in"]["input_gro_path"],
+                    '-r', self.stage_io_dict["in"]["input_gro_path"],
+                    '-p', self.staged_path(top_file),
+                    '-o', self.stage_io_dict["out"]["output_tpr_path"],
+                    '-po', self.staged_path(self.create_tmp_file('mdout.mdp')),
                     '-maxwarn', self.maxwarn]
 
-        # Check the host path: with containers stage_io_dict holds the path inside the container
-        if bool(self.io_dict["in"].get("input_cpt_path")) and Path(self.io_dict["in"]["input_cpt_path"]).exists():
+        if self.stage_io_dict["in"].get("input_cpt_path"):
             self.cmd.append('-t')
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_cpt_path"]).name)
-        if bool(self.io_dict["in"].get("input_ndx_path")) and Path(self.io_dict["in"]["input_ndx_path"]).exists():
+            self.cmd.append(self.stage_io_dict["in"]["input_cpt_path"])
+        if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append('-n')
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_ndx_path"]).name)
-
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = Path(self.gmx_lib).resolve()
+            self.cmd.append(self.stage_io_dict["in"]["input_ndx_path"])
 
         # Run Biobb block
         self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
     def write_parameter_files(self, directory: str) -> list[str]:
         """Write the MDP file to **directory** without executing grompp, used by the
@@ -173,17 +121,8 @@ class Grompp(BiobbObject):
                           mdp_properties_dict=self.mdp)
 
 
-def grompp(input_gro_path: str, input_top_zip_path: str, output_tpr_path: str,
-           input_cpt_path: Optional[str] = None, input_ndx_path: Optional[str] = None, input_mdp_path: Optional[str] = None,
-           properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Grompp <gromacs.grompp.Grompp>` class and
-    execute the :meth:`launch() <gromacs.grompp.Grompp.launch>` method."""
-    return Grompp(**dict(locals())).launch()
-
-
-grompp.__doc__ = Grompp.__doc__
-main = Grompp.get_main(grompp, "Wrapper for the GROMACS grompp module.")
+grompp = launcher(Grompp)
 
 
 if __name__ == '__main__':
-    main()
+    Grompp.main()

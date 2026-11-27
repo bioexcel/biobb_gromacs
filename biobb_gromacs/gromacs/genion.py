@@ -2,17 +2,15 @@
 
 """Module containing the Genion class and the command line interface."""
 
-import shutil
-from pathlib import Path, PurePath
+from pathlib import Path
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Genion(BiobbObject):
+class Genion(GromacsBlock):
     """
     | biobb_gromacs Genion
     | Wrapper class for the `GROMACS genion <http://manual.gromacs.org/current/onlinehelp/gmx-genion.html>`_ module.
@@ -38,13 +36,14 @@ class Genion(BiobbObject):
             * **seed** (*int*) - (1993) Seed for random number generator.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -80,95 +79,35 @@ class Genion(BiobbObject):
         properties: dict | None = None,
         **kwargs,
     ) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_tpr_path": input_tpr_path, "input_ndx_path": input_ndx_path},
-            "out": {
-                "output_gro_path": output_gro_path,
-                "output_top_zip_path": output_top_zip_path,
-            },
-        }
         # Should not be copied inside container
-        self.input_top_zip_path = input_top_zip_path
+        self.input_top_zip_path = self.io_dict["in"].pop("input_top_zip_path")
 
         # Properties specific for BB
-        self.output_top_path = properties.get(
+        self.output_top_path = self.properties.get(
             "output_top_path", "gio.top"
         )  # Not in documentation for clarity
-        self.replaced_group = properties.get("replaced_group", "SOL")
-        self.neutral = properties.get("neutral", False)
-        self.pname = properties.get("pname", "NA")
-        self.nname = properties.get("nname", "CL")
-        self.np = properties.get("np", 0)
-        self.nn = properties.get("nn", 0)
-        self.pq = properties.get("pq", 1)
-        self.nq = properties.get("nq", -1)
-        self.rmin = properties.get("rmin", 0.6)
-        self.concentration = properties.get("concentration", 0.0)
-        self.seed = properties.get("seed", 1993)
 
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get("gmx_lib", None)
-        self.binary_path = properties.get("binary_path", "gmx")
-        self.gmx_nobackup = properties.get("gmx_nobackup", True)
-        self.gmx_nocopyright = properties.get("gmx_nocopyright", True)
-        if self.gmx_nobackup:
-            self.binary_path = f"{self.binary_path} -nobackup"
-        if self.gmx_nocopyright:
-            self.binary_path = f"{self.binary_path} -nocopyright"
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(str(self.binary_path))
+    def prepare(self) -> None:
+        """Create the stdin file with the replaced group."""
+        self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.replaced_group}")
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Genion <gromacs.genion.Genion>` object."""
 
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
-        self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.replaced_group}")
-        self.stage_files()
-
-        # Unzip topology to topology_out
-        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log)
-        top_file = str(Path(top_file).resolve())  # resolve before cd changes context
-        top_dir = str(Path(top_file).parent)
-
-        if self.container_path:
-            shutil.copytree(
-                top_dir,
-                Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(
-                    Path(top_dir).name
-                ),
-            )
-            top_file = str(Path(Path(top_dir).name).joinpath(Path(top_file).name))
-
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
+        # Unzip the topology in the sandbox
+        top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
 
         self.cmd = [
-            "cd", working_dir, ";",
             str(self.binary_path),
             "genion",
             "-s",
-            PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
+            self.stage_io_dict["in"]["input_tpr_path"],
             "-o",
-            PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
+            self.stage_io_dict["out"]["output_gro_path"],
             "-p",
-            top_file,
+            self.staged_path(top_file),
             "-pname",
             self.pname,
             "-nname",
@@ -185,10 +124,9 @@ class Genion(BiobbObject):
             str(self.rmin),
         ]
 
-        # Check the host path: with containers stage_io_dict holds the path inside the container
-        if bool(self.io_dict["in"].get("input_ndx_path")) and Path(self.io_dict["in"]["input_ndx_path"]).exists():
+        if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append("-n")
-            self.cmd.append(PurePath(self.stage_io_dict["in"].get("input_ndx_path")).name)
+            self.cmd.append(self.stage_io_dict["in"].get("input_ndx_path"))
 
         if self.neutral:
             self.cmd.append("-neutral")
@@ -208,23 +146,13 @@ class Genion(BiobbObject):
 
         # Add stdin input file
         self.cmd.append("<")
-        self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
-
-        if self.gmx_lib:
-            self.env_vars_dict["GMXLIB"] = self.gmx_lib
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
-
-        if self.container_path:
-            top_file = str(
-                Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(
-                    Path(top_dir).name, Path(top_file).name
-                )
-            )
+        # Remove temporal files
+        self.tmp_files.append(str(self.io_dict["in"].get("stdin_file_path")))
 
         # zip topology
         fu.log(
@@ -234,37 +162,15 @@ class Genion(BiobbObject):
             self.global_log,
         )
         fu.zip_top(
-            zip_file=self.io_dict["out"]["output_top_zip_path"],
+            zip_file=self.sandbox_file("output_top_zip_path"),
             top_file=top_file,
             out_log=self.out_log,
             remove_original_files=self.remove_tmp
         )
 
-        # Remove temporal files
-        self.tmp_files.extend([top_dir, str(self.io_dict["in"].get("stdin_file_path"))])
-        self.remove_tmp_files()
 
-        self.check_arguments(output_files_created=True, raise_exception=True)
-        return self.return_code
-
-
-def genion(
-    input_tpr_path: str | Path,
-    output_gro_path: str | Path,
-    input_top_zip_path: str | Path,
-    output_top_zip_path: str | Path,
-    input_ndx_path: str | Path | None = None,
-    properties: dict | None = None,
-    **kwargs,
-) -> int:
-    """Create :class:`Genion <gromacs.genion.Genion>` class and
-    execute the :meth:`launch() <gromacs.genion.Genion.launch>` method."""
-    return Genion(**dict(locals())).launch()
-
-
-genion.__doc__ = Genion.__doc__
-main = Genion.get_main(genion, "Wrapper for the GROMACS genion module.")
+genion = launcher(Genion)
 
 
 if __name__ == "__main__":
-    main()
+    Genion.main()

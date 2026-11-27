@@ -2,14 +2,12 @@
 
 """Module containing the Trjcat class and the command line interface."""
 from typing import Optional
-from pathlib import PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Trjcat(BiobbObject):
+class Trjcat(GromacsBlock):
     """
     | biobb_gromacs Trjcat
     | Wrapper class for the `GROMACS trjcat <http://manual.gromacs.org/current/onlinehelp/gmx-trjcat.html>`_ module.
@@ -22,13 +20,14 @@ class Trjcat(BiobbObject):
             * **concatenate** (*bool*) - (True) Only concatenate the files without removal of frames with identical timestamps.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - (None) Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -52,93 +51,33 @@ class Trjcat(BiobbObject):
     """
 
     def __init__(self, input_trj_zip_path: str, output_trj_path: str, properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict: dict = {
-            "in": {},
-            "out": {"output_trj_path": output_trj_path}
-        }
+        super().__init__(**locals())
 
         # Should not be copied inside container
-        self.input_trj_zip_path = input_trj_zip_path
+        self.input_trj_zip_path = self.io_dict["in"].pop("input_trj_zip_path")
 
-        # Properties specific for BB
-        self.concatenate: bool = properties.get('concatenate', True)
-
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Trjcat <gromacs.trjcat.Trjcat>` object."""
 
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
-
-        # Unzip trajectory bundle directly into unique_dir so basenames work after cd
+        # Unzip the trajectory bundle in the sandbox
         trj_list: list[str] = fu.unzip_list(self.input_trj_zip_path, self.stage_io_dict.get("unique_dir", ""), self.out_log)
-        trj_list = [PurePath(p).name for p in trj_list]
-
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
+        trj_list = [self.staged_path(p) for p in trj_list]
 
         # Create command line
-        self.cmd = ["cd", working_dir, ";",
-                    self.binary_path, 'trjcat',
+        self.cmd = [self.binary_path, 'trjcat',
                     '-f', " ".join(trj_list),
-                    '-o', PurePath(self.stage_io_dict["out"]["output_trj_path"]).name]
+                    '-o', self.stage_io_dict["out"]["output_trj_path"]]
 
         if self.concatenate:
             self.cmd.append('-cat')
             fu.log('Only concatenate the files without removal of frames with identical timestamps.', self.out_log, self.global_log)
 
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
-
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
 
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
-
-
-def trjcat(input_trj_zip_path: str, output_trj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Trjcat <gromacs.trjcat.Trjcat>` class and
-    execute the :meth:`launch() <gromacs.trjcat.Trjcat.launch>` method."""
-    return Trjcat(**dict(locals())).launch()
-
-
-trjcat.__doc__ = Trjcat.__doc__
-main = Trjcat.get_main(trjcat, "Wrapper for the GROMACS trjcat module.")
+trjcat = launcher(Trjcat)
 
 
 if __name__ == '__main__':
-    main()
+    Trjcat.main()

@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 
 """Module containing the Editconf class and the command line interface."""
-import shutil
 from typing import Optional
-from pathlib import Path, PurePath
-from biobb_common.generic.biobb_object import BiobbObject
+from pathlib import PurePath
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Solvate(BiobbObject):
+class Solvate(GromacsBlock):
     """
     | biobb_gromacs Solvate
     | Wrapper of the `GROMACS solvate <http://manual.gromacs.org/current/onlinehelp/gmx-solvate.html>`_ module.
@@ -24,16 +22,17 @@ class Solvate(BiobbObject):
         input_solvent_gro_path (str) (Optional): (spc216.gro) Path to the GRO file containing the structure of the solvent. If not provided, the GROMACS solvent box selected with the solvent property is used. File type: input. Accepted formats: gro (edam:format_2033).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **solvent** (*str*) - ("spc216") GROMACS default solvent box used when input_solvent_gro_path is not provided. Values: spc216 (equilibrated 3-point water box for SPC, SPC/E and TIP3P water models), tip4p (equilibrated 4-point water box for TIP4P water models), tip5p (equilibrated 5-point water box for the TIP5P water model).
-            * **shell** (*float*) - (0.0) [0~100|0.1] Thickness in nanometers of optional water layer around solute.
+            * **shell** (*float*) - (None) [0~100|0.1] Thickness in nanometers of optional water layer around solute.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -61,112 +60,43 @@ class Solvate(BiobbObject):
 
     def __init__(self, input_solute_gro_path: str, output_gro_path: str, input_top_zip_path: str,
                  output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_solute_gro_path": input_solute_gro_path, "input_solvent_gro_path": input_solvent_gro_path},
-            "out": {"output_gro_path": output_gro_path, "output_top_zip_path": output_top_zip_path}
-        }
+        super().__init__(**locals())
 
         # Should not be copied inside container
-        self.input_top_zip_path = input_top_zip_path
+        self.input_top_zip_path = self.io_dict["in"].pop("input_top_zip_path")
 
         # Properties specific for BB
-        self.shell = properties.get('shell')
-        self.solvent = properties.get('solvent', 'spc216')
         if not self.io_dict["in"].get('input_solvent_gro_path'):
             # GROMACS default solvent box, found by gmx in its library (GMXLIB) path
             self.io_dict["in"]['input_solvent_gro_path'] = str(PurePath(self.solvent).with_suffix('.gro'))
 
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get('gmx_lib', None)
-        self.binary_path = properties.get('binary_path', 'gmx')
-        self.gmx_nobackup = properties.get('gmx_nobackup', True)
-        self.gmx_nocopyright = properties.get('gmx_nocopyright', True)
-        if self.gmx_nobackup:
-            self.binary_path += ' -nobackup'
-        if self.gmx_nocopyright:
-            self.binary_path += ' -nocopyright'
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Solvate <gromacs.solvate.Solvate>` object."""
 
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
-
-        # Unzip topology to topology_out
+        # Unzip the topology in the sandbox
         top_file = fu.unzip_top(zip_file=self.input_top_zip_path, out_log=self.out_log, unique_dir=self.stage_io_dict.get("unique_dir", ""))
-        top_dir = str(Path(top_file).parent)
 
-        if self.container_path:
-            shutil.copytree(top_dir, str(Path(self.stage_io_dict.get("unique_dir", "")).joinpath(Path(top_dir).name)))
-            top_file = str(Path(Path(top_dir).name).joinpath(Path(top_file).name))
-
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
-
-        self.cmd = ["cd", working_dir, ";",
-                    self.binary_path, 'solvate',
-                    '-cp', PurePath(self.stage_io_dict["in"]["input_solute_gro_path"]).name,
-                    '-cs', PurePath(self.stage_io_dict["in"]["input_solvent_gro_path"]).name,
-                    '-o', PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
-                    '-p', top_file]
+        self.cmd = [self.binary_path, 'solvate',
+                    '-cp', self.stage_io_dict["in"]["input_solute_gro_path"],
+                    '-cs', self.stage_io_dict["in"]["input_solvent_gro_path"],
+                    '-o', self.stage_io_dict["out"]["output_gro_path"],
+                    '-p', self.staged_path(top_file)]
 
         if self.shell:
             self.cmd.append("-shell")
             self.cmd.append(str(self.shell))
 
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
-
         # Run Biobb block
         self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        if self.container_path:
-            top_file = str(Path(str(self.stage_io_dict.get("unique_dir", ""))).joinpath(
-                Path(top_dir).name, Path(top_file).name))
 
         # zip topology
         fu.log('Compressing topology to: %s' % self.stage_io_dict["out"]["output_top_zip_path"], self.out_log,
                self.global_log)
-        fu.zip_top(zip_file=self.io_dict["out"]["output_top_zip_path"], top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
+        fu.zip_top(zip_file=self.sandbox_file("output_top_zip_path"), top_file=top_file, out_log=self.out_log, remove_original_files=self.remove_tmp)
 
 
-def solvate(input_solute_gro_path: str, output_gro_path: str, input_top_zip_path: str,
-            output_top_zip_path: str, input_solvent_gro_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`Solvate <gromacs.solvate.Solvate>` class and
-    execute the :meth:`launch() <gromacs.solvate.Solvate.launch>` method."""
-    return Solvate(**dict(locals())).launch()
-
-
-solvate.__doc__ = Solvate.__doc__
-main = Solvate.get_main(solvate, "Wrapper for the GROMACS solvate module.")
+solvate = launcher(Solvate)
 
 
 if __name__ == '__main__':
-    main()
+    Solvate.main()

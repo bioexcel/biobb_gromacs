@@ -2,12 +2,27 @@
 
 ## [Unreleased]
 
+## What's new in version [5.4.0](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.4.0)?
+
 ### Changes
 
+* [UPDATE] Update to biobb_common 5.4.0.
 * New `insert_molecules` block: wraps `gmx insert-molecules` to insert copies of a molecule into a structure or an empty box ([#19](https://github.com/bioexcel/biobb_gromacs/issues/19)).
 * solvate: new `solvent` property to choose the GROMACS default solvent box (`spc216`, `tip4p`, `tip5p`) ([#12](https://github.com/bioexcel/biobb_gromacs/issues/12)).
 * mdrun, mdrun_plumed: continuing from a checkpoint (`input_cpt_path`) now appends to the previous output files instead of failing ([#3](https://github.com/bioexcel/biobb_gromacs/issues/3)).
 * mdrun blocks: `num_threads_omp` also sets `OMP_NUM_THREADS` for the mdrun process, so an inherited value no longer makes mdrun abort ([#30](https://github.com/bioexcel/biobb_gromacs/issues/30)).
+* GROMACS blocks: the `gmx_nobackup` and `gmx_nocopyright` properties are now documented (both `True` by default: `-nobackup` and `-nocopyright` are added to the `gmx` command).
+* GROMACS blocks: creating a block no longer runs `gmx -version`, which also created a temporary folder in the working directory.
+* GROMACS blocks: `gmx_lib` no longer adds `GMXLIB` to the `env_vars_dict` given in the properties, which other steps of a workflow can share. A relative `gmx_lib` path now works in every block: it is relative to the working directory.
+* `mdrun_multidir` is now a registered block: `mdrun_multidir` command line, JSON schema and documentation (before, it could only be imported from Python).
+* grompp, grompp_mdrun: the documentation of `maxwarn` now says what the blocks do: 10 by default with a `simulation_type` preset, 0 otherwise. grompp_mdrun documented `minimization` as its default `simulation_type`, which it never applied: it has no default.
+* grompp_mdrun: the folder of a given `output_tpr_path` is no longer deleted at the end of the run (only the folder of the internal tpr file is).
+* grompp_mdrun: the `mpi_flags` and `noappend` properties reach mdrun, and valid grompp and mdrun properties are no longer reported as unknown.
+* editconf: `gmx_lib` no longer fails with `TypeError: 'str' object is not a mapping`.
+* Containers: the optional input index (`input_ndx_path`) of gmxselect, genion, make_ndx, convert_tpr and grompp, and the input checkpoint (`input_cpt_path`) of grompp, are passed to GROMACS (they were dropped with `container_path`).
+* mdrun_multidir: `binary_path` defaults to `gmx_mpi`, as documented (it was `gmx_bin`).
+* grompp: the provenance of a step skipped by the `restart` property records its MDP parameters.
+* [UPDATE] Python 3.11 to 3.13.
 
 ## What's new in version [5.3.2](https://github.com/bioexcel/biobb_gromacs/releases/tag/v5.3.2)?
 

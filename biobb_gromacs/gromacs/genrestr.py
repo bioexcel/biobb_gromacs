@@ -2,17 +2,16 @@
 
 """Module containing the Genrestr class and the command line interface."""
 
-from pathlib import Path, PurePath
+from pathlib import Path
 from typing import Optional, Union
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Genrestr(BiobbObject):
+class Genrestr(GromacsBlock):
     """
     | biobb_gromacs Genrestr
     | Wrapper of the `GROMACS genrestr <http://manual.gromacs.org/current/onlinehelp/gmx-genrestr.html>`_ module.
@@ -27,13 +26,14 @@ class Genrestr(BiobbObject):
             * **force_constants** (*str*) - ("500 500 500") Array of three floats defining the force constants
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - ("gromacs/gromacs:latest") Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -65,65 +65,25 @@ class Genrestr(BiobbObject):
         properties: Optional[dict] = None,
         **kwargs,
     ) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {
-                "input_structure_path": input_structure_path,
-                "input_ndx_path": input_ndx_path,
-            },
-            "out": {"output_itp_path": output_itp_path},
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
-        self.force_constants = str(properties.get("force_constants", "500 500 500"))
-        self.restrained_group = properties.get("restrained_group", "system")
+        self.force_constants = str(self.force_constants)
 
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get("gmx_lib", None)
-        self.binary_path = properties.get("binary_path", "gmx")
-        self.gmx_nobackup = properties.get("gmx_nobackup", True)
-        self.gmx_nocopyright = properties.get("gmx_nocopyright", True)
-        if self.gmx_nobackup:
-            self.binary_path = f"{self.binary_path}  -nobackup"
-        if self.gmx_nocopyright:
-            self.binary_path = f"{self.binary_path} -nocopyright"
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(str(self.binary_path))
+    def prepare(self) -> None:
+        """Create the stdin file with the restrained group."""
+        self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.restrained_group}")
 
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Grompp <gromacs.grompp.Grompp>` object."""
 
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
-        self.io_dict["in"]["stdin_file_path"] = fu.create_stdin_file(f"{self.restrained_group}")
-        self.stage_files()
-
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
-
         self.cmd = [
-            "cd", working_dir, ";",
             str(self.binary_path),
             "genrestr",
             "-f",
-            PurePath(self.stage_io_dict["in"]["input_structure_path"]).name,
+            self.stage_io_dict["in"]["input_structure_path"],
             "-o",
-            PurePath(self.stage_io_dict["out"]["output_itp_path"]).name,
+            self.stage_io_dict["out"]["output_itp_path"],
         ]
 
         if not isinstance(self.force_constants, str):
@@ -134,44 +94,21 @@ class Genrestr(BiobbObject):
 
         if self.stage_io_dict["in"].get("input_ndx_path"):
             self.cmd.append("-n")
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_ndx_path"]).name)
+            self.cmd.append(self.stage_io_dict["in"]["input_ndx_path"])
 
         # Add stdin input file
         self.cmd.append("<")
-        self.cmd.append(PurePath(self.stage_io_dict["in"]["stdin_file_path"]).name)
-
-        if self.gmx_lib:
-            self.env_vars_dict["GMXLIB"] = self.gmx_lib
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
-
         # Remove temporal files
         self.tmp_files.append(str(self.io_dict["in"].get("stdin_file_path")))
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
 
 
-def genrestr(
-    input_structure_path: Union[str, Path],
-    output_itp_path: Union[str, Path],
-    input_ndx_path: Optional[Union[str, Path]] = None,
-    properties: Optional[dict] = None,
-    **kwargs,
-) -> int:
-    """Create :class:`Genrestr <gromacs.genrestr.Genrestr>` class and
-    execute the :meth:`launch() <gromacs.genrestr.Genrestr.launch>` method."""
-    return Genrestr(**dict(locals())).launch()
-
-
-genrestr.__doc__ = Genrestr.__doc__
-main = Genrestr.get_main(genrestr, "Wrapper for the GROMACS genrestr module.")
+genrestr = launcher(Genrestr)
 
 
 if __name__ == "__main__":
-    main()
+    Genrestr.main()

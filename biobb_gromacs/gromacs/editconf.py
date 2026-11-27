@@ -2,17 +2,15 @@
 
 """Module containing the Editconf class and the command line interface."""
 
-from pathlib import PurePath
 from typing import Optional
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
-from biobb_gromacs.gromacs.common import get_gromacs_version
+from biobb_gromacs.gromacs.common import GromacsBlock
 
 
-class Editconf(BiobbObject):
+class Editconf(GromacsBlock):
     """
     | biobb_gromacs Editconf
     | Wrapper class for the `GROMACS editconf <http://manual.gromacs.org/current/onlinehelp/gmx-editconf.html>`_ module.
@@ -28,13 +26,14 @@ class Editconf(BiobbObject):
             * **center_molecule** (*bool*) - (True) Center molecule in the box.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - (None) Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -65,63 +64,19 @@ class Editconf(BiobbObject):
         properties: Optional[dict] = None,
         **kwargs,
     ) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_gro_path": input_gro_path},
-            "out": {"output_gro_path": output_gro_path},
-        }
-
-        # Properties specific for BB
-        self.distance_to_molecule = properties.get("distance_to_molecule", 1.0)
-        self.box_vector_lenghts = properties.get("box_vector_lenghts")
-        self.box_type = properties.get("box_type", "cubic")
-        self.center_molecule = properties.get("center_molecule", True)
-
-        # Properties common in all GROMACS BB
-        self.gmx_lib = properties.get("gmx_lib", None)
-        self.binary_path: str = properties.get("binary_path", "gmx")
-        self.gmx_nobackup = properties.get("gmx_nobackup", True)
-        self.gmx_nocopyright = properties.get("gmx_nocopyright", True)
-        if self.gmx_nobackup:
-            self.binary_path += " -nobackup"
-        if self.gmx_nocopyright:
-            self.binary_path += " -nocopyright"
-        if not self.container_path:
-            self.gmx_version = get_gromacs_version(self.binary_path)
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`Editconf <gromacs.editconf.Editconf>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
-
-        if self.container_path:
-            working_dir = self.container_volume_path if self.container_volume_path else "/data"
-        else:
-            working_dir = self.stage_io_dict.get('unique_dir', '')
 
         # Create command line
         self.cmd = [
-            "cd", working_dir, ";",
             self.binary_path,
             "editconf",
             "-f",
-            PurePath(self.stage_io_dict["in"]["input_gro_path"]).name,
+            self.stage_io_dict["in"]["input_gro_path"],
             "-o",
-            PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
+            self.stage_io_dict["out"]["output_gro_path"],
             "-bt",
             self.box_type,
         ]
@@ -146,36 +101,12 @@ class Editconf(BiobbObject):
 
         fu.log("Box type: %s" % self.box_type, self.out_log, self.global_log)
 
-        if self.gmx_lib:
-            self.env_vars_dict['GMXLIB'] = self.gmx_lib
-
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
 
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        # self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
-
-
-def editconf(
-    input_gro_path: str,
-    output_gro_path: str,
-    properties: Optional[dict] = None,
-    **kwargs,
-) -> int:
-    """Create :class:`Editconf <gromacs.editconf.Editconf>` class and
-    execute the :meth:`launch() <gromacs.editconf.Editconf.launch>` method."""
-    return Editconf(**dict(locals())).launch()
-
-
-editconf.__doc__ = Editconf.__doc__
-main = Editconf.get_main(editconf, "Wrapper of the GROMACS gmx editconf module.")
+editconf = launcher(Editconf)
 
 
 if __name__ == "__main__":
-    main()
+    Editconf.main()

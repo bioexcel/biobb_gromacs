@@ -2,5 +2,4 @@ properties:
   container_image: https://depot.galaxyproject.org/singularity/biobb_gromacs:5.2.1--pyhdfd78af_0
   container_path: singularity
   container_volume_path: /tmp
-  container_working_dir: /tmp
   nsteps: 100

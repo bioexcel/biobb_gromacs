@@ -7,9 +7,8 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
 
 class AppendLigand(BiobbObject):
@@ -57,42 +56,20 @@ class AppendLigand(BiobbObject):
         properties: Optional[dict] = None,
         **kwargs,
     ) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
+    def stage_files(self) -> None:
+        """The block does not use the sandbox: there are no files to stage."""
 
-        # Input/Output files
-        self.io_dict = {
-            "in": {
-                "input_top_zip_path": input_top_zip_path,
-                "input_itp_path": input_itp_path,
-                "input_posres_itp_path": input_posres_itp_path,
-            },
-            "out": {"output_top_zip_path": output_top_zip_path},
-        }
-
-        # Properties specific for BB
-        self.posres_name = properties.get("posres_name", "POSRES_LIGAND")
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`AppendLigand <gromacs_extra.append_ligand.AppendLigand>` object."""
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
         # Unzip topology
         top_file = fu.unzip_top(zip_file=str(self.io_dict["in"].get("input_top_zip_path")),
             out_log=self.out_log,
             unique_dir=self.stage_io_dict.get("unique_dir", "")
         )
         top_dir = str(Path(top_file).parent)
+        self.tmp_files.append(top_dir)
         itp_name = str(Path(str(self.io_dict["in"].get("input_itp_path"))).name)
 
         with open(top_file) as top_f:
@@ -111,7 +88,8 @@ class AppendLigand(BiobbObject):
                 self.out_log,
                 self.global_log,
             )
-            return 1
+            self.return_code = 1
+            return
 
         ligand_itp_path = self.io_dict["in"].get("input_itp_path")
 
@@ -253,30 +231,9 @@ class AppendLigand(BiobbObject):
             remove_original_files=self.remove_tmp
         )
 
-        # Remove temporal files
-        self.tmp_files.append(top_dir)
-        self.remove_tmp_files()
 
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return 0
-
-
-def append_ligand(
-    input_top_zip_path: str,
-    input_itp_path: str,
-    output_top_zip_path: str,
-    input_posres_itp_path: Optional[str] = None,
-    properties: Optional[dict] = None,
-    **kwargs,
-) -> int:
-    """Create :class:`AppendLigand <gromacs_extra.append_ligand.AppendLigand>` class and
-    execute the :meth:`launch() <gromacs_extra.append_ligand.AppendLigand.launch>` method."""
-    return AppendLigand(**dict(locals())).launch()
-
-
-append_ligand.__doc__ = AppendLigand.__doc__
-main = AppendLigand.get_main(append_ligand, "This command takes a ligand ITP file and inserts it in a topology")
+append_ligand = launcher(AppendLigand)
 
 
 if __name__ == "__main__":
-    main()
+    AppendLigand.main()

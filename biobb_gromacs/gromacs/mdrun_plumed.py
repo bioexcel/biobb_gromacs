@@ -3,11 +3,10 @@
 """Module containing the MDrun class and the command line interface."""
 import os
 import shutil
-from pathlib import PurePath
 from typing import Optional
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_gromacs.gromacs.mdrun_base import MdrunBase
+from biobb_common.generic.biobb_object import launcher
 
 
 class MdrunPlumed(MdrunBase):
@@ -44,13 +43,14 @@ class MdrunPlumed(MdrunBase):
             * **gpu_tasks** (*str*) - (None) list of GPU device IDs, mapping each PP task on each node to a device.
             * **gmx_lib** (*str*) - (None) Path set GROMACS GMXLIB environment variable.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **gmx_nobackup** (*bool*) - (True) Add the -nobackup flag: GROMACS overwrites the existing files without backing them up.
+            * **gmx_nocopyright** (*bool*) - (True) Add the -nocopyright flag: GROMACS does not print its copyright and citation header.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **sandbox_path** (*str*) - ("./") [WF property] Parent path to the sandbox directory.
             * **container_path** (*str*) - (None)  Path to the binary executable of your container.
             * **container_image** (*str*) - (None) Container Image identifier.
             * **container_volume_path** (*str*) - ("/data") Path to an internal directory in the container.
-            * **container_working_dir** (*str*) - (None) Path to the internal CWD in the container.
             * **container_user_id** (*str*) - (None) User number id to be mapped inside the container.
             * **container_shell_path** (*str*) - ("/bin/bash") Path to the binary executable of the container shell.
 
@@ -78,113 +78,25 @@ class MdrunPlumed(MdrunBase):
             * schema: http://edamontology.org/EDAM.owl
     """
 
+    # The mdrun flags of MdrunBase and the PLUMED input
+    mdrun_flags = MdrunBase.mdrun_flags | {"input_plumed_path": "-plumed"}
+
     def __init__(self, input_tpr_path: str, output_gro_path: str, output_edr_path: str,
                  output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
                  output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
                  output_dhdl_path: Optional[str] = None, input_plumed_path: Optional[str] = None,
                  input_plumed_folder: Optional[str] = None, output_plumed_folder: Optional[str] = None,
                  properties: Optional[dict] = None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_tpr_path": input_tpr_path, "input_cpt_path": input_cpt_path,
-                   "input_plumed_path": input_plumed_path, "input_plumed_folder": input_plumed_folder},
-            "out": {"output_trr_path": output_trr_path, "output_gro_path": output_gro_path,
-                    "output_edr_path": output_edr_path, "output_log_path": output_log_path,
-                    "output_xtc_path": output_xtc_path, "output_cpt_path": output_cpt_path,
-                    "output_dhdl_path": output_dhdl_path, "output_plumed_folder": output_plumed_folder}
-        }
-
-        # Properties specific for BB
-        self._init_common_properties(properties)
-
-        # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`MdrunPlumed <gromacs.mdrun_plumed.MdrunPlumed>` object."""
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
-        self.stage_files()
-
-        working_dir = self._get_working_dir()
-
-        self.cmd = [self.binary_path, 'mdrun',
-                    '-s', PurePath(self.stage_io_dict["in"]["input_tpr_path"]).name,
-                    '-c', PurePath(self.stage_io_dict["out"]["output_gro_path"]).name,
-                    '-e', PurePath(self.stage_io_dict["out"]["output_edr_path"]).name,
-                    '-g', PurePath(self.stage_io_dict["out"]["output_log_path"]).name]
-
-        if self.stage_io_dict["out"].get("output_trr_path"):
-            self.cmd.append('-o')
-            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_trr_path"]).name)
-
-        if self.stage_io_dict["in"].get("input_plumed_path"):
-            self.cmd.append('-plumed')
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_plumed_path"]).name)
-
-        if self.stage_io_dict["in"].get("input_cpt_path"):
-            self.cmd.append('-cpi')
-            self.cmd.append(PurePath(self.stage_io_dict["in"]["input_cpt_path"]).name)
-        if self.stage_io_dict["out"].get("output_xtc_path"):
-            self.cmd.append('-x')
-            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_xtc_path"]).name)
-        else:
-            self.tmp_files.append('traj_comp.xtc')
-        if self.stage_io_dict["out"].get("output_cpt_path"):
-            self.cmd.append('-cpo')
-            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_cpt_path"]).name)
-            if self.checkpoint_time:
-                self.cmd.append('-cpt')
-                self.cmd.append(str(self.checkpoint_time))
-        if self.stage_io_dict["out"].get("output_dhdl_path"):
-            self.cmd.append('-dhdl')
-            self.cmd.append(PurePath(self.stage_io_dict["out"]["output_dhdl_path"]).name)
-
-        # Shared mpi / working-directory / runtime flags
-        self._prepend_mpi_runner()
-        self.cmd = ["cd", working_dir, ";"] + self.cmd
-        self._append_gmx_runtime_flags()
-
-        # Run Biobb block
-        self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        # Remove temporal files
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-        return self.return_code
+        super().__init__(**locals())
 
     def stage_files(self):
-        """
-        Stage the input/output files in a temporal unique directory aka sandbox.
-
-        Overwrite the parent class method to handle PLUMED input files.
-        """
-
-        # If PLUMED is requested, change the working directory to the sandbox
-        if self.io_dict["in"].get("input_plumed_path"):
-            fu.log("PLUMED detected: Enabling chdir_sandbox to ensure relative paths work.", self.out_log)
-            self.chdir_sandbox = True
-
+        """Stage the files in the sandbox, plus the contents of the PLUMED folder in its root, where
+        the command runs and the relative paths of the PLUMED input are resolved."""
         super().stage_files()
 
         # If plumed folder is provided, flatten its contents into the sandbox
         if self.stage_io_dict["in"].get("input_plumed_folder"):
-            plumed_folder = self.stage_io_dict["in"]["input_plumed_folder"]
+            plumed_folder = self.sandbox_file("input_plumed_folder")
             for item in os.listdir(plumed_folder):
                 s = os.path.join(plumed_folder, item)
                 d = os.path.join(self.stage_io_dict["unique_dir"], item)
@@ -219,20 +131,8 @@ class MdrunPlumed(MdrunBase):
                     shutil.copy2(src, dst)
 
 
-def mdrun_plumed(input_tpr_path: str, output_gro_path: str, output_edr_path: str,
-                 output_log_path: str, output_trr_path: Optional[str] = None, input_cpt_path: Optional[str] = None,
-                 output_xtc_path: Optional[str] = None, output_cpt_path: Optional[str] = None,
-                 output_dhdl_path: Optional[str] = None, input_plumed_path: Optional[str] = None,
-                 input_plumed_folder: Optional[str] = None, output_plumed_folder: Optional[str] = None,
-                 properties: Optional[dict] = None, **kwargs) -> int:
-    """Create :class:`MdrunPlumed <gromacs.mdrun_plumed.MdrunPlumed>` class and
-    execute the :meth:`launch() <gromacs.mdrun_plumed.MdrunPlumed.launch>` method."""
-    return MdrunPlumed(**dict(locals())).launch()
-
-
-mdrun_plumed.__doc__ = MdrunPlumed.__doc__
-main = MdrunPlumed.get_main(mdrun_plumed, "Wrapper for the GROMACS mdrun with PLUMED module.")
+mdrun_plumed = launcher(MdrunPlumed)
 
 
 if __name__ == '__main__':
-    main()
+    MdrunPlumed.main()
